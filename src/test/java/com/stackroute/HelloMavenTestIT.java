@@ -1,4 +1,4 @@
-package com.xam;
+package com.stackroute;
 
 import org.junit.Test;
 
