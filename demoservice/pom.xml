@@ -42,22 +42,19 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
             <!--Jacoco Badge-->
+            <!-- https://mvnrepository.com/artifact/org.codehaus.mojo/cobertura-maven-plugin -->
             <plugin>
-                <groupId>io.github.handofgod94</groupId>
-                <artifactId>jacoco-cov-badge-maven-plugin</artifactId>
-                <version>1.0.0</version>
-                <executions>
-                    <execution>
-                        <id>generate-badge</id>
-                        <phase>post-site</phase>
-                        <configuration>
-                            <outputFile>${project.build.directory}/coverage.png</outputFile>
-                        </configuration>
-                        <goals>
-                            <goal>badge</goal>
-                        </goals>
-                    </execution>
-                </executions>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>cobertura-maven-plugin</artifactId>
+                <version>2.7</version>
+                <configuration>
+                    <formats>
+                        <format>
+                            html
+                        </format>
+                        <format>xml</format>
+                    </formats>
+                </configuration>
             </plugin>
         </plugins>
     </build>
