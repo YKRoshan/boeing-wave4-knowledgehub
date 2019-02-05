@@ -26,6 +26,7 @@
 
     <modules>
         <module>demoservice</module>
+        <module>spring5-mysql-recipe-app</module>
     </modules>
     <dependencies>
         <dependency>
