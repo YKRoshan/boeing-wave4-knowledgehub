@@ -9,7 +9,7 @@ addons:
   sonarcloud:
     organization: "stackroute"
     token:
-      secure: "f49873096932457b79faf19cc6480f46a619cce9"
+      secure: "97ddf8ee9d00a206a1ee83f8aa31c09e6c6460ba"
 
 script:
   - sonar-scanner
