@@ -6,7 +6,7 @@
 
     <groupId>com.stackroute</groupId>
     <artifactId>boeing-wave4-knowledgehub</artifactId>
-    <version>v1.0</version>
+    <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <parent>
@@ -16,6 +16,7 @@
     </parent>
 
     <properties>
+        <spring-cloud.version>Greenwich.RELEASE</spring-cloud.version>
         <jaxb.version>2.3.0</jaxb.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -25,8 +26,10 @@
     </properties>
 
     <modules>
-        <module>demoservice</module>
-        <module>spring5-mysql-recipe-app</module>
+        <module>eureka-server</module>
+        <module>zuul-gatewayservice</module>
+        <module>config-server</module>
+        <module>eventbrite-service</module>
     </modules>
     <dependencies>
         <dependency>
@@ -56,6 +59,18 @@
             <version>3.8.1</version>
         </dependency>
     </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <build>
         <plugins>
