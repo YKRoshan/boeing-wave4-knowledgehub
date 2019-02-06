@@ -9,9 +9,9 @@
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<groupId>com.stackroute</groupId>
-	<artifactId>nextevent</artifactId>
+	<artifactId>eventbrite-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>nextevent</name>
+	<name>eventbrite-service</name>
 	<description>nextEvent project in Spring Boot</description>
 
 	<properties>
