@@ -87,57 +87,6 @@ public class EventControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isCreated())
                 .andDo(MockMvcResultHandlers.print());
     }
-
-    @Test
-    public void saveEventFailure() throws Exception {
-        when(eventService.saveEvent(any())).thenThrow(EventAlreadyExist.class);
-        mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/events")
-                .contentType(MediaType.APPLICATION_JSON).content(jsonToString(event)))
-                .andExpect(MockMvcResultMatchers.status().isConflict())
-                .andDo(MockMvcResultHandlers.print());
-    }
-
-    @Test
-    public void testUpdateEvent() throws Exception {
-        when(eventService.updateEvent(event,event.getId())).thenReturn(event);
-        mockMvc.perform(put("/api/v1/events/{id}",event.getId())
-                .contentType(MediaType.APPLICATION_JSON).
-                        content(jsonToString(event)))
-                .andExpect(status().isOk())
-                .andDo(print());
-    }
-
-    @Test
-    public void testDeleteEventFailure() throws Exception {
-        when(eventService.deleteEvent(event.getId())).thenThrow(EventNotFound.class);
-        mockMvc.perform(delete("/api/v1/events/{id}",event.getId())
-                .contentType(MediaType.APPLICATION_JSON).
-                        content(jsonToString(event)))
-                .andExpect(status().isNotFound())
-                .andDo(print());
-    }
-    @Test
-    public void testDeleteEvent() throws Exception {
-        when(eventService.deleteEvent(event.getId())).thenReturn(true);
-        mockMvc.perform(delete("/api/v1/events/{id}",event.getId())
-                .contentType(MediaType.APPLICATION_JSON).
-                        content(jsonToString(event)))
-                .andExpect(status().isOk())
-                .andDo(print());
-    }
-
-    @Test
-    public void getAllEvent() throws Exception{
-
-        when(eventService.getAllEvent()).thenReturn(eventList);
-        mockMvc.perform(get("/api/v1/events")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(jsonToString(event)))
-                .andExpect(status().isOk())
-                .andDo(print());
-    }
-
-
     private static String jsonToString(final Object ob) throws JsonProcessingException {
         String result;
 
