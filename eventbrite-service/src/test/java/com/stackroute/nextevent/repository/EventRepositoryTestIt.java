@@ -31,9 +31,6 @@ public class EventRepositoryTestIt {
 
     @Test
     public void findByDescription() throws Exception {
-
-
-
         assertEquals("Teaspoon", "Teaspoon");
     }
 }
