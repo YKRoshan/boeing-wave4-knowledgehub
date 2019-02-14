@@ -33,6 +33,17 @@ services:
       expose:
       - 8888
 
+  loginservice:
+    image: login-service:latest
+    build: login-service/
+    restart: always
+    network_mode: host
+    ports:
+    - 8083:8083
+    expose:
+    - 8083
+
+
 
 
 
