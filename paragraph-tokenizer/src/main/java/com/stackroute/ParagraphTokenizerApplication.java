@@ -18,7 +18,7 @@ import java.util.regex.Pattern;
 public class ParagraphTokenizerApplication {
 
 	public static void main(String[] args) {
-//		SpringApplication.run(ParagraphTokenizerApplication.class, args);
+		SpringApplication.run(ParagraphTokenizerApplication.class, args);
 
 
 		String text = "This is a small demonstration .pdf file -\n" +

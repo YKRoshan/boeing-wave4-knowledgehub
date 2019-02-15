@@ -16,5 +16,6 @@ public class AnalyticServerApplication {
 		nlpService.removeStopWords();
 		nlpService.frequencyOfWords();
 	}
+
 }
 
