@@ -33,7 +33,8 @@
         <module>eventbrite-service</module>
         <module>content-extractor</module>
         <module>login-service</module>
-
+        <module>analytic-server</module>
+        <module>paragraph-tokenizer</module>
     </modules>
     <dependencies>
         <dependency>
