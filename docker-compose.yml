@@ -1,37 +1,51 @@
 version: "2"
 services:
 
-  apigateway:
-    image: zuul-service
-    build: zuul-gatewayservice/
-    restart: always
-    network_mode: host
-    depends_on:
-    - eurekaserver
+#  apigateway:
+#    image: zuul-service
+#    build: zuul-gatewayservice/
+#    restart: always
+#    network_mode: host
+#    depends_on:
+#    - eurekaserver
+#    ports:
+#    - 8092:8092
+#    expose:
+#    - 8092
+#
+#  eurekaserver:
+#    image: eureka-servcie:latest
+#    build: eureka-server/
+#    restart: always
+#    network_mode: host
+#    ports:
+#    - 9091:9091
+#    expose:
+#    - 9091
+#
+#  configserver:
+#      image: config-servcie:latest
+#      build: config-server/
+#      restart: always
+#      network_mode: host
+#      ports:
+#      - 8888:8888
+#      expose:
+#      - 8888
+  mysql:
+    image: mysql
+    container_name: mysql-container
+    environment:
+      MYSQL_DATABASE: LoginDB
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: root123
+      MYSQL_ROOT_HOST: '%'
     ports:
-    - 8092:8092
+      - 3306:3306
     expose:
-    - 8092
-
-  eurekaserver:
-    image: eureka-servcie:latest
-    build: eureka-server/
+      - 3306
     restart: always
-    network_mode: host
-    ports:
-    - 9091:9091
-    expose:
-    - 9091
-
-  configserver:
-      image: config-servcie:latest
-      build: config-server/
-      restart: always
-      network_mode: host
-      ports:
-      - 8888:8888
-      expose:
-      - 8888
 
   loginservice:
     image: login-service:latest
@@ -45,18 +59,6 @@ services:
     depends_on:
     - mysql
 
-  mysql:
-    image: mysql
-    container_name: mysql-container
-    environment:
-      MYSQL_DATABASE: LoginDB
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_USER: root
-      MYSQL_PASSWORD: root123
-    ports:
-    - 3306:3306
-    expose:
-    - 3306
-    restart: always
+
 
 
