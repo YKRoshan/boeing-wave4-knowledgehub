@@ -41,14 +41,13 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root123
       MYSQL_DATABASE: LoginDB
-      MYSQL_USER: admin
+      MYSQL_USER: root
       MYSQL_PASSWORD: root123
     volumes:
       - /DB/mysql:/var/lib/mysql
     ports:
       - 3306:3306
-#    healthcheck:
-#      test: "exit 0"
+
 
 
   loginservice:
