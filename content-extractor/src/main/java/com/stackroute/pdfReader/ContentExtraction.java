@@ -44,7 +44,7 @@ public class ContentExtraction {
 
     public PdfDomain extractPdf() throws IOException , SAXException,
             TikaException {
-        String path = "/home/user/Documents/Extractor/src/main/resources/static/pdf-sample.pdf";
+        String path = "/home/user/Documents/boeing-wave4-knowledgehub/content-extractor/src/main/resources/static/pdf-sample.pdf";
         String[] ext=path.split("\\.");
         Parser parser = new AutoDetectParser();
         System.out.println("--------- Parsing PdfDomain --------:");
