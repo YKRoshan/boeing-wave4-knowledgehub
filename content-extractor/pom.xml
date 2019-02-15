@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.stackroute</groupId>
-	<artifactId>PdfExtractor</artifactId>
+	<artifactId>content-extractor</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>PdfExtractor</name>
+	<name>content-extractor</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>
