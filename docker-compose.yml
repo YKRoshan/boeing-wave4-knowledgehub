@@ -54,12 +54,13 @@ services:
     restart: always
     network_mode: host
     hostname: localhost
+    depends_on:
+      - mysqldb
     ports:
     - 8083:8083
     expose:
     - 8083
-    depends_on:
-    - mysqldb
+
 
 
 
