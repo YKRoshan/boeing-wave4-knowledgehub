@@ -32,32 +32,32 @@ services:
 #      - 8888:8888
 #      expose:
 #      - 8888
-  mysql:
+  mysqldb:
     image: mysql
+    restart: always
     container_name: mysql-container
+    network_mode: host
+    hostname: localhost
     environment:
-      MYSQL_DATABASE: LoginDB
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_USER: admin
-      MYSQL_PASSWORD: root123
-      MYSQL_ROOT_HOST: '%'
+      MYSQL_ROOT_PASSWORD: root123
     ports:
       - 3306:3306
     expose:
       - 3306
-    restart: always
+
 
   loginservice:
     image: login-service:latest
     build: login-service/
     restart: always
     network_mode: host
+    hostname: localhost
     ports:
     - 8083:8083
     expose:
     - 8083
     depends_on:
-    - mysql
+    - mysqldb
 
 
 
