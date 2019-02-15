@@ -33,26 +33,29 @@ services:
 #      expose:
 #      - 8888
   mysqldb:
-    image: mysql
+    image: mysql:5.7
     restart: always
     container_name: mysql-container
-    network_mode: host
+    network_mode: "host"
     hostname: localhost
     environment:
       MYSQL_ROOT_PASSWORD: root123
+      MYSQL_DATABASE: LoginDB
       MYSQL_USER: admin
       MYSQL_PASSWORD: root123
+    volumes:
+      - /DB/mysql:/var/lib/mysql
     ports:
       - 3306:3306
-    expose:
-      - 3306
+#    healthcheck:
+#      test: "exit 0"
 
 
   loginservice:
     image: login-service:latest
     build: login-service/
     restart: always
-    network_mode: host
+    network_mode: "host"
     hostname: localhost
     depends_on:
       - mysqldb
