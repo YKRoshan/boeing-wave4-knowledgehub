@@ -40,6 +40,8 @@ services:
     hostname: localhost
     environment:
       MYSQL_ROOT_PASSWORD: root123
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: root123
     ports:
       - 3306:3306
     expose:
