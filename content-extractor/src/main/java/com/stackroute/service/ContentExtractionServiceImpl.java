@@ -1,4 +1,4 @@
-package com.stackroute.pdfReader;
+package com.stackroute.service;
 
 import com.stackroute.domain.PdfDomain;
 import org.apache.tika.exception.TikaException;
@@ -14,7 +14,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.UUID;
 
-public class ContentExtraction {
+public class ContentExtractionServiceImpl implements  ContentExtractionInterface{
 
 
     public PdfDomain   extractFromFile(final Parser parser, final String fileName ) throws IOException , SAXException,
@@ -39,12 +39,13 @@ public class ContentExtraction {
         pdfDomain.setDocumentMetaData(metadata.names());
 
         return pdfDomain;
-
     }
 
-    public PdfDomain extractPdf() throws IOException , SAXException,
+
+
+    public PdfDomain extractPdf(String path) throws IOException , SAXException,
             TikaException {
-        String path = "/home/user/Documents/boeing-wave4-knowledgehub/content-extractor/src/main/resources/static/pdf-sample.pdf";
+        //String path = "/home/user/Documents/boeing-wave4-knowledgehub/content-extractor/src/main/resources/static/pdf-sample.pdf";
         String[] ext=path.split("\\.");
         Parser parser = new AutoDetectParser();
         System.out.println("--------- Parsing PdfDomain --------:");
