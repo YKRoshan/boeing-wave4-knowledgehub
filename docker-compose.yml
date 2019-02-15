@@ -55,6 +55,8 @@ services:
       MYSQL_PASSWORD: root123
     ports:
     - 3306:3306
+    expose:
+    - 3306
     restart: always
 
 
