@@ -15,7 +15,7 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "api/v1")
 public class ParagraphController {
-    ParagraphService paragraphService;
+    private ParagraphService paragraphService;
 
     JSONObject objects = new JSONObject();
 
