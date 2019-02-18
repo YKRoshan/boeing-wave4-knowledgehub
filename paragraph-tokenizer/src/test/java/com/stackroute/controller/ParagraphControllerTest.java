@@ -74,6 +74,16 @@ public class ParagraphControllerTest {
 
     }
 
+    @Test
+    public void testGetAllJSONObjectsFailure() throws Exception {
+        when(paragraphService.getParagraphObject(any())).thenThrow();
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/paragraphs")
+                .contentType(MediaType.APPLICATION_JSON).content(asJsonString(objects)))
+                .andExpect(MockMvcResultMatchers.status().isConflict())
+                .andDo(MockMvcResultHandlers.print());
+
+    }
+
     private static String asJsonString(final Object obj)
     {
         try{
