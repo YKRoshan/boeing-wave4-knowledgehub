@@ -32,9 +32,12 @@ public class ParagraphServiceImpl implements ParagraphService{
         paraObj.setParagraphId(1);
         int id = paraObj.getParagraphId();
         List<JSONObject> list = new ArrayList();
+        JSONObject obj1 = new JSONObject();
+        obj1.put("documentId", documentId1);
+        list.add(obj1);
         while (cnt < para.length) {
             JSONObject obj = new JSONObject();
-            obj.put("documentId", documentId1);
+//            obj.put("documentId", documentId1);
             obj.put("paragraphId", id);
             paraObj.setParagraphId(id++);
             paraObj.setParagraphText(para[cnt]);
