@@ -2,13 +2,10 @@ package com.stackroute.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
-import com.google.gson.Gson;
-import com.stackroute.domain.PdfDomain;
-import com.stackroute.service.ContentExtractionServiceImpl;
+import com.stackroute.domain.PdfDocument;
+import com.stackroute.service.PdfExtractionServiceImpl;
 import org.apache.tika.exception.TikaException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -18,19 +15,16 @@ import org.xml.sax.SAXException;
 
 import java.io.File;
 import java.io.IOException;
-import java.sql.SQLOutput;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.SortedSet;
+
 
 @CrossOrigin(origins = "*")
 @Controller
-public class pdfController {
+public class PdfController {
 
         @Autowired
-        ContentExtractionServiceImpl contentExtractionService;
+        PdfExtractionServiceImpl contentExtractionService;
 
-        PdfDomain pdfDomainObj =new PdfDomain();
+        PdfDocument pdfDocumentObj =new PdfDocument();
 
         String path;
         File file1;
@@ -43,9 +37,6 @@ public class pdfController {
             try {
                 file.transferTo(convFile);
                 path = convFile.getAbsolutePath();
-                System.out.println("***********************************");
-                System.out.println(path);
-                System.out.println("***********************************");
                 file1=convFile;
                 System.out.println(file1);
                 message = "You successfully uploaded !";
@@ -61,12 +52,7 @@ public class pdfController {
         public ResponseEntity<String> getFile(@PathVariable String filename) throws TikaException, SAXException, IOException {
             System.out.println(filename);
             try {
-                pdfDomainObj = contentExtractionService.extractPdf(path);
-                ObjectWriter objectWriter = new ObjectMapper().writer().withDefaultPrettyPrinter();
-                String jsonString = objectWriter.writeValueAsString(pdfDomainObj);
-
-//                Gson gson = new Gson();
-//                String jsonString = gson.toJson(pdfDomainObj);
+                String jsonString = contentExtractionService.extractFromFile(path);
                 return ResponseEntity.status(HttpStatus.OK).body(jsonString);
             } catch (Exception e) {
                 String message = filename + "is not available";

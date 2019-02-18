@@ -9,7 +9,7 @@ import java.util.Arrays;
 
 @Entity
 @Data
-public class PdfDomain {
+public class PdfDocument {
 
     @Id
     private String documentId;
