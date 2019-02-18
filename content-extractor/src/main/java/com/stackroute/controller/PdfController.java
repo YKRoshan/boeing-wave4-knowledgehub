@@ -1,7 +1,5 @@
 package com.stackroute.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
 import com.stackroute.domain.PdfDocument;
 import com.stackroute.service.PdfExtractionServiceImpl;
 import org.apache.tika.exception.TikaException;
@@ -38,7 +36,6 @@ public class PdfController {
                 file.transferTo(convFile);
                 path = convFile.getAbsolutePath();
                 file1=convFile;
-                System.out.println(file1);
                 message = "You successfully uploaded !";
                 return ResponseEntity.status(HttpStatus.OK).body(message);
             } catch (Exception e) {
@@ -55,7 +52,7 @@ public class PdfController {
                 String jsonString = contentExtractionService.extractFromFile(path);
                 return ResponseEntity.status(HttpStatus.OK).body(jsonString);
             } catch (Exception e) {
-                String message = filename + "is not available";
+                String message = filename + " is not available";
                 return ResponseEntity.status(HttpStatus.CONFLICT).body(message);
             }
 

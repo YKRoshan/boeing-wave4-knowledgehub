@@ -2,18 +2,11 @@ package controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.stackroute.controller.PdfController;
-import com.stackroute.domain.PdfDocument;
 import com.stackroute.service.PdfExtractionService;
-import com.stackroute.service.PdfExtractionServiceImpl;
-import org.apache.tika.exception.TikaException;
-import org.apache.tika.parser.AutoDetectParser;
-import org.apache.tika.parser.Parser;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
-import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
@@ -22,14 +15,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.xml.sax.SAXException;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 
 //@RunWith(MockitoJUnitRunner.class)
