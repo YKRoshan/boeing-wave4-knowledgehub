@@ -1,5 +1,6 @@
 package com.stackroute.service;
 
+import com.stackroute.exception.ParagraphNotFoundException;
 import org.json.simple.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
@@ -43,7 +44,11 @@ public class ParagraphServiceImplTest {
         obj2.put("paragraphId", 3);
         obj2.put("paragraphText", "hi again!");
         list.add(obj2);
-        assertEquals(this.para.getParagraphObject(document),list);
+        try {
+            assertEquals(this.para.getParagraphObject(document),list);
+        } catch (ParagraphNotFoundException e) {
+            e.printStackTrace();
+        }
 
     }
 }
