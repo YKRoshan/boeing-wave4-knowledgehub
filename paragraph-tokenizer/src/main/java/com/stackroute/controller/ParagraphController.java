@@ -1,6 +1,7 @@
 package com.stackroute.controller;
 
 import com.stackroute.domain.Paragraph;
+import com.stackroute.exception.ParagraphNotFoundException;
 import com.stackroute.service.ParagraphService;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +43,7 @@ public class ParagraphController {
         ResponseEntity responseEntity;
         try {
             responseEntity= new ResponseEntity<List<JSONObject>>(paragraphService.getParagraphObject(this.objects), HttpStatus.OK);
-        } catch (Exception ex) {
+        } catch (ParagraphNotFoundException ex) {
             responseEntity = new ResponseEntity<String>(ex.getMessage(),HttpStatus.CONFLICT);
         }
         return responseEntity;

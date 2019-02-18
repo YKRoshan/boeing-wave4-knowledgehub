@@ -2,6 +2,7 @@ package com.stackroute.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.stackroute.domain.Paragraph;
+import com.stackroute.exception.ParagraphNotFoundException;
 import com.stackroute.service.ParagraphService;
 import org.json.simple.JSONObject;
 import org.junit.Before;
@@ -79,7 +80,7 @@ public class ParagraphControllerTest {
 
     @Test
     public void testGetAllJSONObjectsFailure() throws Exception {
-        when(paragraphService.getParagraphObject(any())).thenThrow();
+        when(paragraphService.getParagraphObject(any())).thenThrow(ParagraphNotFoundException.class);
         mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/paragraphs")
                 .contentType(MediaType.APPLICATION_JSON).content(asJsonString(objects)))
                 .andExpect(MockMvcResultMatchers.status().isConflict())
