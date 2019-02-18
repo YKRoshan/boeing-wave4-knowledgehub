@@ -1,5 +1,7 @@
 package com.stackroute.controller;
 
+import com.stackroute.Exception.EmptyFileException;
+import com.stackroute.Exception.FileNotFoundException;
 import com.stackroute.domain.PdfDocument;
 import com.stackroute.service.PdfExtractionServiceImpl;
 import org.apache.tika.exception.TikaException;
@@ -45,7 +47,7 @@ public class PdfController {
         // This method will call Service Class to convert PDF to JSON Format then return the response body in Postman
         @GetMapping("/files/{filename:.+}")
         @ResponseBody
-        public ResponseEntity<String> getFile(@PathVariable String filename) throws TikaException, SAXException, IOException {
+        public ResponseEntity<String> getFile(@PathVariable String filename) throws TikaException, SAXException, IOException, FileNotFoundException, EmptyFileException {
             System.out.println(filename);
             try {
                 String jsonString = contentExtractionService.extractFromFile(path);

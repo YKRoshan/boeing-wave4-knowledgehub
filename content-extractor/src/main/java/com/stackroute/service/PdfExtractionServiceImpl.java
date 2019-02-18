@@ -1,7 +1,10 @@
 package com.stackroute.service;
 
 import com.google.gson.Gson;
+import com.stackroute.Exception.EmptyFileException;
+import com.stackroute.Exception.FileNotFoundException;
 import com.stackroute.domain.PdfDocument;
+
 import org.apache.tika.exception.TikaException;
 import org.apache.tika.metadata.Metadata;
 import org.apache.tika.parser.AutoDetectParser;
@@ -24,7 +27,7 @@ public class PdfExtractionServiceImpl implements PdfExtractionService {
     This method will take path of PDF file as input parameter and return String in JSON Format
      */
 
-    public String extractFromFile( String path ) throws IOException , SAXException, NullPointerException,
+    public String extractFromFile( String path ) throws IOException , SAXException, NullPointerException, FileNotFoundException, EmptyFileException,
             TikaException{
 
         Parser parser = new AutoDetectParser();
@@ -34,9 +37,17 @@ public class PdfExtractionServiceImpl implements PdfExtractionService {
         Metadata metadata =new Metadata();
 
         FileInputStream content = new FileInputStream(path);
+        if( content == null )
+        {
+            throw new FileNotFoundException("File Not Found !! ");
+        }
         parser.parse(content,handler,metadata,new ParseContext());
         pdfDocument.setDocumentId(uniqueID);
         pdfDocument.setDocumentText(handler.toString());
+        if( handler.toString().length()  == 0)
+        {
+            throw new EmptyFileException("File is Empty");
+        }
 
         JSONObject metaDataJson = new JSONObject();
         for( String name : metadata.names())
