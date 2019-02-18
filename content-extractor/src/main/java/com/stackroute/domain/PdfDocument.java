@@ -1,13 +1,10 @@
 package com.stackroute.domain;
 
 import lombok.Data;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.json.simple.JSONObject;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.util.Arrays;
 
 @Entity
 @Data
@@ -17,6 +14,6 @@ public class PdfDocument {
     private String documentId;
 
     private String documentText;
-    private String[] documentMetaData;
+    private JSONObject documentMetaData;
 
 }

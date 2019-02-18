@@ -8,6 +8,7 @@ import org.apache.tika.parser.AutoDetectParser;
 import org.apache.tika.parser.ParseContext;
 import org.apache.tika.parser.Parser;
 import org.apache.tika.sax.BodyContentHandler;
+import org.json.simple.JSONObject;
 import org.springframework.stereotype.Service;
 import org.xml.sax.SAXException;
 
@@ -36,8 +37,13 @@ public class PdfExtractionServiceImpl implements PdfExtractionService {
         parser.parse(content,handler,metadata,new ParseContext());
         pdfDocument.setDocumentId(uniqueID);
         pdfDocument.setDocumentText(handler.toString());
-        pdfDocument.setDocumentMetaData(metadata.names());
 
+        JSONObject metaDataJson = new JSONObject();
+        for( String name : metadata.names())
+        {
+            metaDataJson.put(name,metadata.get(name));
+        }
+        pdfDocument.setDocumentMetaData(metaDataJson);
         Gson gson = new Gson();
         String jsonString = gson.toJson(pdfDocument);
 //        ObjectWriter objectWriter = new ObjectMapper().writer().withDefaultPrettyPrinter();
