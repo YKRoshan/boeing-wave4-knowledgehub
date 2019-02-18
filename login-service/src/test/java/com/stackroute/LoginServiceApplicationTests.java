@@ -1,4 +1,4 @@
-package com.stackroute.knowledgehub.loginservice;
+package com.stackroute;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

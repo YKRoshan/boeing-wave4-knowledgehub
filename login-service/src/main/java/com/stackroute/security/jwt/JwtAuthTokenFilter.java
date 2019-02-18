@@ -1,6 +1,6 @@
-package com.stackroute.knowledgehub.loginservice.security.jwt;
+package com.stackroute.security.jwt;
 
-import com.stackroute.knowledgehub.loginservice.security.services.UserDetailsServiceImpl;
+import com.stackroute.security.services.UserDetailsServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

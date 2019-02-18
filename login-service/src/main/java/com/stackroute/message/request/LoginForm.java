@@ -1,4 +1,4 @@
-package com.stackroute.knowledgehub.loginservice.message.request;
+package com.stackroute.message.request;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;

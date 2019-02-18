@@ -1,4 +1,4 @@
-package com.stackroute.knowledgehub.loginservice.message.response;
+package com.stackroute.message.response;
 
 import org.springframework.security.core.GrantedAuthority;
 

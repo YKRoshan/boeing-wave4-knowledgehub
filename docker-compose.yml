@@ -13,16 +13,16 @@ services:
 #    expose:
 #    - 8092
 #
-#  eurekaserver:
-#    image: eureka-servcie:latest
-#    build: eureka-server/
-#    restart: always
-#    network_mode: host
-#    ports:
-#    - 9091:9091
-#    expose:
-#    - 9091
-#
+  eurekaserver:
+    image: eureka-servcie:latest
+    build: eureka-server/
+    restart: always
+    network_mode: host
+    ports:
+    - 9091:9091
+    expose:
+    - 9091
+
 #  configserver:
 #      image: config-servcie:latest
 #      build: config-server/
@@ -32,6 +32,7 @@ services:
 #      - 8888:8888
 #      expose:
 #      - 8888
+
   mysqldb:
     image: mysql:5.7
     restart: always
@@ -58,11 +59,24 @@ services:
     hostname: localhost
     depends_on:
       - mysqldb
+      - eurekaserver
     ports:
     - 8083:8083
     expose:
     - 8083
 
+  angular-app:
+    build: angular-frontend/
+    image: angular
+    restart: always
+    mem_limit: 1024m
+    container_name: Angular
+    network_mode: "host"
+    hostname: localhost
+    ports:
+      - 8081:8081
+    expose:
+      - 8081
 
 
 

@@ -1,8 +1,8 @@
-package com.stackroute.knowledgehub.loginservice.security;
+package com.stackroute.security;
 
-import com.stackroute.knowledgehub.loginservice.security.jwt.JwtAuthEntryPoint;
-import com.stackroute.knowledgehub.loginservice.security.jwt.JwtAuthTokenFilter;
-import com.stackroute.knowledgehub.loginservice.security.services.UserDetailsServiceImpl;
+import com.stackroute.security.jwt.JwtAuthEntryPoint;
+import com.stackroute.security.jwt.JwtAuthTokenFilter;
+import com.stackroute.security.services.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

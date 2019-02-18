@@ -1,7 +1,7 @@
-package com.stackroute.knowledgehub.loginservice.security.services;
+package com.stackroute.security.services;
 
-import com.stackroute.knowledgehub.loginservice.domain.User;
-import com.stackroute.knowledgehub.loginservice.repository.UserRepository;
+import com.stackroute.domain.User;
+import com.stackroute.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

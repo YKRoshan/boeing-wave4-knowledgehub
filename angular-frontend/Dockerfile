@@ -9,4 +9,5 @@ COPY . .
 # Stage 2
 FROM node
 RUN npm install http-server -g
+EXPOSE 8081
 CMD ["http-server","-p","8081", "dist/AngularJwtAuth"]

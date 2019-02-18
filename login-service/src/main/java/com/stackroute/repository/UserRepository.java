@@ -1,6 +1,6 @@
-package com.stackroute.knowledgehub.loginservice.repository;
+package com.stackroute.repository;
 
-import com.stackroute.knowledgehub.loginservice.domain.User;
+import com.stackroute.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,7 +1,7 @@
-package com.stackroute.knowledgehub.loginservice.security.services;
+package com.stackroute.security.services;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.stackroute.knowledgehub.loginservice.domain.User;
+import com.stackroute.domain.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
