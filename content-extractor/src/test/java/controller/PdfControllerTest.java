@@ -3,8 +3,10 @@
 //import com.fasterxml.jackson.databind.ObjectMapper;
 //import com.stackroute.controller.PdfController;
 //import com.stackroute.service.PdfExtractionService;
+//import org.junit.After;
 //import org.junit.Before;
 //import org.junit.Test;
+//import org.junit.runner.RunWith;
 //import org.mockito.InjectMocks;
 //import org.mockito.MockitoAnnotations;
 //import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +39,12 @@
 //        mockMvc = MockMvcBuilders.standaloneSetup(pdfController).build();
 //        pdfExtractionService= org.mockito.Mockito.mock(PdfExtractionService.class);
 //
+//    }
+//
+//    @After
+//    public void turnDown()
+//    {
+//        pdfExtractionService= null;
 //    }
 //
 //    @Test
