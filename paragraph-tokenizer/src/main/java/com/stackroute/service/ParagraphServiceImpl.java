@@ -14,7 +14,7 @@ public class ParagraphServiceImpl implements ParagraphService{
     @Override
     public List<JSONObject> getParagraphObject(JSONObject object) {
 
-        int documentId1 = (int) object.get("documentId");
+        String documentId1 = (String) object.get("documentId");
         String text = (String) object.get("documentText");
 
         Paragraph paraObj = new Paragraph();
