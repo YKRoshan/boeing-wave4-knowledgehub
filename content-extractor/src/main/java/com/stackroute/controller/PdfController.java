@@ -14,7 +14,6 @@ import org.xml.sax.SAXException;
 import java.io.File;
 import java.io.IOException;
 
-
 @CrossOrigin(origins = "*")
 @Controller
 public class PdfController {
@@ -25,6 +24,7 @@ public class PdfController {
         String path;
         File file1;
 
+        //In this Method, We need to Upload the PDF file
         @PostMapping("/post")
         public ResponseEntity<String> handleFileUpload(@RequestParam("file")  MultipartFile file) {
             File convFile = new File( file.getOriginalFilename());
@@ -42,6 +42,7 @@ public class PdfController {
             }
         }
 
+        // This method will call Service Class to convert PDF to JSON Format then return the response body in Postman
         @GetMapping("/files/{filename:.+}")
         @ResponseBody
         public ResponseEntity<String> getFile(@PathVariable String filename) throws TikaException, SAXException, IOException {

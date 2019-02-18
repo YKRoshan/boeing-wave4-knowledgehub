@@ -19,6 +19,9 @@ import java.util.UUID;
 @Service
 public class PdfExtractionServiceImpl implements PdfExtractionService {
 
+    /*
+    This method will take path of PDF file as input parameter and return String in JSON Format
+     */
 
     public String extractFromFile( String path ) throws IOException , SAXException, NullPointerException,
             TikaException{
