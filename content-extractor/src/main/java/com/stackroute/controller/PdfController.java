@@ -22,8 +22,6 @@ public class PdfController {
         @Autowired
         PdfExtractionServiceImpl contentExtractionService;
 
-        PdfDocument pdfDocumentObj =new PdfDocument();
-
         String path;
         File file1;
 
