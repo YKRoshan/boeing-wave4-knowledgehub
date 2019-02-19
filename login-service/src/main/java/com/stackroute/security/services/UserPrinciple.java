@@ -7,7 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.Objects;
-
+//class implements user details which is a interface of security module
 public class UserPrinciple implements UserDetails {
     private static final long serialVersionUID = 1L;
 

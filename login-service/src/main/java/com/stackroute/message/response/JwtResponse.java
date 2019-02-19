@@ -4,6 +4,7 @@ import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Collection;
 
+//class for object mapping jwt response
 public class JwtResponse {
     private String token;
     private String type = "Bearer";

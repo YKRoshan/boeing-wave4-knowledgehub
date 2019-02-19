@@ -8,6 +8,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+//class implements user details service method which is a interface in security module
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired

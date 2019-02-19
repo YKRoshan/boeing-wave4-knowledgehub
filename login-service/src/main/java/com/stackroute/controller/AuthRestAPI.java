@@ -55,4 +55,5 @@ public class AuthRestAPI {
         return ResponseEntity.ok(new JwtResponse(jwt, userDetails.getUsername()));
     }
 
+
 }

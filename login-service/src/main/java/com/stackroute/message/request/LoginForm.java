@@ -2,7 +2,7 @@ package com.stackroute.message.request;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-
+//class used for login form object mapper
 public class LoginForm {
     @NotBlank
     @Size(min=3, max = 60)
