@@ -42,10 +42,6 @@ public class NlpServiceImpl {
     String[] domainSpecificNgrams = {"annotations", "ioc container", "beans", "spring core", "spring data jpa", "spring datajpa",
             "spring aop", "spring security", "spring cloud", "spring reactive", "spring mvc"};
 
-    public static void main(String[] args) {
-
-    }
-
     public void setParagraph(String paragraph) {
         this.paragraph = paragraph;
     }
@@ -171,6 +167,29 @@ public class NlpServiceImpl {
         return wordsWithPOSTag;
     }
 
+    public ArrayList<String> getNouns() {
+        ArrayList<POSTagging> posTaggings = new ArrayList<>(getPOSWords());
+        ArrayList<String> nounWords = new ArrayList<>();
+        for (int i = 0; i < posTaggings.size(); i++) {
+            if (posTaggings.get(i).getPOSTag().contains("NN")) {
+                nounWords.add(posTaggings.get(i).getOriginalWord());
+            }
+        }
+        return nounWords;
+    }
+
+    public ArrayList<String> getVerbs() {
+        ArrayList<POSTagging> posTaggings = new ArrayList<>(getPOSWords());
+        ArrayList<String> verbWords = new ArrayList<>();
+        for (int i = 0; i < posTaggings.size(); i++) {
+            if (posTaggings.get(i).getPOSTag().contains("VB")) {
+                verbWords.add(posTaggings.get(i).getOriginalWord());
+            }
+        }
+        return verbWords;
+    }
+
+
     public HashMap<String, Long> getFrequencyOfWords() {
         ArrayList<String> wordsWithOutStopwords = getWordsWithoutStopWords();
         HashMap<String, Long> wordsFrequencyMap = new HashMap<>();
@@ -215,6 +234,14 @@ public class NlpServiceImpl {
         System.out.println("POS TAGGING");
         ArrayList<POSTagging> posTaggings = new ArrayList<>(getPOSWords());
         System.out.println(posTaggings);
+
+        System.out.println("Noun Words");
+        ArrayList<String> nounWords = new ArrayList<>(getNouns());
+        System.out.println(nounWords);
+
+        System.out.println("Verb Words");
+        ArrayList<String> verbWords = new ArrayList<>(getVerbs());
+        System.out.println(verbWords);
     }
 
 }
