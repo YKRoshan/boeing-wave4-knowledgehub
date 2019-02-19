@@ -238,7 +238,7 @@ public class NlpServiceImpl {
         System.out.println("Noun Words");
         ArrayList<String> nounWords = new ArrayList<>(getNouns());
         System.out.println(nounWords);
-
+        // Get all verbs
         System.out.println("Verb Words");
         ArrayList<String> verbWords = new ArrayList<>(getVerbs());
         System.out.println(verbWords);
