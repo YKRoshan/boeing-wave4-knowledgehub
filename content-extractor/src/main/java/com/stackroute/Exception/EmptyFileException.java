@@ -1,5 +1,6 @@
 package com.stackroute.Exception;
 
+//This Class handles Empty File Exception
 public class EmptyFileException extends Exception {
     private String message;
 
