@@ -8,6 +8,7 @@ import org.apache.tika.exception.TikaException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,6 +23,12 @@ public class PdfController {
 
         @Autowired
         PdfExtractionServiceImpl contentExtractionService;
+
+        @Autowired
+        private KafkaTemplate<String, String> kafkaTemplate;
+
+        private static final String TOPIC = "Content_Format";
+
 
         String path;
         File file1;
@@ -51,7 +58,9 @@ public class PdfController {
             System.out.println(filename);
             try {
                 String jsonString = contentExtractionService.extractFromFile(path);
+                kafkaTemplate.send(TOPIC,jsonString);
                 return ResponseEntity.status(HttpStatus.OK).body(jsonString);
+
             } catch (Exception e) {
                 String message = filename + " is not available";
                 return ResponseEntity.status(HttpStatus.CONFLICT).body(message);

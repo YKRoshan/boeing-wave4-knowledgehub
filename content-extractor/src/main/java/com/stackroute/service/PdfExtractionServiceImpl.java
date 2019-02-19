@@ -1,5 +1,7 @@
 package com.stackroute.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import com.google.gson.Gson;
 import com.stackroute.Exception.EmptyFileException;
 import com.stackroute.Exception.FileNotFoundException;
@@ -55,10 +57,10 @@ public class PdfExtractionServiceImpl implements PdfExtractionService {
             metaDataJson.put(name,metadata.get(name));
         }
         pdfDocument.setDocumentMetaData(metaDataJson);
-        Gson gson = new Gson();
-        String jsonString = gson.toJson(pdfDocument);
-//        ObjectWriter objectWriter = new ObjectMapper().writer().withDefaultPrettyPrinter();
-//        String jsonString = objectWriter.writeValueAsString(pdfDocument);
+//        Gson gson = new Gson();
+//        String jsonString = gson.toJson(pdfDocument);
+        ObjectWriter objectWriter = new ObjectMapper().writer().withDefaultPrettyPrinter();
+        String jsonString = objectWriter.writeValueAsString(pdfDocument);
         return jsonString;
     }
 
