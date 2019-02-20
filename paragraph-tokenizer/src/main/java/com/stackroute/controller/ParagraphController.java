@@ -48,7 +48,7 @@ public class ParagraphController {
         try {
             responseEntity= new ResponseEntity<List<JSONObject>>(paragraphService.getParagraphObject(this.objects), HttpStatus.OK);
         } catch (ParagraphNotFoundException ex) {
-            responseEntity = new ResponseEntity<String>(ex.getMessage(),HttpStatus.BAD_REQUEST);
+            responseEntity = new ResponseEntity<String>(ex.getMessage(),HttpStatus.CONFLICT);
         }
         return responseEntity;
     }
