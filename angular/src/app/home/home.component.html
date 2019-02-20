@@ -1,0 +1,18 @@
+<!-- Navigation bar for the home page -->
+<nav class="head">
+    <mat-toolbar color="primary">
+            <span class="example-fill-remaining-space"></span>
+            <button mat-button (click)='navigate()'>Home</button>
+            <span class="align-center">
+               
+            <button mat-button (click)="logging()">{{Islogged}}</button>
+          </span>
+        </mat-toolbar>
+        </nav>
+
+
+        <mat-toolbar *ngIf="this.token.getToken()">
+            <!-- <button mat-button (click)='bearer()'>bearer</button> -->
+          <span>Logged in as : {{user}}</span>
+        </mat-toolbar>
+       
