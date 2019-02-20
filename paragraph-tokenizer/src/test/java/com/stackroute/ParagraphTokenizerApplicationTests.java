@@ -1,3 +1,7 @@
+/*
+This is the main test class.
+ */
+
 package com.stackroute;
 
 import org.junit.Test;

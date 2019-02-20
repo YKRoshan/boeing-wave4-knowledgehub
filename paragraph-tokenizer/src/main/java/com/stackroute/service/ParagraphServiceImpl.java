@@ -1,3 +1,7 @@
+/*
+This is the service implementation class that gives the implementation of the service interface methods.
+ */
+
 package com.stackroute.service;
 
 import com.stackroute.domain.Paragraph;

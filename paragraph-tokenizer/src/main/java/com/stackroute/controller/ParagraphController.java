@@ -1,3 +1,7 @@
+/*
+This is the controller class that takes request and gives the appropriate response entity.
+ */
+
 package com.stackroute.controller;
 
 import com.stackroute.domain.Paragraph;

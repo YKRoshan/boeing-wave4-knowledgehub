@@ -1,3 +1,7 @@
+/*
+This is the main class for running the application.
+ */
+
 package com.stackroute;
 import com.stackroute.domain.Paragraph;
 import java.util.*;

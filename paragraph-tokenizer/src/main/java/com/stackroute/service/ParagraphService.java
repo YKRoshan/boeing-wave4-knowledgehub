@@ -1,3 +1,7 @@
+/*
+This is the service interface that gives abstract methods that will be used by the controller.
+ */
+
 package com.stackroute.service;
 
 import com.stackroute.domain.Paragraph;
