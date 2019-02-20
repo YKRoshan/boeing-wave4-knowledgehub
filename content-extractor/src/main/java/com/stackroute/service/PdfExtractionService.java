@@ -1,7 +1,7 @@
 package com.stackroute.service;
 
-import com.stackroute.Exception.EmptyFileException;
-import com.stackroute.Exception.FileNotFoundException;
+import com.stackroute.exception.EmptyFileException;
+import com.stackroute.exception.FileNotFoundException;
 import org.apache.tika.exception.TikaException;
 import org.xml.sax.SAXException;
 
