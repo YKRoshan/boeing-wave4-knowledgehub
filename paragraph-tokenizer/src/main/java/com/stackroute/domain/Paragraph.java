@@ -1,3 +1,7 @@
+/*
+This is the domain class that stores the properties of Paragraphs.
+ */
+
 package com.stackroute.domain;
 
 import lombok.AllArgsConstructor;

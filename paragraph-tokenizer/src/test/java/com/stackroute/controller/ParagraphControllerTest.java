@@ -1,3 +1,7 @@
+/*
+This is the controller test class.
+ */
+
 package com.stackroute.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -52,17 +56,14 @@ public class ParagraphControllerTest {
         obj.put("documentId","23233");
         objects.add(obj);
         JSONObject obj1= new JSONObject();
-//        obj1.put("documentId","23233");
         obj1.put("paragraphId", 1);
         obj1.put("paragraphText", "Hi my name is blah.");
         objects.add(obj1);
         JSONObject obj2 = new JSONObject();
-//        obj2.put("documentId","23233");
         obj2.put("paragraphId", 2);
         obj2.put("paragraphText", "I live in blah and i like to blah.");
         objects.add(obj2);
         JSONObject obj3 = new JSONObject();
-//        obj3.put("documentId","23233");
         obj3.put("paragraphId", 3);
         obj3.put("paragraphText", "hi again!");
         objects.add(obj3);
