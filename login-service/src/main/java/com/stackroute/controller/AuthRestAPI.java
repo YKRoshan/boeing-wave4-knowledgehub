@@ -28,11 +28,7 @@ public class AuthRestAPI {
     @Autowired
     AuthenticationManager authenticationManager;
 
-    @Autowired
-    UserRepository userRepository;
 
-    @Autowired
-    PasswordEncoder encoder;
 
     @Autowired
     JwtProvider jwtProvider;
