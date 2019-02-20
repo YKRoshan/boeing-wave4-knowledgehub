@@ -9,8 +9,12 @@ import java.io.IOException;
 
 public interface PdfExtractionService {
 
-    String extractFromFile(String path) throws IOException, SAXException,
+    public String extractFromFile(String path) throws IOException, SAXException,
             TikaException,FileNotFoundException, EmptyFileException;
+
+
+    public  String extractFromURL( String path ) throws IOException , SAXException, NullPointerException, FileNotFoundException, EmptyFileException,
+            TikaException;
 }
 
 
