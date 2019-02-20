@@ -13,9 +13,6 @@ import edu.stanford.nlp.util.CoreMap;
 import java.util.*;
 
 public class NlpServiceImpl {
-
-
-
     String paragraph;
     String paragraphId = "para001";
     String documentId = "doc001";

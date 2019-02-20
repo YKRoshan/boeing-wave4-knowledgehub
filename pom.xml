@@ -34,6 +34,7 @@
         <module>content-extractor</module>
         <module>login-service</module>
         <module>paragraph-tokenizer</module>
+        <module>nlp-service</module>
     </modules>
     <dependencies>
         <dependency>
