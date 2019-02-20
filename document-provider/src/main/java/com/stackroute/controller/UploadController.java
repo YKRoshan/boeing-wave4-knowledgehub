@@ -49,45 +49,6 @@ public class UploadController {
         }
          }
 
-//    @GetMapping("/getallfiles")
-//    public ResponseEntity<List<String>> getListFiles(Model model) {
-//        List<String> fileNames = files
-//                .stream().map(fileName -> MvcUriComponentsBuilder
-//                        .fromMethodName(UploadController.class, "getFile", fileName).build().toString())
-//                .collect(Collectors.toList());
-//        return ResponseEntity.ok().body(fileNames);
-//    }
-
-//    @GetMapping("/api/file/all")
-//    public List<String> getListFiles() throws IOException {
-//        return uploadservice.loadAll().map(
-//                path -> MvcUriComponentsBuilder.fromMethodName(UploadController.class,
-//                        "getFile", path.getFileName().toString()).build().toString())
-//                .collect(Collectors.toList());
-//    }
-
-//    @GetMapping("/getallfiles")
-//    public List<String> getListFiles() {
-//        File uploadDir = new File(UPLOAD_DIR);
-//
-//        File[] files = uploadDir.listFiles();
-//
-//        List<String> list = new ArrayList<String>();
-//        for (File file : files) {
-//            list.add(file.getName());
-//        }
-//        return list;
-//    }
-
-
-    @GetMapping("/files/{filename:.+}")
-    @ResponseBody
-    public ResponseEntity<Resource> getFile(@PathVariable String filename) {
-        Resource file = uploadservice.loadFile(filename);
-        return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"")
-                .body(file);
-    }
 
     @GetMapping("/fileread")
     public  ResponseEntity<String> getAllContent()
