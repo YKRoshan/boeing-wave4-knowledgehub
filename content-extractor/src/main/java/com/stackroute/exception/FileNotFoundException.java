@@ -1,7 +1,7 @@
 package com.stackroute.Exception;
 
 
-//This Class handles File Not Found Exception
+//This Class handles FileUrl Not Found Exception
 public class FileNotFoundException extends Exception{
     private String message;
 
