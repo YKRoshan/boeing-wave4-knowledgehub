@@ -17,7 +17,7 @@ public class ParagraphServiceImpl implements ParagraphService{
 
        try {
            if(object.isEmpty()){
-               throw new ParagraphNotFoundException("Paragraph not found");
+               throw new ParagraphNotFoundException("Paragraph Not Found");
            }
            String documentId1 = (String) object.get("documentId");
            String text = (String) object.get("documentText");
