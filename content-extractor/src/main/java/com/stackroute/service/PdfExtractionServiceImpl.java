@@ -20,6 +20,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.SAXException;
@@ -38,6 +40,18 @@ public class PdfExtractionServiceImpl implements PdfExtractionService {
 
     @Value("${EmptyFile}")
     private String EmptyFile;
+
+    /*kafka consumer*/
+    @KafkaListener(topics = "Kafka_Example2", groupId = "group_id")
+    public void consume(String message) {
+
+        System.out.println("Consumed message: " + message);
+    }
+
+    @Autowired
+    private KafkaTemplate<String,String> kafkaTemplate;
+
+    private static final String TOPIC = "Kafka_Example2";
 
     /*
     This method will take path of PDF file as input parameter and return String in JSON Format
@@ -82,6 +96,7 @@ public class PdfExtractionServiceImpl implements PdfExtractionService {
     public  String extractFromURL( String path ) throws IOException , SAXException, NullPointerException, FileNotFoundException, EmptyFileException,
             TikaException
     {
+        System.out.println(path);
         URL url=new URL(path);
         TikaInputStream tikaInputStream =TikaInputStream.get(url.openStream());
         BodyContentHandler contenthandler = new BodyContentHandler(10*1024*1024);
@@ -108,6 +123,7 @@ public class PdfExtractionServiceImpl implements PdfExtractionService {
         pdfDocument.setDocumentMetaData(metaDataJson);
         ObjectWriter objectWriter = new ObjectMapper().writer().withDefaultPrettyPrinter();
         String jsonString = objectWriter.writeValueAsString(pdfDocument);
+        kafkaTemplate.send(TOPIC, jsonString);
         return jsonString;
     }
 

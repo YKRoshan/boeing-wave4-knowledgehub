@@ -18,7 +18,7 @@ import java.util.Map;
     Setting Kafka and Zookeeper Configuration
  */
 @Configuration
-public class KafkaConfiguration {
+public class ProducerKafkaConfiguration {
 
     /* This method set configuration for content extractor service. It publish the topic Content_Format
      * with the JSON object of type PdfDocument.
@@ -27,7 +27,7 @@ public class KafkaConfiguration {
         public ProducerFactory<String, String> producerFactory() {
             Map<String, Object> config = new HashMap<>();
 
-            config.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "127.0.0.1:9092");
+            config.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "172.23.239.143:9092");
             config.put(ConsumerConfig.GROUP_ID_CONFIG,"group_id");
             config.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
             config.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);

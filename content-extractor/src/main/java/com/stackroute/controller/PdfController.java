@@ -5,6 +5,7 @@ import com.stackroute.exception.EmptyFileException;
 import com.stackroute.exception.FileNotFoundException;
 import com.stackroute.service.PdfExtractionService;
 import com.stackroute.service.PdfExtractionServiceImpl;
+import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.tika.exception.TikaException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,13 +28,26 @@ import java.io.IOException;
 public class PdfController {
 
         private PdfExtractionService contentExtractionService;
-        private KafkaTemplate<String, String> kafkaTemplate;
 
+//        @Autowired
+//        private KafkaTemplate<String, String> kafkaTemplate;
+//
+//        @Autowired
+//        private KafkaTemplate<String,FileUrl> kafkaTemplate1;
+
+     //   private KafkaConsumer kafkaConsumer;
+
+ //   KafkaConsumer kafkaConsumer
+//    , KafkaTemplate<String, String> kafkaTemplate
+//                ,KafkaTemplate<String,FileUrl> kafkaTemplate1
         @Autowired
-        public PdfController(PdfExtractionService contentExtractionService, KafkaTemplate<String, String> kafkaTemplate)
+        public PdfController(PdfExtractionService contentExtractionService)
         {
             this.contentExtractionService = contentExtractionService;
-            this.kafkaTemplate =kafkaTemplate;
+            //this.kafkaTemplate =kafkaTemplate;
+           // this.kafkaTemplate1 =kafkaTemplate1;
+            //this.kafkaConsumer=kafkaConsumer;
+
         }
         private static final String TOPIC = "Content_Format";
 
@@ -67,7 +81,7 @@ public class PdfController {
         public ResponseEntity<String> getFile() throws TikaException, SAXException, IOException, FileNotFoundException, EmptyFileException {
             try {
                 String jsonString = contentExtractionService.extractFromFile(path);
-                kafkaTemplate.send(TOPIC,jsonString);
+               // kafkaTemplate.send(TOPIC,jsonString);
                 return ResponseEntity.status(HttpStatus.OK).body(jsonString);
 
             } catch (Exception e) {
@@ -85,7 +99,6 @@ public class PdfController {
             try
             {
                 path = fileUrl.getFileUrl();
-                System.out.println(path);
                 return ResponseEntity.status(HttpStatus.OK).body("Url has been uploaded!!");
             }
             catch (Exception e)
@@ -99,9 +112,11 @@ public class PdfController {
         @GetMapping("/pdfUrl")
         public ResponseEntity<String> getFileFromUrl() throws TikaException, SAXException, IOException, FileNotFoundException, EmptyFileException
         {
+            System.out.println(path);
             try
             {
                 String jsonString = contentExtractionService.extractFromURL(path);
+               // kafkaTemplate.send(TOPIC,jsonString);
                 return ResponseEntity.status(HttpStatus.OK).body(jsonString);
             }
             catch (Exception e)
