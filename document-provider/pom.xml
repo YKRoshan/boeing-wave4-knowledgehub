@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.stackroute</groupId>
-	<artifactId>ontology-manager-service</artifactId>
+	<artifactId>document-provider</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>SpringUploader</name>
+	<name>document-provider</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>
