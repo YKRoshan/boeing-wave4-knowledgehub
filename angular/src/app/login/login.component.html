@@ -7,7 +7,6 @@ Already logged in;
      <!-- <mat-card class="bo"> -->
          <mat-card  *ngIf="isLogin==false">
     <mat-card-title>Login</mat-card-title>
-    
     <!-- Matcard foe username and password -->
 <mat-card  class="my-card">
    <mat-card-content>
@@ -29,7 +28,7 @@ Already logged in;
    </mat-card-content>
   
    <mat-card-actions>
-      <button mat-raised-button (click)="validate()" color="primary">LOGIN</button>   
+      <button mat-raised-button color="accent"(click)=validate() id="loginbutton">Login As Admin</button>   
    </mat-card-actions>
 </mat-card> 
 <!-- </mat-card> -->

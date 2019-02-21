@@ -1,5 +1,6 @@
 package com.stackroute.controller;
 
+import com.stackroute.domain.FileUrl;
 import com.stackroute.exception.EmptyFileException;
 import com.stackroute.exception.FileNotFoundException;
 import com.stackroute.service.PdfExtractionService;
@@ -76,4 +77,37 @@ public class PdfController {
 
         }
 
+        //Uploading the URL of PDF
+
+        @PostMapping("/pdfUrl")
+        public ResponseEntity<String> postFileUrl(@RequestBody FileUrl fileUrl) throws TikaException, SAXException, IOException, FileNotFoundException, EmptyFileException
+        {
+            try
+            {
+                path = fileUrl.getFileUrl();
+                System.out.println(path);
+                return ResponseEntity.status(HttpStatus.OK).body("Url has been uploaded!!");
+            }
+            catch (Exception e)
+            {
+                String message = path + " is not available";
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
+            }
+        }
+
+        //Getting the data from the Uploaded URL
+        @GetMapping("/pdfUrl")
+        public ResponseEntity<String> getFileFromUrl() throws TikaException, SAXException, IOException, FileNotFoundException, EmptyFileException
+        {
+            try
+            {
+                String jsonString = contentExtractionService.extractFromURL(path);
+                return ResponseEntity.status(HttpStatus.OK).body(jsonString);
+            }
+            catch (Exception e)
+            {
+                String message =fileNotFound;
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
+            }
+        }
 }

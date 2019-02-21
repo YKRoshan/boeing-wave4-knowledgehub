@@ -7,22 +7,26 @@ import com.stackroute.exception.FileNotFoundException;
 import com.stackroute.domain.PdfDocument;
 
 import org.apache.tika.exception.TikaException;
+import org.apache.tika.io.TikaInputStream;
 import org.apache.tika.metadata.Metadata;
 import org.apache.tika.parser.AutoDetectParser;
 import org.apache.tika.parser.ParseContext;
 import org.apache.tika.parser.Parser;
+import org.apache.tika.parser.pdf.PDFParser;
 import org.apache.tika.sax.BodyContentHandler;
+import org.apache.xmlbeans.impl.xb.xsdschema.Public;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
+import org.xml.sax.ContentHandler;
 import org.xml.sax.SAXException;
 
 
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.*;
+import java.net.URL;
 import java.util.UUID;
 
 @Service
@@ -57,6 +61,41 @@ public class PdfExtractionServiceImpl implements PdfExtractionService {
         pdfDocument.setDocumentId(uniqueID);
         pdfDocument.setDocumentText(handler.toString());
         if( handler.toString().length()  == 0)
+        {
+            throw new EmptyFileException(EmptyFile);
+        }
+
+        JSONObject metaDataJson = new JSONObject();
+        for( String name : metadata.names())
+        {
+            metaDataJson.put(name,metadata.get(name));
+        }
+        pdfDocument.setDocumentMetaData(metaDataJson);
+        ObjectWriter objectWriter = new ObjectMapper().writer().withDefaultPrettyPrinter();
+        String jsonString = objectWriter.writeValueAsString(pdfDocument);
+        return jsonString;
+    }
+
+    /*
+    This method will extract Pdf from URL
+     */
+    public  String extractFromURL( String path ) throws IOException , SAXException, NullPointerException, FileNotFoundException, EmptyFileException,
+            TikaException
+    {
+        URL url=new URL(path);
+        TikaInputStream tikaInputStream =TikaInputStream.get(url.openStream());
+        BodyContentHandler contenthandler = new BodyContentHandler(10*1024*1024);
+        Metadata metadata = new Metadata();
+        Parser parser = new AutoDetectParser();
+        PdfDocument pdfDocument = new PdfDocument();
+        parser.parse( tikaInputStream,contenthandler, metadata, new ParseContext());
+
+        String uniqueID = UUID.randomUUID().toString();
+
+
+        pdfDocument.setDocumentId(uniqueID);
+        pdfDocument.setDocumentText(contenthandler.toString());
+        if( contenthandler.toString().length()  == 0)
         {
             throw new EmptyFileException(EmptyFile);
         }
