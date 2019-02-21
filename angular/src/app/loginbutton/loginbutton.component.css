@@ -1,17 +1,7 @@
-/* custom styles for html page of home component */
 #logo{
     margin-top:2px;
     height:55px; 
     width:60px;
-}
-.align-center{
-    float:right;
-}
-.head{
-    background-color: dimgray;
-}
-#loginbutton{
-    margin-left: 470px;
 }
 #title{
     margin-left:500px;
@@ -20,4 +10,7 @@
 }
 #title a:hover{
     text-decoration: none;
+}
+#loginbutton{
+    margin-left: 420px;
 }
