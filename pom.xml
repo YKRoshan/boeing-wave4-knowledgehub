@@ -35,6 +35,7 @@
         <module>login-service</module>
         <module>paragraph-tokenizer</module>
         <module>nlp-service</module>
+        <module>knowledge-indexer</module>
     </modules>
     <dependencies>
         <dependency>
