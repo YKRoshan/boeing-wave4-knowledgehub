@@ -37,6 +37,7 @@
         <module>nlp-service</module>
         <module>knowledge-indexer</module>
 	    <module>document-provider</module>
+        <module>analytic-server</module>
     </modules>
     <dependencies>
         <dependency>
