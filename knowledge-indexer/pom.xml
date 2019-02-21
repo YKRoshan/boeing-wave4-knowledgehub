@@ -9,7 +9,7 @@
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<groupId>com.stackroute</groupId>
-	<artifactId>graph</artifactId>
+	<artifactId>knowledge-indexer</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>knowledge-indexer</name>
 	<description>Demo project for Spring Boot</description>

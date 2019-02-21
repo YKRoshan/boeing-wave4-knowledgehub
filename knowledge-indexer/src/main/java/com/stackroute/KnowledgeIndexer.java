@@ -1,13 +1,13 @@
-package com.stackroute.graph;
+package com.stackroute;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class 	GraphApplication {
+public class KnowledgeIndexer {
 
 	public static void main(String[] args) {
-		SpringApplication.run(GraphApplication.class, args);
+		SpringApplication.run(KnowledgeIndexer.class, args);
 	}
 
 }

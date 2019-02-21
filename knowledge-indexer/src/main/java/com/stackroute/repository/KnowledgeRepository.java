@@ -1,6 +1,7 @@
-package com.stackroute.graph.repository;
+package com.stackroute.repository;
 
-import com.stackroute.graph.model.Knowledge;
+import com.stackroute.model.Knowledge;
+import com.stackroute.model.Knowledge;
 import org.springframework.data.neo4j.annotation.Query;
 import org.springframework.data.neo4j.repository.Neo4jRepository;
 import org.springframework.web.bind.annotation.GetMapping;
