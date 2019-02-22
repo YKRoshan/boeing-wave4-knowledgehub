@@ -12,13 +12,10 @@ import { MatSidenav } from '@angular/material/sidenav';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  @ViewChild('sidenav') sidenav: MatSidenav;
-
-
-
   Islogged:string;
   user:any;
   info:any;
+  add:boolean;
 
   constructor(public token:TokenService,private router:Router,private auth:AuthService) { }
 
@@ -34,14 +31,7 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  
 
-  reason = '';
-
-  close(reason: string) {
-    this.reason = reason;
-    this.sidenav.close();
-  }
 
   // This method is to signout or
   //  naviagte to login component based on whether admin logged in or not.
@@ -62,10 +52,10 @@ export class HomeComponent implements OnInit {
   navigate(){
     this.router.navigate(['/home']);
   }
-  // bearer(){
-  //   this.auth.interceptor().subscribe((data)=>{
-  //   console.log(data)})
-  // }
+
+  addfiles(){
+    this.add = true;
+  }
 }
 
 

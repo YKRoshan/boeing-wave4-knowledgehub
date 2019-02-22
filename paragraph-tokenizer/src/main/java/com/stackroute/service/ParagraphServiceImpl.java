@@ -4,10 +4,20 @@ This is the service implementation class that gives the implementation of the se
 
 package com.stackroute.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.stackroute.domain.Paragraph;
+import com.stackroute.domain.PdfDocument;
 import com.stackroute.exception.ParagraphNotFoundException;
 import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -15,17 +25,10 @@ import java.util.regex.Pattern;
 
 @Service
 public class ParagraphServiceImpl implements ParagraphService{
-
     @Override
-    public List<JSONObject> getParagraphObject(JSONObject object) throws ParagraphNotFoundException {
+    public List<JSONObject> getParagraphObject(String documentId1,String text) throws ParagraphNotFoundException {
 
         try {
-            if(object.isEmpty()){
-                throw new ParagraphNotFoundException("Paragraph Not Found");
-            }
-            String documentId1 = (String) object.get("documentId");
-            String text = (String) object.get("documentText");
-
             Paragraph paraObj = new Paragraph();
             String patternStr = "[.?!][/\\s/g]?\\n+";
             Pattern pattern = Pattern.compile(patternStr);
@@ -55,9 +58,14 @@ public class ParagraphServiceImpl implements ParagraphService{
 
                 list.add(obj);
             }
+
+//                       for(int j=0;j<list.size();j++) {
+//                kafkaTemplate.send(TOPIC, list.get(j));
+//            }
+
             return list;
-        }catch (ParagraphNotFoundException ex){
+
+        }catch (Exception ex){
             throw ex;
-        }
-    }
+    }}
 }

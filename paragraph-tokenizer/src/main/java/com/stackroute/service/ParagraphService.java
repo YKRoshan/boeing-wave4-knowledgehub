@@ -12,6 +12,6 @@ import java.util.List;
 
 public interface ParagraphService {
 
-    public List<JSONObject> getParagraphObject(JSONObject object) throws ParagraphNotFoundException;
+    public List<JSONObject> getParagraphObject(String documentId1,String text) throws ParagraphNotFoundException;
 
 }

@@ -112,7 +112,7 @@ public class PdfController {
         @GetMapping("/pdfUrl")
         public ResponseEntity<String> getFileFromUrl() throws TikaException, SAXException, IOException, FileNotFoundException, EmptyFileException
         {
-            System.out.println(path);
+            System.out.println("hello");
             try
             {
                 String jsonString = contentExtractionService.extractFromURL();

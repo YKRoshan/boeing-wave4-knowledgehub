@@ -2,6 +2,7 @@ package com.stackroute.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
+import com.google.gson.Gson;
 import com.stackroute.exception.EmptyFileException;
 import com.stackroute.exception.FileNotFoundException;
 import com.stackroute.domain.PdfDocument;
@@ -12,19 +13,15 @@ import org.apache.tika.metadata.Metadata;
 import org.apache.tika.parser.AutoDetectParser;
 import org.apache.tika.parser.ParseContext;
 import org.apache.tika.parser.Parser;
-import org.apache.tika.parser.pdf.PDFParser;
 import org.apache.tika.sax.BodyContentHandler;
-import org.apache.xmlbeans.impl.xb.xsdschema.Public;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.core.env.Environment;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
-import org.xml.sax.ContentHandler;
 import org.xml.sax.SAXException;
 
 
@@ -46,20 +43,20 @@ public class PdfExtractionServiceImpl implements PdfExtractionService {
     String path;
 
     /*kafka consumer*/
-    @KafkaListener(topics = "Kafka_Example2", groupId = "group_id")
-    public void consume(String message) {
-
-        JSONObject object = (JSONObject) JSONValue.parse(message);
-        path = (String) object.get("fileUrl");
-        System.out.println("Consumed message: " + message);
-
-
-    }
+//    @KafkaListener(topics = "FileUrl", groupId = "group_id")
+//    public void consume(String message) {
+//
+//        JSONObject object = (JSONObject) JSONValue.parse(message);
+//        path = (String) object.get("fileUrl");
+//        System.out.println("Consumed message: " + message);
+//
+//
+//    }
 
     @Autowired
-    private KafkaTemplate<String,String> kafkaTemplate;
+    private KafkaTemplate<String, PdfDocument> kafkaTemplate;
 
-    private static final String TOPIC = "Kafka_Example2";
+    private static final String TOPIC = "FileText";
 
     /*
     This method will take path of PDF file as input parameter and return String in JSON Format
@@ -104,7 +101,8 @@ public class PdfExtractionServiceImpl implements PdfExtractionService {
     public  String extractFromURL() throws IOException , SAXException, NullPointerException, FileNotFoundException, EmptyFileException,
             TikaException
     {
-        System.out.println(path);
+        //System.out.println(path);
+        String path = "http://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf";
         URL url=new URL(path);
         TikaInputStream tikaInputStream =TikaInputStream.get(url.openStream());
         BodyContentHandler contenthandler = new BodyContentHandler(10*1024*1024);
@@ -131,7 +129,7 @@ public class PdfExtractionServiceImpl implements PdfExtractionService {
         pdfDocument.setDocumentMetaData(metaDataJson);
         ObjectWriter objectWriter = new ObjectMapper().writer().withDefaultPrettyPrinter();
         String jsonString = objectWriter.writeValueAsString(pdfDocument);
-        kafkaTemplate.send(TOPIC, jsonString);
+        kafkaTemplate.send(TOPIC, pdfDocument);
         return jsonString;
     }
 
