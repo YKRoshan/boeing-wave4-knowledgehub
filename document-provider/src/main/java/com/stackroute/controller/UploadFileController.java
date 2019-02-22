@@ -43,9 +43,9 @@ public class UploadFileController {
     private S3Service amazonS3ClientService;
 
     @Autowired
-    private KafkaTemplate<String, ResponseEntity<FileUrl>> kafkaTemplate;
+    private KafkaTemplate<String,FileUrl> kafkaTemplate;
 
-    private static final String TOPIC = "File url";
+    private static final String TOPIC = "File_url";
 
     FileUrl fileUrl;
 
@@ -59,7 +59,7 @@ public class UploadFileController {
        a file as a parameter
     */
     @PostMapping
-    public ResponseEntity<FileUrl> uploadFile(@RequestPart(value = "file") MultipartFile file)
+    public FileUrl uploadFile(@RequestPart(value = "file") MultipartFile file)
     {
         String url="https://s3."+ awsRegion+".amazonaws.com/"+awsS3AudioBucket+"/"+file.getOriginalFilename();
         fileUrl = new FileUrl();
@@ -70,8 +70,8 @@ public class UploadFileController {
         responseEntity = new ResponseEntity(fileUrl, HttpStatus.OK);
 //        Map<String,String> response = new HashMap<>();
 //        response.put("url", "https://s3."+region+".amazonaws.com/"+bucketName+"/"+file.getOriginalFilename());
-        kafkaTemplate.send(TOPIC,responseEntity);
-        return responseEntity;
+        kafkaTemplate.send(TOPIC,fileUrl);
+        return fileUrl;
     }
 
     @DeleteMapping
