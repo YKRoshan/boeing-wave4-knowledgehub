@@ -8,8 +8,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class KafkaConsumer {
-
-
     @Autowired
     private KafkaTemplate<String, Paragraph> kafkaTemplate;
 
@@ -17,26 +15,7 @@ public class KafkaConsumer {
 
     @KafkaListener(topics = "Kafka_Example2", groupId = "group_id")
     public void consume(Paragraph message) {
-        System.out.println("Consumed message: " + message.getDocumentId());
+        System.out.println("Consumed message: " + message);
 
     }
-
-
-//
-//    @KafkaListener(topics = "Kafka_Example2", groupId = "group_json",
-//            containerFactory = "userKafkaListenerFactory")
-//    public void consume(Paragraph paragraph) {
-//        System.out.println("Consumed JSON Message: " + paragraph);
-//    }
-
-
-//
-//
-//    public String postservice(String name)
-//    {
-//        kafkaTemplate.send(TOPIC, new Paragraph("","",""));
-//
-//        return "Published successfully";
-//    }
-//
 }
