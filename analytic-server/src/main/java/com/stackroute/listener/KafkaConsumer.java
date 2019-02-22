@@ -29,7 +29,7 @@ public class KafkaConsumer {
 //        System.out.println("Consumed JSON Message: " + paragraph);
 //    }
 
-    
+
 //
 //
 //    public String postservice(String name)
