@@ -4,9 +4,9 @@
       <a href="#"><span><img src="assets/img/logo.jpg" alt="logo" id="logo"></span></a>
       <a href="#" id="title" >Knowledge Hub</a>
       <button mat-raised-button color="accent" id="loginbutton" (click)="logging()">{{Islogged}}</button>
-      <mat-toolbar *ngIf="this.token.getToken()">
-      <button mat-raised-button color="accent"  (click)="addfiles()">Add Files</button>
-      </mat-toolbar>
+      <!-- <mat-toolbar *ngIf="this.token.getToken()">
+       <button mat-raised-button color="accent"  (click)="addfiles()">Add Files</button> -->
+      <!-- </mat-toolbar>  -->
     </mat-toolbar-row>
   </mat-toolbar>
 <mat-toolbar *ngIf="add==true">
