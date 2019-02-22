@@ -43,15 +43,17 @@ public class PdfExtractionServiceImpl implements PdfExtractionService {
     String path;
 
     /*kafka consumer*/
-//    @KafkaListener(topics = "FileUrl", groupId = "group_id")
-//    public void consume(String message) {
-//
-//        JSONObject object = (JSONObject) JSONValue.parse(message);
-//        path = (String) object.get("fileUrl");
-//        System.out.println("Consumed message: " + message);
-//
-//
-//    }
+    @KafkaListener(topics = "File_url", groupId = "group_id")
+    public void consume(String message) {
+
+        System.out.println("under consume");
+        JSONObject object = (JSONObject) JSONValue.parse(message);
+        path = (String) object.get("fileUrl");
+        System.out.println("Consumed message: " + message);
+        System.out.println(path);
+
+
+    }
 
     @Autowired
     private KafkaTemplate<String, PdfDocument> kafkaTemplate;
@@ -101,8 +103,7 @@ public class PdfExtractionServiceImpl implements PdfExtractionService {
     public  String extractFromURL() throws IOException , SAXException, NullPointerException, FileNotFoundException, EmptyFileException,
             TikaException
     {
-        //System.out.println(path);
-        String path = "http://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf";
+        System.out.println(path);
         URL url=new URL(path);
         TikaInputStream tikaInputStream =TikaInputStream.get(url.openStream());
         BodyContentHandler contenthandler = new BodyContentHandler(10*1024*1024);
