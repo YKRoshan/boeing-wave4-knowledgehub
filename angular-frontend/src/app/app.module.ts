@@ -14,6 +14,7 @@ import { AuthService } from './service/auth.service';
 import { HttpClientModule } from '@angular/common/http';
 import { FooterComponent } from './footer/footer.component';
 import { SearchbuttonComponent } from './searchbutton/searchbutton.component';
+import { SidenavComponent } from './sidenav/sidenav.component';
 
 
 
@@ -25,6 +26,7 @@ import { SearchbuttonComponent } from './searchbutton/searchbutton.component';
     HomeComponent,
     FooterComponent,
     SearchbuttonComponent,
+    SidenavComponent,
 
   ],
   imports: [

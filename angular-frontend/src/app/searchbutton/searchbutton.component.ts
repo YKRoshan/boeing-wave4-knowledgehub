@@ -4,6 +4,8 @@ import { isPlatformServer } from '@angular/common';
 //TransferState is a class- A key value store that is transferred from the application on the server side to the application on the client side.
 //makeStateKey is a function that create a StateKey<T> that can be used to store value of type T with TransferState.
 import { TransferState, makeStateKey } from '@angular/platform-browser';
+import { Route } from '@angular/compiler/src/core';
+import { Router } from '@angular/router';
 const configKey = makeStateKey('CONFIG');
 declare var webkitSpeechRecognition: any;
 
@@ -24,7 +26,7 @@ export class SearchbuttonComponent{
   constructor(
     private injector: Injector,
     private state : TransferState,
-    @Inject(PLATFORM_ID) private platformid: Object
+    @Inject(PLATFORM_ID) private platformid: Object,private route:Router
   ){
     this.title = 'Voice Search POC';
     //isPlatformServer -Returns whether a platform id represents a server platform.
@@ -68,6 +70,11 @@ public voiceSearch(){
   else {
     console.log("Your browser does not support voice recognition feature.");
     }
+}
+
+
+google(){
+  this.route.navigateByUrl("https://www.google.com/search")
 }
 
 }
