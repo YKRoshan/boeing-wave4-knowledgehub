@@ -1,5 +1,6 @@
 package com.stackroute.kafkaConfiguration;
 
+import com.stackroute.domain.PdfDocument;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
@@ -24,7 +25,7 @@ public class ProducerKafkaConfiguration {
      * with the JSON object of type PdfDocument.
      */
         @Bean
-        public ProducerFactory<String, String> producerFactory() {
+        public ProducerFactory<String, PdfDocument> producerFactory() {
             Map<String, Object> config = new HashMap<>();
 
             config.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "172.23.239.143:9092");
@@ -37,7 +38,7 @@ public class ProducerKafkaConfiguration {
 
 
         @Bean
-        public KafkaTemplate<String, String> kafkaTemplate() {
+        public KafkaTemplate<String, PdfDocument> kafkaTemplate() {
             return new KafkaTemplate<>(producerFactory());
         }
 
