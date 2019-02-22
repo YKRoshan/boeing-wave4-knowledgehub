@@ -12,13 +12,11 @@ export class UploadComponent implements OnInit {
 
 
   public files: UploadFile[] = [];
-  // selectedFiles: FileList;
   currentFileUpload: File;
   showFile = false;
   fileUploads:Observable<string[]>;
   msg: string = null;
 
- 
   constructor(private uploadService: UploadService) { }
  
   ngOnInit() {
@@ -35,20 +33,7 @@ export class UploadComponent implements OnInit {
       const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
       fileEntry.file((file: File) => {
     
-    // }
 
-  //  selectFile(event: UploadEvent) {
-  //   this.selectedFiles = event.files;
-  // }
- 
-  // upload() {
-    
-
-    // if (droppedFile.fileEntry.isFile) {
-    //   const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
-    //   fileEntry.file((file: File) => {
-
-    // this.currentFileUpload = this.selectedFiles[0];
     
     this.uploadService.pushFileToStorage(file)
       .subscribe( File => {
@@ -62,14 +47,6 @@ export class UploadComponent implements OnInit {
 
 }
   
-
-  // showFiles(enable: boolean) {
-  //   this.showFile = enable
-  //   if (enable) {
-  // this.fileUploads=this.uploadService.getFiles();
-  // console.log("In showfiles")
-  // }
-
   public fileOver(event){
     console.log(event);
   }

@@ -7,9 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class UploadService {
 
-  
   _url;
-  allowedMimeType;
 
   constructor(private http: HttpClient) { }
  
@@ -20,18 +18,12 @@ export class UploadService {
 
     this._url="http://localhost:8080/files/"
     
-    console.log("inside ")
  
     return this.http.post(this._url,formdata,{responseType: 'blob' as 'json' })
   
-    //   reportProgress: true,
-    //   responseType: 'text'
-    // });
-    // return this.http.request(req);
   }
  
   getFiles():Observable<any> {
-    console.log("In service")
     this._url="http://localhost:8080/getallfiles/"
     return this.http.get(this._url);
   }
