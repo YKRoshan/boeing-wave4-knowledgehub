@@ -24,10 +24,28 @@ public class KnowledgeIndexerService {
           knowledgeRepository.save(knowledge);
      }
 
+
+
      public void addRelationship(String name,
                                  Integer paragraphId, String intentLevel,String confidenceScore)
      {
-          knowledgeRepository.insertRelationship(name,paragraphId,intentLevel,confidenceScore);
+          if(intentLevel.equals("knowledge"))
+               knowledgeRepository.insertKnowledgeRelationship(name,paragraphId,intentLevel,confidenceScore);
+
+          else if(intentLevel.equals("comprehension"))
+               knowledgeRepository.insertComprehensionRelationship(name,paragraphId,intentLevel,confidenceScore);
+
+          else if(intentLevel.equals("application"))
+               knowledgeRepository.insertApplicationRelationship(name,paragraphId,intentLevel,confidenceScore);
+
+          else if(intentLevel.equals("analysis"))
+               knowledgeRepository.insertAnalysisRelationship(name,paragraphId,intentLevel,confidenceScore);
+
+          else if(intentLevel.equals("synthesis"))
+               knowledgeRepository.insertSynthesisRelationship(name,paragraphId,intentLevel,confidenceScore);
+
+          else if(intentLevel.equals("Evaluation"))
+               knowledgeRepository.insertEvaluationRelationship(name,paragraphId,intentLevel,confidenceScore);
      }
 
 //     public Iterable<Knowledge> getAllKnowledge(){return knowledgeRepository.findAll();}
