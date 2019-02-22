@@ -12,7 +12,6 @@ import { MatSidenav } from '@angular/material/sidenav';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  @ViewChild('sidenav') sidenav: MatSidenav;
   Islogged:string;
   user:any;
   info:any;
@@ -31,12 +30,7 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  reason = '';
 
-  close(reason: string) {
-    this.reason = reason;
-    this.sidenav.close();
-  }
 
   // This method is to signout or
   //  naviagte to login component based on whether admin logged in or not.

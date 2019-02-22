@@ -1,30 +1,20 @@
 <!-- Navigation bar for the home page -->
- <mat-sidenav-container
-class="example-container" (backdropClick)="close('backdrop')" >
-<mat-sidenav #sidenav (keydown.escape)="close('escape')" disableClose>
-<p><button mat-button (click)="close('toggle button')">Toggle</button></p>
-</mat-sidenav>
 
-<mat-sidenav-content>
-<p></p>
-<mat-toolbar class="example-header">
-    <mat-toolbar color="primary">
-    <mat-toolbar-row>
-        <a href="#"><span><img src="assets/img/logo.jpg" alt="logo" id="logo"></span></a>
-        <a href="#" id="title" >Knowledge Hub</a>
-        <button mat-raised-button color="accent" id="loginbutton" (click)="logging()">{{Islogged}}</button>
-        <button mat-button (click)="sidenav.open()">Open</button> 
-      </mat-toolbar-row>
-    </mat-toolbar>
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+      <a href="#"><span><img src="assets/img/logo.jpg" alt="logo" id="logo"></span></a>
+      <a href="#" id="title" >Knowledge Hub</a>
+      <button mat-raised-button color="accent" id="loginbutton" (click)="logging()">{{Islogged}}</button>
+    </mat-toolbar-row>
   </mat-toolbar>
+
   <form class="form-inline">
       <app-searchbutton></app-searchbutton>
     <!-- </div> -->
   </form>
   
   <app-footer></app-footer>
-</mat-sidenav-content>
-</mat-sidenav-container> 
+
 
 
 
