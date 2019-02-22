@@ -13,9 +13,6 @@ import { MatSidenav } from '@angular/material/sidenav';
 })
 export class HomeComponent implements OnInit {
   @ViewChild('sidenav') sidenav: MatSidenav;
-
-
-
   Islogged:string;
   user:any;
   info:any;
@@ -33,8 +30,6 @@ export class HomeComponent implements OnInit {
       this.Islogged="Login"
     }
   }
-
-  
 
   reason = '';
 
@@ -62,10 +57,6 @@ export class HomeComponent implements OnInit {
   navigate(){
     this.router.navigate(['/home']);
   }
-  // bearer(){
-  //   this.auth.interceptor().subscribe((data)=>{
-  //   console.log(data)})
-  // }
 }
 
 

@@ -1,18 +1,11 @@
 <span id="sbutton">
   <mat-toolbar>
-      <form #gSearch method="GET" id="gSearch" action="https://www.google.com/search">
+      <form #form #gSearch method="GET" id="gSearch" action="https://www.google.com/search">
           <div id="voicesearch">
               <input #searchKey name="q" id="searchKey" type="search" placeholder=" Ask a question">
               <img src="assets/img/mic.png" alt="mic" (click)="voiceSearch()" id="mic">
-              <button mat-stroked-button color="default" id="searchbutton" >Search</button>
+              <button mat-stroked-button color="default" type="submit" id="searchbutton" (click)="form.submit()" >Search</button>
           </div>
   </form>
   </mat-toolbar>
 </span>
-
-<!-- <form #gSearch method="GET" id="gSearch" action="https://www.google.com/search">
-  <div id="voicesearch">
-      <input #searchKey name="q" id="searchKey" type="search">&nbsp;&nbsp;&nbsp;
-      <img src="./assets/img/maxresdefault.jpg" alt="microphoneimg" (click)="voiceSearch()" id="icon-mic">
-  </div>
-</form> -->

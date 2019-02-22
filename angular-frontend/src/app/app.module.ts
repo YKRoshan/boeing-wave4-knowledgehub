@@ -1,20 +1,27 @@
 import { BrowserModule, BrowserTransferStateModule } from '@angular/platform-browser';
-
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
-
-
 import {A11yModule} from '@angular/cdk/a11y';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import {ScrollingModule} from '@angular/cdk/scrolling';
 import {CdkStepperModule} from '@angular/cdk/stepper';
 import {CdkTableModule} from '@angular/cdk/table';
 import {CdkTreeModule} from '@angular/cdk/tree';
-
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatInputModule, MatButtonModule, MatSelectModule, MatIconModule } from '@angular/material';
+import { FormsModule, ReactiveFormsModule, Validators, FormBuilder } from '@angular/forms';
+import { LoginComponent } from './login/login.component';
+import { HomeComponent } from './home/home.component';
+import { TokenService } from './service/token.service';
+import { AuthService } from './service/auth.service';
+import { HttpClientModule } from '@angular/common/http';
+import { FooterComponent } from './footer/footer.component';
+import { SearchbuttonComponent } from './searchbutton/searchbutton.component';
 import {
   MatAutocompleteModule,
   MatBadgeModule,
   MatBottomSheetModule,
-
   MatButtonToggleModule,
   MatCardModule,
   MatCheckboxModule,
@@ -24,7 +31,6 @@ import {
   MatDividerModule,
   MatExpansionModule,
   MatGridListModule,
-
   MatListModule,
   MatMenuModule,
   MatNativeDateModule,
@@ -33,7 +39,6 @@ import {
   MatProgressSpinnerModule,
   MatRadioModule,
   MatRippleModule,
-  
   MatSidenavModule,
   MatSliderModule,
   MatSlideToggleModule,
@@ -47,31 +52,13 @@ import {
   MatTreeModule,
 } from '@angular/material';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatInputModule, MatButtonModule, MatSelectModule, MatIconModule } from '@angular/material';
-import { FormsModule, ReactiveFormsModule, Validators, FormBuilder } from '@angular/forms';
-import { LoginComponent } from './login/login.component';
-import { HomeComponent } from './home/home.component';
-import { TokenService } from './service/token.service';
-import { AuthService } from './service/auth.service';
-import { HttpClientModule } from '@angular/common/http';
-import { FooterComponent } from './footer/footer.component';
-import { SearchbuttonComponent } from './searchbutton/searchbutton.component';
-
-
-
-
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     HomeComponent,
     FooterComponent,
-    SearchbuttonComponent,
-  
-
+    SearchbuttonComponent
   ],
   imports: [
     BrowserModule,
@@ -86,7 +73,6 @@ import { SearchbuttonComponent } from './searchbutton/searchbutton.component';
     FormsModule,
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
     BrowserTransferStateModule,
-
     A11yModule,
     CdkStepperModule,
     CdkTableModule,
@@ -127,10 +113,7 @@ import { SearchbuttonComponent } from './searchbutton/searchbutton.component';
     MatToolbarModule,
     MatTooltipModule,
     MatTreeModule,
-    ScrollingModule,
-  
-   
-    //FormBuilder,
+    ScrollingModule
   ],
   providers: [TokenService,
               AuthService],
