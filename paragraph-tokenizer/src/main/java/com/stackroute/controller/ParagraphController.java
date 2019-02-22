@@ -11,6 +11,7 @@ import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -41,16 +42,16 @@ public class ParagraphController {
         }
         return responseEntity;
     }
-
-    @GetMapping("paragraphs")
-    public ResponseEntity<?> getAllJSONObjects(){
-        ResponseEntity responseEntity;
-        try {
-            responseEntity= new ResponseEntity<List<JSONObject>>(paragraphService.getParagraphObject(this.objects), HttpStatus.OK);
-        } catch (ParagraphNotFoundException ex) {
-            responseEntity = new ResponseEntity<String>(ex.getMessage(),HttpStatus.CONFLICT);
-        }
-        return responseEntity;
-    }
+//
+//    @GetMapping("paragraphs/{documentId}")
+//    public ResponseEntity<?> getAllJSONObjects(){
+//        ResponseEntity responseEntity;
+//        try {
+//            responseEntity= new ResponseEntity<String>(paragraphService.getParagraphObject(), HttpStatus.OK);
+//        } catch (ParagraphNotFoundException ex) {
+//            responseEntity = new ResponseEntity<String>(ex.getMessage(),HttpStatus.CONFLICT);
+//        }
+//        return responseEntity;
+//    }
 
 }

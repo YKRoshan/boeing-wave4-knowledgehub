@@ -1,23 +1,23 @@
-/*
-This is the domain class that stores the properties of Paragraphs.
- */
-
 package com.stackroute.domain;
 
+
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.json.simple.JSONObject;
 import org.springframework.data.annotation.Id;
 
+import javax.persistence.Entity;
+
+@Entity
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-@Builder
-public class Paragraph
-{
+@NoArgsConstructor
+public class PdfDocument {
+
     @Id
-    private int paragraphId;
-    private String paragraphText;
     private String documentId;
+
+    private String documentText;
+    private JSONObject documentMetaData;
 }
