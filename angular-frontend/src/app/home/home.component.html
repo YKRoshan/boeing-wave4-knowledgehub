@@ -5,9 +5,12 @@
       <a href="#"><span><img src="assets/img/logo.jpg" alt="logo" id="logo"></span></a>
       <a href="#" id="title" >Knowledge Hub</a>
       <button mat-raised-button color="accent" id="loginbutton" (click)="logging()">{{Islogged}}</button>
+      <button mat-raised-button color="accent"  (click)="addfiles()">Add Files</button>
     </mat-toolbar-row>
   </mat-toolbar>
-
+<mat-toolbar *ngIf="add==true">
+  <app-upload></app-upload>
+</mat-toolbar>
   <form class="form-inline">
       <app-searchbutton></app-searchbutton>
     <!-- </div> -->

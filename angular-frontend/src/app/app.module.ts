@@ -18,6 +18,8 @@ import { AuthService } from './service/auth.service';
 import { HttpClientModule } from '@angular/common/http';
 import { FooterComponent } from './footer/footer.component';
 import { SearchbuttonComponent } from './searchbutton/searchbutton.component';
+import { FileDropModule } from 'ngx-file-drop';
+
 import {
   MatAutocompleteModule,
   MatBadgeModule,
@@ -51,6 +53,8 @@ import {
   MatTooltipModule,
   MatTreeModule,
 } from '@angular/material';
+import { UploadComponent } from './upload/upload.component';
+import { UploadService } from './service/upload.service';
 
 @NgModule({
   declarations: [
@@ -58,7 +62,8 @@ import {
     LoginComponent,
     HomeComponent,
     FooterComponent,
-    SearchbuttonComponent
+    SearchbuttonComponent,
+    UploadComponent
   ],
   imports: [
     BrowserModule,
@@ -113,10 +118,12 @@ import {
     MatToolbarModule,
     MatTooltipModule,
     MatTreeModule,
-    ScrollingModule
+    ScrollingModule,
+    MatButtonModule,
+    FileDropModule
   ],
   providers: [TokenService,
-              AuthService],
+              AuthService,UploadService],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   bootstrap: [AppComponent]
 })

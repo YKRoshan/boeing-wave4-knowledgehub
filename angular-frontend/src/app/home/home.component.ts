@@ -15,6 +15,7 @@ export class HomeComponent implements OnInit {
   Islogged:string;
   user:any;
   info:any;
+  add:boolean;
 
   constructor(public token:TokenService,private router:Router,private auth:AuthService) { }
 
@@ -50,6 +51,10 @@ export class HomeComponent implements OnInit {
   // This method is used to navigate to home component. 
   navigate(){
     this.router.navigate(['/home']);
+  }
+
+  addfiles(){
+    this.add = true;
   }
 }
 
