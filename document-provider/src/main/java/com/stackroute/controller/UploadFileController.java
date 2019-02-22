@@ -5,6 +5,9 @@ import com.stackroute.service.S3Service;
 import netscape.javascript.JSObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -15,8 +18,36 @@ import java.util.Map;
 @RestController
 @RequestMapping("/files")
 public class UploadFileController {
+//    @Autowired
+//    private S3Service amazonS3ClientService;
+//
+//    @Value("${aws.region}")
+//    private String awsRegion;
+//
+//    @Value("${aws.s3.bucket}")
+//    private String awsS3AudioBucket;
+
+//
+//    @PostMapping
+//    public Map<String, String> uploadFile(@RequestPart(value = "file") MultipartFile file)
+//    {
+//        this.amazonS3ClientService.uploadFileToS3Bucket(file, true);
+//
+//        Map<String, String> response = new HashMap<>();
+//        response.put("url", "https://s3."+awsRegion+".amazonaws.com/"+awsS3AudioBucket+"/"+file.getOriginalFilename());
+//
+//        return response;
+//    }
+
     @Autowired
     private S3Service amazonS3ClientService;
+
+    @Autowired
+    private KafkaTemplate<String, ResponseEntity<FileUrl>> kafkaTemplate;
+
+    private static final String TOPIC = "File url";
+
+    FileUrl fileUrl;
 
     @Value("${aws.region}")
     private String awsRegion;
@@ -24,16 +55,23 @@ public class UploadFileController {
     @Value("${aws.s3.bucket}")
     private String awsS3AudioBucket;
 
-
+    /* A controller method to upload a file which accepts
+       a file as a parameter
+    */
     @PostMapping
-    public Map<String, String> uploadFile(@RequestPart(value = "file") MultipartFile file)
+    public ResponseEntity<FileUrl> uploadFile(@RequestPart(value = "file") MultipartFile file)
     {
+        String url="https://s3."+ awsRegion+".amazonaws.com/"+awsS3AudioBucket+"/"+file.getOriginalFilename();
+        fileUrl = new FileUrl();
+        fileUrl.setFileUrl(url);
         this.amazonS3ClientService.uploadFileToS3Bucket(file, true);
 
-        Map<String, String> response = new HashMap<>();
-        response.put("url", "https://s3."+awsRegion+".amazonaws.com/"+awsS3AudioBucket+"/"+file.getOriginalFilename());
-
-        return response;
+        ResponseEntity responseEntity;
+        responseEntity = new ResponseEntity(fileUrl, HttpStatus.OK);
+//        Map<String,String> response = new HashMap<>();
+//        response.put("url", "https://s3."+region+".amazonaws.com/"+bucketName+"/"+file.getOriginalFilename());
+        kafkaTemplate.send(TOPIC,responseEntity);
+        return responseEntity;
     }
 
     @DeleteMapping
