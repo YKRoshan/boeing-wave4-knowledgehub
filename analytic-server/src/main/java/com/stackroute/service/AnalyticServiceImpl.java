@@ -27,8 +27,6 @@ public class AnalyticServiceImpl implements AnalyticService {
     }
 
     public String getNounSentence() {
-        System.out.println("nouns"+"in method");
-
         NlpResult nlpResult = nlpResultService.getNlpResult();
         StringBuilder nounSentence = new StringBuilder();
         ArrayList<String> nouns = new ArrayList<>(nlpResult.getNounWords());

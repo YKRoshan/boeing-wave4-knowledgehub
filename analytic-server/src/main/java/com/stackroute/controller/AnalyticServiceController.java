@@ -48,6 +48,7 @@ public class AnalyticServiceController {
     public ResponseEntity<AnalysisResult> getAnalysisResult() {
         ResponseEntity responseEntity;
         try {
+
             AnalysisResult analysisResult;
             analysisResult = analyticService.getAnalysisResult();
             return new ResponseEntity<AnalysisResult>(analysisResult,HttpStatus.OK);
