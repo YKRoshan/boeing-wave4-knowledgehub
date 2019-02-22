@@ -115,7 +115,7 @@ public class PdfController {
             System.out.println(path);
             try
             {
-                String jsonString = contentExtractionService.extractFromURL(path);
+                String jsonString = contentExtractionService.extractFromURL();
                // kafkaTemplate.send(TOPIC,jsonString);
                 return ResponseEntity.status(HttpStatus.OK).body(jsonString);
             }

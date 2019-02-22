@@ -16,6 +16,7 @@ import org.apache.tika.parser.pdf.PDFParser;
 import org.apache.tika.sax.BodyContentHandler;
 import org.apache.xmlbeans.impl.xb.xsdschema.Public;
 import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -41,11 +42,18 @@ public class PdfExtractionServiceImpl implements PdfExtractionService {
     @Value("${EmptyFile}")
     private String EmptyFile;
 
+
+    String path;
+
     /*kafka consumer*/
     @KafkaListener(topics = "Kafka_Example2", groupId = "group_id")
     public void consume(String message) {
 
+        JSONObject object = (JSONObject) JSONValue.parse(message);
+        path = (String) object.get("fileUrl");
         System.out.println("Consumed message: " + message);
+
+
     }
 
     @Autowired
@@ -93,7 +101,7 @@ public class PdfExtractionServiceImpl implements PdfExtractionService {
     /*
     This method will extract Pdf from URL
      */
-    public  String extractFromURL( String path ) throws IOException , SAXException, NullPointerException, FileNotFoundException, EmptyFileException,
+    public  String extractFromURL() throws IOException , SAXException, NullPointerException, FileNotFoundException, EmptyFileException,
             TikaException
     {
         System.out.println(path);
