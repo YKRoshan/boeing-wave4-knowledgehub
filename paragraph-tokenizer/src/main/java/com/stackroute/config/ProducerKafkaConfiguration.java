@@ -1,6 +1,5 @@
 package com.stackroute.config;
 
-import com.stackroute.domain.Paragraph;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.json.simple.JSONObject;
