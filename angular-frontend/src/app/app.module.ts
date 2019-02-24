@@ -19,6 +19,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { FooterComponent } from './footer/footer.component';
 import { SearchbuttonComponent } from './searchbutton/searchbutton.component';
 import { FileDropModule } from 'ngx-file-drop';
+// MDB Angular Free
+import { WavesModule, ButtonsModule, IconsModule, MDBBootstrapModule } from 'angular-bootstrap-md'
 
 import {
   MatAutocompleteModule,
@@ -55,6 +57,7 @@ import {
 } from '@angular/material';
 import { UploadComponent } from './upload/upload.component';
 import { UploadService } from './service/upload.service';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +66,8 @@ import { UploadService } from './service/upload.service';
     HomeComponent,
     FooterComponent,
     SearchbuttonComponent,
-    UploadComponent
+    UploadComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
@@ -120,7 +124,11 @@ import { UploadService } from './service/upload.service';
     MatTreeModule,
     ScrollingModule,
     MatButtonModule,
-    FileDropModule
+    FileDropModule,
+    IconsModule,
+    ButtonsModule,
+    WavesModule,
+    MDBBootstrapModule
   ],
   providers: [TokenService,
               AuthService,UploadService],

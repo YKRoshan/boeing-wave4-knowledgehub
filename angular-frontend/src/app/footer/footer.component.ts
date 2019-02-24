@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+// MDB Angular Free
+import { WavesModule, ButtonsModule, IconsModule } from 'angular-bootstrap-md';
 
 @Component({
   selector: 'app-footer',

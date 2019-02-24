@@ -25,8 +25,12 @@
     margin-left:370px;
     height:35px;
     width:500px;
+    background-color: rgb(212, 209, 209);
 }
 
-#gSearch{
-    margin-top:300px;
+.searchArea{
+    width: auto;
+    height: 450px;
+    margin: auto;
+
 }

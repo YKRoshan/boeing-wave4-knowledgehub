@@ -7,7 +7,6 @@
     border-style: solid;
     padding-left: 32%;
     background-color: darkgray;
-    min-width: 150px;
 }  
 
 .warn{
@@ -29,6 +28,19 @@
 }
 #loginbutton{
     margin-left: 420px;
+}
+.mat-card{
+    width: 430px;
+    margin: auto;
+    background-color: aqua;
+    margin-top: 50px;
+    margin-bottom: 50px
+}
+.my-card{
+    width: 400px;
+    margin: auto;
+    background-color: rgb(49, 143, 180);
+    margin-top: 40px;
 }
 
 
