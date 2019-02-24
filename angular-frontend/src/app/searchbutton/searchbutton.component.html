@@ -1,5 +1,6 @@
 <span id="sbutton">
-  <mat-toolbar>
+  <!-- <mat-toolbar> -->
+    <div class="searchArea">
       <form #form #gSearch method="GET" id="gSearch" action="https://www.google.com/search">
           <div id="voicesearch">
               <input #searchKey name="q" id="searchKey" type="search" placeholder=" Ask a question">
@@ -7,5 +8,6 @@
               <button mat-stroked-button color="default" type="submit" id="searchbutton" (click)="form.submit()" >Search</button>
           </div>
   </form>
-  </mat-toolbar>
+</div>
+  <!-- </mat-toolbar> -->
 </span>
