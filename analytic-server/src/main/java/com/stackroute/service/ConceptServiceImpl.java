@@ -18,7 +18,7 @@ public class ConceptServiceImpl implements ConceptSerive {
         this.conceptRepository = conceptRepository;
     }
 
-    public List<String> getConcepts() {
+    public ArrayList<String> getConcepts() {
         ArrayList<Concept> concepts = new ArrayList<>(conceptRepository.getAllConcepts());
         ArrayList<String> conceptNames = new ArrayList<>();
         for (int i = 0; i < concepts.size(); i++) {

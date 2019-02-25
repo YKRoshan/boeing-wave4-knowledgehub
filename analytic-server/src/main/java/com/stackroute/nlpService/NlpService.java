@@ -37,14 +37,11 @@ public interface NlpService {
 
     public ArrayList<String> getVerbs();
 
-    public HashMap<String, Long> getFrequencyOfWords();
-
-
     public NlpResult getNlpResults();
 
-    public String[] getConceptNames();
+    public ArrayList<String> getConceptNames();
 
-    public void setConceptNames(String[] conceptNames);
+    public void setConceptNames(ArrayList<String> conceptNames);
 
     public String getParagraphContent();
 
