@@ -10,11 +10,8 @@ public class NlpServiceApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(NlpServiceApplication.class, args);
 		NlpServiceImpl nlpService = new NlpServiceImpl();
-		nlpService.setParagraph("The Spring Framework Inversion of Control (IoC) component " +
-				"addresses this concern by providing a formalized means of composing disparate components into a" +
-				" fully working application ready for use. The Spring Framework codifies formalized design patterns as" +
-				" first-class objects that you can integrate into your own application(s). Numerous organizations and institutions" +
-				" use the Spring Framework in this manner to engineer robust, maintainable applications.");
+		nlpService.setParagraph("We are creating KnowledgeHub Application that makes sense of unstructured data which"+
+				" remain scattered in an organisation. Making sense of such scattered unstructured data and converting them into relevant knowledge is one critical challenge all organisations face.");
 		nlpService.showAllResults();
 	}
 }
