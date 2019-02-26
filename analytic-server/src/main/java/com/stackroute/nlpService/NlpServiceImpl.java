@@ -10,34 +10,20 @@ import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.CoreDocument;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import edu.stanford.nlp.util.CoreMap;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
 @Service
+@PropertySource(value = "classpath:application.properties")
 public class NlpServiceImpl implements NlpService {
 
     private String paragraphContent;
     private ArrayList<String> conceptNames;
-    private String stopwords[] = {"i", "me", "my", "myself", "we", "our", "ours", "ourselves", "could", "he'd",
-            "he'll", "he's", "here's", "how's", "ought", "she'd", "she'll", "that's", "there's", "they'd",
-            "they'll", "they're", "they've", "we'd", "we'll", "we're", "we've", "what's", "when's", "where's",
-            "who's", "why's", "would", "i'd", "i'll", "i'm", "i've", "you", "you're", "you've", "you'll",
-            "you'd", "your", "yours", "yourself", "yourselves", "he", "him", "his", "himself", "she",
-            "she's", "her", "hers", "herself", "it", "it's", "its", "itself", "they", "them", "their",
-            "theirs", "themselves", "what", "which", "who", "whom", "this", "that", "that'll", "these",
-            "those", "am", "is", "are", "was", "were", "be", "been", "being", "have", "has", "had", "having",
-            "do", "does", "did", "doing", "a", "an", "the", "and", "but", "if", "or", "because", "as", "until",
-            "while", "of", "at", "by", "for", "with", "about", "against", "between", "into", "through",
-            "during", "before", "after", "above", "below", "to", "from", "up", "down", "in", "out", "on",
-            "off", "over", "under", "again", "further", "then", "once", "here", "there", "when", "where",
-            "why", "how", "all", "any", "both", "each", "few", "more", "most", "other", "some", "such", "no",
-            "nor", "not", "only", "own", "same", "so", "than", "too", "very", "s", "t", "can", "will",
-            "just", "don", "don't", "should", "should've", "now", "d", "ll", "m", "o", "re", "ve", "y", "ain",
-            "aren", "aren't", "couldn", "couldn't", "didn", "didn't", "doesn", "doesn't", "hadn", "hadn't",
-            "hasn", "hasn't", "haven", "haven't", "isn", "isn't", "ma", "mightn", "mightn't", "mustn", "mustn't",
-            "needn", "needn't", "shan", "shan't", "shouldn", "shouldn't", "wasn", "wasn't", "weren", "weren't",
-            "won", "won't", "wouldn", "wouldn't"};
+    @Value("${stopwords}")
+    private String stopwords[];
 
     public String getCleanerParagrah() {
         String inputParagraph = getParagraphContent();
@@ -155,6 +141,8 @@ public class NlpServiceImpl implements NlpService {
 //        nlpResult.setLemmaWords(getLemmitizedWords());
 //        System.out.println("Stemming");
 //        nlpResult.setStemmedWords(getStemmedWords());
+        System.out.println("Stop words");
+        System.out.println(stopwords[0]);
         System.out.println("Stop Word Removal");
         nlpResult.setWordsWithOutStopWords(getWordsWithoutStopWords());
         System.out.println("Stop Word Removal Paragraph");

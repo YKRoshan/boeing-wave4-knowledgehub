@@ -1,8 +1,7 @@
-package com.stackroute.Config;
+package com.stackroute.config;
 
 import com.stackroute.domain.AnalysisResult;
 import org.apache.kafka.common.serialization.StringSerializer;
-import org.json.simple.JSONObject;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.core.DefaultKafkaProducerFactory;
