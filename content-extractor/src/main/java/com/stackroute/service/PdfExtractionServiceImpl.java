@@ -43,22 +43,22 @@ public class PdfExtractionServiceImpl implements PdfExtractionService {
     String path;
 
     /*kafka consumer*/
-    @KafkaListener(topics = "File_url", groupId = "group_id")
-    public void consume(String message) {
+//    @KafkaListener(topics = "File_url", groupId = "group_id")
+//    public void consume(String message) {
+//
+//        System.out.println("under consume");
+//        JSONObject object = (JSONObject) JSONValue.parse(message);
+//        path = (String) object.get("fileUrl");
+//        System.out.println("Consumed message: " + message);
+//        System.out.println(path);
+//
+//
+//    }
 
-        System.out.println("under consume");
-        JSONObject object = (JSONObject) JSONValue.parse(message);
-        path = (String) object.get("fileUrl");
-        System.out.println("Consumed message: " + message);
-        System.out.println(path);
-
-
-    }
-
-    @Autowired
-    private KafkaTemplate<String, PdfDocument> kafkaTemplate;
-
-    private static final String TOPIC = "FileText";
+//    @Autowired
+//    private KafkaTemplate<String, PdfDocument> kafkaTemplate;
+//
+//    private static final String TOPIC = "FileText";
 
     /*
     This method will take path of PDF file as input parameter and return String in JSON Format
@@ -97,14 +97,16 @@ public class PdfExtractionServiceImpl implements PdfExtractionService {
         return jsonString;
     }
 
+
+
     /*
     This method will extract Pdf from URL
      */
-    public  String extractFromURL() throws IOException , SAXException, NullPointerException, FileNotFoundException, EmptyFileException,
+    public  PdfDocument extractFromURL(String path1) throws IOException , SAXException, NullPointerException, FileNotFoundException, EmptyFileException,
             TikaException
     {
-        System.out.println(path);
-        URL url=new URL(path);
+        System.out.println(path1);
+        URL url=new URL(path1);
         TikaInputStream tikaInputStream =TikaInputStream.get(url.openStream());
         BodyContentHandler contenthandler = new BodyContentHandler(10*1024*1024);
         Metadata metadata = new Metadata();
@@ -130,8 +132,9 @@ public class PdfExtractionServiceImpl implements PdfExtractionService {
         pdfDocument.setDocumentMetaData(metaDataJson);
         ObjectWriter objectWriter = new ObjectMapper().writer().withDefaultPrettyPrinter();
         String jsonString = objectWriter.writeValueAsString(pdfDocument);
-        kafkaTemplate.send(TOPIC, pdfDocument);
-        return jsonString;
+       // kafkaTemplate.send(TOPIC, pdfDocument);
+        System.out.println("extracted properly");
+        return pdfDocument;
     }
 
 }

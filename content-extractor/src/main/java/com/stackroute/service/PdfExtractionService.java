@@ -1,5 +1,6 @@
 package com.stackroute.service;
 
+import com.stackroute.domain.PdfDocument;
 import com.stackroute.exception.EmptyFileException;
 import com.stackroute.exception.FileNotFoundException;
 import org.apache.tika.exception.TikaException;
@@ -15,7 +16,7 @@ public interface PdfExtractionService {
             TikaException,FileNotFoundException, EmptyFileException;
 
 
-    public  String extractFromURL() throws IOException , SAXException, NullPointerException, FileNotFoundException, EmptyFileException,
+    public PdfDocument extractFromURL(String path) throws IOException , SAXException, NullPointerException, FileNotFoundException, EmptyFileException,
             TikaException;
 }
 

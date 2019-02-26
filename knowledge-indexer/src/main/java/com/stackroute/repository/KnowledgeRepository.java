@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.Collection;
 
-public interface KnowledgeRepository extends Neo4jRepository<Knowledge,Integer> {
+public interface KnowledgeRepository extends Neo4jRepository<Knowledge,String> {
 
     @Query("MATCH (u:Knowledge) RETURN u")
     Collection<Knowledge> getAllKnowledge();
@@ -18,25 +18,25 @@ public interface KnowledgeRepository extends Neo4jRepository<Knowledge,Integer> 
 
     //insert knowledge relationship
     @Query("match(p:Concept{name:{0}}) match(k:Knowledge{paragraphId:{1},intentLevel:{2}}) CREATE(p)-[:knowledgeOf {confidenceScore:{3}}]->(k)")
-    Collection<Knowledge> insertKnowledgeRelationship(String name,Integer paragraphId,String intentLevel,String confidenceScore);
+    Collection<Knowledge> insertKnowledgeRelationship(String name,String paragraphId,String intentLevel,double confidenceScore);
 
     //insert comprehension relationship
     @Query("match(p:Concept{name:{0}}) match(k:Knowledge{paragraphId:{1},intentLevel:{2}}) CREATE(p)-[:comprehensionOf {confidenceScore:{3}}]->(k)")
-    Collection<Knowledge> insertComprehensionRelationship(String name,Integer paragraphId,String intentLevel,String confidenceScore);
+    Collection<Knowledge> insertComprehensionRelationship(String name,String paragraphId,String intentLevel,double confidenceScore);
 
     //insert  application relationship
     @Query("match(p:Concept{name:{0}}) match(k:Knowledge{paragraphId:{1},intentLevel:{2}}) CREATE(p)-[:applicationOf {confidenceScore:{3}}]->(k)")
-    Collection<Knowledge> insertApplicationRelationship(String name,Integer paragraphId,String intentLevel,String confidenceScore);
+    Collection<Knowledge> insertApplicationRelationship(String name,String paragraphId,String intentLevel,double confidenceScore);
 
     //insert analysis application
     @Query("match(p:Concept{name:{0}}) match(k:Knowledge{paragraphId:{1},intentLevel:{2}}) CREATE(p)-[:analysisOf {confidenceScore:{3}}]->(k)")
-    Collection<Knowledge> insertAnalysisRelationship(String name,Integer paragraphId,String intentLevel,String confidenceScore);
+    Collection<Knowledge> insertAnalysisRelationship(String name,String paragraphId,String intentLevel,double confidenceScore);
 
     //insert synthesis application
     @Query("match(p:Concept{name:{0}}) match(k:Knowledge{paragraphId:{1},intentLevel:{2}}) CREATE(p)-[:synthesisOf {confidenceScore:{3}}]->(k)")
-    Collection<Knowledge> insertSynthesisRelationship(String name,Integer paragraphId,String intentLevel,String confidenceScore);
+    Collection<Knowledge> insertSynthesisRelationship(String name,String paragraphId,String intentLevel,double confidenceScore);
 
     //insert evaluation application
     @Query("match(p:Concept{name:{0}}) match(k:Knowledge{paragraphId:{1},intentLevel:{2}}) CREATE(p)-[:evaluationOf {confidenceScore:{3}}]->(k)")
-    Collection<Knowledge> insertEvaluationRelationship(String name,Integer paragraphId,String intentLevel,String confidenceScore);
+    Collection<Knowledge> insertEvaluationRelationship(String name,String paragraphId,String intentLevel,double confidenceScore);
 }

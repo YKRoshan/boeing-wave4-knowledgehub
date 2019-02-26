@@ -26,41 +26,27 @@ public class KnowledgeIndexerService {
 
 
 
-     public void addRelationship(String name,
-                                 Integer paragraphId, String intentLevel,String confidenceScore)
+     public void addRelationship(String concept,
+                                 String paragraphId, String intentLevel,double confidenceScore)
      {
           if(intentLevel.equals("knowledge"))
-               knowledgeRepository.insertKnowledgeRelationship(name,paragraphId,intentLevel,confidenceScore);
+               knowledgeRepository.insertKnowledgeRelationship(concept,paragraphId,intentLevel,confidenceScore);
 
           else if(intentLevel.equals("comprehension"))
-               knowledgeRepository.insertComprehensionRelationship(name,paragraphId,intentLevel,confidenceScore);
+               knowledgeRepository.insertComprehensionRelationship(concept,paragraphId,intentLevel,confidenceScore);
 
           else if(intentLevel.equals("application"))
-               knowledgeRepository.insertApplicationRelationship(name,paragraphId,intentLevel,confidenceScore);
+               knowledgeRepository.insertApplicationRelationship(concept,paragraphId,intentLevel,confidenceScore);
 
           else if(intentLevel.equals("analysis"))
-               knowledgeRepository.insertAnalysisRelationship(name,paragraphId,intentLevel,confidenceScore);
+               knowledgeRepository.insertAnalysisRelationship(concept,paragraphId,intentLevel,confidenceScore);
 
           else if(intentLevel.equals("synthesis"))
-               knowledgeRepository.insertSynthesisRelationship(name,paragraphId,intentLevel,confidenceScore);
+               knowledgeRepository.insertSynthesisRelationship(concept,paragraphId,intentLevel,confidenceScore);
 
-          else if(intentLevel.equals("Evaluation"))
-               knowledgeRepository.insertEvaluationRelationship(name,paragraphId,intentLevel,confidenceScore);
+          else if(intentLevel.equals("evaluation"))
+               knowledgeRepository.insertEvaluationRelationship(concept,paragraphId,intentLevel,confidenceScore);
      }
-
-//     public Iterable<Knowledge> getAllKnowledge(){return knowledgeRepository.findAll();}
-//
-//
-//     public Iterable<Concept> getAllConcepts( String name){
-//          return conceptRepository.getConcept(name);
-//     }
-//
-//
-//     public Iterable<Knowledge> getParticularKnowledge(Integer paragraphId,String intentLevel){
-//          return knowledgeRepository.getKnowledge(paragraphId,intentLevel);
-//     }
-
-
 
 
 

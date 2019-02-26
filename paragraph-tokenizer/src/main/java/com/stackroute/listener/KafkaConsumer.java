@@ -1,13 +1,20 @@
 package com.stackroute.listener;
 
+import com.stackroute.domain.Paragraph;
 import com.stackroute.domain.PdfDocument;
 import com.stackroute.exception.ParagraphNotFoundException;
 import com.stackroute.service.ParagraphService;
+import com.stackroute.listener.KafkaProducer;
+import netscape.javascript.JSObject;
+import org.apache.kafka.common.protocol.types.Field;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -22,6 +29,17 @@ public class KafkaConsumer {
         this.kafkaProducer=kafkaProducer;
         this.paragraphService = paragraphService;
     }
+
+
+
+
+
+
+
+//    @Autowired
+//    private KafkaTemplate<String, JSObject> kafkaTemplate;
+//
+//    private static final String TOPIC = "FileText";
 
     @KafkaListener(topics = "FileText", groupId = "group_id")
     public void consume(String message) throws ParagraphNotFoundException {

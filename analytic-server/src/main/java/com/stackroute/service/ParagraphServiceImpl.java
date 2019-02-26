@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 @Service
 public class ParagraphServiceImpl implements ParagraphService {
@@ -36,16 +35,16 @@ public class ParagraphServiceImpl implements ParagraphService {
 
     public Paragraph takeParagraph(Paragraph paragraph) {
         this.paragraph = paragraph;
-        Iterator<String> iterator = conceptSerive.getConcepts().iterator();
-        ArrayList<String> concepts = new ArrayList<>();
-        while (iterator.hasNext()) {
-            concepts.add(iterator.next());
-        }
         nlpService.setParagraphContent(paragraph.getParagraphContent());
-        nlpService.setConceptNames(concepts);
+        ArrayList<String> conceptNames = (ArrayList<String>) (conceptSerive.getConcepts());
+        String[] conceptNamesArray = new String[conceptNames.size()];
+        for (int i = 0; i < conceptNames.size(); i++) {
+            conceptNamesArray[i] = conceptNames.get(i).toLowerCase();
+        }
+        nlpService.setConceptNames(conceptNamesArray);
         NlpResult nlpResult = nlpService.getNlpResults();
         nlpResultService.setNlpResult(nlpResult);
-        analyticService.setConceptNames(concepts);
+        analyticService.setConceptNames(conceptNamesArray);
         return paragraph;
     }
 }

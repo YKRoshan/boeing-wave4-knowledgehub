@@ -5,6 +5,7 @@
 //package com.stackroute.controller;
 //
 //import com.fasterxml.jackson.databind.ObjectMapper;
+//import com.stackroute.domain.Paragraph;
 //import com.stackroute.exception.ParagraphNotFoundException;
 //import com.stackroute.service.ParagraphService;
 //import org.json.simple.JSONObject;
@@ -24,6 +25,7 @@
 //import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 //import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 //
+//import static org.junit.Assert.*;
 //import java.util.ArrayList;
 //import java.util.List;
 //
@@ -38,30 +40,30 @@
 //    private MockMvc mockMvc;
 //
 //    @MockBean
-//    ParagraphService paragraphService;
+//    private ParagraphService paragraphService;
 //
 //    @InjectMocks
 //    private ParagraphController paragraphController;
 //
-//    private List<JSONObject> objects;
+//    private List<JSONObject> objects =null;
 //
 //    @Before
 //    public void setUp() throws Exception {
 //        MockitoAnnotations.initMocks(this);
 //        mockMvc = MockMvcBuilders.standaloneSetup(paragraphController).build();
 //        objects = new ArrayList<>();
-//        JSONObject obj1 = new JSONObject();
-//        obj1.put("documentId", "23233");
+//        JSONObject obj= new JSONObject();
+//        obj.put("documentId","23233");
+//        objects.add(obj);
+//        JSONObject obj1= new JSONObject();
 //        obj1.put("paragraphId", 1);
 //        obj1.put("paragraphText", "Hi my name is blah.");
 //        objects.add(obj1);
 //        JSONObject obj2 = new JSONObject();
-//        obj2.put("documentId", "23233");
 //        obj2.put("paragraphId", 2);
 //        obj2.put("paragraphText", "I live in blah and i like to blah.");
 //        objects.add(obj2);
 //        JSONObject obj3 = new JSONObject();
-//        obj3.put("documentId", "23233");
 //        obj3.put("paragraphId", 3);
 //        obj3.put("paragraphText", "hi again!");
 //        objects.add(obj3);
@@ -69,7 +71,7 @@
 //
 //    @Test
 //    public void testGetAllJSONObjects() throws Exception {
-//        when(paragraphService.getParagraphObject(any(),any())).thenReturn(objects);
+//        when(paragraphService.getParagraphObject(any())).thenReturn("Published successfully");
 //        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/paragraphs")
 //                .contentType(MediaType.APPLICATION_JSON).content(asJsonString(objects)))
 //                .andExpect(MockMvcResultMatchers.status().isOk())
@@ -79,7 +81,7 @@
 //
 //    @Test
 //    public void testGetAllJSONObjectsFailure() throws Exception {
-//        when(paragraphService.getParagraphObject(any(),any())).thenThrow(ParagraphNotFoundException.class);
+//        when(paragraphService.getParagraphObject(any())).thenThrow(ParagraphNotFoundException.class);
 //        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/paragraphs")
 //                .contentType(MediaType.APPLICATION_JSON).content(asJsonString(objects)))
 //                .andExpect(MockMvcResultMatchers.status().isConflict())
