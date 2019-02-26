@@ -18,7 +18,7 @@ import java.util.*;
 public class NlpServiceImpl implements NlpService {
 
     private String paragraphContent;
-    private String conceptNames[];
+    private ArrayList<String> conceptNames;
     private String stopwords[] = {"i", "me", "my", "myself", "we", "our", "ours", "ourselves", "could", "he'd",
             "he'll", "he's", "here's", "how's", "ought", "she'd", "she'll", "that's", "there's", "they'd",
             "they'll", "they're", "they've", "we'd", "we'll", "we're", "we've", "what's", "when's", "where's",
@@ -147,23 +147,6 @@ public class NlpServiceImpl implements NlpService {
         return verbWords;
     }
 
-    public HashMap<String, Long> getFrequencyOfWords() {
-        ArrayList<String> wordsWithOutStopwords = getWordsWithoutStopWords();
-        HashMap<String, Long> wordsFrequencyMap = new HashMap<>();
-        for (int i = 0; i < wordsWithOutStopwords.size(); i++) {
-            if (wordsFrequencyMap.containsKey(wordsWithOutStopwords.get(i))) {
-                long count = wordsFrequencyMap.get(wordsWithOutStopwords.get(i));
-                count++;
-                wordsFrequencyMap.put(wordsWithOutStopwords.get(i), count);
-            } else {
-                long one = 1;
-                wordsFrequencyMap.put(wordsWithOutStopwords.get(i), one);
-            }
-        }
-        return wordsFrequencyMap;
-    }
-
-
     public NlpResult getNlpResults() {
         NlpResult nlpResult = new NlpResult();
         System.out.println("Get Cleared Paragraph");
@@ -185,12 +168,12 @@ public class NlpServiceImpl implements NlpService {
         return nlpResult;
     }
 
-    public String[] getConceptNames() {
+    public ArrayList<String> getConceptNames() {
         return conceptNames;
     }
 
-    public void setConceptNames(String[] conceptNames) {
-        this.conceptNames = conceptNames;
+    public void setConceptNames(ArrayList<String> conceptNames) {
+        this.conceptNames = new ArrayList<>(conceptNames);
     }
 
     public String getParagraphContent() {

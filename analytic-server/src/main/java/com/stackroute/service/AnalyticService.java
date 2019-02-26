@@ -10,14 +10,13 @@ import java.util.regex.Pattern;
 public interface AnalyticService {
     public String getNounSentence();
 
-    public String getConceptName();
+    //public String getConceptName();
 
     public String getVerbSentence();
 
     public AnalysisResult getAnalysisResult();
 
-    public String[] getConceptNames();
+    public ArrayList<String> getConceptNames();
 
-    public void setConceptNames(String[] conceptNames);
-
+    public void setConceptNames(ArrayList<String> conceptNames);
 }
