@@ -114,7 +114,6 @@ public class PdfExtractionServiceImpl implements PdfExtractionService {
         pdfDocument.setDocumentMetaData(metaDataJson);
         ObjectWriter objectWriter = new ObjectMapper().writer().withDefaultPrettyPrinter();
         String jsonString = objectWriter.writeValueAsString(pdfDocument);
-       // kafkaTemplate.send(TOPIC, pdfDocument);
         System.out.println("extracted properly");
         return pdfDocument;
     }

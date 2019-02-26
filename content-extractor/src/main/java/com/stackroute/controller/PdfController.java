@@ -67,7 +67,6 @@ public class PdfController {
         public ResponseEntity<String> getFile() throws TikaException, SAXException, IOException, FileNotFoundException, EmptyFileException {
             try {
                 String jsonString = contentExtractionService.extractFromFile(path);
-               // kafkaTemplate.send(TOPIC,jsonString);
                 return ResponseEntity.status(HttpStatus.OK).body(jsonString);
 
             } catch (Exception e) {
