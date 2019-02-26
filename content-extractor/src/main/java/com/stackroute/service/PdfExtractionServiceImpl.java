@@ -42,24 +42,6 @@ public class PdfExtractionServiceImpl implements PdfExtractionService {
 
     String path;
 
-    /*kafka consumer*/
-//    @KafkaListener(topics = "File_url", groupId = "group_id")
-//    public void consume(String message) {
-//
-//        System.out.println("under consume");
-//        JSONObject object = (JSONObject) JSONValue.parse(message);
-//        path = (String) object.get("fileUrl");
-//        System.out.println("Consumed message: " + message);
-//        System.out.println(path);
-//
-//
-//    }
-
-//    @Autowired
-//    private KafkaTemplate<String, PdfDocument> kafkaTemplate;
-//
-//    private static final String TOPIC = "FileText";
-
     /*
     This method will take path of PDF file as input parameter and return String in JSON Format
      */
