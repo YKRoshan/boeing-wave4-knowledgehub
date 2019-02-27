@@ -18,7 +18,7 @@ public class SearchController {
     public SearchController(KafkaProducer kafkaProducer) {
         this.kafkaProducer = kafkaProducer;
     }
-
+    //rest end point for search
     @PostMapping("search")
     public String search(@RequestBody Search search){
 
