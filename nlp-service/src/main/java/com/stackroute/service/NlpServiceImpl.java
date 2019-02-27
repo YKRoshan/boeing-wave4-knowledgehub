@@ -27,14 +27,6 @@ public class NlpServiceImpl implements NlpService {
     String[] stopwords={"i", "me", "my", "myself", "we", "our", "ours", "ourselves", "could", "he'd","he'll", "he's", "here's", "how's", "ought", "she'd", "she'll", "that's", "there's", "they'd","they'll", "they're", "they've", "we'd", "we'll", "we're", "we've", "what's", "when's", "where's","who's", "why's", "would", "i'd", "i'll", "i'm", "i've", "you", "you're", "you've", "you'll","you'd", "your", "yours", "yourself", "yourselves", "he", "him", "his", "himself", "she","she's", "her", "hers", "herself", "it", "it's", "its", "itself", "they", "them", "their","theirs", "themselves", "what", "which", "who", "whom", "this", "that", "that'll", "these","those", "am", "is", "are", "was", "were", "be", "been", "being", "have", "has", "had", "having","do", "does", "did", "doing", "a", "an", "the", "and", "but", "if", "or", "because", "as", "until","while", "of", "at", "by", "for", "with", "about", "against", "between", "into", "through","during", "before", "after", "above", "below", "to", "from", "up", "down", "in", "out", "off", "over", "under", "again", "further", "then", "once", "here", "there", "when", "where","why", "how", "all", "any", "both", "each", "few", "more", "most", "other", "some", "such", "no","nor", "not", "only", "own", "same", "so", "than", "too", "very", "s", "t", "can", "will","just", "don", "don't", "should", "should've", "now", "d", "ll", "m", "o", "re", "ve", "y", "ain","aren", "aren't", "couldn", "couldn't", "didn", "didn't", "doesn", "doesn't", "hadn", "hadn't","hasn", "hasn't", "haven", "haven't", "isn", "isn't", "ma", "mightn", "mightn't", "mustn", "mustn't","needn", "needn't", "shan", "shan't", "shouldn", "shouldn't", "wasn", "wasn't", "weren", "weren't","won", "won't", "wouldn", "wouldn't"};
     String[] domainSpecificNgrams={"annotations", "ioc container", "beans", "spring core", "spring data jpa", "spring datajpa","spring aop", "spring security", "spring cloud", "spring reactive", "spring mvc"};
 
-
-
-
-
-    public static void main(String[] args) {
-
-    }
-
     public void setParagraph(String paragraph) {
         this.paragraph = paragraph;
     }
@@ -54,44 +46,6 @@ public class NlpServiceImpl implements NlpService {
         return cleanedParagraph.toString().trim();
     }
 
-
-    public ArrayList<String> getAllTokenizedSentences() {
-        ArrayList<String> tokenizedSentences = new ArrayList<>();
-        TokenizerFactory tokenizerFactory = IndoEuropeanTokenizerFactory.INSTANCE;
-        SentenceModel sentenceModel = new IndoEuropeanSentenceModel();
-        List<String> tokenList = new ArrayList<>();
-        List<String> whiteSpaceList = new ArrayList<>();
-        Tokenizer tokenizer = tokenizerFactory.tokenizer(getCleanerParagrah().toCharArray(), 0, getCleanerParagrah().length());
-        tokenizer.tokenize(tokenList, whiteSpaceList);
-        String tokens[] = new String[tokenList.size()];
-        String whiteSpaces[] = new String[whiteSpaceList.size()];
-        tokenList.toArray(tokens);
-        whiteSpaceList.toArray(whiteSpaces);
-        int sentenceBoundaries[] = sentenceModel.boundaryIndices(tokens, whiteSpaces);
-
-        int start = 0;
-        for (int i = 0; i < sentenceBoundaries.length; i++) {
-            String temporaryString = "";
-            while (start <= sentenceBoundaries[i]) {
-                temporaryString = temporaryString.concat(tokenList.get(start) + whiteSpaceList.get(start + 1));
-                start++;
-                temporaryString.trim();
-            }
-            tokenizedSentences.add(temporaryString);
-        }
-        return tokenizedSentences;
-    }
-
-
-    public String getParagrahWithSentences() {
-        ArrayList<String> sentences = new ArrayList<>(getAllTokenizedSentences());
-        StringBuffer sentencedParagraph = new StringBuffer();
-        for (int i = 0; i < sentences.size(); i++) {
-            sentencedParagraph.append(sentences.get(i) + " ");
-        }
-        return sentencedParagraph.toString().trim();
-    }
-
     public ArrayList<String> getLemmitizedWords() {
         Properties properties = new Properties();
         properties.setProperty("annotator", "lemma");
@@ -101,7 +55,7 @@ public class NlpServiceImpl implements NlpService {
         StanfordCoreNLP pipeline = new StanfordCoreNLP(properties);
         // This annotations object gives the special meaning to the
         // string we used in propeties.put() method
-        Annotation annotations = new Annotation(getParagrahWithSentences());
+        Annotation annotations = new Annotation(getCleanerParagrah());
         // pipeline.annotate(annotations)  provies the annotation to those particular objects.
         pipeline.annotate(annotations);
         // sentenceList contains list of sentences
@@ -163,36 +117,10 @@ public class NlpServiceImpl implements NlpService {
         return wordsWithPOSTag;
     }
 
-    public HashMap<String, Long> getFrequencyOfWords() {
-        ArrayList<String> wordsWithOutStopwords = getWordsWithoutStopWords();
-        HashMap<String, Long> wordsFrequencyMap = new HashMap<>();
-        for (int i = 0; i < wordsWithOutStopwords.size(); i++) {
-            if (wordsFrequencyMap.containsKey(wordsWithOutStopwords.get(i))) {
-                long count = wordsFrequencyMap.get(wordsWithOutStopwords.get(i));
-                count++;
-                wordsFrequencyMap.put(wordsWithOutStopwords.get(i), count);
-            } else {
-                long one = 1;
-                wordsFrequencyMap.put(wordsWithOutStopwords.get(i), one);
-            }
-        }
-        return wordsFrequencyMap;
-    }
-
     public void showAllResults() {
-
-
         System.out.println("Get Cleared Paragraph");
         String clearedParagraph = new String(getCleanerParagrah());
         System.out.println(clearedParagraph);
-
-        System.out.println("123456");
-        String clearedParagrap = new String(getParagrahWithSentences());
-        System.out.println(clearedParagrap);
-
-        System.out.println("Get all tokened sentences");
-        ArrayList<String> allSentences = new ArrayList<>(getAllTokenizedSentences());
-        System.out.println(allSentences);
 
         System.out.println("Lemmitization");
         ArrayList<String> allLemmas = new ArrayList<>(getLemmitizedWords());
@@ -213,10 +141,6 @@ public class NlpServiceImpl implements NlpService {
         System.out.println("POS TAGGING");
         ArrayList<POSTagging> posTaggings = new ArrayList<>(getPOSWords());
         System.out.println(posTaggings);
-
-        System.out.println("last");
-        HashMap<String, Long> posTagging = new HashMap<String, Long>(getFrequencyOfWords());
-        System.out.println(posTagging);
     }
 
 }
