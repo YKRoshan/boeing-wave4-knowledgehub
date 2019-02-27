@@ -57,10 +57,6 @@ public class AnalyticServiceImpl implements AnalyticService {
                 wordsFrequencyMap.get(i).setFrequencyCount(tempCount);
             }
         }
-        System.out.println("Concept Frequency Mappping");
-        System.out.println(wordsFrequencyMap);
-        System.out.println("Concept Names");
-        System.out.println(conceptNames);
         return wordsFrequencyMap;
     }
 
@@ -75,8 +71,8 @@ public class AnalyticServiceImpl implements AnalyticService {
         String conceptName = new String();
         long max = Integer.MIN_VALUE;
         for (int i = 0; i < conceptNameFrequenciesList.size(); i++) {
-            if(max<=conceptNameFrequenciesList.get(i).getFrequencyCount()){
-                max=conceptNameFrequenciesList.get(i).getFrequencyCount();
+            if (max <= conceptNameFrequenciesList.get(i).getFrequencyCount()) {
+                max = conceptNameFrequenciesList.get(i).getFrequencyCount();
                 conceptName = conceptNameFrequenciesList.get(i).getConceptName();
             }
         }
@@ -98,8 +94,6 @@ public class AnalyticServiceImpl implements AnalyticService {
 
     public String getIntentLevel() {
         String verbSentence = getVerbSentence().toLowerCase();
-        System.out.println("Verb Sentence");
-        System.out.println(verbSentence);
         ArrayList<ArrayList<String>> intentLevelList = new ArrayList<>();
         intentLevelList.add(knowledge);
         intentLevelList.add(comprehension);
@@ -132,7 +126,6 @@ public class AnalyticServiceImpl implements AnalyticService {
 
     public AnalysisResult getAnalysisResult() {
         AnalysisResult analysisResult = new AnalysisResult();
-        System.out.println("Analytic Service Result in Analytic Service Impl .java");
         analysisResult.setConfidenceScore(getConfidenceScore());
         analysisResult.setDocumentId(paragraphProviderService.getParagraph().getDocumentId());
         analysisResult.setParagraphId(paragraphProviderService.getParagraph().getParagraphId());

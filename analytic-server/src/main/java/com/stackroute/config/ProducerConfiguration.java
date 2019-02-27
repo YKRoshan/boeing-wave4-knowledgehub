@@ -31,12 +31,4 @@ public class ProducerConfiguration {
     public KafkaTemplate<String, AnalysisResult> kafkaTemplate() {
         return new KafkaTemplate<>(producerFactory());
     }
-
-//    @Bean
-//    public void callConsumer(){
-//        consumerConfig.consumerFactory();
-//        consumerConfig.kafkaListenerContainerFactory();
-//        consumerConfig.userConsumerFactory();
-//        consumerConfig.userKafkaListenerFactory();
-//    }
 }

@@ -10,8 +10,6 @@ import java.util.regex.Pattern;
 public interface AnalyticService {
     public String getNounSentence();
 
-    //public String getConceptName();
-
     public String getVerbSentence();
 
     public AnalysisResult getAnalysisResult();

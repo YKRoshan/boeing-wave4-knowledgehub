@@ -135,23 +135,11 @@ public class NlpServiceImpl implements NlpService {
 
     public NlpResult getNlpResults() {
         NlpResult nlpResult = new NlpResult();
-        System.out.println("Get Cleared Paragraph");
         nlpResult.setClearedParagraph(getCleanerParagrah());
-//        System.out.println("Lemmitization");
-//        nlpResult.setLemmaWords(getLemmitizedWords());
-//        System.out.println("Stemming");
-//        nlpResult.setStemmedWords(getStemmedWords());
-        System.out.println("Stop words");
-        System.out.println(stopwords[0]);
-        System.out.println("Stop Word Removal");
         nlpResult.setWordsWithOutStopWords(getWordsWithoutStopWords());
-        System.out.println("Stop Word Removal Paragraph");
         nlpResult.setParagraphWithOutStopWords(getParagraphWithOutStopWords());
-        System.out.println("POS TAGGING");
         nlpResult.setPosTaggings(getPOSWords());
-        System.out.println("Noun Words");
         nlpResult.setNounWords(getNouns());
-        System.out.println("Verb Words");
         nlpResult.setVerbWords(getVerbs());
         return nlpResult;
     }
