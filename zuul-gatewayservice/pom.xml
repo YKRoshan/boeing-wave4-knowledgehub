@@ -12,20 +12,20 @@
 	<description>Demo project for Spring Boot</description>
 
 	<parent>
-        <groupId>com.stackroute</groupId>
-        <artifactId>boeing-wave4-knowledgehub</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+		<groupId>com.stackroute</groupId>
+		<artifactId>boeing-wave4-knowledgehub</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath> <!-- lookup parent from repository -->
 	</parent>
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>11</java.version>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java.version>11</java.version>
 		<maven.compiler.source>${java.version}</maven.compiler.source>
 		<maven.compiler.target>${java.version}</maven.compiler.target>
-        <spring-cloud.version>Greenwich.RELEASE</spring-cloud.version>
-    </properties>
+		<spring-cloud.version>Greenwich.RELEASE</spring-cloud.version>
+	</properties>
 
 	<dependencies>
 		<dependency>
@@ -33,27 +33,13 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-security</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>io.jsonwebtoken</groupId>
-			<artifactId>jjwt</artifactId>
-			<version>0.9.1</version>
-		</dependency>
-		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-zuul</artifactId>
 		</dependency>
 		<!--<dependency>-->
-			<!--&lt;!&ndash; Spring Cloud starter &ndash;&gt;-->
-			<!--<groupId>org.springframework.cloud</groupId>-->
-			<!--<artifactId>spring-cloud-starter</artifactId>-->
+		<!--&lt;!&ndash; Spring Cloud starter &ndash;&gt;-->
+		<!--<groupId>org.springframework.cloud</groupId>-->
+		<!--<artifactId>spring-cloud-starter</artifactId>-->
 		<!--</dependency>-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
