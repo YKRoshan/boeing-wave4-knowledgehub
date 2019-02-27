@@ -34,6 +34,7 @@
         <module>login-service</module>
         <module>paragraph-tokenizer</module>
         <module>nlp-service</module>
+        <module>search-upstream-service</module>
         <module>knowledge-indexer</module>
 	    <module>document-provider</module>
         <module>analytic-server</module>
