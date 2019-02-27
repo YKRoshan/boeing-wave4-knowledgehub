@@ -1,6 +1,6 @@
 package com.stackroute.model;
 
-/* A FileUrl class for setting and getting the URL of the file be
+/* A FileUrl class for setting and getting the URL of the file to be
    uploaded to the s3 storage
  */
 public class FileUrl {

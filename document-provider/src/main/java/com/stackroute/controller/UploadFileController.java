@@ -18,26 +18,6 @@ import java.util.Map;
 @RestController
 @RequestMapping("/files")
 public class UploadFileController {
-//    @Autowired
-//    private S3Service amazonS3ClientService;
-//
-//    @Value("${aws.region}")
-//    private String awsRegion;
-//
-//    @Value("${aws.s3.bucket}")
-//    private String awsS3AudioBucket;
-
-//
-//    @PostMapping
-//    public Map<String, String> uploadFile(@RequestPart(value = "file") MultipartFile file)
-//    {
-//        this.amazonS3ClientService.uploadFileToS3Bucket(file, true);
-//
-//        Map<String, String> response = new HashMap<>();
-//        response.put("url", "https://s3."+awsRegion+".amazonaws.com/"+awsS3AudioBucket+"/"+file.getOriginalFilename());
-//
-//        return response;
-//    }
 
     @Autowired
     private S3Service amazonS3ClientService;
@@ -62,25 +42,21 @@ public class UploadFileController {
     public FileUrl uploadFile(@RequestPart(value = "file") MultipartFile file)
     {
         String url="https://s3."+ awsRegion+".amazonaws.com/"+awsS3AudioBucket+"/"+file.getOriginalFilename();
-        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-        System.out.println(url);
-        System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
         fileUrl = new FileUrl();
         fileUrl.setFileUrl(url);
-        System.out.println("ccccccccccccccccccccccccccccccccccccc");
-        System.out.println(fileUrl.getFileUrl());
-        System.out.println("ddddddddddddddddddddddddddddddddddd");
 
+        //calling the serviceImpl method to upload file to s3
         this.amazonS3ClientService.uploadFileToS3Bucket(file, true);
 
         ResponseEntity responseEntity;
         responseEntity = new ResponseEntity(fileUrl, HttpStatus.OK);
-//        Map<String,String> response = new HashMap<>();
-//        response.put("url", "https://s3."+region+".amazonaws.com/"+bucketName+"/"+file.getOriginalFilename());
-         kafkaTemplate.send(TOPIC,fileUrl);
+        kafkaTemplate.send(TOPIC,fileUrl);
         return fileUrl;
     }
 
+    /* A controller method to delete a file which accepts
+      a file as a parameter
+   */
     @DeleteMapping
     public Map<String, String> deleteFile(@RequestParam("file_name") String fileName)
     {

@@ -17,6 +17,8 @@ import java.util.Map;
 
 @Service
 public class KafkaProducerConfig {
+
+    /* A kafka producer method */
     @Bean
     public ProducerFactory<String, FileUrl> producerFactory() {
         Map<String, Object> config = new HashMap<>();

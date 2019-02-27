@@ -47,8 +47,6 @@ public class S3Config {
         return Region.getRegion(Regions.fromName(awsRegion));
     }
 
-
-
     /* A method which provides aws credentials inorder to access the
        bucket created
    */
