@@ -4,7 +4,7 @@ import com.stackroute.searchbotservice.domain.Search;
 import com.stackroute.searchbotservice.listener.KafkaProducer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
+//Controller class
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping(value="/")
