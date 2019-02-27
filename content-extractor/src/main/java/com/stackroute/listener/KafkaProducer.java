@@ -12,6 +12,9 @@ import org.xml.sax.SAXException;
 
 import java.io.IOException;
 
+/*
+Kafka Producer producing JSON Object for Paragraph tokenizer
+ */
 @Service
 public class KafkaProducer {
 
@@ -32,8 +35,6 @@ public class KafkaProducer {
 
         PdfDocument pdfDocument = pdfExtractionService.extractFromURL(fileurl);
         kafkaTemplate2.send(TOPIC, pdfDocument);
-        System.out.println("komals is working");
-
         return "Published successfully";
     }
 

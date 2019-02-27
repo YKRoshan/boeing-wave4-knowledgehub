@@ -16,6 +16,9 @@ import org.xml.sax.SAXException;
 
 import java.io.IOException;
 
+/*
+Kafka Listener Listens to DocumentProvider
+ */
 
 @Service
 public class KafkaConsumer {
@@ -31,13 +34,10 @@ public class KafkaConsumer {
     @KafkaListener(topics = "FileUrl", groupId = "group_id")
     public void consume(String message)throws IOException, SAXException, NullPointerException, FileNotFoundException, EmptyFileException,
             TikaException {
-        System.out.println("Consumed message: " + message);
 
       JSONObject object = (JSONObject) JSONValue.parse(message);
 
-
       FileUrl fileUrl=new FileUrl(object.get("fileUrl").toString());
-        System.out.println(fileUrl.getFileUrl());
 
       kafkaProducer.postservice(fileUrl.getFileUrl());
 

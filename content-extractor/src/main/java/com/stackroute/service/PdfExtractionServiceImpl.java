@@ -87,7 +87,6 @@ public class PdfExtractionServiceImpl implements PdfExtractionService {
     public  PdfDocument extractFromURL(String path1) throws IOException , SAXException, NullPointerException, FileNotFoundException, EmptyFileException,
             TikaException
     {
-        System.out.println(path1);
         URL url=new URL(path1);
         TikaInputStream tikaInputStream =TikaInputStream.get(url.openStream());
         BodyContentHandler contenthandler = new BodyContentHandler(10*1024*1024);
@@ -114,7 +113,6 @@ public class PdfExtractionServiceImpl implements PdfExtractionService {
         pdfDocument.setDocumentMetaData(metaDataJson);
         ObjectWriter objectWriter = new ObjectMapper().writer().withDefaultPrettyPrinter();
         String jsonString = objectWriter.writeValueAsString(pdfDocument);
-        System.out.println("extracted properly");
         return pdfDocument;
     }
 
