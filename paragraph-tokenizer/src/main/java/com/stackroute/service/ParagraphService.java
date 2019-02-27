@@ -1,3 +1,7 @@
+/*
+This is the service interface that gives abstract methods that will be used by the controller.
+ */
+
 package com.stackroute.service;
 
 import com.stackroute.domain.Paragraph;
@@ -8,6 +12,6 @@ import java.util.List;
 
 public interface ParagraphService {
 
-    public List<JSONObject> getParagraphObject(JSONObject object) throws ParagraphNotFoundException;
+    public List<JSONObject> getParagraphObject(String documentId1,String text) throws ParagraphNotFoundException;
 
 }

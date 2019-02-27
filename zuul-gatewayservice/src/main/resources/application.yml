@@ -1,0 +1,22 @@
+knowledgehub:
+    jwtExpiration: 86400
+    jwtSecret: jwtSecretKey
+server:
+    port: 8092
+spring:
+    application:
+        name: api-gateway
+zuul:
+    routes:
+        login-service:
+            url: http://localhost:8084
+    sensitiveHeaders:
+eureka:
+    instance:
+        leaseRenewalIntervalInSeconds: 1
+        leaseExpirationDurationInSeconds: 2
+    client:
+        serviceUrl:
+            defaultZone: http://127.0.0.1:9091/eureka/
+        lease:
+            duration: 5

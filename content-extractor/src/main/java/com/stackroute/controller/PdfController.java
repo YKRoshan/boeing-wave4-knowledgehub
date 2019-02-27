@@ -1,11 +1,17 @@
 package com.stackroute.controller;
 
-import com.stackroute.Exception.EmptyFileException;
-import com.stackroute.Exception.FileNotFoundException;
+import com.stackroute.domain.FileUrl;
 import com.stackroute.domain.PdfDocument;
+import com.stackroute.exception.EmptyFileException;
+import com.stackroute.exception.FileNotFoundException;
+import com.stackroute.service.PdfExtractionService;
 import com.stackroute.service.PdfExtractionServiceImpl;
+import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.tika.exception.TikaException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -19,23 +25,31 @@ import java.io.IOException;
 
 @CrossOrigin(origins = "*")
 @Controller
+@PropertySource(value = "classpath:application.properties")
 public class PdfController {
 
-        @Autowired
-        PdfExtractionServiceImpl contentExtractionService;
+        private PdfExtractionService contentExtractionService;
 
         @Autowired
-        private KafkaTemplate<String, String> kafkaTemplate;
+        public PdfController(PdfExtractionService contentExtractionService)
+        {
+            this.contentExtractionService = contentExtractionService;
 
-        private static final String TOPIC = "Content_Format";
+        }
+
+        @Value("${fileNotFound}")
+        private String fileNotFound;
+
+        @Value("${url}")
+        private String fileUrl;
 
 
-        String path;
+        private String path;
         File file1;
 
         //In this Method, We need to Upload the PDF file
-        @PostMapping("/post")
-        public ResponseEntity<String> handleFileUpload(@RequestParam("file")  MultipartFile file) {
+        @PostMapping("/file")
+        public ResponseEntity<String> fileUpload(@RequestParam("file")  MultipartFile file) {
             File convFile = new File( file.getOriginalFilename());
 
             String message = "";
@@ -52,20 +66,50 @@ public class PdfController {
         }
 
         // This method will call Service Class to convert PDF to JSON Format then return the response body in Postman
-        @GetMapping("/files/{filename:.+}")
+        @GetMapping("/result")
         @ResponseBody
-        public ResponseEntity<String> getFile(@PathVariable String filename) throws TikaException, SAXException, IOException, FileNotFoundException, EmptyFileException {
-            System.out.println(filename);
+        public ResponseEntity<String> getFile() throws TikaException, SAXException, IOException, FileNotFoundException, EmptyFileException {
             try {
                 String jsonString = contentExtractionService.extractFromFile(path);
-                kafkaTemplate.send(TOPIC,jsonString);
                 return ResponseEntity.status(HttpStatus.OK).body(jsonString);
 
             } catch (Exception e) {
-                String message = filename + " is not available";
-                return ResponseEntity.status(HttpStatus.CONFLICT).body(message);
+                String message =fileNotFound;
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
             }
 
         }
 
+        //Uploading the URL of PDF
+
+        @PostMapping("/pdfUrl")
+        public ResponseEntity<String> postFileUrl(@RequestBody FileUrl fileUrl) throws TikaException, SAXException, IOException, FileNotFoundException, EmptyFileException
+        {
+            try
+            {
+                path = fileUrl.getFileUrl();
+                return ResponseEntity.status(HttpStatus.OK).body("Url has been uploaded!!");
+            }
+            catch (Exception e)
+            {
+                String message = path + " is not available";
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
+            }
+        }
+
+        //Getting the data from the Uploaded URL
+        @GetMapping("/pdfUrl")
+        public ResponseEntity<String> getFileFromUrl() throws TikaException, SAXException, IOException, FileNotFoundException, EmptyFileException
+        {
+            try
+            {
+                PdfDocument jsonString = contentExtractionService.extractFromURL(fileUrl);
+                return ResponseEntity.status(HttpStatus.OK).body(jsonString.toString());
+            }
+            catch (Exception e)
+            {
+                String message =fileNotFound;
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
+            }
+        }
 }

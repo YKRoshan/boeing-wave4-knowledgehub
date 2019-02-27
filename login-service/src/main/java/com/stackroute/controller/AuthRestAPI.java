@@ -28,11 +28,7 @@ public class AuthRestAPI {
     @Autowired
     AuthenticationManager authenticationManager;
 
-    @Autowired
-    UserRepository userRepository;
 
-    @Autowired
-    PasswordEncoder encoder;
 
     @Autowired
     JwtProvider jwtProvider;
@@ -55,5 +51,8 @@ public class AuthRestAPI {
         return ResponseEntity.ok(new JwtResponse(jwt, userDetails.getUsername()));
     }
 
-
+    @GetMapping("/test")
+    public String testing(){
+        return "working";
+    }
 }

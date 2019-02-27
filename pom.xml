@@ -33,6 +33,10 @@
         <module>content-extractor</module>
         <module>login-service</module>
         <module>paragraph-tokenizer</module>
+        <module>nlp-service</module>
+        <module>knowledge-indexer</module>
+	    <module>document-provider</module>
+        <module>analytic-server</module>
     </modules>
     <dependencies>
         <dependency>

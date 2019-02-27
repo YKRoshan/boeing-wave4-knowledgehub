@@ -1,3 +1,7 @@
+/*
+This is the controller class that takes request and gives the appropriate response entity.
+ */
+
 package com.stackroute.controller;
 
 import com.stackroute.domain.Paragraph;
@@ -7,6 +11,7 @@ import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -30,23 +35,23 @@ public class ParagraphController {
         ResponseEntity responseEntity;
         try{
             this.objects=document;
-            responseEntity = new ResponseEntity<String>("Successfully created", HttpStatus.CREATED);
+            responseEntity = new ResponseEntity<String>("Successfully posted", HttpStatus.ACCEPTED);
         }
         catch (Exception ex){
-            responseEntity = new ResponseEntity<String>(ex.getMessage(),HttpStatus.CONFLICT);
+            responseEntity = new ResponseEntity<String>(ex.getMessage(),HttpStatus.BAD_REQUEST);
         }
         return responseEntity;
     }
-
-    @GetMapping("paragraphs")
-    public ResponseEntity<?> getAllJSONObjects(){
-        ResponseEntity responseEntity;
-        try {
-            responseEntity= new ResponseEntity<List<JSONObject>>(paragraphService.getParagraphObject(this.objects), HttpStatus.OK);
-        } catch (ParagraphNotFoundException ex) {
-            responseEntity = new ResponseEntity<String>(ex.getMessage(),HttpStatus.CONFLICT);
-        }
-        return responseEntity;
-    }
+//
+//    @GetMapping("paragraphs/{documentId}")
+//    public ResponseEntity<?> getAllJSONObjects(){
+//        ResponseEntity responseEntity;
+//        try {
+//            responseEntity= new ResponseEntity<String>(paragraphService.getParagraphObject(), HttpStatus.OK);
+//        } catch (ParagraphNotFoundException ex) {
+//            responseEntity = new ResponseEntity<String>(ex.getMessage(),HttpStatus.CONFLICT);
+//        }
+//        return responseEntity;
+//    }
 
 }
