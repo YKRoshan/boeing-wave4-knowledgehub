@@ -9,6 +9,7 @@ import java.util.Collection;
 
 public interface ConceptRepository extends Neo4jRepository<Concept,Integer> {
 
+        //get particular concept node form neo4j
         @Query("match(p:Concept{name:{0}}) return p")
         Collection<Concept> getConcept(String name);
 

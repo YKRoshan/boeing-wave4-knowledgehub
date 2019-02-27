@@ -14,12 +14,11 @@ import org.springframework.kafka.support.serializer.JsonDeserializer;
 import java.util.HashMap;
 import java.util.Map;
 
-
 @EnableKafka
 @Configuration
 public class KafkaConsumerConfiguration {
 
-
+    //This is a method for kafka template
     @Bean
     public ConsumerFactory<String, String> consumerFactory() {
         Map<String, Object> config = new HashMap<>();
@@ -32,7 +31,7 @@ public class KafkaConsumerConfiguration {
         return new DefaultKafkaConsumerFactory<>(config);
     }
 
-
+    //This is a kafka listener method
     @Bean
     public ConcurrentKafkaListenerContainerFactory<String, String> kafkaListenerContainerFactory() {
         ConcurrentKafkaListenerContainerFactory<String, String> factory = new ConcurrentKafkaListenerContainerFactory();
@@ -40,7 +39,7 @@ public class KafkaConsumerConfiguration {
         return factory;
     }
 
-
+    //Consumer method for knowledge object type
     @Bean
     public ConsumerFactory<String, Knowledge> userConsumerFactory() {
         Map<String, Object> config = new HashMap<>();
@@ -53,6 +52,7 @@ public class KafkaConsumerConfiguration {
                 new JsonDeserializer<>(Knowledge.class));
     }
 
+    //Kafka listener
     @Bean
     public ConcurrentKafkaListenerContainerFactory<String, Knowledge> userKafkaListenerFactory() {
         ConcurrentKafkaListenerContainerFactory<String, Knowledge> factory = new ConcurrentKafkaListenerContainerFactory<>();

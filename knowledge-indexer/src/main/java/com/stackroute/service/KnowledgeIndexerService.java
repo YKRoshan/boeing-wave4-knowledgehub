@@ -7,7 +7,6 @@ import com.stackroute.repository.KnowledgeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
 @Service
 public class KnowledgeIndexerService {
      private ConceptRepository conceptRepository;
@@ -19,15 +18,13 @@ public class KnowledgeIndexerService {
           this.knowledgeRepository=knowledgeRepository;
      }
 
-
+     //method to save knowledge nodes to neo4j
      public void saveKnowledgeToDb(Knowledge knowledge) {
           knowledgeRepository.save(knowledge);
      }
 
-
-
-     public void addRelationship(String concept,
-                                 String paragraphId, String intentLevel,double confidenceScore)
+     //method to add relationship between ontology nodes and knowledge nodes
+     public void addRelationship(String concept, String paragraphId, String intentLevel,double confidenceScore)
      {
           if(intentLevel.equals("knowledge"))
                knowledgeRepository.insertKnowledgeRelationship(concept,paragraphId,intentLevel,confidenceScore);
@@ -47,7 +44,4 @@ public class KnowledgeIndexerService {
           else if(intentLevel.equals("evaluation"))
                knowledgeRepository.insertEvaluationRelationship(concept,paragraphId,intentLevel,confidenceScore);
      }
-
-
-
 }

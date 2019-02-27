@@ -10,9 +10,11 @@ import java.util.Collection;
 
 public interface KnowledgeRepository extends Neo4jRepository<Knowledge,String> {
 
+    //get all knowledge nodes
     @Query("MATCH (u:Knowledge) RETURN u")
     Collection<Knowledge> getAllKnowledge();
 
+    //get particular knowledge node
     @Query("match(k:Knowledge{paragraphId:{0},intentLevel:{1}}) return k")
     Collection<Knowledge> getKnowledge(Integer paragraphId,String intentLevel);
 
@@ -24,19 +26,19 @@ public interface KnowledgeRepository extends Neo4jRepository<Knowledge,String> {
     @Query("match(p:Concept{name:{0}}) match(k:Knowledge{paragraphId:{1},intentLevel:{2}}) CREATE(p)-[:comprehensionOf {confidenceScore:{3}}]->(k)")
     Collection<Knowledge> insertComprehensionRelationship(String name,String paragraphId,String intentLevel,double confidenceScore);
 
-    //insert  application relationship
+    //insert application relationship
     @Query("match(p:Concept{name:{0}}) match(k:Knowledge{paragraphId:{1},intentLevel:{2}}) CREATE(p)-[:applicationOf {confidenceScore:{3}}]->(k)")
     Collection<Knowledge> insertApplicationRelationship(String name,String paragraphId,String intentLevel,double confidenceScore);
 
-    //insert analysis application
+    //insert analysis relationship
     @Query("match(p:Concept{name:{0}}) match(k:Knowledge{paragraphId:{1},intentLevel:{2}}) CREATE(p)-[:analysisOf {confidenceScore:{3}}]->(k)")
     Collection<Knowledge> insertAnalysisRelationship(String name,String paragraphId,String intentLevel,double confidenceScore);
 
-    //insert synthesis application
+    //insert synthesis relationship
     @Query("match(p:Concept{name:{0}}) match(k:Knowledge{paragraphId:{1},intentLevel:{2}}) CREATE(p)-[:synthesisOf {confidenceScore:{3}}]->(k)")
     Collection<Knowledge> insertSynthesisRelationship(String name,String paragraphId,String intentLevel,double confidenceScore);
 
-    //insert evaluation application
+    //insert evaluation relationship
     @Query("match(p:Concept{name:{0}}) match(k:Knowledge{paragraphId:{1},intentLevel:{2}}) CREATE(p)-[:evaluationOf {confidenceScore:{3}}]->(k)")
     Collection<Knowledge> insertEvaluationRelationship(String name,String paragraphId,String intentLevel,double confidenceScore);
 }
