@@ -11,6 +11,7 @@ export class UploadService {
 
   constructor(private http: HttpClient) { }
 
+  //This method is used to post the file to the given url
   pushFileToStorage(file: File) {
     const formdata: FormData = new FormData();
 
@@ -19,9 +20,4 @@ export class UploadService {
     return this.http.post(this._url, formdata, { responseType: 'blob' as 'json' })
   }
 
-  getFiles(): Observable<any> {
-    this._url = "http://13.234.94.132:8080/getallfiles/"
-    return this.http.get(this._url, {
-    });
-  }
 }

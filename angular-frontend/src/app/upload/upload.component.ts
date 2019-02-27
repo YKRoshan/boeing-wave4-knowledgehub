@@ -21,6 +21,8 @@ export class UploadComponent implements OnInit {
   ngOnInit() {
   }
 
+  //This method is used to pass the file to the upload service where it uploads the file to 
+  //amazon s3
   selectFile(event: UploadEvent) {
     this.files = event.files;
     console.log(event);
@@ -30,6 +32,7 @@ export class UploadComponent implements OnInit {
         const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
         fileEntry.file((file: File) => {
 
+  //Based on whether the file is uploaded or not the response will be passed to html        
           this.uploadService.pushFileToStorage(file)
             .subscribe(File => {
               this.msg = 'successfully uploaded';
@@ -42,10 +45,12 @@ export class UploadComponent implements OnInit {
     }
   }
 
+  //This passes the file to the selectFile method and subsequently to upload service
   public fileOver(event) {
     console.log(event);
   }
 
+  //This method passes the file to selectFile method once the file is dropped
   public fileLeave(event) {
     console.log(event);
   }
