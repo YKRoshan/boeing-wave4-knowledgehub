@@ -69,6 +69,8 @@ public class S3ServiceImpl implements S3Service {
         }
     }
 
+    /* A serviceImpl method to delete a file from S3 bucket */
+
     @Async
     public void deleteFileFromS3Bucket(String fileName)
     {
