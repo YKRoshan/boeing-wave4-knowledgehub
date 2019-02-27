@@ -10,48 +10,43 @@ import { UploadService } from '../service/upload.service';
 })
 export class UploadComponent implements OnInit {
 
-
   public files: UploadFile[] = [];
   currentFileUpload: File;
   showFile = false;
-  fileUploads:Observable<string[]>;
+  fileUploads: Observable<string[]>;
   msg: string = null;
 
   constructor(private uploadService: UploadService) { }
- 
+
   ngOnInit() {
   }
- 
-  selectFile(event:UploadEvent) {
+
+  selectFile(event: UploadEvent) {
     this.files = event.files;
     console.log(event);
-  
-  for (const droppedFile of event.files) {
 
-    // Is it a file?
-    if (droppedFile.fileEntry.isFile) {
-      const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
-      fileEntry.file((file: File) => {
-    
+    for (const droppedFile of event.files) {
+      if (droppedFile.fileEntry.isFile) {
+        const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
+        fileEntry.file((file: File) => {
 
-    
-    this.uploadService.pushFileToStorage(file)
-      .subscribe( File => {
-        this.msg = 'successfully uploaded';
-      },
-      error => {
-        this.msg='failed to upload file';
-      });
-    })}
+          this.uploadService.pushFileToStorage(file)
+            .subscribe(File => {
+              this.msg = 'successfully uploaded';
+            },
+              error => {
+                this.msg = 'failed to upload file';
+              });
+        })
+      }
+    }
   }
 
-}
-  
-  public fileOver(event){
+  public fileOver(event) {
     console.log(event);
   }
 
-  public fileLeave(event){
+  public fileLeave(event) {
     console.log(event);
   }
 }

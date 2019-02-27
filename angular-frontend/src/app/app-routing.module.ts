@@ -6,23 +6,23 @@ import { UploadComponent } from './upload/upload.component';
 
 const routes: Routes = [
   {
-    path:"home",
-    component:HomeComponent
-},
+    path: "home",
+    component: HomeComponent
+  },
   {
-    path:"login",
-    component:LoginComponent
+    path: "login",
+    component: LoginComponent
   },
   {
     path: '',
     redirectTo: 'home',
     pathMatch: 'full'
-},
-{
-  path: 'addfiles',
+  },
+  {
+    path: 'addfiles',
 
-  component: UploadComponent
-}
+    component: UploadComponent
+  }
 ];
 
 @NgModule({
