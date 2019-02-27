@@ -25,6 +25,8 @@ export class UploadService {
  
   getFiles():Observable<any> {
     this._url="http://13.234.94.132:8080/getallfiles/"
-    return this.http.get(this._url);
+    return this.http.get(this._url,{
+      
+    });
   }
 }

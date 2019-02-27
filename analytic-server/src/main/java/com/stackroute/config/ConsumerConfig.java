@@ -1,8 +1,7 @@
-package com.stackroute.Config;
+package com.stackroute.config;
 
 import com.stackroute.domain.Paragraph;
 import org.apache.kafka.common.serialization.StringDeserializer;
-import org.json.simple.JSONObject;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.annotation.EnableKafka;
