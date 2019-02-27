@@ -57,28 +57,6 @@ public class NlpServiceImplTest {
     }
 
     @Test
-    public void getAllTokenizedSentencesSuccess() {
-        ArrayList<String> expected = new ArrayList();
-        expected.add("We are creating KnowledgeHub Application that makes sense of unstructured data which remain scattered in an organisation. ") ;
-        expected.add("Making sense of such scattered unstructured data and converting them into relevant knowledge is one critical challenge all organisations face.") ;
-
-        ArrayList<String> actual = nlpService.getAllTokenizedSentences();
-        Assert.assertEquals(actual,expected);
-
-    }
-
-    @Test
-    public void getAllTokenizedSentencesFailure() {
-        ArrayList<String> expected = new ArrayList();
-        expected.add("We are creating KnowledgeHub Application that makes sense of unstructured data which remain scattered in an organisation.") ;
-        expected.add("Making sense of such scattered unstructured data and converting them into relevant knowledge is one critical challenge all organisations face. ") ;
-
-        ArrayList<String> actual = nlpService.getAllTokenizedSentences();
-        Assert.assertNotEquals(actual,expected);
-
-    }
-
-    @Test
     public void getParagrahWithSentences() {
 
     }
@@ -160,20 +138,6 @@ public class NlpServiceImplTest {
     public void getPOSWordsFailure() {
         String expected = "[POSTagging{originalWord='create', POSTag=' VB'}, POSTagging{originalWord='application', POSTag='NN'}, POSTagging{originalWord='make', POSTag='VB'}, POSTagging{originalWord='sense', POSTag='NN'}, POSTagging{originalWord='unstructured', POSTag='JJ'}, POSTagging{originalWord='datum', POSTag='NN'}, POSTagging{originalWord='remain', POSTag='VBP'}, POSTagging{originalWord='scatter', POSTag='NN'}, POSTagging{originalWord='organisation', POSTag='NN'}, POSTagging{originalWord='.', POSTag='.'}, POSTagging{originalWord='make', POSTag='VB'}, POSTagging{originalWord='sense', POSTag='NN'}, POSTagging{originalWord='of', POSTag='IN'}, POSTagging{originalWord='scatter', POSTag='NN'}, POSTagging{originalWord='unstructured', POSTag='JJ'}, POSTagging{originalWord='datum', POSTag='NN'}, POSTagging{originalWord='convert', POSTag='VBP'}, POSTagging{originalWord='relevant', POSTag='JJ'}, POSTagging{originalWord='knowledge', POSTag='NN'}, POSTagging{originalWord='be', POSTag='VB'}, POSTagging{originalWord='one', POSTag='CD'}, POSTagging{originalWord='critical', POSTag='JJ'}, POSTagging{originalWord='challenge', POSTag='NN'}, POSTagging{originalWord='organisation', POSTag='NN'}, POSTagging{originalWord='face', POSTag='NN'}, POSTagging{originalWord='.', POSTag='.'}]";
         ArrayList<POSTagging> actual = nlpService.getPOSWords();
-        Assert.assertNotEquals(actual.toString(),expected);
-    }
-
-    @Test
-    public void getFrequencyOfWordsSuccess() {
-        String expected ="{datum=2, be=1, critical=1, remain=1, one=1, organisation=2, sense=2, convert=1, .=2, relevant=1, face=1, application=1, unstructured=2, scatter=2, of=1, create=1, challenge=1, KnowledgeHub=1, make=2, knowledge=1}";
-        HashMap<String, Long> actual = nlpService.getFrequencyOfWords();
-        Assert.assertEquals(actual.toString(),expected);
-    }
-
-    @Test
-    public void getFrequencyOfWordsFailure() {
-        String expected ="{ organisation=2, sense=2, convert=1, .=2, relevant=1,  face=1, application=1, unstructured=2, scatter=2, of=1, create=1, challenge=1, KnowledgeHub=1, make=2, knowledge=1}";
-        HashMap<String, Long> actual = nlpService.getFrequencyOfWords();
         Assert.assertNotEquals(actual.toString(),expected);
     }
 
