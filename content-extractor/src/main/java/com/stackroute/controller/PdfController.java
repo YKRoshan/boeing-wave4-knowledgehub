@@ -40,6 +40,10 @@ public class PdfController {
         @Value("${fileNotFound}")
         private String fileNotFound;
 
+        @Value("${url}")
+        private String fileUrl;
+
+
         private String path;
         File file1;
 
@@ -99,7 +103,7 @@ public class PdfController {
         {
             try
             {
-                PdfDocument jsonString = contentExtractionService.extractFromURL("http://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf");
+                PdfDocument jsonString = contentExtractionService.extractFromURL(fileUrl);
                 return ResponseEntity.status(HttpStatus.OK).body(jsonString.toString());
             }
             catch (Exception e)
