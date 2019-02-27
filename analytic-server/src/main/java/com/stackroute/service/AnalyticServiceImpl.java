@@ -32,6 +32,7 @@ public class AnalyticServiceImpl implements AnalyticService {
         this.paragraphProviderService = paragraphProviderService;
     }
 
+    // This method will return all the nouns form NlpReuslt object
     public String getNounSentence() {
         NlpResult nlpResult = nlpResultService.getNlpResult();
         StringBuilder nounSentence = new StringBuilder();
@@ -42,6 +43,7 @@ public class AnalyticServiceImpl implements AnalyticService {
         return nounSentence.toString().trim().toLowerCase();
     }
 
+    // Here we calculate the frequency of each spring concept occuring in paragraph
     public ArrayList<ConceptNameFrequency> getFrequencyOfSpringConcepts() {
         String paragraphWithOutStopWords = nlpResultService.getNlpResult().getParagraphWithOutStopWords().toLowerCase();
         ArrayList<ConceptNameFrequency> wordsFrequencyMap = new ArrayList<>();
@@ -60,6 +62,7 @@ public class AnalyticServiceImpl implements AnalyticService {
         return wordsFrequencyMap;
     }
 
+    // Here we sort the spring concepts according to their frequency count and return mostly used spring concept
     public String getMostAccurateConceptName() {
         ArrayList<ConceptNameFrequency> conceptNameFrequenciesList = getFrequencyOfSpringConcepts();
         conceptNameFrequenciesList.sort(new Comparator<ConceptNameFrequency>() {
@@ -79,6 +82,7 @@ public class AnalyticServiceImpl implements AnalyticService {
         return conceptName;
     }
 
+    // This will return the sentence with all the verbs
     public String getVerbSentence() {
         StringBuilder verbSentence = new StringBuilder();
         ArrayList<String> verbs = new ArrayList<>(nlpResultService.getNlpResult().getVerbWords());
@@ -88,10 +92,12 @@ public class AnalyticServiceImpl implements AnalyticService {
         return verbSentence.toString().trim().toLowerCase();
     }
 
+    // need to work on confidenceScore
     public double getConfidenceScore() {
         return 25.5;
     }
 
+    // We calculate the intent level based on the verbSentence we get
     public String getIntentLevel() {
         String verbSentence = getVerbSentence().toLowerCase();
         ArrayList<ArrayList<String>> intentLevelList = new ArrayList<>();
@@ -124,6 +130,7 @@ public class AnalyticServiceImpl implements AnalyticService {
         return intents[intentLevel];
     }
 
+    // We calculate Analysis Result and return theis AnalysisResult object with all properties
     public AnalysisResult getAnalysisResult() {
         AnalysisResult analysisResult = new AnalysisResult();
         analysisResult.setConfidenceScore(getConfidenceScore());
