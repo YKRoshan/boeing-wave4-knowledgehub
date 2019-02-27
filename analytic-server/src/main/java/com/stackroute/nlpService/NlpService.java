@@ -19,10 +19,6 @@ import java.util.Properties;
 public interface NlpService {
     public String getCleanerParagrah();
 
-//    public ArrayList<String> getAllTokenizedSentences();
-
-//    public String getParagrahWithSentences();
-
     public ArrayList<String> getLemmitizedWords();
 
     public ArrayList<String> getStemmedWords();

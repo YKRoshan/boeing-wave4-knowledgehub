@@ -33,10 +33,7 @@ public class KafkaConsumer {
     //  private static final String TOPIC = "Kafka_Example2";
     @KafkaListener(topics = "ParagraphContents", groupId = "group_id")
     public void consume(String message) {
-        System.out.println("Consumed message: " + message);
-
         JSONObject object = (JSONObject) JSONValue.parse(message);
-
         Paragraph paragraph = new Paragraph(object.get("paragraphId").toString(), object.get("paragraphText").toString(), object.get("documentId").toString());
         System.out.println(paragraph.getDocumentId());
         System.out.println(paragraph.getParagraphId());
