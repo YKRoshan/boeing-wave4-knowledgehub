@@ -35,7 +35,7 @@ public class AuthRestAPI {
 
     //this method is called when /api/auth/signIn end point is called
     @PostMapping("/signin")
-    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginForm loginRequest) throws SecurityException , SessionAuthenticationException  {
+    public ResponseEntity authenticateUser(@Valid @RequestBody LoginForm loginRequest) throws SecurityException , SessionAuthenticationException  {
         //authentication manager verifies username and password received against database
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));

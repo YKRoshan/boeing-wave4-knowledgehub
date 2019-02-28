@@ -181,6 +181,17 @@ services:
     expose:
       - 8085
 
+  search-upstream-service:
+    image: search-upstream-service:latest
+    build: search-upstream-service/
+    restart: always
+    network_mode: "host"
+    hostname: localhost
+    ports:
+      - 8094:8094
+    expose:
+      - 8094
+
   knowledge-indexer:
     image: knowledge-indexer:latest
     build: knowledge-indexer/

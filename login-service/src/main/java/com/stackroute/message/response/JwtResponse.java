@@ -9,7 +9,7 @@ public class JwtResponse {
     private String token;
     private String type = "Bearer";
     private String username;
-    private Collection<? extends GrantedAuthority> authorities;
+    private Collection< GrantedAuthority> authorities;
 
     public JwtResponse(String accessToken, String username) {
         this.token = accessToken;
@@ -41,7 +41,7 @@ public class JwtResponse {
         this.username = username;
     }
 
-    public Collection<? extends GrantedAuthority> getAuthorities() {
+    public Collection< GrantedAuthority> getAuthorities() {
         return authorities;
     }
 
