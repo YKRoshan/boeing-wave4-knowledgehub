@@ -1,6 +1,6 @@
 package com.stackroute.domain;
 
-import com.stackroute.nlpService.POSTagging;
+import com.stackroute.nlpservice.POSTagging;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

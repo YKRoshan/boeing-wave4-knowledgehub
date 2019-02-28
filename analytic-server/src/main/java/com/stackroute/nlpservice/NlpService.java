@@ -1,8 +1,7 @@
-package com.stackroute.nlpService;
+package com.stackroute.nlpservice;
 
 import com.stackroute.domain.NlpResult;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public interface NlpService {

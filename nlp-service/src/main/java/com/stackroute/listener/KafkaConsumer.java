@@ -17,15 +17,15 @@
 //@Service
 //public class KafkaConsumer {
 //    private KafkaProducer kafkaProducer;
-//    private NlpService nlpService;
+//    private NlpService nlpservice;
 //    private QuestionStorageService questionStorageService;
 //
 //    @Autowired
-//    public KafkaConsumer(NlpService nlpService,
+//    public KafkaConsumer(NlpService nlpservice,
 //                         KafkaProducer kafkaProducer,
 //                         QuestionStorageService questionStorageService) {
 //        this.kafkaProducer = kafkaProducer;
-//        this.nlpService = nlpService;
+//        this.nlpservice = nlpservice;
 //        this.questionStorageService = questionStorageService;
 //    }
 //
@@ -34,10 +34,10 @@
 //        JSONObject object = (JSONObject) JSONValue.parse(message);
 //        SearchJSON searchJSON = new SearchJSON(object.get("searchString").toString(), object.get("sessionId").toString());
 //        ArrayList<String> concepts = new ArrayList<>(Arrays.asList("annotations", "ioc container", "beans", "spring core", "spring data jpa", "spring datajpa", "spring aop", "spring security", "spring cloud", "spring reactive", "spring mvc"));
-//        nlpService.setSessonId(searchJSON.getSessonId());
-//        nlpService.setParagraph(searchJSON.getSearchString());
-//        nlpService.setConceptName(concepts);
-//        NlpResult nlpResult = nlpService.getNlpResults();
+//        nlpservice.setSessonId(searchJSON.getSessonId());
+//        nlpservice.setParagraph(searchJSON.getSearchString());
+//        nlpservice.setConceptName(concepts);
+//        NlpResult nlpResult = nlpservice.getNlpResults();
 //        if (nlpResult.getIntent().equalsIgnoreCase("no intent found")) {
 //            String searchStringQuestion = searchJSON.getSearchString();
 //            questionStorageService.saveQuestion(searchStringQuestion);

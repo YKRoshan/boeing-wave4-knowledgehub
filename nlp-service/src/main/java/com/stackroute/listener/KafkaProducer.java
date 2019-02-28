@@ -8,9 +8,9 @@
 //
 //@Service
 //public class KafkaProducer {
-//    private NlpService nlpService;
-//    public KafkaProducer(NlpService nlpService){
-//        this.nlpService=nlpService;
+//    private NlpService nlpservice;
+//    public KafkaProducer(NlpService nlpservice){
+//        this.nlpservice=nlpservice;
 //    }
 //    @Autowired
 //    private KafkaTemplate<String, NlpResult> kafkaTemplate2;
@@ -18,7 +18,7 @@
 //    private static final String TOPIC = "NLPResults";
 //
 //    public String postservice() {
-//        NlpResult nlpResult = nlpService.getNlpResults();
+//        NlpResult nlpResult = nlpservice.getNlpResults();
 //        kafkaTemplate2.send(TOPIC, nlpResult);
 //        return "Published successfully";
 //    }

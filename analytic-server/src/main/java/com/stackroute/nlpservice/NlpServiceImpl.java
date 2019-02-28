@@ -1,4 +1,4 @@
-package com.stackroute.nlpService;
+package com.stackroute.nlpservice;
 
 import com.aliasi.tokenizer.IndoEuropeanTokenizerFactory;
 import com.aliasi.tokenizer.PorterStemmerTokenizerFactory;
