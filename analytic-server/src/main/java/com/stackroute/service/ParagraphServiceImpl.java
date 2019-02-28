@@ -2,8 +2,7 @@ package com.stackroute.service;
 
 import com.stackroute.domain.NlpResult;
 import com.stackroute.domain.Paragraph;
-import com.stackroute.nlpService.NlpService;
-import com.stackroute.nlpService.NlpServiceImpl;
+import com.stackroute.nlpservice.NlpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -2,13 +2,9 @@ package com.stackroute.service;
 
 import com.stackroute.domain.Concept;
 import com.stackroute.repository.ConceptRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 
 @Service
 public class ConceptServiceImpl implements ConceptSerive {

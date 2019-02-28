@@ -1,11 +1,9 @@
 package com.stackroute.service;
 
 import com.stackroute.domain.AnalysisResult;
-import com.stackroute.nlpService.NlpService;
 
 import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.List;
 
 public interface AnalyticService {
     public String getNounSentence();
@@ -14,7 +12,7 @@ public interface AnalyticService {
 
     public AnalysisResult getAnalysisResult();
 
-    public ArrayList<String> getConceptNames();
+    public List<String> getConceptNames();
 
-    public void setConceptNames(ArrayList<String> conceptNames);
+    public void setConceptNames(List<String> conceptNames);
 }

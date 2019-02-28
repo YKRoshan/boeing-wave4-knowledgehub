@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Paragraph {
-
     private String paragraphId;
     private String paragraphContent;
     private String documentId;

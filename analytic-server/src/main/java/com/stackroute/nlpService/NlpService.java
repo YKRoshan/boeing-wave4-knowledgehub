@@ -1,43 +1,28 @@
 package com.stackroute.nlpService;
 
-import com.aliasi.sentences.IndoEuropeanSentenceModel;
-import com.aliasi.sentences.SentenceModel;
-import com.aliasi.tokenizer.*;
 import com.stackroute.domain.NlpResult;
-import edu.stanford.nlp.ling.CoreAnnotations;
-import edu.stanford.nlp.ling.CoreLabel;
-import edu.stanford.nlp.pipeline.Annotation;
-import edu.stanford.nlp.pipeline.CoreDocument;
-import edu.stanford.nlp.pipeline.StanfordCoreNLP;
-import edu.stanford.nlp.util.CoreMap;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Properties;
 
 public interface NlpService {
     public String getCleanerParagrah();
 
-    public ArrayList<String> getLemmitizedWords();
+    public List<String> getLemmitizedWords();
 
-    public ArrayList<String> getStemmedWords();
-
-    public ArrayList<String> getWordsWithoutStopWords();
+    public List<String> getWordsWithoutStopWords();
 
     public String getParagraphWithOutStopWords();
 
-    public ArrayList<POSTagging> getPOSWords();
+    public List<POSTagging> getPOSWords();
 
-    public ArrayList<String> getNouns();
+    public List<String> getNouns();
 
-    public ArrayList<String> getVerbs();
+    public List<String> getVerbs();
 
     public NlpResult getNlpResults();
 
-    public ArrayList<String> getConceptNames();
-
-    public void setConceptNames(ArrayList<String> conceptNames);
+    public void setConceptNames(List<String> conceptNames);
 
     public String getParagraphContent();
 

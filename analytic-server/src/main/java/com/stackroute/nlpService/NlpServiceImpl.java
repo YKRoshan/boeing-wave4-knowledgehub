@@ -1,8 +1,9 @@
 package com.stackroute.nlpService;
 
-import com.aliasi.sentences.IndoEuropeanSentenceModel;
-import com.aliasi.sentences.SentenceModel;
-import com.aliasi.tokenizer.*;
+import com.aliasi.tokenizer.IndoEuropeanTokenizerFactory;
+import com.aliasi.tokenizer.PorterStemmerTokenizerFactory;
+import com.aliasi.tokenizer.Tokenization;
+import com.aliasi.tokenizer.TokenizerFactory;
 import com.stackroute.domain.NlpResult;
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreLabel;
@@ -14,7 +15,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
+
 
 @Service
 @PropertySource(value = "classpath:application.properties")
@@ -23,36 +27,28 @@ public class NlpServiceImpl implements NlpService {
     private String paragraphContent;
     private ArrayList<String> conceptNames;
     @Value("${stopwords}")
-    private String stopwords[];
+    private String[] stopwords;
 
     public String getCleanerParagrah() {
         String inputParagraph = getParagraphContent();
-        // Data Cleaning by removing extra spaces.
         inputParagraph = inputParagraph.trim();
         inputParagraph = inputParagraph.replaceAll("\\s+", " ");
         inputParagraph = inputParagraph.replaceAll("\\t", " ");
 
         String[] tokenizedWord = inputParagraph.split(" ");
-        StringBuffer cleanedParagraph = new StringBuffer();
+        StringBuilder cleanedParagraph = new StringBuilder();
         for (int i = 0; i < tokenizedWord.length; i++) {
             cleanedParagraph.append(tokenizedWord[i] + " ");
         }
         return cleanedParagraph.toString().trim();
     }
 
-    public ArrayList<String> getLemmitizedWords() {
+    public List<String> getLemmitizedWords() {
         Properties properties = new Properties();
         properties.setProperty("annotator", "lemma");
-        // StanfordCoreNLP uses pipeline and this pipeline is create
-        // based on the properties we specity in java.util.Properties
-        // different set of propeties provide different NLP tasks
         StanfordCoreNLP pipeline = new StanfordCoreNLP(properties);
-        // This annotations object gives the special meaning to the
-        // string we used in propeties.put() method
         Annotation annotations = new Annotation(getCleanerParagrah());
-        // pipeline.annotate(annotations)  provies the annotation to those particular objects.
         pipeline.annotate(annotations);
-        // sentenceList contains list of sentences
         ArrayList<String> lemmaWords = new ArrayList<>();
         ArrayList<String> originalWords = new ArrayList<>();
         List<CoreMap> sentenceList = annotations.get(CoreAnnotations.SentencesAnnotation.class);
@@ -65,10 +61,10 @@ public class NlpServiceImpl implements NlpService {
         return lemmaWords;
     }
 
-    public ArrayList<String> getStemmedWords() {
+    public List<String> getStemmedWords() {
         TokenizerFactory tokenizerFactory = IndoEuropeanTokenizerFactory.INSTANCE;
         TokenizerFactory porterFactory = new PorterStemmerTokenizerFactory(tokenizerFactory);
-        ArrayList<String> wordTokens = getLemmitizedWords();
+        ArrayList<String> wordTokens = new ArrayList<>(getLemmitizedWords());
         ArrayList<String> stemmedWordsList = new ArrayList<>();
         for (String word : wordTokens) {
             Tokenization tokenization = new Tokenization(word, porterFactory);
@@ -77,26 +73,26 @@ public class NlpServiceImpl implements NlpService {
         return stemmedWordsList;
     }
 
-    public ArrayList<String> getWordsWithoutStopWords() {
-        ArrayList<String> wordsWithOutStopwords = getLemmitizedWords();
+    public List<String> getWordsWithoutStopWords() {
+        ArrayList<String> wordsWithOutStopwords = new ArrayList<>(getLemmitizedWords());
         for (int j = 0; j < stopwords.length; j++) {
             if (wordsWithOutStopwords.contains(stopwords[j])) {
-                wordsWithOutStopwords.remove(stopwords[j]);//remove it
+                wordsWithOutStopwords.remove(stopwords[j]);
             }
         }
         return wordsWithOutStopwords;
     }
 
     public String getParagraphWithOutStopWords() {
-        ArrayList<String> wordsWithOutStopwords = getWordsWithoutStopWords();
-        StringBuffer paragraphWithOutStopWords = new StringBuffer();
+        ArrayList<String> wordsWithOutStopwords = new ArrayList<>(getWordsWithoutStopWords());
+        StringBuilder paragraphWithOutStopWords = new StringBuilder();
         for (int i = 0; i < wordsWithOutStopwords.size(); i++) {
             paragraphWithOutStopWords.append(wordsWithOutStopwords.get(i) + " ");
         }
         return paragraphWithOutStopWords.toString().trim();
     }
 
-    public ArrayList<POSTagging> getPOSWords() {
+    public List<POSTagging> getPOSWords() {
         Properties properties = new Properties();
         properties.setProperty("annotator", "pos");
         StanfordCoreNLP pipeline = new StanfordCoreNLP(properties);
@@ -111,22 +107,22 @@ public class NlpServiceImpl implements NlpService {
         return wordsWithPOSTag;
     }
 
-    public ArrayList<String> getNouns() {
+    public List<String> getNouns() {
         ArrayList<POSTagging> posTaggings = new ArrayList<>(getPOSWords());
         ArrayList<String> nounWords = new ArrayList<>();
         for (int i = 0; i < posTaggings.size(); i++) {
-            if (posTaggings.get(i).getPOSTag().contains("NN")) {
+            if (posTaggings.get(i).getPosTag().contains("NN")) {
                 nounWords.add(posTaggings.get(i).getOriginalWord());
             }
         }
         return nounWords;
     }
 
-    public ArrayList<String> getVerbs() {
+    public List<String> getVerbs() {
         ArrayList<POSTagging> posTaggings = new ArrayList<>(getPOSWords());
         ArrayList<String> verbWords = new ArrayList<>();
         for (int i = 0; i < posTaggings.size(); i++) {
-            if (posTaggings.get(i).getPOSTag().contains("VB")) {
+            if (posTaggings.get(i).getPosTag().contains("VB")) {
                 verbWords.add(posTaggings.get(i).getOriginalWord());
             }
         }
@@ -144,11 +140,11 @@ public class NlpServiceImpl implements NlpService {
         return nlpResult;
     }
 
-    public ArrayList<String> getConceptNames() {
+    public List<String> getConceptNames() {
         return conceptNames;
     }
 
-    public void setConceptNames(ArrayList<String> conceptNames) {
+    public void setConceptNames(List<String> conceptNames) {
         this.conceptNames = new ArrayList<>(conceptNames);
     }
 
