@@ -3,6 +3,8 @@ package com.stackroute.service;
 import com.aliasi.sentences.IndoEuropeanSentenceModel;
 import com.aliasi.sentences.SentenceModel;
 import com.aliasi.tokenizer.*;
+import com.stackroute.Domain.ConceptNameFrequency;
+import com.stackroute.Domain.NlpResult;
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.pipeline.Annotation;
@@ -16,16 +18,44 @@ import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 @Service
 @PropertySource(value = "classpath:application.properties")
 public class NlpServiceImpl implements NlpService {
 
-    String paragraph;
-    String paragraphId = "para001";
-    String documentId = "doc001";
+    private String paragraph;
+    private String sessonId;
+    private ArrayList<String> conceptName;
 
-    String[] stopwords={"i", "me", "my", "myself", "we", "our", "ours", "ourselves", "could", "he'd","he'll", "he's", "here's", "how's", "ought", "she'd", "she'll", "that's", "there's", "they'd","they'll", "they're", "they've", "we'd", "we'll", "we're", "we've", "what's", "when's", "where's","who's", "why's", "would", "i'd", "i'll", "i'm", "i've", "you", "you're", "you've", "you'll","you'd", "your", "yours", "yourself", "yourselves", "he", "him", "his", "himself", "she","she's", "her", "hers", "herself", "it", "it's", "its", "itself", "they", "them", "their","theirs", "themselves", "what", "which", "who", "whom", "this", "that", "that'll", "these","those", "am", "is", "are", "was", "were", "be", "been", "being", "have", "has", "had", "having","do", "does", "did", "doing", "a", "an", "the", "and", "but", "if", "or", "because", "as", "until","while", "of", "at", "by", "for", "with", "about", "against", "between", "into", "through","during", "before", "after", "above", "below", "to", "from", "up", "down", "in", "out", "off", "over", "under", "again", "further", "then", "once", "here", "there", "when", "where","why", "how", "all", "any", "both", "each", "few", "more", "most", "other", "some", "such", "no","nor", "not", "only", "own", "same", "so", "than", "too", "very", "s", "t", "can", "will","just", "don", "don't", "should", "should've", "now", "d", "ll", "m", "o", "re", "ve", "y", "ain","aren", "aren't", "couldn", "couldn't", "didn", "didn't", "doesn", "doesn't", "hadn", "hadn't","hasn", "hasn't", "haven", "haven't", "isn", "isn't", "ma", "mightn", "mightn't", "mustn", "mustn't","needn", "needn't", "shan", "shan't", "shouldn", "shouldn't", "wasn", "wasn't", "weren", "weren't","won", "won't", "wouldn", "wouldn't"};
-    String[] domainSpecificNgrams={"annotations", "ioc container", "beans", "spring core", "spring data jpa", "spring datajpa","spring aop", "spring security", "spring cloud", "spring reactive", "spring mvc"};
+    public ArrayList<String> getConceptName() {
+        return conceptName;
+    }
+
+    public void setConceptName(ArrayList<String> conceptName) {
+        this.conceptName = conceptName;
+    }
+
+    public String getParagraph() {
+        return paragraph;
+    }
+
+    public String getSessonId() {
+        return sessonId;
+    }
+
+    public void setSessonId(String sessonId) {
+        this.sessonId = sessonId;
+    }
+
+    String[] stopwords = {"i", "me", "my", "myself", "we", "our", "ours", "ourselves", "could", "he'd", "he'll", "he's", "here's", "how's", "ought", "she'd", "she'll", "that's", "there's", "they'd", "they'll", "they're", "they've", "we'd", "we'll", "we're", "we've", "when's", "where's", "who's", "why's", "would", "i'd", "i'll", "i'm", "i've", "you", "you're", "you've", "you'll", "you'd", "your", "yours", "yourself", "yourselves", "he", "him", "his", "himself", "she", "she's", "her", "hers", "herself", "it", "it's", "its", "itself", "they", "them", "their", "theirs", "themselves", "which", "who", "whom", "this", "that", "that'll", "these", "those", "am", "is", "are", "was", "were", "be", "been", "being", "have", "has", "had", "having", "do", "does", "did", "doing", "a", "an", "the", "and", "but", "if", "or", "because", "as", "until", "while", "of", "at", "by", "for", "with", "about", "against", "between", "into", "through", "during", "before", "after", "above", "below", "to", "from", "up", "down", "in", "out", "off", "over", "under", "again", "further", "then", "once", "here", "there", "when", "where", "why", "how", "all", "any", "both", "each", "few", "more", "most", "other", "some", "such", "no", "nor", "not", "only", "own", "same", "so", "than", "too", "very", "s", "t", "can", "will", "just", "don", "don't", "should", "should've", "now", "d", "ll", "m", "o", "re", "ve", "y", "ain", "aren", "aren't", "couldn", "couldn't", "didn", "didn't", "doesn", "doesn't", "hadn", "hadn't", "hasn", "hasn't", "haven", "haven't", "isn", "isn't", "ma", "mightn", "mightn't", "mustn", "mustn't", "needn", "needn't", "shan", "shan't", "shouldn", "shouldn't", "wasn", "wasn't", "weren", "weren't", "won", "won't", "wouldn", "wouldn't"};
+    private ArrayList<String> knowledge = new ArrayList<>(Arrays.asList("What", "Count", "Read", "Define", "Recall", "Describe", "Recite", "Draw", "Record", "Enumerate", "Reproduce", "Find", "Select", "Identify", "Sequence", "Label", "State", "List", "Tell", "Match", "View", "Name", "Write", "Quote"));
+    private ArrayList<String> comprehension = new ArrayList<>(Arrays.asList("Classify", "Interpret", "Cite", "Locate", "Conclude", "Make", "sense", "of", "make sense of", "Convert", "Paraphrase", "Describe", "Predict", "Discuss", "Report", "Estimate", "Restate", "Explain", "Review", "Generalize", "Summarize", "Give", "examples", "give examples", "example", "given example", "given examples", "Trace", "Illustrate", "Understand"));
+    private ArrayList<String> application = new ArrayList<>(Arrays.asList("Act", "Imitate", "Administer", "Implement", "Articulate", "Interview", "Assess", "Include", "Change", "Inform", "Chart", "Instruct", "Choose", "Paint", "Collect", "Participate", "Compute", "Predict", "Construct", "Prepare", "Contribute", "Produce", "Control", "Provide", "Demonstrate", "Relate", "Determine", "Report", "Develop", "Select", "Discover", "Show", "Dramatize", "Solve", "Draw", "Transfer", "Establish", "Use", "Extend", "Utilize"));
+    private ArrayList<String> analysis = new ArrayList<>(Arrays.asList("Break down", "Focus", "Characterize", "Illustrate", "Classify", "Infer", "Compare", "Limit", "Contrast", "Outline", "Correlate", "Pointout", "Debate", "Prioritize", "Deduce", "Recognize", "Diagram", "Research", "Differentiate", "Relate", "Discriminate", "Separate", "Distinguish", "Subdivide", "Examine"));
+    private ArrayList<String> synthesis = new ArrayList<>(Arrays.asList("Adapt", "Intervene", "Anticipate", "Invent", "Categorize", "Makeup", "Collaborate", "Model", "Combine", "Modify", "Communicate", "Negotiate", "Compare", "Organize", "Compile", "Perform", "Compose", "Plan", "Construct", "Pretend", "Contrast", "Produce", "Create", "Progress", "Design", "Propose", "Develop", "Rearrange", "Devise", "Reconstruct", "Express", "Reinforce", "Facilitate", "Reorganize", "Formulate", "Revise", "Generate", "Rewrite", "Incorporate", "Structure", "Individualize", "Substitute", "Initiate", "Validate", "Integrate"));
+    private ArrayList<String> evaluation = new ArrayList<>(Arrays.asList("Appraise", "Interpret", "Argue", "Judge", "Assess", "Justify", "Choose", "Predict", "Compare&Contrast", "compare & contrast", "Prioritize", "Conclude", "Prove", "Criticize", "Rank", "Critique", "Rate", "Decide", "Reframe", "Defend", "Select", "Evaluate", "Support"));
 
     public void setParagraph(String paragraph) {
         this.paragraph = paragraph;
@@ -124,6 +154,60 @@ public class NlpServiceImpl implements NlpService {
         ArrayList<String> allStopWords = new ArrayList<>(getWordsWithoutStopWords());
         String paragraphWithOutStopWords = new String(getParagraphWithOutStopWords());
         ArrayList<POSTagging> posTaggings = new ArrayList<>(getPOSWords());
+    }
+
+    public ArrayList<ConceptNameFrequency> getFrequencyOfSpringConcepts() {
+        String paragraphWithOutStopWords = getParagraphWithOutStopWords().toLowerCase();
+        ArrayList<ConceptNameFrequency> wordsFrequencyMap = new ArrayList<>();
+        for (int i = 0; i < conceptName.size(); i++) {
+            long counter = 0;
+            wordsFrequencyMap.add(new ConceptNameFrequency(conceptName.get(i), counter));
+            String pattenString = conceptName.get(i).toLowerCase();
+            Pattern pattern = Pattern.compile(pattenString);
+            Matcher matcher = pattern.matcher(paragraphWithOutStopWords);
+            while (matcher.find()) {
+                long tempCount = wordsFrequencyMap.get(i).getFrequencyCount();
+                tempCount++;
+                wordsFrequencyMap.get(i).setFrequencyCount(tempCount);
+            }
+        }
+        return wordsFrequencyMap;
+    }
+
+    public String getMostAccurateConceptName() {
+        ArrayList<ConceptNameFrequency> conceptNameFrequenciesList = getFrequencyOfSpringConcepts();
+        conceptNameFrequenciesList.sort(new Comparator<ConceptNameFrequency>() {
+            @Override
+            public int compare(ConceptNameFrequency o1, ConceptNameFrequency o2) {
+                return (int) (o2.getFrequencyCount() - o1.getFrequencyCount());
+            }
+        });
+        String conceptName = new String();
+        long max = Integer.MIN_VALUE;
+        for (int i = 0; i < conceptNameFrequenciesList.size(); i++) {
+            if (max <= conceptNameFrequenciesList.get(i).getFrequencyCount()) {
+                max = conceptNameFrequenciesList.get(i).getFrequencyCount();
+                conceptName = conceptNameFrequenciesList.get(i).getConceptName();
+            }
+        }
+        return conceptName;
+    }
+@Override
+    public String getUserIntent(String searchString) {
+        String [] searchWords = searchString.split(" ");
+        for(int i=0;i<knowledge.size();i++){
+
+        }
+        return "knowledge";
+    }
+
+    public NlpResult getNlpResults(String searchString) {
+        NlpResult nlpResult = new NlpResult();
+        nlpResult.setConcept(getMostAccurateConceptName());
+        nlpResult.setIntent(getUserIntent(searchString));
+
+        nlpResult.setSessonId(getSessonId());
+        return nlpResult;
     }
 
 }
