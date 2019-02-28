@@ -16,7 +16,6 @@ import java.util.List;
 @Slf4j
 public class QueryEngineController {
 
-
     private QueryEngineService queryEngineService;
 
     @Autowired
@@ -25,24 +24,8 @@ public class QueryEngineController {
     }
 
     //Code used for testing the methods
-//    @GetMapping(value = "/{concept}/{intentLevel}")
-//    public ResponseEntity<?> getQueryResult(@PathVariable("concept") String concept, @PathVariable("intentLevel")String intentLevel)
-//        {
-//
-//        ResponseEntity responseEntity;
-//        try {
-//            return new ResponseEntity<Optional<Track>>(trackService.getTrackById(id),HttpStatus.OK);
-//        }
-//        catch (Exception ex)
-//        {
-//            responseEntity = new ResponseEntity<String>(ex.getMessage(),HttpStatus.CONFLICT);
-//        }
-//        return responseEntity;
-//    }
-
     @GetMapping("/{concept}/{intentLevel}")
     public ResponseEntity<List<Knowledge>> getKnowledgeNode(@PathVariable("concept") String concept, @PathVariable("intentLevel") String intentLevel) {
-
         ResponseEntity responseEntity;
         responseEntity = new ResponseEntity<List<Knowledge>>((List<Knowledge>) queryEngineService.getQueryResult(concept,intentLevel),HttpStatus.OK);
         return responseEntity;

@@ -37,6 +37,7 @@
         <module>knowledge-indexer</module>
 	    <module>document-provider</module>
         <module>analytic-server</module>
+        <module>query-engine</module>
     </modules>
     <dependencies>
         <dependency>
