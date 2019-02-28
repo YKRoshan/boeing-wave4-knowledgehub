@@ -1,3 +1,4 @@
+/** */
 export class JwtResponse {
     username: string;
     accessToken: string;
