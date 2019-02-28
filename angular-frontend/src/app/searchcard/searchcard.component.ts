@@ -1,3 +1,4 @@
+import { PageEvent } from '@angular/material';
 // import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { SearchinfoService } from '../service/searchinfo.service';
@@ -14,24 +15,29 @@ export class SearchcardComponent  {
   pageLength: number;
   pageSize: 2;
   pageSizeOptions = [2, 4, 6, 8];
-  splicedData: any;
+  splicedData: any; 
 
   constructor(private search:SearchinfoService ) { }
 
-  ngOnInit() {   
+  ngOnInit() { 
+      
     this.search.getAll().subscribe((data)=>{
-      console.log(data);
       this.info=data;
       this.pageLength=this.info.length;
       console.log(this.pageLength);
-      this.splicedData=this.info.slice(((0 + 1) - 1) * this.pageSize).slice(0, this.pageSize);
-      console.log(this.splicedData)
-    console.log("OnInit")});
+      this.loadData(0)});
+    
+   
+  }
+
+  loadData(pageIndex){
+    this.splicedData= this.info.slice(pageIndex,pageIndex+2);
   }
 
   pageChangeEvent(event) {
     const offset = ((event.pageIndex + 1) - 1) * event.pageSize;
     this.splicedData = this.info.slice(offset).slice(0, event.pageSize);
   }
+
 
 }
