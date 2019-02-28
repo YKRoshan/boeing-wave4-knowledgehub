@@ -2,14 +2,10 @@ package com.stackroute.searchupstreamservice.controller;
 
 import com.stackroute.searchupstreamservice.domain.Search;
 import com.stackroute.searchupstreamservice.listener.KafkaProducer;
-import org.apache.tomcat.util.json.JSONParser;
-import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Iterator;
-import java.util.Map;
 
 //Controller class
 @CrossOrigin(origins = "*")

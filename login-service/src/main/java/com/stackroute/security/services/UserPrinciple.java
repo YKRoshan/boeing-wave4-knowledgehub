@@ -78,13 +78,4 @@ public class UserPrinciple implements UserDetails {
         return true;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        UserPrinciple user = (UserPrinciple) o;
-        return Objects.equals(id, user.id);
-    }
-
 }
