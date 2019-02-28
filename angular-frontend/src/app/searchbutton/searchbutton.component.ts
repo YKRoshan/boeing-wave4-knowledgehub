@@ -82,7 +82,7 @@ google(){
 }
 
 getdata() {   
-  this.router.navigate(['/cards']);
+  this.router.navigate(['searchinfo']);
 }
 }
 

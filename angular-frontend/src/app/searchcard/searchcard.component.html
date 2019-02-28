@@ -1,6 +1,6 @@
 <app-header></app-header>
-<app-searchbutton></app-searchbutton>
-<mat-card *ngFor='let c of info'>
+<!-- <app-searchbutton></app-searchbutton> -->
+<mat-card *ngFor='let c of splicedData'>
   <mat-card class="example-card"  class="nan">
    <mat-card-header>
      <mat-card-title id="title">{{c.title}}</mat-card-title>
@@ -15,4 +15,5 @@
    </mat-card-actions>
   </mat-card>
   </mat-card>
-  <app-paginator></app-paginator>
+  <mat-paginator (page)="pageChangeEvent($event)" [length]="pageLength" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions">
+  </mat-paginator>
