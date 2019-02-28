@@ -139,9 +139,6 @@ import { RouterModule } from '@angular/router';
     MDBBootstrapModule,
     HttpClientModule,
     AppRoutingModule,
-    RouterModule.forRoot([
-      {path : 'searchinfo', component: SearchcardComponent}
-    ])
   ],
   providers: [TokenService,SearchinfoService,
               AuthService,UploadService],
