@@ -32,12 +32,8 @@ public interface NlpService {
 
     public String getParagraphWithOutStopWords();
 
-    public ArrayList<POSTagging> getPOSWords();
+    public String getUserIntent();
 
-    public void showAllResults();
-
-    public String getUserIntent(String searchString);
-
-    public NlpResult getNlpResults(String searchString);
+    public NlpResult getNlpResults();
 
 }

@@ -43,6 +43,9 @@ public class NlpServiceImpl implements NlpService {
     public void setSessonId(String sessonId) {
         this.sessonId = sessonId;
     }
+    public void setParagraph(String paragraph) {
+        this.paragraph = paragraph;
+    }
 
     String[] stopwords = {"i", "me", "my", "myself", "we", "our", "ours", "ourselves", "could", "he'd", "he'll", "he's", "here's", "how's", "ought", "she'd", "she'll", "that's", "there's", "they'd", "they'll", "they're", "they've", "we'd", "we'll", "we're", "we've", "when's", "where's", "who's", "why's", "would", "i'd", "i'll", "i'm", "i've", "you", "you're", "you've", "you'll", "you'd", "your", "yours", "yourself", "yourselves", "he", "him", "his", "himself", "she", "she's", "her", "hers", "herself", "it", "it's", "its", "itself", "they", "them", "their", "theirs", "themselves", "which", "who", "whom", "this", "that", "that'll", "these", "those", "am", "is", "are", "was", "were", "be", "been", "being", "have", "has", "had", "having", "do", "does", "did", "doing", "a", "an", "the", "and", "but", "if", "or", "because", "as", "until", "while", "of", "at", "by", "for", "with", "about", "against", "between", "into", "through", "during", "before", "after", "above", "below", "to", "from", "up", "down", "in", "out", "off", "over", "under", "again", "further", "then", "once", "here", "there", "when", "where", "why", "how", "all", "any", "both", "each", "few", "more", "most", "other", "some", "such", "no", "nor", "not", "only", "own", "same", "so", "than", "too", "very", "s", "t", "can", "will", "just", "don", "don't", "should", "should've", "now", "d", "ll", "m", "o", "re", "ve", "y", "ain", "aren", "aren't", "couldn", "couldn't", "didn", "didn't", "doesn", "doesn't", "hadn", "hadn't", "hasn", "hasn't", "haven", "haven't", "isn", "isn't", "ma", "mightn", "mightn't", "mustn", "mustn't", "needn", "needn't", "shan", "shan't", "shouldn", "shouldn't", "wasn", "wasn't", "weren", "weren't", "won", "won't", "wouldn", "wouldn't"};
     private ArrayList<String> knowledge = new ArrayList<>(Arrays.asList("What", "Count", "Read", "Define", "Recall", "Describe", "Recite", "Draw", "Record", "Enumerate", "Reproduce", "Find", "Select", "Identify", "Sequence", "Label", "State", "List", "Tell", "Match", "View", "Name", "Write", "Quote"));
@@ -52,9 +55,6 @@ public class NlpServiceImpl implements NlpService {
     private ArrayList<String> synthesis = new ArrayList<>(Arrays.asList("Adapt", "Intervene", "Anticipate", "Invent", "Categorize", "Makeup", "Collaborate", "Model", "Combine", "Modify", "Communicate", "Negotiate", "Compare", "Organize", "Compile", "Perform", "Compose", "Plan", "Construct", "Pretend", "Contrast", "Produce", "Create", "Progress", "Design", "Propose", "Develop", "Rearrange", "Devise", "Reconstruct", "Express", "Reinforce", "Facilitate", "Reorganize", "Formulate", "Revise", "Generate", "Rewrite", "Incorporate", "Structure", "Individualize", "Substitute", "Initiate", "Validate", "Integrate"));
     private ArrayList<String> evaluation = new ArrayList<>(Arrays.asList("Appraise", "Interpret", "Argue", "Judge", "Assess", "Justify", "Choose", "Predict", "Compare&Contrast", "compare & contrast", "Prioritize", "Conclude", "Prove", "Criticize", "Rank", "Critique", "Rate", "Decide", "Reframe", "Defend", "Select", "Evaluate", "Support"));
 
-    public void setParagraph(String paragraph) {
-        this.paragraph = paragraph;
-    }
 
     public String getCleanerParagrah() {
         String inputParagraph = this.paragraph;
@@ -127,30 +127,6 @@ public class NlpServiceImpl implements NlpService {
         return paragraphWithOutStopWords.toString().trim();
     }
 
-    public ArrayList<POSTagging> getPOSWords() {
-        Properties properties = new Properties();
-        properties.setProperty("annotator", "pos");
-        StanfordCoreNLP pipeline = new StanfordCoreNLP(properties);
-        CoreDocument coreDocument = new CoreDocument(getParagraphWithOutStopWords());
-        pipeline.annotate(coreDocument);
-        List<CoreLabel> coreLabelsList = coreDocument.tokens();
-        ArrayList<POSTagging> wordsWithPOSTag = new ArrayList<>();
-        for (CoreLabel coreLabel : coreLabelsList) {
-            String partsOfSpeech = coreLabel.get(CoreAnnotations.PartOfSpeechAnnotation.class);
-            wordsWithPOSTag.add(new POSTagging(coreLabel.originalText(), partsOfSpeech));
-        }
-        return wordsWithPOSTag;
-    }
-
-    public void showAllResults() {
-        String clearedParagraph = new String(getCleanerParagrah());
-        ArrayList<String> allLemmas = new ArrayList<>(getLemmitizedWords());
-        ArrayList<String> allStems = new ArrayList<>(getStemmedWords());
-        ArrayList<String> allStopWords = new ArrayList<>(getWordsWithoutStopWords());
-        String paragraphWithOutStopWords = new String(getParagraphWithOutStopWords());
-        ArrayList<POSTagging> posTaggings = new ArrayList<>(getPOSWords());
-    }
-
     public ArrayList<ConceptNameFrequency> getFrequencyOfSpringConcepts() {
         String paragraphWithOutStopWords = getParagraphWithOutStopWords().toLowerCase();
         ArrayList<ConceptNameFrequency> wordsFrequencyMap = new ArrayList<>();
@@ -187,19 +163,15 @@ public class NlpServiceImpl implements NlpService {
         }
         return conceptName;
     }
-@Override
-    public String getUserIntent(String searchString) {
-        String [] searchWords = searchString.split(" ");
-        for(int i=0;i<knowledge.size();i++){
+    public String getUserIntent() {
 
-        }
         return "knowledge";
     }
 
-    public NlpResult getNlpResults(String searchString) {
+    public NlpResult getNlpResults() {
         NlpResult nlpResult = new NlpResult();
         nlpResult.setConcept(getMostAccurateConceptName());
-        nlpResult.setIntent(getUserIntent(searchString));
+        nlpResult.setIntent(getUserIntent());
 
         nlpResult.setSessonId(getSessonId());
         return nlpResult;
