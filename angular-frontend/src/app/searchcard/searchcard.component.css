@@ -15,8 +15,9 @@
     font-size: 2rem;
   }
   
-  /* .mat-paginator-sticky {
-    bottom: 0px;
-    position: sticky;
+  .mat-paginator-sticky {
+    left: 450px;
+    bottom: 20px;
+    position: fixed;
     z-index: 10;
-  } */
+  }
