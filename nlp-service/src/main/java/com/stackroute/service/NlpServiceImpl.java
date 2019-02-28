@@ -43,6 +43,7 @@ public class NlpServiceImpl implements NlpService {
     public void setSessonId(String sessonId) {
         this.sessonId = sessonId;
     }
+
     public void setParagraph(String paragraph) {
         this.paragraph = paragraph;
     }
@@ -54,7 +55,7 @@ public class NlpServiceImpl implements NlpService {
     private ArrayList<String> analysis = new ArrayList<>(Arrays.asList("Break down", "Focus", "Characterize", "Illustrate", "Classify", "Infer", "Compare", "Limit", "Contrast", "Outline", "Correlate", "Pointout", "Debate", "Prioritize", "Deduce", "Recognize", "Diagram", "Research", "Differentiate", "Relate", "Discriminate", "Separate", "Distinguish", "Subdivide", "Examine"));
     private ArrayList<String> synthesis = new ArrayList<>(Arrays.asList("Adapt", "Intervene", "Anticipate", "Invent", "Categorize", "Makeup", "Collaborate", "Model", "Combine", "Modify", "Communicate", "Negotiate", "Compare", "Organize", "Compile", "Perform", "Compose", "Plan", "Construct", "Pretend", "Contrast", "Produce", "Create", "Progress", "Design", "Propose", "Develop", "Rearrange", "Devise", "Reconstruct", "Express", "Reinforce", "Facilitate", "Reorganize", "Formulate", "Revise", "Generate", "Rewrite", "Incorporate", "Structure", "Individualize", "Substitute", "Initiate", "Validate", "Integrate"));
     private ArrayList<String> evaluation = new ArrayList<>(Arrays.asList("Appraise", "Interpret", "Argue", "Judge", "Assess", "Justify", "Choose", "Predict", "Compare&Contrast", "compare & contrast", "Prioritize", "Conclude", "Prove", "Criticize", "Rank", "Critique", "Rate", "Decide", "Reframe", "Defend", "Select", "Evaluate", "Support"));
-
+    private ArrayList<ArrayList<String>> intentGraph;
 
     public String getCleanerParagrah() {
         String inputParagraph = this.paragraph;
@@ -71,6 +72,30 @@ public class NlpServiceImpl implements NlpService {
         return cleanedParagraph.toString().trim();
     }
 
+    public ArrayList<String> getWordsWithoutStopWords() {
+        String wordsWithOutStopwords[] = getCleanerParagrah().split(" ");
+        ArrayList<String> listWithOutStopWords = new ArrayList<>();
+        for(int i=0;i<wordsWithOutStopwords.length;i++){
+            listWithOutStopWords.add(wordsWithOutStopwords[i]);
+        }
+        for (int j = 0; j < stopwords.length; j++) {
+            if (listWithOutStopWords.contains(stopwords[j])) {
+                listWithOutStopWords.remove(stopwords[j]);//remove it
+            }
+        }
+        return listWithOutStopWords;
+    }
+
+    public String getParagraphWithOutStopWords() {
+        ArrayList<String> wordsWithOutStopwords = getWordsWithoutStopWords();
+        StringBuffer paragraphWithOutStopWords = new StringBuffer();
+        for (int i = 0; i < wordsWithOutStopwords.size(); i++) {
+            paragraphWithOutStopWords.append(wordsWithOutStopwords.get(i) + " ");
+        }
+        return paragraphWithOutStopWords.toString().trim();
+    }
+
+
     public ArrayList<String> getLemmitizedWords() {
         Properties properties = new Properties();
         properties.setProperty("annotator", "lemma");
@@ -80,7 +105,7 @@ public class NlpServiceImpl implements NlpService {
         StanfordCoreNLP pipeline = new StanfordCoreNLP(properties);
         // This annotations object gives the special meaning to the
         // string we used in propeties.put() method
-        Annotation annotations = new Annotation(getCleanerParagrah());
+        Annotation annotations = new Annotation(getParagraphWithOutStopWords());
         // pipeline.annotate(annotations)  provies the annotation to those particular objects.
         pipeline.annotate(annotations);
         // sentenceList contains list of sentences
@@ -96,6 +121,15 @@ public class NlpServiceImpl implements NlpService {
         return lemmaWords;
     }
 
+    public String getParagraphWithLemmatizedWords() {
+        ArrayList<String> lemmatizedWords = getLemmitizedWords();
+        StringBuffer paragraphWithLemmatizedWords = new StringBuffer();
+        for (int i = 0; i < lemmatizedWords.size(); i++) {
+            paragraphWithLemmatizedWords.append(lemmatizedWords.get(i) + " ");
+        }
+        return paragraphWithLemmatizedWords.toString().trim();
+    }
+
     public List<String> getStemmedWords() {
         TokenizerFactory tokenizerFactory = IndoEuropeanTokenizerFactory.INSTANCE;
         TokenizerFactory porterFactory = new PorterStemmerTokenizerFactory(tokenizerFactory);
@@ -106,25 +140,6 @@ public class NlpServiceImpl implements NlpService {
             stemmedWordsList.add(tokenization.tokenList().toString());
         }
         return stemmedWordsList;
-    }
-
-    public ArrayList<String> getWordsWithoutStopWords() {
-        ArrayList<String> wordsWithOutStopwords = getLemmitizedWords();
-        for (int j = 0; j < stopwords.length; j++) {
-            if (wordsWithOutStopwords.contains(stopwords[j])) {
-                wordsWithOutStopwords.remove(stopwords[j]);//remove it
-            }
-        }
-        return wordsWithOutStopwords;
-    }
-
-    public String getParagraphWithOutStopWords() {
-        ArrayList<String> wordsWithOutStopwords = getWordsWithoutStopWords();
-        StringBuffer paragraphWithOutStopWords = new StringBuffer();
-        for (int i = 0; i < wordsWithOutStopwords.size(); i++) {
-            paragraphWithOutStopWords.append(wordsWithOutStopwords.get(i) + " ");
-        }
-        return paragraphWithOutStopWords.toString().trim();
     }
 
     public ArrayList<ConceptNameFrequency> getFrequencyOfSpringConcepts() {
@@ -163,17 +178,44 @@ public class NlpServiceImpl implements NlpService {
         }
         return conceptName;
     }
-    public String getUserIntent() {
 
-        return "knowledge";
+    public String getUserIntent() {
+        intentGraph = new ArrayList<>();
+        intentGraph.add(knowledge);
+        intentGraph.add(comprehension);
+        intentGraph.add(application);
+        intentGraph.add(analysis);
+        intentGraph.add(synthesis);
+        intentGraph.add(evaluation);
+        String intents[] = {"knowledge", "comprehension", "application", "analysis", "synthesis", "evaluation"};
+        String searchString = getParagraphWithLemmatizedWords();
+        for (int i = 0; i < intentGraph.size(); i++) {
+            for (int j = 0; j < intentGraph.get(i).size(); j++) {
+                String pattenString = intentGraph.get(i).get(j).toLowerCase();
+                Pattern pattern = Pattern.compile(pattenString);
+                Matcher matcher = pattern.matcher(searchString.toLowerCase());
+                if (matcher.find()) {
+                    return intents[i];
+                }
+            }
+        }
+        return "no intent found";
     }
 
     public NlpResult getNlpResults() {
         NlpResult nlpResult = new NlpResult();
+        System.out.println("paragraph");
+        System.out.println(getCleanerParagrah());
+        System.out.println("stop word paragraph");
+        System.out.println(getParagraphWithOutStopWords());
+        System.out.println("lemmatized paragraph");
+        System.out.println(getParagraphWithLemmatizedWords());
         nlpResult.setConcept(getMostAccurateConceptName());
+        System.out.println("ConceptName = "+getMostAccurateConceptName());
         nlpResult.setIntent(getUserIntent());
-
+        System.out.println("Intent = "+ getUserIntent());
         nlpResult.setSessonId(getSessonId());
+        System.out.println(nlpResult);
         return nlpResult;
     }
 
