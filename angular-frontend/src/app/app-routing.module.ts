@@ -25,7 +25,7 @@ const routes: Routes = [
   component: UploadComponent
 },
 {
-  path:'searchinfo',
+  path:'cards',
 
   component: SearchcardComponent
 }

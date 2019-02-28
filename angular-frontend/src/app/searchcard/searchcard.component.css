@@ -5,6 +5,7 @@
   .nan
   {
     width:50%;
+    display: block;
   }
   
   .example-header-image {
@@ -13,11 +14,41 @@
   }
   #title{
     font-size: 2rem;
+    color: blue;
   }
-  
-  .mat-paginator-sticky {
-    left: 450px;
-    bottom: 20px;
-    position: fixed;
-    z-index: 10;
-  }
+
+
+  #sbutton{
+    /* margin-left:700px; */
+    display: inline;
+}
+
+.mat-paginator-sticky {
+  left: 450px;
+  bottom: 20px;
+  position: fixed;
+  z-index: 10;
+}
+
+#searchbutton:hover{
+    color:inherit;
+}
+
+#mic{
+    margin-top:0px;
+    height:35px;
+    width:35px;
+    margin-left:2px;
+}
+
+#searchKey{
+    
+     margin-left:100px; 
+     height:35px;
+     width: 400px;
+     min-width:100px;  
+    background-color: rgb(212, 209, 209);
+}
+body{
+  min-width: 300px;;
+}

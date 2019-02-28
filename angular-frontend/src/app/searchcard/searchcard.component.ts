@@ -26,7 +26,6 @@ export class SearchcardComponent  {
       this.pageLength=this.info.length;
       console.log(this.pageLength);
       this.loadData(0)});
-    
    
   }
 
