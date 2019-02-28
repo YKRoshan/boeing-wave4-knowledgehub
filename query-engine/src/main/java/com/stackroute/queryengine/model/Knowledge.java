@@ -9,6 +9,7 @@ import org.neo4j.ogm.annotation.NodeEntity;
 @NodeEntity
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class Knowledge {
 
     @Id
@@ -19,5 +20,7 @@ public class Knowledge {
     private String concept;
     private String intentLevel;
     private double confidenceScore;
+
+
 
 }
