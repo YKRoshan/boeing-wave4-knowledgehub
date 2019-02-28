@@ -1,6 +1,15 @@
-<app-header></app-header>
-<!-- <app-searchbutton></app-searchbutton> -->
-<mat-card *ngFor='let c of splicedData'>
+<!-- <app-header></app-header> -->
+<body>
+<mat-card class="searchArea">
+  <form #form #gSearch method="GET" id="gSearch" >
+      <mat-card id="voicesearch">
+          <input #searchKey name="q" id="searchKey" type="search" value={{searchTerm}}>
+          <img src="assets/img/mic.png" alt="mic" (click)="voiceSearch()" id="mic">
+          <mat-button mat-stroked-button color="default" type="submit" id="searchbutton" (click)="getdata()" >Search</mat-button>   
+      </mat-card>
+</form>
+</mat-card>
+<mat-card *ngFor='let c of datasource'>
   <mat-card class="example-card"  class="nan">
    <mat-card-header>
      <mat-card-title id="title">{{c.title}}</mat-card-title>
@@ -15,5 +24,10 @@
    </mat-card-actions>
   </mat-card>
   </mat-card>
-  <mat-paginator (page)="pageChangeEvent($event)" [length]="pageLength" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"  class="mat-paginator-sticky">
-  </mat-paginator>
+  <mat-paginator [length]="length"
+               [hidePageSize]="true"
+              [pageSize]="pageSize"
+              (page)="pageevent($event)" class = "nan">            
+</mat-paginator>
+</body>
+  <!-- <app-paginator></app-paginator> -->

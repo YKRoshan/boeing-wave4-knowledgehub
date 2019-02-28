@@ -5,8 +5,8 @@ import { isPlatformServer } from '@angular/common';
 //TransferState is a class- A key value store that is transferred from the application on the server side to the application on the client side.
 //makeStateKey is a function that create a StateKey<T> that can be used to store value of type T with TransferState.
 import { TransferState, makeStateKey } from '@angular/platform-browser';
-import { Route } from '@angular/compiler/src/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { DataService } from '../domain/data-service';
 const configKey = makeStateKey('CONFIG');
 declare var webkitSpeechRecognition: any;
 
@@ -25,11 +25,13 @@ export class SearchbuttonComponent{
   // matches the selector, the property is updated.
   @ViewChild('gSearch') formSearch;
   @ViewChild('searchKey') hiddenSearchHandler;
+  searchTerm: string;
   constructor(
     private injector: Injector,
     private state : TransferState,
     private search : SearchinfoService,
     private _route: ActivatedRoute, private router: Router,
+    private dataService:DataService,
     @Inject(PLATFORM_ID) private platformid: Object,private route:Router
   ){
     this.title = 'Voice Search POC';
@@ -81,8 +83,9 @@ google(){
   this.route.navigateByUrl("https://www.google.com/search")
 }
 
-getdata() {   
-  this.router.navigate(['searchinfo']);
+getdata() {  
+  this.dataService.dataService = this.searchTerm; 
+  this.router.navigate(['/cards']);
 }
 }
 

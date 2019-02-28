@@ -64,6 +64,7 @@ import { HeaderComponent } from './header/header.component';
 import { SearchcardComponent } from './searchcard/searchcard.component';
 import { PaginatorComponent } from './paginator/paginator.component';
 import { RouterModule } from '@angular/router';
+import { DataService } from './domain/data-service';
 
 @NgModule({
   declarations: [
@@ -139,9 +140,12 @@ import { RouterModule } from '@angular/router';
     MDBBootstrapModule,
     HttpClientModule,
     AppRoutingModule,
+    RouterModule.forRoot([
+      {path : 'searchinfo', component: SearchcardComponent}
+    ])
   ],
   providers: [TokenService,SearchinfoService,
-              AuthService,UploadService],
+              AuthService,UploadService,DataService],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   bootstrap: [AppComponent]
 })

@@ -1,9 +1,12 @@
 <!-- Navigation bar for the home page -->
+<body>
 <mat-toolbar color="primary">
     <a href="#"><span><img src="assets/img/logo.jpg" alt="logo" id="logo"></span></a>
+    
     <a href="#" id="title">Knowledge Hub</a>
+    <button mat-raised-button color="gray" id="loginbutton" (click)="open()">{{Islogged}}</button>
     <!-- <button mat-raised-button color="accent" id="loginbutton" (click)="logging()">{{Islogged}}</button> -->
-    <button mat-raised-button color="accent" id="loginbutton" (click)="open()">{{Islogged}}</button>
+    
 </mat-toolbar>
 <div class="dragDrop" *ngIf="this.token.getToken()">
   <div class="dragDropColour" >
@@ -14,3 +17,4 @@
   <app-searchbutton></app-searchbutton>
 </form>
 <app-footer></app-footer>
+</body>

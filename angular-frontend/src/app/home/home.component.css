@@ -4,7 +4,7 @@
     width:60px;
 }
 #title{
-    margin-left:500px;
+    margin-left:300px;
     text-decoration: none;
     color:inherit;
 }
@@ -13,6 +13,7 @@
 }
 #loginbutton{
     margin-left: 420px;
+    float: inherit;
 }
 .navbar{
     background-color: blueviolet;
@@ -30,4 +31,7 @@
 .form-inline{
     background-color: rgb(6, 190, 247);
 }
+body{
+    min-width: 1000px;
 
+}
