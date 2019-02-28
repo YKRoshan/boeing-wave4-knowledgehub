@@ -66,13 +66,13 @@ bin
 ######################
 # Intellij
 ######################
-.idea.*
+.idea/*
 *.iml
 *.iws
 *.ipr
 *.ids
 *.orig
-*.xml
+
 
 ######################
 # Visual Studio Code
