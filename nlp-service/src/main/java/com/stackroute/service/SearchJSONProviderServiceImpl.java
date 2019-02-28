@@ -1,6 +1,6 @@
 package com.stackroute.service;
 
-import com.stackroute.Domain.SearchJSON;
+import com.stackroute.domain.SearchJSON;
 import org.springframework.stereotype.Service;
 
 @Service

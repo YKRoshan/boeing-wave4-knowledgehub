@@ -1,7 +1,7 @@
 package com.stackroute.controller;
 
-import com.stackroute.Domain.NlpResult;
-import com.stackroute.Domain.SearchJSON;
+import com.stackroute.domain.NlpResult;
+import com.stackroute.domain.SearchJSON;
 import com.stackroute.service.NlpService;
 import com.stackroute.service.SearchJSONProviderService;
 import com.stackroute.service.SearchService;

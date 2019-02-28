@@ -1,20 +1,15 @@
 package com.stackroute.service;
 
-import com.aliasi.sentences.IndoEuropeanSentenceModel;
-import com.aliasi.sentences.SentenceModel;
 import com.aliasi.tokenizer.*;
-import com.stackroute.Domain.ConceptNameFrequency;
-import com.stackroute.Domain.NlpResult;
+import com.stackroute.domain.ConceptNameFrequency;
+import com.stackroute.domain.NlpResult;
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.CoreDocument;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import edu.stanford.nlp.util.CoreMap;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 import java.util.*;

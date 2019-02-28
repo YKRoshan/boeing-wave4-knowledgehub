@@ -1,13 +1,11 @@
 package com.stackroute.service;
 
-import com.stackroute.Domain.NlpResult;
-import com.stackroute.Domain.SearchJSON;
+import com.stackroute.domain.SearchJSON;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 
 @Service
 public class SearchServiceImpl implements SearchService {

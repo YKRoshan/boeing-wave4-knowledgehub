@@ -1,23 +1,11 @@
 package com.stackroute.service;
 
-import com.aliasi.tokenizer.IndoEuropeanTokenizerFactory;
-import com.aliasi.tokenizer.PorterStemmerTokenizerFactory;
-import com.aliasi.tokenizer.Tokenization;
-import com.aliasi.tokenizer.TokenizerFactory;
-import com.stackroute.Domain.NlpResult;
-import edu.stanford.nlp.ling.CoreAnnotations;
-import edu.stanford.nlp.ling.CoreLabel;
-import edu.stanford.nlp.pipeline.Annotation;
-import edu.stanford.nlp.pipeline.CoreDocument;
-import edu.stanford.nlp.pipeline.StanfordCoreNLP;
-import edu.stanford.nlp.util.CoreMap;
+import com.stackroute.domain.NlpResult;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Properties;
 
 @Service
 @PropertySource(value = "classpath:application.properties")

@@ -1,4 +1,4 @@
-package com.stackroute.Domain;
+package com.stackroute.domain;
 
 public class SearchJSON {
     private String searchString;

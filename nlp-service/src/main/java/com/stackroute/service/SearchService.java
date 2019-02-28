@@ -1,8 +1,6 @@
 package com.stackroute.service;
 
-import com.stackroute.Domain.SearchJSON;
-
-import java.util.ArrayList;
+import com.stackroute.domain.SearchJSON;
 
 public interface SearchService {
     public SearchJSON getSearchJSON();
