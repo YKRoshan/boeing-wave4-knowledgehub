@@ -5,6 +5,8 @@ import com.stackroute.repository.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 public class QuestionStorageServiceImpl implements QuestionStorageService {
     private QuestionRepository questionRepository;
@@ -15,7 +17,8 @@ public class QuestionStorageServiceImpl implements QuestionStorageService {
     }
 
     public Question saveQuestion(String question) {
-        Question question1 = new Question(question);
+        String uniqueId = UUID.randomUUID().toString();
+        Question question1 = new Question(uniqueId,question);
         Question savedQuestion = questionRepository.save(question1);
         return savedQuestion;
     }

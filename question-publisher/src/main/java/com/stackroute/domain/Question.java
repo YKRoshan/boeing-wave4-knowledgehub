@@ -10,6 +10,5 @@ import org.springframework.data.annotation.Id;
 @AllArgsConstructor
 public class Question {
     @Id
-    private String uniqueId;
     private String searchString;
 }
