@@ -20,6 +20,7 @@ public class SearchController {
     public SearchController(KafkaProducer kafkaProducer) {
         this.kafkaProducer = kafkaProducer;
     }
+
     //rest end point for search
     @PostMapping("search")
     public String search(@RequestBody String search){
@@ -30,6 +31,15 @@ public class SearchController {
 
 
      return kafkaProducer.upStreamService(searchClass);
+    }
+    @PostMapping("search/{value}")
+    public String searchBox(@RequestParam String value){
+
+        Search searchClass =new Search();
+        searchClass.setSearchString(value);
+
+
+        return kafkaProducer.upStreamService(searchClass);
     }
 
 }

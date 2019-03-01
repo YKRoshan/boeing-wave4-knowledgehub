@@ -1,14 +1,11 @@
 package com.stackroute.zuulgatewayservice.security;
 
-//import com.stackroute.security.services.UserPrinciple;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
-import java.util.Date;
 
 //this class provides methods to generate and validate tokens
 @Component
@@ -17,21 +14,7 @@ public class JwtProvider {
 
     @Value("${knowledgehub.jwtSecret}")
     private String jwtSecret;
-//
-//    @Value("${knowledgehub.jwtExpiration}")
-//    private int jwtExpiration;
 
-//    public String generateJwtToken(Authentication authentication) {
-//
-//        UserPrinciple userPrincipal = (UserPrinciple) authentication.getPrincipal();
-//
-//        return Jwts.builder()
-//                .setSubject((userPrincipal.getUsername()))
-//                .setIssuedAt(new Date())
-//                .setExpiration(new Date((new Date()).getTime() + jwtExpiration*1000))
-//                .signWith(SignatureAlgorithm.HS512, jwtSecret)
-//                .compact();
-//    }
 
     public boolean validateJwtToken(String authToken) {
         try {
