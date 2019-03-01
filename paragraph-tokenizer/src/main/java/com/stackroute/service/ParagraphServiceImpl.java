@@ -4,20 +4,10 @@ This is the service implementation class that gives the implementation of the se
 
 package com.stackroute.service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.stackroute.domain.Paragraph;
-import com.stackroute.domain.PdfDocument;
 import com.stackroute.exception.ParagraphNotFoundException;
 import org.json.simple.JSONObject;
-import org.json.simple.JSONValue;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.kafka.annotation.KafkaListener;
-import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
