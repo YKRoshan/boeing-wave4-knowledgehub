@@ -5,8 +5,9 @@ import { userInfo } from '../domain/login-info';
 import { AuthInterceptor } from '../service/auth-interceptor';
 import { AuthService } from '../service/auth.service';
 import { MatSidenav } from '@angular/material/sidenav';
-import{MatDialog,MatDialogConfig} from "@angular/material";
+import{MatDialog,MatDialogConfig, MatDialogRef} from "@angular/material";
 import { LoginComponent } from '../login/login.component';
+import { ChatComponent } from '../chat/chat.component';
 
 @Component({
   selector: 'app-home',
@@ -18,6 +19,9 @@ export class HomeComponent implements OnInit {
   user:any;
   info:any;
   add:boolean;
+
+  chatComponent: MatDialogRef<ChatComponent>;
+
 
   constructor(public token:TokenService,private router:Router,private auth:AuthService,private dialog:MatDialog) { }
 
@@ -62,6 +66,12 @@ export class HomeComponent implements OnInit {
   open(){
     this.dialog.open(LoginComponent)
   }
+
+
+  openDialog() {
+    this.chatComponent = this.dialog.open(ChatComponent,{ disableClose: true});
+  }
+
 }
 
 

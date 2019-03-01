@@ -65,6 +65,7 @@ import { SearchcardComponent } from './searchcard/searchcard.component';
 import { PaginatorComponent } from './paginator/paginator.component';
 import { RouterModule } from '@angular/router';
 import { DataService } from './domain/data-service';
+import { ChatComponent } from './chat/chat.component';
 
 @NgModule({
   declarations: [
@@ -76,7 +77,8 @@ import { DataService } from './domain/data-service';
     UploadComponent,
     HeaderComponent,
     SearchcardComponent,
-    PaginatorComponent
+    PaginatorComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,
@@ -147,7 +149,9 @@ import { DataService } from './domain/data-service';
   providers: [TokenService,SearchinfoService,
               AuthService,UploadService,DataService],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [ChatComponent]
+
 })
 export class AppModule { }
 
