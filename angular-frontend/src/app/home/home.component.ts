@@ -37,6 +37,16 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  
+
+
+  openDialog() {
+    this.chatComponent = this.dialog.open(ChatComponent,{ disableClose: true});
+  }
+
+
+ 
+
 
 
   // This method is to signout or
@@ -47,7 +57,8 @@ export class HomeComponent implements OnInit {
        window.location.reload();
     }
     else{
-      this.router.navigate(['/login'])
+      this.dialog.open(LoginComponent)
+     
     }
   }
   reloadPage(){
@@ -66,13 +77,14 @@ export class HomeComponent implements OnInit {
   open(){
     this.dialog.open(LoginComponent)
   }
-
-
-  openDialog() {
-    this.chatComponent = this.dialog.open(ChatComponent,{ disableClose: true});
+  close(){
+    this.dialog.closeAll()
   }
-
 }
+
+
+
+
 
 
 

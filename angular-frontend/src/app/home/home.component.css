@@ -35,3 +35,7 @@ body{
     min-width: 1000px;
 
 }
+
+app-searchbutton{
+    margin-top: 3rem;
+}

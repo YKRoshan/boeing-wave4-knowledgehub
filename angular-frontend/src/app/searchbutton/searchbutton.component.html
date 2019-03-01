@@ -1,6 +1,6 @@
-<span id="sbutton">
+<!-- <span id="sbutton"> -->
   <!-- <mat-toolbar> -->
-    <div class="searchArea">
+    <!-- <div class="searchArea">
       <form #form #gSearch method="GET" id="gSearch" >
           <div id="voicesearch">
               <input #searchKey name="q" id="searchKey" type="search"  [(ngModel)]="searchTerm" placeholder=" Ask a question">
@@ -8,6 +8,48 @@
               <button mat-stroked-button color="default" type="submit" id="searchbutton" (click)="getdata()" >Search</button>
           </div>
   </form>
-</div>
+</div> -->
   <!-- </mat-toolbar> -->
-</span>
+<!-- </span> -->
+
+
+
+<body>
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <!------ Include the above in your HEAD tag ---------->
+  
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt"
+    crossorigin="anonymous">
+  <div class="container">
+    <br />
+    <div class="row justify-content-center">
+      <div class="col-12 col-md-10 col-lg-8">
+        <form class="card card-sm">
+          <div class="card-body row no-gutters align-items-center">
+            <div class="col-auto">
+              <i class="fas fa-search h4 text-body"></i>
+            </div>
+            <!--end of col-->
+            <div class="col">
+              <input class="form-control form-control-lg form-control-borderless"  #searchKey name="q" id="searchKey" type="search"  [(ngModel)]="searchTerm"   placeholder="Search topics or keywords">
+              
+            </div>
+            <!--end of col-->
+            <form #form #gSearch method="GET" id="gSearch" >
+                <div id="voicesearch">
+            <div class="col-auto">
+                <img src="assets/img/mic.png" alt="mic" (click)="voiceSearch()" id="mic">
+              <button class="btn btn-lg btn-success" type="submit"  (click)="getdata()">Search</button>
+            </div>
+                </div>
+            </form>
+            <!--end of col-->
+          </div>
+        </form>
+      </div>
+      <!--end of col-->
+    </div>
+  </div>
+  </body>

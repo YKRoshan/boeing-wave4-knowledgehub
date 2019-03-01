@@ -1,22 +1,35 @@
 <!-- Navigation bar for the home page -->
-<body>
-<mat-toolbar color="primary">
+
+
+<nav >
+  <mat-toolbar color="primary">
+          <span class="example-fill-remaining-space"></span>
+          <a href="#"><span><img src="assets/img/logo.jpg" alt="logo" id="logo"></span></a>
+          <button mat-button (click)='navigate()'>Home</button>
+          <span class="align-center">
+            <!-- <button mat-button (click)='bearer()'>bearer</button> -->
+          <button mat-button  (click)="logging()">{{Islogged}}</button>
+          <button mat-raised-button color="warn" (click)="openDialog()">Knowledge Bot</button>
+        </span>
+      </mat-toolbar>
+      </nav>
+
+<!-- <mat-toolbar color="primary">
     <a href="#"><span><img src="assets/img/logo.jpg" alt="logo" id="logo"></span></a>
     
     <a href="#" id="title">Knowledge Hub</a>
     <button mat-raised-button color="gray" id="loginbutton" (click)="open()">{{Islogged}}</button>
-    <!-- <button mat-raised-button color="accent" id="loginbutton" (click)="logging()">{{Islogged}}</button> -->
+     <button mat-raised-button color="accent" id="loginbutton" (click)="logging()">{{Islogged}}</button> 
     
     <button mat-raised-button color="warn" (click)="openDialog()">Knowledge Bot</button>
 
-</mat-toolbar>
+</mat-toolbar> -->
 <div class="dragDrop" *ngIf="this.token.getToken()">
-  <div class="dragDropColour" >
+  <div class="dragDropColour">
     <app-upload></app-upload>
   </div>
 </div>
-<form class="form-inline">
-  <app-searchbutton></app-searchbutton>
-</form>
+
+<app-searchbutton></app-searchbutton>
+
 <app-footer></app-footer>
-</body>
