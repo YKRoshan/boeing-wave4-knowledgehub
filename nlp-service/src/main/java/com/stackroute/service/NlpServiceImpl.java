@@ -75,7 +75,7 @@ public class NlpServiceImpl implements NlpService {
     public ArrayList<String> getWordsWithoutStopWords() {
         String wordsWithOutStopwords[] = getCleanerParagrah().split(" ");
         ArrayList<String> listWithOutStopWords = new ArrayList<>();
-        for(int i=0;i<wordsWithOutStopwords.length;i++){
+        for (int i = 0; i < wordsWithOutStopwords.length; i++) {
             listWithOutStopWords.add(wordsWithOutStopwords[i]);
         }
         for (int j = 0; j < stopwords.length; j++) {
@@ -180,6 +180,11 @@ public class NlpServiceImpl implements NlpService {
     }
 
     public String getUserIntent() {
+        for (int i = 0; i < conceptName.size(); i++) {
+            if (conceptName.get(i).equalsIgnoreCase(getParagraphWithLemmatizedWords())) {
+                return "knowledge";
+            }
+        }
         intentGraph = new ArrayList<>();
         intentGraph.add(knowledge);
         intentGraph.add(comprehension);
@@ -211,9 +216,9 @@ public class NlpServiceImpl implements NlpService {
         System.out.println("lemmatized paragraph");
         System.out.println(getParagraphWithLemmatizedWords());
         nlpResult.setConcept(getMostAccurateConceptName());
-        System.out.println("ConceptName = "+getMostAccurateConceptName());
+        System.out.println("ConceptName = " + getMostAccurateConceptName());
         nlpResult.setIntent(getUserIntent());
-        System.out.println("Intent = "+ getUserIntent());
+        System.out.println("Intent = " + getUserIntent());
         nlpResult.setSessonId(getSessonId());
         System.out.println(nlpResult);
         return nlpResult;
