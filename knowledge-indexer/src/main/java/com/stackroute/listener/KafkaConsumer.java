@@ -22,7 +22,6 @@ public class KafkaConsumer {
     @KafkaListener(topics = "AnalyticsResults", groupId = "group_id")
     public void consume(String message)
     {
-        System.out.println("Consumed message: " + message);
         JSONObject object = (JSONObject) JSONValue.parse(message);
         Knowledge knowledge=new Knowledge(object.get("paragraphId").toString(),object.get("paragraphContent").toString(),
                 object.get("documentId").toString(),object.get("domain").toString()

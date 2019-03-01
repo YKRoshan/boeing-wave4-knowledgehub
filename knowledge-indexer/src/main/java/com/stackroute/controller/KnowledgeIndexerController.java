@@ -8,9 +8,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.logging.Logger;
+
 @RestController
 @Slf4j
 public class KnowledgeIndexerController {
+
+
+    Logger logger = Logger.getLogger(KnowledgeIndexerController.class.getName());
+
 
     private KnowledgeIndexerService knowledgeIndexerService;
 
@@ -27,7 +33,6 @@ public class KnowledgeIndexerController {
             knowledgeIndexerService.saveKnowledgeToDb(knowledge);
             responseEntity = new ResponseEntity<>("Knowledge saved sucessfully", HttpStatus.OK);
         } catch (Exception e) {
-            e.printStackTrace();
             responseEntity = new ResponseEntity<>("Error while saving knowledge", HttpStatus.BAD_GATEWAY);
         }
         return responseEntity;
@@ -45,7 +50,6 @@ public class KnowledgeIndexerController {
             knowledgeIndexerService.addRelationship(name,paragraphId,intentLevel,confidenceScore);
             responseEntity = new ResponseEntity<>("Relationship saved sucessfully", HttpStatus.OK);
         } catch (Exception e) {
-            e.printStackTrace();
             responseEntity = new ResponseEntity<>("Error while saving relationship", HttpStatus.BAD_GATEWAY);
         }
         return responseEntity;

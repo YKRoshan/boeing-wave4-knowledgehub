@@ -11,7 +11,7 @@ public class Concept {
     private int id;
     private String identity;
     private String name;
-    private String parent_id;
+    private String parentId;
     private String type;
     private String classType;
     private String relation;

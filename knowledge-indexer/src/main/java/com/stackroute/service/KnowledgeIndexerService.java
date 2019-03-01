@@ -9,12 +9,10 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class KnowledgeIndexerService {
-     private ConceptRepository conceptRepository;
      private KnowledgeRepository knowledgeRepository;
 
      @Autowired
      public KnowledgeIndexerService(ConceptRepository conceptRepository, KnowledgeRepository knowledgeRepository){
-          this.conceptRepository=conceptRepository;
           this.knowledgeRepository=knowledgeRepository;
      }
 
