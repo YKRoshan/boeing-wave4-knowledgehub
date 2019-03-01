@@ -5,6 +5,8 @@ COPY package*.json ./
 RUN npm install
 RUN npm install ngx-file-drop
 RUN npm install angular-bootstrap-md --save
+RUN npm install rxjs-compat
+RUN npm install api-ai-javascript
 COPY . .
 RUN npm run build
 # Stage 2
