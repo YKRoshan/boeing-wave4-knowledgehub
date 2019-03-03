@@ -1,4 +1,4 @@
-version: "2"
+version: "2.1"
 services:
 
   apigateway:
@@ -12,6 +12,8 @@ services:
     - 8092:8092
     expose:
     - 8092
+    healthcheck:
+      test: "exit 0"
 
   eurekaserver:
     image: eureka-servcie:latest
@@ -22,6 +24,8 @@ services:
     - 9091:9901
     expose:
     - 9901
+    healthcheck:
+      test: "exit 0"
 
   configserver:
       image: config-servcie:latest
@@ -32,6 +36,8 @@ services:
       - 8888:8888
       expose:
       - 8888
+      healthcheck:
+        test: "exit 0"
 
   mysqldb:
     image: mysql:5.7
@@ -43,9 +49,21 @@ services:
       MYSQL_ROOT_PASSWORD: root123
       MYSQL_DATABASE: LoginDB
       MYSQL_PASSWORD: root123
-
     ports:
       - 3306:3306
+    healthcheck:
+      test: "exit 0"
+
+  mongodb:
+    image: mongo
+    restart: always
+    ports:
+      - "27017:27017"
+    container_name: mongo
+    network_mode: "host"
+    hostname: localhost
+    healthcheck:
+      test: "exit 0"
 
   neo4j:
     image: neo4j:3.0
@@ -58,6 +76,9 @@ services:
     volumes:
       - $PWD/plugins:/plugins
       - $PWD/import:/import
+    healthcheck:
+      test: "exit 0"
+
 
   loginservice:
     image: login-service:latest
@@ -66,8 +87,10 @@ services:
     network_mode: "host"
     hostname: localhost
     depends_on:
-      - mysqldb
-      - eurekaserver
+      mysqldb:
+        condition: service_healthy
+      eurekaserver:
+        condition: service_healthy
     ports:
     - 8084:8084
     expose:
@@ -85,6 +108,8 @@ services:
       - 8079:8079
     expose:
       - 8079
+    healthcheck:
+      test: "exit 0"
 
   zookeeper:
     image: landoop/fast-data-dev
@@ -98,7 +123,8 @@ services:
     container_name: zookeeper
     hostname: localhost
     restart: always
-
+    healthcheck:
+      test: "exit 0"
 
   kafka:
     image: landoop/fast-data-dev
@@ -118,7 +144,8 @@ services:
     depends_on:
      - zookeeper
     restart: always
-
+    healthcheck:
+      test: "exit 0"
 
   document-provider:
     image: document-provider:latest
@@ -127,9 +154,12 @@ services:
     network_mode: "host"
     hostname: localhost
     depends_on:
-      - zookeeper
-      - kafka
-      - angular-app
+      zookeeper:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+      angular-app:
+        condition: service_healthy
     ports:
       - 8087:8087
     expose:
@@ -142,9 +172,12 @@ services:
     network_mode: "host"
     hostname: localhost
     depends_on:
-      - zookeeper
-      - kafka
-      - document-provider
+      zookeeper:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+      document-provider:
+        condition: service_healthy
     ports:
       - 8086:8086
     expose:
@@ -157,9 +190,12 @@ services:
     network_mode: "host"
     hostname: localhost
     depends_on:
-      - zookeeper
-      - kafka
-      - content-extractor
+      zookeeper:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+      content-extractor:
+        condition: service_healthy
     ports:
       - 8090:8090
     expose:
@@ -172,10 +208,14 @@ services:
     network_mode: "host"
     hostname: localhost
     depends_on:
-      - zookeeper
-      - kafka
-      - neo4j
-      - paragraph-tokenizer
+      zookeeper:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+      neo4j:
+        condition: service_healthy
+      paragraph-tokenizer:
+        condition: service_healthy
     ports:
       - 8085:8085
     expose:
@@ -189,6 +229,9 @@ services:
     hostname: localhost
     ports:
       - 8094:8094
+    depends_on:
+      mongodb:
+        condition: service_healthy
     expose:
       - 8094
 
@@ -199,10 +242,14 @@ services:
     network_mode: "host"
     hostname: localhost
     depends_on:
-      - zookeeper
-      - kafka
-      - neo4j
-      - analytic-server
+      zookeeper:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+      neo4j:
+        condition: service_healthy
+      analytic-server:
+        condition: service_healthy
     ports:
       - 8088:8088
     expose:
