@@ -86,16 +86,20 @@ body{
   margin-bottom:10rem;
    
 }
-
+/* 
 .searchArea{
   margin: 0;
   padding: 0;
   height: 70px;
-}
-
-/* .ser{
-  float: left;
 } */
- 
 
+.ser{
+
+  background-color: #cce26a;
+}
+ 
+h6{
+  padding: 0;
+  margin: 0;
+} 
 
