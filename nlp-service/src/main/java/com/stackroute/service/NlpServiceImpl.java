@@ -9,6 +9,7 @@ import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.CoreDocument;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import edu.stanford.nlp.util.CoreMap;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +24,8 @@ public class NlpServiceImpl implements NlpService {
     private String paragraph;
     private String sessonId;
     private ArrayList<String> conceptName;
+    private IntentService intentService;
+    private ConceptService conceptService;
 
     public ArrayList<String> getConceptName() {
         return conceptName;
@@ -49,13 +52,27 @@ public class NlpServiceImpl implements NlpService {
     }
 
     String[] stopwords = {"i", "me", "my", "myself", "we", "our", "ours", "ourselves", "could", "he'd", "he'll", "he's", "here's", "how's", "ought", "she'd", "she'll", "that's", "there's", "they'd", "they'll", "they're", "they've", "we'd", "we'll", "we're", "we've", "when's", "where's", "who's", "why's", "would", "i'd", "i'll", "i'm", "i've", "you", "you're", "you've", "you'll", "you'd", "your", "yours", "yourself", "yourselves", "he", "him", "his", "himself", "she", "she's", "her", "hers", "herself", "it", "it's", "its", "itself", "they", "them", "their", "theirs", "themselves", "which", "who", "whom", "this", "that", "that'll", "these", "those", "am", "is", "are", "was", "were", "be", "been", "being", "have", "has", "had", "having", "do", "does", "did", "doing", "a", "an", "the", "and", "but", "if", "or", "because", "as", "until", "while", "of", "at", "by", "for", "with", "about", "against", "between", "into", "through", "during", "before", "after", "above", "below", "to", "from", "up", "down", "in", "out", "off", "over", "under", "again", "further", "then", "once", "here", "there", "when", "where", "why", "how", "all", "any", "both", "each", "few", "more", "most", "other", "some", "such", "no", "nor", "not", "only", "own", "same", "so", "than", "too", "very", "s", "t", "can", "will", "just", "don", "don't", "should", "should've", "now", "d", "ll", "m", "o", "re", "ve", "y", "ain", "aren", "aren't", "couldn", "couldn't", "didn", "didn't", "doesn", "doesn't", "hadn", "hadn't", "hasn", "hasn't", "haven", "haven't", "isn", "isn't", "ma", "mightn", "mightn't", "mustn", "mustn't", "needn", "needn't", "shan", "shan't", "shouldn", "shouldn't", "wasn", "wasn't", "weren", "weren't", "won", "won't", "wouldn", "wouldn't"};
-    private ArrayList<String> knowledge = new ArrayList<>(Arrays.asList("What", "Count", "Read", "Define", "Recall", "Describe", "Recite", "Draw", "Record", "Enumerate", "Reproduce", "Find", "Select", "Identify", "Sequence", "Label", "State", "List", "Tell", "Match", "View", "Name", "Write", "Quote"));
-    private ArrayList<String> comprehension = new ArrayList<>(Arrays.asList("Classify", "Interpret", "Cite", "Locate", "Conclude", "Make", "sense", "of", "make sense of", "Convert", "Paraphrase", "Describe", "Predict", "Discuss", "Report", "Estimate", "Restate", "Explain", "Review", "Generalize", "Summarize", "Give", "examples", "give examples", "example", "given example", "given examples", "Trace", "Illustrate", "Understand"));
-    private ArrayList<String> application = new ArrayList<>(Arrays.asList("Act", "Imitate", "Administer", "Implement", "Articulate", "Interview", "Assess", "Include", "Change", "Inform", "Chart", "Instruct", "Choose", "Paint", "Collect", "Participate", "Compute", "Predict", "Construct", "Prepare", "Contribute", "Produce", "Control", "Provide", "Demonstrate", "Relate", "Determine", "Report", "Develop", "Select", "Discover", "Show", "Dramatize", "Solve", "Draw", "Transfer", "Establish", "Use", "Extend", "Utilize"));
-    private ArrayList<String> analysis = new ArrayList<>(Arrays.asList("Break down", "Focus", "Characterize", "Illustrate", "Classify", "Infer", "Compare", "Limit", "Contrast", "Outline", "Correlate", "Pointout", "Debate", "Prioritize", "Deduce", "Recognize", "Diagram", "Research", "Differentiate", "Relate", "Discriminate", "Separate", "Distinguish", "Subdivide", "Examine"));
-    private ArrayList<String> synthesis = new ArrayList<>(Arrays.asList("Adapt", "Intervene", "Anticipate", "Invent", "Categorize", "Makeup", "Collaborate", "Model", "Combine", "Modify", "Communicate", "Negotiate", "Compare", "Organize", "Compile", "Perform", "Compose", "Plan", "Construct", "Pretend", "Contrast", "Produce", "Create", "Progress", "Design", "Propose", "Develop", "Rearrange", "Devise", "Reconstruct", "Express", "Reinforce", "Facilitate", "Reorganize", "Formulate", "Revise", "Generate", "Rewrite", "Incorporate", "Structure", "Individualize", "Substitute", "Initiate", "Validate", "Integrate"));
-    private ArrayList<String> evaluation = new ArrayList<>(Arrays.asList("Appraise", "Interpret", "Argue", "Judge", "Assess", "Justify", "Choose", "Predict", "Compare&Contrast", "compare & contrast", "Prioritize", "Conclude", "Prove", "Criticize", "Rank", "Critique", "Rate", "Decide", "Reframe", "Defend", "Select", "Evaluate", "Support"));
+    private ArrayList<String> knowledge;
+    private ArrayList<String> comprehension;
+    private ArrayList<String> application;
+    private ArrayList<String> analysis;
+    private ArrayList<String> synthesis;
+    private ArrayList<String> evaluation;
     private ArrayList<ArrayList<String>> intentGraph;
+
+    @Autowired
+    public NlpServiceImpl(IntentService intentService, ConceptService conceptService) {
+        this.intentService = intentService;
+        this.conceptService = conceptService;
+        this.knowledge = new ArrayList<>(intentService.getKnowledgeTerms());
+        this.comprehension = new ArrayList<>(intentService.getComprehensionTerms());
+        this.application = new ArrayList<>(intentService.getApplicationTerms());
+        this.analysis = new ArrayList<>(intentService.getAnalysisTerms());
+        this.synthesis = new ArrayList<>(intentService.getSynthesisTerms());
+        this.evaluation = new ArrayList<>(intentService.getEvaluationTerms());
+        this.conceptName = new ArrayList<>(conceptService.getConcepts());
+
+    }
 
     public String getCleanerParagrah() {
         String inputParagraph = this.paragraph;
@@ -182,7 +199,7 @@ public class NlpServiceImpl implements NlpService {
     public String getUserIntent() {
         for (int i = 0; i < conceptName.size(); i++) {
             if (conceptName.get(i).equalsIgnoreCase(getParagraphWithLemmatizedWords())) {
-                return "knowledge";
+                return "Knowledge";
             }
         }
         intentGraph = new ArrayList<>();
@@ -192,7 +209,7 @@ public class NlpServiceImpl implements NlpService {
         intentGraph.add(analysis);
         intentGraph.add(synthesis);
         intentGraph.add(evaluation);
-        String intents[] = {"knowledge", "comprehension", "application", "analysis", "synthesis", "evaluation"};
+        String intents[] = {"Knowledge", "Comprehension", "Application", "Analysis", "Synthesis", "Evaluation"};
         String searchString = getParagraphWithLemmatizedWords();
         for (int i = 0; i < intentGraph.size(); i++) {
             for (int j = 0; j < intentGraph.get(i).size(); j++) {
