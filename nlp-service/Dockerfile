@@ -1,5 +1,5 @@
 FROM openjdk:11
-ADD ./target/nlp-service-0.0.1-SNAPSHOT.jar /event/src/nlp-service-0.0.1-SNAPSHOT.jar
+ADD ./target/nlp-service-0.0.1-SNAPSHOT.jar /usr/src/nlp-service-0.0.1-SNAPSHOT.jar
 EXPOSE 8089
-WORKDIR event/src
+WORKDIR usr/src
 ENTRYPOINT ["java","-jar","nlp-service-0.0.1-SNAPSHOT.jar"]

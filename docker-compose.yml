@@ -254,3 +254,23 @@ services:
       - 8088:8088
     expose:
       - 8088
+
+  nlp-service:
+    image: nlp-service:latest
+    build: nlp-service/
+    restart: always
+    network_mode: "host"
+    hostname: localhost
+    depends_on:
+      zookeeper:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+      neo4j:
+        condition: service_healthy
+      search-upstream-service:
+        condition: service_healthy
+    ports:
+      - 8089:8089
+    expose:
+      - 8089
