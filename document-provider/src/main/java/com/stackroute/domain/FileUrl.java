@@ -1,4 +1,4 @@
-package com.stackroute.model;
+package com.stackroute.domain;
 
 /* A FileUrl class for setting and getting the URL of the file to be
    uploaded to the s3 storage

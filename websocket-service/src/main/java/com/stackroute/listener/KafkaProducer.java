@@ -1,5 +1,5 @@
 package com.stackroute.listener;
-import com.stackroute.model.ChatMessage;
+import com.stackroute.domain.ChatMessage;
 import com.stackroute.service.WebSocketService;
 import lombok.AllArgsConstructor;
 import lombok.Data;

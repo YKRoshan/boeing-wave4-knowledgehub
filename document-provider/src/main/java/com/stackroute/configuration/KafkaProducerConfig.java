@@ -1,6 +1,6 @@
 package com.stackroute.configuration;
 
-import com.stackroute.model.FileUrl;
+import com.stackroute.domain.FileUrl;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.context.annotation.Bean;

@@ -1,6 +1,6 @@
 package com.stackroute.configuration;
 
-import com.stackroute.model.ChatMessage;
+import com.stackroute.domain.ChatMessage;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

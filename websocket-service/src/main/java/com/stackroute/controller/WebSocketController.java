@@ -1,7 +1,7 @@
 package com.stackroute.controller;
 
 import com.stackroute.listener.KafkaProducer;
-import com.stackroute.model.ChatMessage;
+import com.stackroute.domain.ChatMessage;
 import com.stackroute.service.WebSocketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

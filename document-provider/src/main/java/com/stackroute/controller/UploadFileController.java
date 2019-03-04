@@ -1,6 +1,6 @@
 package com.stackroute.controller;
 
-import com.stackroute.model.FileUrl;
+import com.stackroute.domain.FileUrl;
 import com.stackroute.service.S3Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
