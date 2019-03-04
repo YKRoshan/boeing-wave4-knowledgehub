@@ -40,7 +40,7 @@ public class ParagraphController {
         return responseEntity;
     }
 
-    
+
 
     @GetMapping("paragraphs")
     public ResponseEntity<?> getAllJSONObjects() throws ParagraphNotFoundException{

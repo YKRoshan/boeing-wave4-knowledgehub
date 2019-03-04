@@ -1,3 +1,5 @@
+//This class is for kafka configuration for kafka producer
+
 package com.stackroute.config;
 
 import org.apache.kafka.clients.producer.ProducerConfig;
