@@ -49,6 +49,7 @@ export class HomeComponent implements OnInit {
     // window.sessionStorage.clear();
     if(this.token.getToken()){
        this.user=this.token.getUser();
+       this.dataService.login="LogOut"
       //  this.Islogged = "Log Out";
     }
     else{
