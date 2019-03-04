@@ -66,6 +66,8 @@ import { PaginatorComponent } from './paginator/paginator.component';
 import { RouterModule } from '@angular/router';
 import { DataService } from './domain/data-service';
 import { ChatComponent } from './chat/chat.component';
+import { IdGeneratorComponent } from './id-generator/id-generator.component';
+import { SessionId } from './domain/sessionId';
 
 @NgModule({
   declarations: [
@@ -78,7 +80,8 @@ import { ChatComponent } from './chat/chat.component';
     HeaderComponent,
     SearchcardComponent,
     PaginatorComponent,
-    ChatComponent
+    ChatComponent,
+    IdGeneratorComponent
   ],
   imports: [
     BrowserModule,
@@ -147,7 +150,7 @@ import { ChatComponent } from './chat/chat.component';
     ])
   ],
   providers: [TokenService,SearchinfoService,
-              AuthService,UploadService,DataService],
+              AuthService,UploadService,DataService,SessionId],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   bootstrap: [AppComponent],
   entryComponents: [ChatComponent]
