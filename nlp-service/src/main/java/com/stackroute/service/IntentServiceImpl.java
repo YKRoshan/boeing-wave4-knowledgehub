@@ -25,8 +25,6 @@ public class IntentServiceImpl implements IntentService {
                 knowledgeTerms.add(intents.get(i).getName());
             }
         }
-        System.out.println("knowledge");
-        System.out.println(knowledgeTerms);
         return knowledgeTerms;
     }
 
@@ -37,8 +35,6 @@ public class IntentServiceImpl implements IntentService {
                 comprehensionTerms.add(intents.get(i).getName());
             }
         }
-        System.out.println("Comprehension");
-        System.out.println(comprehensionTerms);
         return comprehensionTerms;
     }
 
