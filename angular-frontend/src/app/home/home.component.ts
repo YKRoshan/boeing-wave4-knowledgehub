@@ -11,6 +11,7 @@ import { makeStateKey, TransferState } from '@angular/platform-browser';
 import { SearchinfoService } from '../service/searchinfo.service';
 import { DataService } from '../domain/data-service';
 import { isPlatformServer } from '@angular/common';
+import { SessionId } from '../domain/sessionId';
 
 const configKey = makeStateKey('CONFIG');
 declare var webkitSpeechRecognition: any;
@@ -34,6 +35,7 @@ export class HomeComponent implements OnInit {
     private injector: Injector,
       private state : TransferState,
       private searchService : SearchinfoService,
+      private SessionIdNew:SessionId,
       public dataService:DataService,
       @Inject(PLATFORM_ID) private platformid: Object,private route:Router) { this.title = 'Voice Search POC';
       //isPlatformServer -Returns whether a platform id represents a server platform.
@@ -146,6 +148,18 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['/cards']);
   }
 
+  post(search:string){
+    var chatMessage = {
+      sessionId : this.SessionIdNew.SessionId,
+      searchString : search,
+     };
+     console.log(this.SessionIdNew.SessionId);
+      
+    this.searchService.getResults(chatMessage).subscribe((data)=>{
+      console.log(",mnmnjnk,")
+    });
+  }
+  
 
 }
 
