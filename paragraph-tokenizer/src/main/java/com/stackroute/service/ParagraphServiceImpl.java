@@ -20,6 +20,7 @@ public class ParagraphServiceImpl implements ParagraphService{
 
         try {
             Paragraph paraObj = new Paragraph();
+            //paragraph detecting regular expression
             String patternStr = "[.?!][/\\s/g]?\\n+";
             Pattern pattern = Pattern.compile(patternStr);
             Matcher matcher = pattern.matcher(text);
@@ -27,6 +28,7 @@ public class ParagraphServiceImpl implements ParagraphService{
             int i = 0;
             while (matcher.find()) {
                 String paragraph = matcher.group();
+                //getting each paragraph and storing it
                 para[i] = para[i] + paragraph.charAt(0);
                 i++;
             }
@@ -42,7 +44,7 @@ public class ParagraphServiceImpl implements ParagraphService{
                 paraObj.setParagraphText(para[cnt]);
                 obj.put("paragraphText", paraObj.getParagraphText());
                 cnt++;
-
+                //adding documentId, paragraphId, paragraphText in list for sending as object in kafka message bus
                 list.add(obj);
             }
             return list;

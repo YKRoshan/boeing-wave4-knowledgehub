@@ -11,7 +11,7 @@ public class KafkaProducer {
     @Autowired
     private KafkaTemplate<String, Search> kafkaTemplate2;
 
-    private static final String TOPIC="UpstreamService";
+    private static final String TOPIC="UpstreamResults";
 
     public String upStreamService(Search search)
     {
