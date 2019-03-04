@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { userInfo } from '../domain/login-info';
 import { AuthInterceptor } from '../service/auth-interceptor';
 import { AuthService } from '../service/auth.service';
-import { MatSidenav } from '@angular/material/sidenav';
 import{MatDialog,MatDialogConfig, MatDialogRef} from "@angular/material";
 import { LoginComponent } from '../login/login.component';
 import { ChatComponent } from '../chat/chat.component';
@@ -23,7 +22,7 @@ declare var webkitSpeechRecognition: any;
 })
 
 export class HomeComponent implements OnInit {
-  Islogged:string;
+  Islogged=this.dataService.login;
   user:any;
   info:any;
   add:boolean;
@@ -35,7 +34,7 @@ export class HomeComponent implements OnInit {
     private injector: Injector,
       private state : TransferState,
       private searchService : SearchinfoService,
-      private dataService:DataService,
+      public dataService:DataService,
       @Inject(PLATFORM_ID) private platformid: Object,private route:Router) { this.title = 'Voice Search POC';
       //isPlatformServer -Returns whether a platform id represents a server platform.
       if(isPlatformServer(this.platformid)){
@@ -50,22 +49,24 @@ export class HomeComponent implements OnInit {
     // window.sessionStorage.clear();
     if(this.token.getToken()){
        this.user=this.token.getUser();
-       this.Islogged = "Log Out";
+      //  this.Islogged = "Log Out";
     }
     else{
-      this.Islogged="Login"
+      // this.Islogged="Login"
+      // close();
     }
   }
 
   openDialog() {
     this.chatComponent = this.dialog.open(ChatComponent,{ disableClose: true});
   }
-  // This method is to signout or
+  // This method is to"Log Out" signout or
   //  naviagte to login component based on whether admin logged in or not.
   logging() {
     if(this.token.getToken()){
        this.token.signout();
-       window.location.reload();
+      //  window.location.reload();
+       this.dataService.login="Login";
     }
     else{
       this.dialog.open(LoginComponent)
