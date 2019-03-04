@@ -1,3 +1,4 @@
+//This class is for kafka configuration for kafka consumer
 package com.stackroute.config;
 
 import com.stackroute.domain.PdfDocument;

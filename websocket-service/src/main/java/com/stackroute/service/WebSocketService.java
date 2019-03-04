@@ -1,6 +1,6 @@
 package com.stackroute.service;
 
-import com.stackroute.model.ChatMessage;
+import com.stackroute.domain.ChatMessage;
 import org.springframework.stereotype.Service;
 
 @Service

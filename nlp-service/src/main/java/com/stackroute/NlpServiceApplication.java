@@ -11,4 +11,3 @@ public class NlpServiceApplication {
 		SpringApplication.run(NlpServiceApplication.class, args);
 	}
 }
-///home/user/Pictures/boeing-wave4-knowledgehub-V.1.0.0/nlp-service/src/main/java/com/stackroute/NlpServiceApplication.java

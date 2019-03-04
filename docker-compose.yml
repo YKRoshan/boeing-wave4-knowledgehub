@@ -28,7 +28,7 @@ services:
       test: "exit 0"
 
   configserver:
-      image: config-servcie:latest
+      image: config-service:latest
       build: config-server/
       restart: always
       network_mode: host
@@ -95,6 +95,8 @@ services:
     - 8084:8084
     expose:
     - 8084
+    healthcheck:
+      test: "exit 0"
 
   angular-app:
     build: angular-frontend/
@@ -138,7 +140,8 @@ services:
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
       KAFKA_LISTENERS: PLAINTEXT://localhost:9092
       KAFKA_ZOOKEEPER_CONNECT: localhost:2181
-      KAFKA_CREATE_TOPICS: "FileUrl:1:1, FileText:1:1, ParagraphContents:1:1,AnalyticsResults:1:1"
+      KAFKA_CREATE_TOPICS: "FileUrl:1:1, FileText:1:1, ParagraphContents:1:1,AnalyticsResults:1:1,UpstreamResults:1:1,NLPResults:1:1,
+				QueryEngineResults:1:1"
     network_mode: "host"
     hostname: localhost
     depends_on:
@@ -164,6 +167,8 @@ services:
       - 8087:8087
     expose:
       - 8087
+    healthcheck:
+      test: "exit 0"
 
   content-extractor:
     image: content-extractor:latest
@@ -182,6 +187,8 @@ services:
       - 8086:8086
     expose:
       - 8086
+    healthcheck:
+      test: "exit 0"
 
   paragraph-tokenizer:
     image: paragraph-tokenizer:latest
@@ -200,6 +207,8 @@ services:
       - 8090:8090
     expose:
       - 8090
+    healthcheck:
+      test: "exit 0"
 
   analytic-server:
     image: analytic-server:latest
@@ -220,6 +229,8 @@ services:
       - 8085:8085
     expose:
       - 8085
+    healthcheck:
+      test: "exit 0"
 
   search-upstream-service:
     image: search-upstream-service:latest
@@ -230,10 +241,18 @@ services:
     ports:
       - 8094:8094
     depends_on:
+      angular-app:
+        condition: service_healthy
       mongodb:
+        condition: service_healthy
+      zookeeper:
+        condition: service_healthy
+      kafka:
         condition: service_healthy
     expose:
       - 8094
+    healthcheck:
+      test: "exit 0"
 
   knowledge-indexer:
     image: knowledge-indexer:latest
@@ -254,6 +273,8 @@ services:
       - 8088:8088
     expose:
       - 8088
+    healthcheck:
+      test: "exit 0"
 
   nlp-service:
     image: nlp-service:latest
@@ -274,3 +295,27 @@ services:
       - 8089:8089
     expose:
       - 8089
+    healthcheck:
+      test: "exit 0"
+
+  query-engine:
+    image: query-engine:latest
+    build: query-engine/
+    restart: always
+    network_mode: "host"
+    hostname: localhost
+    depends_on:
+      zookeeper:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+      neo4j:
+        condition: service_healthy
+      nlp-service:
+        condition: service_healthy
+    ports:
+      - 8096:8096
+    expose:
+      - 8096
+    healthcheck:
+      test: "exit 0"

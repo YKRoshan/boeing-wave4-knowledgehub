@@ -1,23 +1,7 @@
 package com.stackroute.queryengine.service;
 
-import com.stackroute.queryengine.model.Knowledge;
-import com.stackroute.queryengine.repository.KnowledgeRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import com.stackroute.queryengine.domain.Knowledge;
 
-@Service
-public class QueryEngineService {
-    private KnowledgeRepository knowledgeRepository;
-
-    public QueryEngineService() {
-    }
-
-    @Autowired
-    public QueryEngineService( KnowledgeRepository knowledgeRepository){
-        this.knowledgeRepository=knowledgeRepository;
-    }
-
-    public Iterable<Knowledge> getQueryResult(String concept, String intentLevel) {
-         return  knowledgeRepository.getKnowledgeNode(concept,intentLevel);
-    }
+public interface QueryEngineService {
+    public Iterable<Knowledge> getQueryResult(String concept, String intentLevel);
 }

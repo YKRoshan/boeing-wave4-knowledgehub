@@ -10,6 +10,7 @@ import edu.stanford.nlp.pipeline.CoreDocument;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import edu.stanford.nlp.util.CoreMap;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
@@ -51,7 +52,6 @@ public class NlpServiceImpl implements NlpService {
         this.paragraph = paragraph;
     }
 
-    String[] stopwords = {"i", "me", "my", "myself", "we", "our", "ours", "ourselves", "could", "he'd", "he'll", "he's", "here's", "how's", "ought", "she'd", "she'll", "that's", "there's", "they'd", "they'll", "they're", "they've", "we'd", "we'll", "we're", "we've", "when's", "where's", "who's", "why's", "would", "i'd", "i'll", "i'm", "i've", "you", "you're", "you've", "you'll", "you'd", "your", "yours", "yourself", "yourselves", "he", "him", "his", "himself", "she", "she's", "her", "hers", "herself", "it", "it's", "its", "itself", "they", "them", "their", "theirs", "themselves", "which", "who", "whom", "this", "that", "that'll", "these", "those", "am", "is", "are", "was", "were", "be", "been", "being", "have", "has", "had", "having", "do", "does", "did", "doing", "a", "an", "the", "and", "but", "if", "or", "because", "as", "until", "while", "of", "at", "by", "for", "with", "about", "against", "between", "into", "through", "during", "before", "after", "above", "below", "to", "from", "up", "down", "in", "out", "off", "over", "under", "again", "further", "then", "once", "here", "there", "when", "where", "why", "how", "all", "any", "both", "each", "few", "more", "most", "other", "some", "such", "no", "nor", "not", "only", "own", "same", "so", "than", "too", "very", "s", "t", "can", "will", "just", "don", "don't", "should", "should've", "now", "d", "ll", "m", "o", "re", "ve", "y", "ain", "aren", "aren't", "couldn", "couldn't", "didn", "didn't", "doesn", "doesn't", "hadn", "hadn't", "hasn", "hasn't", "haven", "haven't", "isn", "isn't", "ma", "mightn", "mightn't", "mustn", "mustn't", "needn", "needn't", "shan", "shan't", "shouldn", "shouldn't", "wasn", "wasn't", "weren", "weren't", "won", "won't", "wouldn", "wouldn't"};
     private ArrayList<String> knowledge;
     private ArrayList<String> comprehension;
     private ArrayList<String> application;
@@ -59,6 +59,10 @@ public class NlpServiceImpl implements NlpService {
     private ArrayList<String> synthesis;
     private ArrayList<String> evaluation;
     private ArrayList<ArrayList<String>> intentGraph;
+    @Value("${stopwords}")
+    private String[] stopwords;
+    @Value("${intentNames}")
+    private String[] intents;
 
     @Autowired
     public NlpServiceImpl(IntentService intentService, ConceptService conceptService) {
@@ -93,11 +97,13 @@ public class NlpServiceImpl implements NlpService {
         String wordsWithOutStopwords[] = getCleanerParagrah().split(" ");
         ArrayList<String> listWithOutStopWords = new ArrayList<>();
         for (int i = 0; i < wordsWithOutStopwords.length; i++) {
-            listWithOutStopWords.add(wordsWithOutStopwords[i]);
+            listWithOutStopWords.add(wordsWithOutStopwords[i].trim());
         }
-        for (int j = 0; j < stopwords.length; j++) {
-            if (listWithOutStopWords.contains(stopwords[j])) {
-                listWithOutStopWords.remove(stopwords[j]);//remove it
+        for (int i = 0; i < stopwords.length; i++) {
+            for (int j = 0; j < listWithOutStopWords.size(); j++) {
+                if (listWithOutStopWords.get(j).equalsIgnoreCase(stopwords[i].trim())) {
+                    listWithOutStopWords.remove(j);
+                }
             }
         }
         return listWithOutStopWords;
@@ -202,6 +208,7 @@ public class NlpServiceImpl implements NlpService {
                 return "Knowledge";
             }
         }
+
         intentGraph = new ArrayList<>();
         intentGraph.add(knowledge);
         intentGraph.add(comprehension);
@@ -209,7 +216,7 @@ public class NlpServiceImpl implements NlpService {
         intentGraph.add(analysis);
         intentGraph.add(synthesis);
         intentGraph.add(evaluation);
-        String intents[] = {"Knowledge", "Comprehension", "Application", "Analysis", "Synthesis", "Evaluation"};
+
         String searchString = getParagraphWithLemmatizedWords();
         for (int i = 0; i < intentGraph.size(); i++) {
             for (int j = 0; j < intentGraph.get(i).size(); j++) {
@@ -226,18 +233,9 @@ public class NlpServiceImpl implements NlpService {
 
     public NlpResult getNlpResults() {
         NlpResult nlpResult = new NlpResult();
-        System.out.println("paragraph");
-        System.out.println(getCleanerParagrah());
-        System.out.println("stop word paragraph");
-        System.out.println(getParagraphWithOutStopWords());
-        System.out.println("lemmatized paragraph");
-        System.out.println(getParagraphWithLemmatizedWords());
         nlpResult.setConcept(getMostAccurateConceptName());
-        System.out.println("ConceptName = " + getMostAccurateConceptName());
         nlpResult.setIntent(getUserIntent());
-        System.out.println("Intent = " + getUserIntent());
         nlpResult.setSessonId(getSessonId());
-        System.out.println(nlpResult);
         return nlpResult;
     }
 

@@ -1,6 +1,6 @@
 package com.stackroute.queryengine.config;
 
-import com.stackroute.queryengine.model.Knowledge;
+import com.stackroute.queryengine.domain.Knowledge;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,6 +15,8 @@ import java.util.Map;
 
 @Configuration
 public class ProducerConfig {
+
+    //This method is used for providing configuration for producer
     @Bean
     public ProducerFactory<String, Knowledge> producerFactory() {
         Map<String, Object> config = new HashMap<>();
@@ -26,7 +28,7 @@ public class ProducerConfig {
         return new DefaultKafkaProducerFactory<>(config);
     }
 
-
+    //This is a method for kafka template
     @Bean
     public KafkaTemplate<String, Knowledge> kafkaTemplate() {
         return new KafkaTemplate<>(producerFactory());

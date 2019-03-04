@@ -1,5 +1,4 @@
-package com.stackroute.queryengine.model;
-
+package com.stackroute.domain;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,8 +7,8 @@ import org.neo4j.ogm.annotation.NodeEntity;
 
 @NodeEntity
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 public class Knowledge {
 
     @Id
@@ -20,4 +19,5 @@ public class Knowledge {
     private String concept;
     private String intentLevel;
     private double confidenceScore;
+
 }

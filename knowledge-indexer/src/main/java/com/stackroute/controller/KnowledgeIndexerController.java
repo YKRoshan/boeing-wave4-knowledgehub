@@ -1,7 +1,7 @@
 package com.stackroute.controller;
 
-import com.stackroute.model.Knowledge;
-import com.stackroute.service.KnowledgeIndexerService;
+import com.stackroute.domain.Knowledge;
+import com.stackroute.service.KnowledgeIndexerServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,11 +18,11 @@ public class KnowledgeIndexerController {
     Logger logger = Logger.getLogger(KnowledgeIndexerController.class.getName());
 
 
-    private KnowledgeIndexerService knowledgeIndexerService;
+    private KnowledgeIndexerServiceImpl knowledgeIndexerServiceImpl;
 
     @Autowired
-    KnowledgeIndexerController(KnowledgeIndexerService knowledgeIndexerService) {
-        this.knowledgeIndexerService = knowledgeIndexerService;
+    KnowledgeIndexerController(KnowledgeIndexerServiceImpl knowledgeIndexerServiceImpl) {
+        this.knowledgeIndexerServiceImpl = knowledgeIndexerServiceImpl;
     }
 
     //Code used for testing the methods
@@ -30,7 +30,7 @@ public class KnowledgeIndexerController {
     public ResponseEntity<String> addKnowledge(@RequestBody Knowledge knowledge) {
         ResponseEntity<String> responseEntity;
         try {
-            knowledgeIndexerService.saveKnowledgeToDb(knowledge);
+            knowledgeIndexerServiceImpl.saveKnowledgeToDb(knowledge);
             responseEntity = new ResponseEntity<>("Knowledge saved sucessfully", HttpStatus.OK);
         } catch (Exception e) {
             responseEntity = new ResponseEntity<>("Error while saving knowledge", HttpStatus.BAD_GATEWAY);
@@ -47,7 +47,7 @@ public class KnowledgeIndexerController {
     {
         ResponseEntity<String> responseEntity;
         try {
-            knowledgeIndexerService.addRelationship(name,paragraphId,intentLevel,confidenceScore);
+            knowledgeIndexerServiceImpl.addRelationship(name,paragraphId,intentLevel,confidenceScore);
             responseEntity = new ResponseEntity<>("Relationship saved sucessfully", HttpStatus.OK);
         } catch (Exception e) {
             responseEntity = new ResponseEntity<>("Error while saving relationship", HttpStatus.BAD_GATEWAY);

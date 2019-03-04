@@ -1,7 +1,7 @@
 package com.stackroute.listener;
 
-import com.stackroute.model.Knowledge;
-import com.stackroute.service.KnowledgeIndexerService;
+import com.stackroute.domain.Knowledge;
+import com.stackroute.service.KnowledgeIndexerServiceImpl;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,11 +11,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class KafkaConsumer {
 
-    private KnowledgeIndexerService knowledgeIndexerService;
+    private KnowledgeIndexerServiceImpl knowledgeIndexerServiceImpl;
 
     @Autowired
-    public KafkaConsumer(KnowledgeIndexerService knowledgeIndexerService) {
-        this.knowledgeIndexerService = knowledgeIndexerService;
+    public KafkaConsumer(KnowledgeIndexerServiceImpl knowledgeIndexerServiceImpl) {
+        this.knowledgeIndexerServiceImpl = knowledgeIndexerServiceImpl;
     }
 
     //This method is used to consume json object from producer
@@ -27,7 +27,7 @@ public class KafkaConsumer {
                 object.get("documentId").toString(),object.get("domain").toString()
                 ,object.get("concept").toString(),object.get("intentLevel").toString(),Double.parseDouble(object.get("confidenceScore").toString()));
 
-        knowledgeIndexerService.saveKnowledgeToDb(knowledge);
-        knowledgeIndexerService.addRelationship(knowledge.getConcept(),knowledge.getParagraphId(),knowledge.getIntentLevel(),knowledge.getConfidenceScore());
+        knowledgeIndexerServiceImpl.saveKnowledgeToDb(knowledge);
+        knowledgeIndexerServiceImpl.addRelationship(knowledge.getConcept(),knowledge.getParagraphId(),knowledge.getIntentLevel(),knowledge.getConfidenceScore());
     }
 }
