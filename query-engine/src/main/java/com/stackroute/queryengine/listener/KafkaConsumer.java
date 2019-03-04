@@ -29,7 +29,7 @@ public class KafkaConsumer {
     public void consume(String message) {
         JSONObject object = (JSONObject) JSONValue.parse(message);
 
-
+        System.out.println("message"+message);
         kafkaProducer.postservice(object.get("concept").toString(),object.get("intent").toString());
     }
 }

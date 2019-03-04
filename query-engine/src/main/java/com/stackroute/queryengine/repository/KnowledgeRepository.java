@@ -12,4 +12,6 @@ public interface KnowledgeRepository extends Neo4jRepository<Knowledge,String> {
     @Query("match(c:Concept{name:{0}}) match(k:Knowledge{intentLevel:{1}}) return k")
     Collection<Knowledge> getKnowledgeNode(String concept, String intentLevel);
 
+
+
 }
