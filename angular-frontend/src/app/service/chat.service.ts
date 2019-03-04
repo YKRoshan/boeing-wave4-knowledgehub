@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { ApiAiClient } from 'api-ai-javascript/es6/ApiAiClient';
 import { environment } from 'src/environments/environment';
 import { BehaviorSubject } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
 
 export class Message {
   constructor(public content: string, public sentBy: string) {}
@@ -19,7 +20,7 @@ export class ChatService {
 
   conversation = new BehaviorSubject<Message[]>([]);
 
-  constructor() {}
+  constructor(private dialog:MatDialog) {}
 
   // Sends and receives messages via DialogFlow
   converse(msg: string) {
@@ -29,6 +30,12 @@ export class ChatService {
     return this.client.textRequest(msg)
                .then(res => {
                   const speech = res.result.fulfillment.speech;
+                  if (speech=='so you want to search about spring Close this bot and Hold on...')
+                  {
+                    console.log("inside if of speech");
+                    // this.navigate();
+                  this.closeDialog();
+                  }
                   const botMessage = new Message(speech, 'bot');
                   this.update(botMessage);
                });}
@@ -36,4 +43,13 @@ export class ChatService {
         // Adds message to source
   update(msg: Message) {
     this.conversation.next([msg]);
-  }}
+  }
+
+  closeDialog(){
+    setTimeout(()=>{    
+      this.dialog.closeAll();
+ }, 3000);   
+
+  }
+
+}

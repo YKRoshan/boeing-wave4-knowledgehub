@@ -80,7 +80,6 @@
        </ul>
     <form class="form-inline">
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit" (click)="open()">{{Islogged}}</button>
-        <button mat-raised-button color="warn" (click)="openDialog()">Knowledge Bot</button>
       </form>
 
     </div>
@@ -117,6 +116,9 @@
       </div>
     </div>
   </div>
+
+  <button mat-fab color="primary" id="add-button" (click)="openDialog()" matTooltip="Knowledge Bot"><ng-md-icon class="material-icons">bot</ng-md-icon></button>
+
   <app-footer></app-footer>
 
 </body>
