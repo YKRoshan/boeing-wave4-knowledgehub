@@ -20,5 +20,4 @@ public class QueryEngineService {
     public Iterable<Knowledge> getQueryResult(String concept, String intentLevel) {
          return  knowledgeRepository.getKnowledgeNode(concept,intentLevel);
     }
-
 }

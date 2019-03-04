@@ -22,7 +22,7 @@ public class QuestionProviderController {
     }
 
     @GetMapping("searchQuestions")
-    public ResponseEntity<List<Question>> getAllTracks() {
+    public ResponseEntity<List<Question>> getAllQuestions() {
         return new ResponseEntity<>(questionProviderService.getAllQuestions(), HttpStatus.OK);
     }
 

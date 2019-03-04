@@ -20,7 +20,4 @@ public class Knowledge {
     private String concept;
     private String intentLevel;
     private double confidenceScore;
-
-
-
 }

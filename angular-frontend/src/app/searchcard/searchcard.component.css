@@ -1,6 +1,6 @@
-.example-card {
+/* .example-card {
     max-width: 400px;
-  }
+  } */
 
   .nan
   {
@@ -17,11 +17,11 @@
     color: blue;
   }
 
-
+/* 
   #sbutton{
-    /* margin-left:700px; */
+   
     display: inline;
-}
+} */
 
 .mat-paginator-sticky {
   left: 450px;
@@ -36,19 +36,70 @@
 
 #mic{
     margin-top:0px;
-    height:35px;
-    width:35px;
+    height:25px;
+    width:25px;
     margin-left:2px;
 }
 
-#searchKey{
+/* #searchKey{
     
      margin-left:100px; 
      height:35px;
      width: 400px;
      min-width:100px;  
     background-color: rgb(212, 209, 209);
+} */
+/* body{
+  min-width: 300px;;
+} */
+
+
+
+.input-group.md-form.form-sm.form-1 input{
+  border: 1px solid #d61b1b;
+  border-top-right-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
+}
+.input-group.md-form.form-sm.form-2 input {
+  border: 1px solid #bdbdbd;
+  border-top-left-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
+}
+
+.input-group.md-form.form-sm.form-2 input.amber-border  {
+  border: 1px solid #ffca28;
+}
+
+
+
+
+.form-control-borderless {
+  border: none;
+}
+
+.form-control-borderless:hover, .form-control-borderless:active, .form-control-borderless:focus {
+  border: none;
+  outline: none;
+  box-shadow: none;
 }
 body{
-  min-width: 300px;;
+  margin-bottom:10rem;
+   
 }
+/* 
+.searchArea{
+  margin: 0;
+  padding: 0;
+  height: 70px;
+} */
+
+.ser{
+
+  background-color: #cce26a;
+}
+ 
+h6{
+  padding: 0;
+  margin: 0;
+} 
+

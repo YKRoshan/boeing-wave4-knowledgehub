@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
       {this.token.saveToken(data.accessToken),
       this.token.saveUsername(data.username),
       console.log(data.accessToken),
-      this.navigate() },
+      this.reloadPage() },
       
      
       error => {

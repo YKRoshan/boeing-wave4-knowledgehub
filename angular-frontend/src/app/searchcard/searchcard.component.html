@@ -1,14 +1,69 @@
 <!-- <app-header></app-header> -->
-<body>
-<mat-card class="searchArea">
-  <form #form #gSearch method="GET" id="gSearch" >
+
+
+  <!-- <form #form #gSearch method="GET" id="gSearch" >
       <mat-card id="voicesearch">
           <input #searchKey name="q" id="searchKey" type="search" value={{searchTerm}}>
           <img src="assets/img/mic.png" alt="mic" (click)="voiceSearch()" id="mic">
           <mat-button mat-stroked-button color="default" type="submit" id="searchbutton" (click)="getdata()" >Search</mat-button>   
       </mat-card>
-</form>
-</mat-card>
+</form> -->
+
+
+<!-- <div class="nane">
+<app-searchbutton></app-searchbutton>
+</div> -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<style>
+  /* Note: Try to remove the following lines to see the effect of CSS positioning */
+  .affix {
+    top: 0;
+    width: 100%;
+    z-index: 9999 !important;
+  }
+
+  </style>
+  <nav class="ser" data-spy="affix" data-offset-top="197">
+
+  <!------ Include the above in your HEAD tag ---------->
+  
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt"
+    crossorigin="anonymous">
+  <div class="container" data-spy="affix" data-offset-top="197">
+    <br />
+    <div class="row justify-content-center">
+      <div class="col-12 col-md-10 col-lg-8">
+        <form class="card card-sm" class="ra">
+          <div class="card-body row no-gutters align-items-center">
+        
+            <!--end of col-->
+            <div class="col" >
+              <input class="form-control form-control-lg form-control-borderless"  #searchKey name="q" id="searchKey" type="search"  [(ngModel)]="searchTerm"   placeholder="Search topics or keywords">
+              
+            </div>
+            <!--end of col-->
+            <div class="col-auto">
+                <form #form #gSearch method="GET" id="gSearch" >
+                    <div id="voicesearch">
+                <img src="assets/img/mic.png" alt="mic" (click)="voiceSearch()" id="mic">
+              <button class="btn btn-lg btn-primary" type="submit"  (click)="getdata()"><h6>Search</h6></button>
+            </div>
+                </form>
+            </div>
+            <!--end of col-->
+          </div>
+        </form>
+      </div>
+      <!--end of col-->
+    </div>
+  </div>
+</nav>
+
+
+
+
 <mat-card *ngFor='let c of splicedData'>
   <mat-card class="example-card"  class="nan">
    <mat-card-header>
@@ -26,5 +81,5 @@
   </mat-card>
   <mat-paginator (page)="pageChangeEvent($event)" [length]="pageLength" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"  class="mat-paginator-sticky">
   </mat-paginator>
-</body>
+
   <!-- <app-paginator></app-paginator> -->

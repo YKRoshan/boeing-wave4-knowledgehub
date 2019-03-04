@@ -1,6 +1,5 @@
 package com.stackroute.service;
 
-import com.stackroute.model.Concept;
 import com.stackroute.model.Knowledge;
 import com.stackroute.repository.ConceptRepository;
 import com.stackroute.repository.KnowledgeRepository;
