@@ -19,14 +19,16 @@ Kafka Producer producing JSON Object for Paragraph tokenizer
 public class KafkaProducer {
 
     private PdfExtractionService pdfExtractionService;
+    private KafkaTemplate<String, PdfDocument> kafkaTemplate2;
 
     @Autowired
-    public KafkaProducer(PdfExtractionService pdfExtractionService) {
+    public KafkaProducer(PdfExtractionService pdfExtractionService , KafkaTemplate<String, PdfDocument> kafkaTemplate2) {
         this.pdfExtractionService = pdfExtractionService;
+        this.kafkaTemplate2=kafkaTemplate2;
     }
 
     @Autowired
-    private KafkaTemplate<String, PdfDocument> kafkaTemplate2;
+
 
     private static final String TOPIC="FileText";
     public String postservice(String fileurl) throws IOException, SAXException, NullPointerException, FileNotFoundException, EmptyFileException,
