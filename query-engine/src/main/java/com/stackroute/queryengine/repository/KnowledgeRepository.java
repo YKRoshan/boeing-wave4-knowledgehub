@@ -1,6 +1,6 @@
 package com.stackroute.queryengine.repository;
 
-import com.stackroute.queryengine.model.Knowledge;
+import com.stackroute.queryengine.domain.Knowledge;
 import org.springframework.data.neo4j.annotation.Query;
 import org.springframework.data.neo4j.repository.Neo4jRepository;
 

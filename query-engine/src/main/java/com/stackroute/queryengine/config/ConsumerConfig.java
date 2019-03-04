@@ -1,6 +1,6 @@
 package com.stackroute.queryengine.config;
 
-import com.stackroute.queryengine.model.Knowledge;
+import com.stackroute.queryengine.domain.Knowledge;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,6 +18,7 @@ import java.util.Map;
 @Configuration
 public class ConsumerConfig {
 
+    //This is a method for kafka template
     @Bean
     public ConsumerFactory<String, String> consumerFactory () {
         Map<String, Object> config = new HashMap<>();
@@ -29,7 +30,7 @@ public class ConsumerConfig {
         return new DefaultKafkaConsumerFactory<>(config);
     }
 
-
+    //This is a kafka listener method
     @Bean
     public ConcurrentKafkaListenerContainerFactory<String, String> kafkaListenerContainerFactory () {
         ConcurrentKafkaListenerContainerFactory<String, String> factory = new ConcurrentKafkaListenerContainerFactory();
@@ -37,7 +38,7 @@ public class ConsumerConfig {
         return factory;
     }
 
-
+    //Consumer method for knowledge object type
     @Bean
     public ConsumerFactory<String, Knowledge> userConsumerFactory () {
         Map<String, Object> config = new HashMap<>();
@@ -50,6 +51,7 @@ public class ConsumerConfig {
                 new JsonDeserializer<>(Knowledge.class));
     }
 
+    //Kafka listener
     @Bean
     public ConcurrentKafkaListenerContainerFactory<String, Knowledge> userKafkaListenerFactory () {
         ConcurrentKafkaListenerContainerFactory<String, Knowledge> factory = new ConcurrentKafkaListenerContainerFactory<>();

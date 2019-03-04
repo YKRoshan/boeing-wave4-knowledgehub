@@ -1,4 +1,4 @@
-package com.stackroute.queryengine.model;
+package com.stackroute.queryengine.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
