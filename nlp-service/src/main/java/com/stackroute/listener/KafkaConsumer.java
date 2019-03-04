@@ -34,10 +34,8 @@ public class KafkaConsumer {
     public void consume(String message) {
         JSONObject object = (JSONObject) JSONValue.parse(message);
         SearchJSON searchJSON = new SearchJSON(object.get("searchString").toString(), object.get("sessionId").toString());
-        ArrayList<String> concepts = new ArrayList<>(Arrays.asList("annotations", "ioc container", "beans", "spring core", "spring data jpa", "spring datajpa", "spring aop", "spring security", "spring cloud", "spring reactive", "spring mvc"));
         nlpService.setSessonId(searchJSON.getSessonId());
         nlpService.setParagraph(searchJSON.getSearchString());
-        nlpService.setConceptName(concepts);
         NlpResult nlpResult = nlpService.getNlpResults();
         if (nlpResult.getIntent().equalsIgnoreCase("no intent found")) {
             String searchStringQuestion = searchJSON.getSearchString();

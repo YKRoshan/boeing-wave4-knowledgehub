@@ -9,13 +9,15 @@ import java.util.ArrayList;
 @Service
 public class ConceptServiceImpl implements ConceptService {
     private ConceptRepository conceptRepository;
+    private ArrayList<Concept> concepts;
 
     public ConceptServiceImpl(ConceptRepository conceptRepository) {
         this.conceptRepository = conceptRepository;
+        this.concepts = new ArrayList<>(conceptRepository.getAllConcepts());
     }
 
     public ArrayList<String> getConcepts() {
-        ArrayList<Concept> concepts = new ArrayList<>(conceptRepository.getAllConcepts());
+
         ArrayList<String> conceptNames = new ArrayList<>();
         for (int i = 0; i < concepts.size(); i++) {
             conceptNames.add(concepts.get(i).getName());
