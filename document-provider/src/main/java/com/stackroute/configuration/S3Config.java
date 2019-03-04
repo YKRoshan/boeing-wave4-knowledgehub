@@ -9,9 +9,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-@Configuration
+
 
 /*This is the configuration class which builds the aws credentials*/
+@Configuration
 public class S3Config {
 
     /* The @Value annotation will bind application properties

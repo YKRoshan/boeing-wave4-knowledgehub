@@ -4,7 +4,7 @@ package com.stackroute.model;
    uploaded to the s3 storage
  */
 public class FileUrl {
-    String fileUrl;
+    private String fileUrl;
 
     public FileUrl(){
 
