@@ -32,6 +32,7 @@ public class KafkaConsumer {
 
     @KafkaListener(topics = "UpstreamResults", groupId = "group_id")
     public void consume(String message) {
+        System.out.println("message aaaaaaaaaa = " + message);
         JSONObject object = (JSONObject) JSONValue.parse(message);
         SearchJSON searchJSON = new SearchJSON(object.get("searchString").toString(), object.get("sessionId").toString());
         nlpService.setSessonId(searchJSON.getSessonId());

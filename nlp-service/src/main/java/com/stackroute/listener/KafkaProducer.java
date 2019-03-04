@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class KafkaProducer {
     private NlpService nlpService;
-
+    @Autowired
     public KafkaProducer(NlpService nlpService) {
         this.nlpService = nlpService;
     }
@@ -20,8 +20,7 @@ public class KafkaProducer {
     private static final String TOPIC = "NLPResults";
 
     public String postservice() {
-        NlpResult nlpResult = nlpService.getNlpResults();
-        kafkaTemplate2.send(TOPIC, nlpResult);
+        kafkaTemplate2.send(TOPIC, nlpService.getNlpResults());
         return "Published successfully";
     }
 }
