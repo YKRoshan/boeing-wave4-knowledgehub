@@ -72,6 +72,13 @@ export class SearchcardComponent {
   }
 
 
+  getResult(searchString){
+    this.search.getResults(searchString).subscribe((results)=>{ this.info = results;
+      this.pageLength = this.info.length;
+      console.log(this.pageLength);
+      this.loadData(0)})
+}
+
 
   public voiceSearch() {
     //we create the webkitSpeechRecognition object which provides the speech interface,

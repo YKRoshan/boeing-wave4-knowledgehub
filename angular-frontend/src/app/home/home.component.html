@@ -79,12 +79,17 @@
       <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
        </ul>
     <form class="form-inline">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" (click)="open()">{{Islogged}}</button>
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" (click)="logging()">{{Islogged}}</button>
       </form>
 
     </div>
   </nav>
 
+  <div class="dragDrop" *ngIf="this.token.getToken()">
+    <div class="dragDropColour">
+      <app-upload></app-upload>
+    </div>
+  </div>
   <div class="parallax">
     <div class="container" data-spy="affix" data-offset-top="197">
       <br />
@@ -104,7 +109,7 @@
                 <div id="voicesearch">
                   <div class="col-auto">
                     <img src="assets/img/mic.png" alt="mic" (click)="voiceSearch()" id="mic">
-                    <button class="btn btn-lg btn-success" type="submit" (click)="getdata()">Search</button>
+                    <button class="btn btn-lg btn-success" type="submit" (click)="getdata()" >Search</button>
                   </div>
                 </div>
               </form>

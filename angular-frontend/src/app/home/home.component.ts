@@ -34,7 +34,7 @@ export class HomeComponent implements OnInit {
   constructor(public token:TokenService,private router:Router,private auth:AuthService,private dialog:MatDialog,
     private injector: Injector,
       private state : TransferState,
-      private search : SearchinfoService,
+      private searchService : SearchinfoService,
       private dataService:DataService,
       @Inject(PLATFORM_ID) private platformid: Object,private route:Router) { this.title = 'Voice Search POC';
       //isPlatformServer -Returns whether a platform id represents a server platform.
