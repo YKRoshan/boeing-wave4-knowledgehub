@@ -91,17 +91,11 @@ THE SOFTWARE.
 
 @angular/material/card
 
-@angular/material/core
-
 @angular/material/datepicker
 
 @angular/material/dialog
 
 @angular/material/form-field
-
-@angular/material/paginator
-
-@angular/material/select
 
 @angular/material/snack-bar
 

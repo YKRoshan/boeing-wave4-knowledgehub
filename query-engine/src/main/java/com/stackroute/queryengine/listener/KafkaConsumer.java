@@ -29,9 +29,7 @@ public class KafkaConsumer {
     public void consume(String message) {
         JSONObject object = (JSONObject) JSONValue.parse(message);
 
-        Knowledge knowledge=new Knowledge(object.get("paragraphId").toString(),object.get("name").toString(),object.get("documentId").toString(),
-                object.get("domain").toString(),object.get("concept").toString(),object.get("intentLevel").toString(),Double.parseDouble(object.get("confidenceScore").toString()));
 
-        kafkaProducer.postservice(knowledge.getConcept(),knowledge.getIntentLevel());
+        kafkaProducer.postservice(object.get("concept").toString(),object.get("intent").toString());
     }
 }

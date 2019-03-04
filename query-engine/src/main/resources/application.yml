@@ -1,3 +1,8 @@
-spring.data.neo4j.username=neo4j
-spring.data.neo4j.password=neo4j123
-server.port=8088
+spring:
+  data:
+    neo4j:
+      username: neo4j
+      password: neo4j123
+
+server:
+  port: 8088

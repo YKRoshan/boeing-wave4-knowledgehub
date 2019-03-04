@@ -4,6 +4,8 @@ import { userInfo} from '../domain/login-info';
 import { TokenService } from '../service/token.service';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material';
+import { DataService } from '../domain/data-service';
 
 
 
@@ -20,7 +22,8 @@ export class LoginComponent implements OnInit {
   password=new FormControl('');
   isLoginFailed:boolean=false;
   errorMessage:string;
-  constructor(private auth:AuthService ,private token:TokenService,private router: Router) { }
+  constructor(private auth:AuthService ,private token:TokenService,private router: Router,
+    private dialog:MatDialog,private dataService:DataService) { }
 
    //This method checks for token on when you load the component.
   ngOnInit() {
@@ -41,7 +44,9 @@ export class LoginComponent implements OnInit {
       {this.token.saveToken(data.accessToken),
       this.token.saveUsername(data.username),
       console.log(data.accessToken),
-      this.reloadPage() },
+      this.dataService.login="LogOut"
+      this.dialog.closeAll();
+     },
       
      
       error => {

@@ -30,6 +30,7 @@ public class SearchController {
         JSONObject jsonObj = new JSONObject(search);
         JSONObject location=jsonObj.getJSONObject("queryResult");
         Search searchClass =new Search();
+        searchClass.setSessionId(jsonObj.getString("responseId"));
         searchClass.setSearchString(location.getString("queryText"));
         searchService.saveSearchText(searchClass);
         return kafkaProducer.upStreamService(searchClass);
