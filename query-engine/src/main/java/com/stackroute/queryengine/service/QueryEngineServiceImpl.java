@@ -17,8 +17,38 @@ public class QueryEngineServiceImpl implements QueryEngineService {
         this.knowledgeRepository=knowledgeRepository;
     }
 
-    //This method is used for fetching the query results from neo4j
+
+    @Override
     public Iterable<Knowledge> getQueryResult(String concept, String intentLevel) {
-         return  knowledgeRepository.getKnowledgeNode(concept,intentLevel);
+
+        if(intentLevel.equalsIgnoreCase("Knowledge"))
+        {
+            return  knowledgeRepository.getKnowledgeNode(concept,intentLevel);
+        }
+        else if(intentLevel.equalsIgnoreCase("Comprehension"))
+        {
+            return  knowledgeRepository.getComprehensionNode(concept,intentLevel);
+        }
+        else if(intentLevel.equalsIgnoreCase("Analysis"))
+        {
+            return  knowledgeRepository.getanalysisNode(concept,intentLevel);
+        }
+
+        else if(intentLevel.equalsIgnoreCase("Application"))
+        {
+            return  knowledgeRepository.getapplicationNode(concept,intentLevel);
+        }
+
+        else if(intentLevel.equalsIgnoreCase("Synthesis"))
+        {
+            return  knowledgeRepository.getsynthesisNode(concept,intentLevel);
+        }
+        else if(intentLevel.equalsIgnoreCase("Evaluation"))
+        {
+            return  knowledgeRepository.getevaluationNode(concept,intentLevel);
+        }
+        else
+            return  knowledgeRepository.getevaluationNode(concept,intentLevel);
+
     }
 }

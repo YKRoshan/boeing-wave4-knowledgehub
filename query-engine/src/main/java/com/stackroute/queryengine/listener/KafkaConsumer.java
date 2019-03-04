@@ -21,8 +21,7 @@ public class KafkaConsumer {
         this.queryEngineServiceImpl = queryEngineServiceImpl;
         this.kafkaProducer = kafkaProducer;
     }
-    @Autowired
-    private KafkaTemplate<String, Knowledge> kafkaTemplate;
+
 
     //This method is used to consume json object from producer
     @KafkaListener(topics = "NLPResults", groupId = "group_id")
@@ -30,6 +29,7 @@ public class KafkaConsumer {
         JSONObject object = (JSONObject) JSONValue.parse(message);
 
         System.out.println("message"+message);
-        kafkaProducer.postservice(object.get("concept").toString(),object.get("intent").toString());
+        kafkaProducer.postservice(object.get("concept").toString(),object.get("intent").toString(),
+                object.get("sessonId").toString());
     }
 }
