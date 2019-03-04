@@ -7,6 +7,10 @@ RUN npm install ngx-file-drop
 RUN npm install angular-bootstrap-md --save
 RUN npm install rxjs-compat
 RUN npm install api-ai-javascript
+RUN npm install stompjs
+RUN npm install sockjs
+RUN npm install jquery
+RUN npm i net -S
 COPY . .
 RUN npm run build
 # Stage 2
