@@ -36,11 +36,12 @@ public class SearchController {
         return kafkaProducer.upStreamService(searchClass);
     }
 
-    @PostMapping("search/{value}")
-    public String searchBox(@PathVariable String value){
+    @PostMapping("vsearch")
+    public String searchBox(@RequestBody Search search){
 
         Search searchClasses =new Search();
-        searchClasses.setSearchString(value);
+        searchClasses.setSearchString(search.getSearchString());
+        searchClasses.setSessionId(search.getSessionId());
         searchService.saveSearchText(searchClasses);
         return kafkaProducer.upStreamService(searchClasses);
     }
