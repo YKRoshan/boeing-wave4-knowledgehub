@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @RestController
@@ -21,9 +23,8 @@ public class QuestionProviderController {
         this.questionProviderService = questionProviderService;
     }
 
-    @GetMapping("searchQuestions")
-    public ResponseEntity<List<Question>> getAllQuestions() {
-        return new ResponseEntity<>(questionProviderService.getAllQuestions(), HttpStatus.OK);
+    @GetMapping("getAllQuestions")
+    public List<Question> getAllQuestions() {
+        return new ArrayList<>(questionProviderService.getAllQuestions());
     }
-
 }
