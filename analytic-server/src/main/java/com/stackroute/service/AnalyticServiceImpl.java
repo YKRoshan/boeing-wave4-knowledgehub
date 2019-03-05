@@ -64,7 +64,7 @@ public class AnalyticServiceImpl implements AnalyticService {
         ArrayList<ConceptNameFrequency> wordsFrequencyMap = new ArrayList<>();
         for (int i = 0; i < conceptNames.size(); i++) {
             long counter = 0;
-            wordsFrequencyMap.add(new ConceptNameFrequency(conceptNames.get(i).toLowerCase(), counter));
+            wordsFrequencyMap.add(new ConceptNameFrequency(conceptNames.get(i), counter));
             String pattenString = conceptNames.get(i).toLowerCase();
             Pattern pattern = Pattern.compile(pattenString);
             Matcher matcher = pattern.matcher(paragraphWithOutStopWords);
