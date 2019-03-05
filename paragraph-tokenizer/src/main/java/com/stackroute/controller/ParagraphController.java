@@ -35,7 +35,7 @@ public class ParagraphController {
             responseEntity = new ResponseEntity<String>("Successfully posted", HttpStatus.ACCEPTED);
         }
         catch (Exception ex){
-            responseEntity = new ResponseEntity<String>(ex.getMessage(),HttpStatus.BAD_REQUEST);
+            responseEntity = new ResponseEntity<String>(ex.getMessage(),HttpStatus.NOT_FOUND);
         }
         return responseEntity;
     }
