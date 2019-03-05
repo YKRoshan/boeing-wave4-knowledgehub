@@ -31,13 +31,13 @@ public class KafkaConsumer {
     }
 
 //    @SendTo("/topic/public/{sessionId}")
-    @KafkaListener(topics = "QueryEngine", groupId = "group_id")
+    @KafkaListener(topics = "QueryEngineResults", groupId = "group_id")
     public void consume(String  message){
         JSONObject object = (JSONObject) JSONValue.parse(message);
-        ChatMessage chatMessage=new ChatMessage(object.get("content").toString(),object.get("sender").toString());
-        System.out.println("in consumer"+chatMessage.getSender());
-        System.out.println(chatMessage.getContent());
-        template.convertAndSend("/topic/public",webSocketService.sendMessageService(chatMessage));
+        ChatMessage chatMessage=new ChatMessage(object.get("name").toString(),object.get("sessionId").toString(),object.get("paragraphId").toString(),object.get("documentId").toString(),object.get("domain").toString(),object.get("concept").toString(),object.get("intentLevel").toString(),object.get("confidenceScore").toString());
+        System.out.println("in consumer"+chatMessage.getSessionId());
+        System.out.println(chatMessage.getConcept());
+        template.convertAndSend("/topic/public/"+chatMessage.getSessionId().toString(),webSocketService.sendMessageService(chatMessage));
 //        return webSocketService.sendMessageService(message);
     }
 //    public ChatMessage consume(String message) {

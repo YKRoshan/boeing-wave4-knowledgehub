@@ -41,6 +41,7 @@
         <module>query-engine</module>
         <module>question-provider</module>
         <module>question-publisher</module>
+        <module>websocket-service</module>
     </modules>
     <dependencies>
         <dependency>

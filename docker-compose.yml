@@ -319,3 +319,25 @@ services:
       - 8096
     healthcheck:
       test: "exit 0"
+
+  websocket-service:
+    image: websocket-service:latest
+    build: websocket-service/
+    restart: always
+    network_mode: "host"
+    hostname: localhost
+    depends_on:
+      zookeeper:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+      nlp-service:
+        condition: service_healthy
+      angular-app:
+        condition: service_healthy
+    ports:
+      - 8097:8097
+    expose:
+      - 8097
+    healthcheck:
+      test: "exit 0"
