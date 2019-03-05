@@ -12,12 +12,16 @@ public class IntentServiceImpl implements IntentService {
     private IntentRepository intentRepository;
     private ArrayList<Terms> intents;
 
+    /*Constructor*/
     @Autowired
     public IntentServiceImpl(IntentRepository intentRepository) {
         this.intentRepository = intentRepository;
         this.intents = new ArrayList<>(intentRepository.getAllTerms());
     }
 
+    /*
+    This method will return all knowledge terms
+    */
     public ArrayList<String> getKnowledgeTerms() {
         ArrayList<String> knowledgeTerms = new ArrayList<>();
         for (int i = 0; i < intents.size(); i++) {
@@ -28,6 +32,9 @@ public class IntentServiceImpl implements IntentService {
         return knowledgeTerms;
     }
 
+    /*
+    This method will return all comprehension terms
+    */
     public ArrayList<String> getComprehensionTerms() {
         ArrayList<String> comprehensionTerms = new ArrayList<>();
         for (int i = 0; i < intents.size(); i++) {
@@ -38,6 +45,9 @@ public class IntentServiceImpl implements IntentService {
         return comprehensionTerms;
     }
 
+    /*
+   This method will return all application terms
+   */
     public ArrayList<String> getApplicationTerms() {
         ArrayList<String> applicationTerms = new ArrayList<>();
         for (int i = 0; i < intents.size(); i++) {
@@ -48,6 +58,9 @@ public class IntentServiceImpl implements IntentService {
         return applicationTerms;
     }
 
+    /*
+    This method will return all analysis terms
+    */
     public ArrayList<String> getAnalysisTerms() {
         ArrayList<String> analysisTerms = new ArrayList<>();
         for (int i = 0; i < intents.size(); i++) {
@@ -58,6 +71,9 @@ public class IntentServiceImpl implements IntentService {
         return analysisTerms;
     }
 
+    /*
+    This method will return all synthesis terms
+    */
     public ArrayList<String> getSynthesisTerms() {
         ArrayList<String> synthesisTerms = new ArrayList<>();
         for (int i = 0; i < intents.size(); i++) {
@@ -68,6 +84,9 @@ public class IntentServiceImpl implements IntentService {
         return synthesisTerms;
     }
 
+    /*
+    This method will return all evaluation terms
+    */
     public ArrayList<String> getEvaluationTerms() {
         ArrayList<String> evaluationTerms = new ArrayList<>();
         for (int i = 0; i < intents.size(); i++) {

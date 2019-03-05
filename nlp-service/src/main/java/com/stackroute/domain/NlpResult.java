@@ -15,26 +15,32 @@ public class NlpResult {
     public NlpResult() {
     }
 
+    /*Getter for sessonId*/
     public String getSessonId() {
         return sessonId;
     }
 
+    /*Setter for sessonId*/
     public void setSessonId(String sessonId) {
         this.sessonId = sessonId;
     }
 
+    /*Getter for intent*/
     public String getIntent() {
         return intent;
     }
 
+    /*Setter for intent*/
     public void setIntent(String intent) {
         this.intent = intent;
     }
 
+    /*Getter for concept*/
     public String getConcept() {
         return concept;
     }
 
+    /*Setter for concept*/
     public void setConcept(String concept) {
         this.concept = concept;
     }

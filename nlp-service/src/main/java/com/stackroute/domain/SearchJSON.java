@@ -12,18 +12,22 @@ public class SearchJSON {
     public SearchJSON() {
     }
 
+    /*Getter for searchString*/
     public String getSearchString() {
         return searchString;
     }
 
+    /*Setter for searchString*/
     public void setSearchString(String searchString) {
         this.searchString = searchString;
     }
 
+    /*Getter for sessonId*/
     public String getSessonId() {
         return sessonId;
     }
 
+    /*Setter for sessonId*/
     public void setSessonId(String sessonId) {
         this.sessonId = sessonId;
     }

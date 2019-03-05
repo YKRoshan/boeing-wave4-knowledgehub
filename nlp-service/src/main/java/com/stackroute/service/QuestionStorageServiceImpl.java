@@ -16,6 +16,7 @@ public class QuestionStorageServiceImpl implements QuestionStorageService {
         this.questionRepository = questionRepository;
     }
 
+    /*This method saves the question in database and return saved question*/
     public Question saveQuestion(String question) {
         String uniqueId = UUID.randomUUID().toString();
         Question question1 = new Question(uniqueId,question);

@@ -11,11 +11,15 @@ public class ConceptServiceImpl implements ConceptService {
     private ConceptRepository conceptRepository;
     private ArrayList<Concept> concepts;
 
+    /*Constructor*/
     public ConceptServiceImpl(ConceptRepository conceptRepository) {
         this.conceptRepository = conceptRepository;
         this.concepts = new ArrayList<>(conceptRepository.getAllConcepts());
     }
 
+    /*
+  This method will return all concepts
+   */
     public ArrayList<String> getConcepts() {
 
         ArrayList<String> conceptNames = new ArrayList<>();
