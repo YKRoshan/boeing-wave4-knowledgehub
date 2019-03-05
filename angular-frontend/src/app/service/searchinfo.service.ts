@@ -20,7 +20,7 @@ export class SearchinfoService {
     }
     
     getResults(search:any){
-      return this.http.post("http://13.234.94.132:8094/vsearch/",search);
+      return this.http.post("http://localhost:8094/vsearch/",search);
     }
   
 }
