@@ -16,7 +16,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Service
-@PropertySource(value = "classpath:application.properties")
+@PropertySource(value = "classpath:application.yml")
 public class AnalyticServiceImpl implements AnalyticService {
     private ArrayList<String> conceptNames;
     private NlpResultService nlpResultService;
