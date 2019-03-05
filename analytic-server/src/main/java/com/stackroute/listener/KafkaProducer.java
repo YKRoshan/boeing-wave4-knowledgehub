@@ -20,6 +20,7 @@ public class KafkaProducer {
 
     private static final String TOPIC = "AnalyticsResults";
 
+    // the postservice() will post the analyticResuls object in kafka message bus
     public String postservice() {
         AnalysisResult analysisResult;
         analysisResult = analyticService.getAnalysisResult();

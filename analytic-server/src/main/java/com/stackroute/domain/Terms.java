@@ -8,16 +8,16 @@ import org.neo4j.ogm.annotation.NodeEntity;
 
 @NodeEntity
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class Concept {
-    // This Concept Json will take all the concepts present in Neo4j graph
+@NoArgsConstructor
+public class Terms {
+    // These are intent Terms present in Neo4j Intent graph
     @Id
-    private int Id;
+    private int id;
     private String name;
     private String parent_id;
-    private String relation;
+    private String parent_node_type;
     private String type;
-    private String context;
-    private String classType;
+    private String relation;
+    private String weight;
 }

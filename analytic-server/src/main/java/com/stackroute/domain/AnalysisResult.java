@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AnalysisResult {
+    // This is the format of AnalysisResult Json object which is put in kafka message bus after analysing paragraph
+    // This Json is taken by knowledge-indexer
     private String paragraphId;
     private String paragraphContent;
     private String documentId;

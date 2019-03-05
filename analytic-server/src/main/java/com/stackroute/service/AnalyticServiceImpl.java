@@ -4,6 +4,8 @@ import com.stackroute.domain.AnalysisResult;
 import com.stackroute.domain.ConceptNameFrequency;
 import com.stackroute.domain.NlpResult;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
 
@@ -14,23 +16,39 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Service
+@PropertySource(value = "classpath:application.properties")
 public class AnalyticServiceImpl implements AnalyticService {
     private ArrayList<String> conceptNames;
     private NlpResultService nlpResultService;
+    private IntentService intentService;
     private ParagraphProviderService paragraphProviderService;
-    private static final ArrayList<String> knowledge = new ArrayList<>(Arrays.asList("Count", "Read", "Define", "Recall", "Describe", "Recite", "Draw", "Record", "Enumerate", "Reproduce", "Find", "Select", "Identify", "Sequence", "Label", "State", "List", "Tell", "Match", "View", "Name", "Write", "Quote"));
-    private static final ArrayList<String> comprehension = new ArrayList<>(Arrays.asList("Classify", "Interpret", "Cite", "Locate", "Conclude", "Make", "sense", "of", "make sense of", "Convert", "Paraphrase", "Describe", "Predict", "Discuss", "Report", "Estimate", "Restate", "Explain", "Review", "Generalize", "Summarize", "Give", "examples", "give examples", "example", "given example", "given examples", "Trace", "Illustrate", "Understand"));
-    private static final ArrayList<String> application = new ArrayList<>(Arrays.asList("Act", "Imitate", "Administer", "Implement", "Articulate", "Interview", "Assess", "Include", "Change", "Inform", "Chart", "Instruct", "Choose", "Paint", "Collect", "Participate", "Compute", "Predict", "Construct", "Prepare", "Contribute", "Produce", "Control", "Provide", "Demonstrate", "Relate", "Determine", "Report", "Develop", "Select", "Discover", "Show", "Dramatize", "Solve", "Draw", "Transfer", "Establish", "Use", "Extend", "Utilize"));
-    private static final ArrayList<String> analysis = new ArrayList<>(Arrays.asList("Break down", "Focus", "Characterize", "Illustrate", "Classify", "Infer", "Compare", "Limit", "Contrast", "Outline", "Correlate", "Pointout", "Debate", "Prioritize", "Deduce", "Recognize", "Diagram", "Research", "Differentiate", "Relate", "Discriminate", "Separate", "Distinguish", "Subdivide", "Examine"));
-    private static final ArrayList<String> synthesis = new ArrayList<>(Arrays.asList("Adapt", "Intervene", "Anticipate", "Invent", "Categorize", "Makeup", "Collaborate", "Model", "Combine", "Modify", "Communicate", "Negotiate", "Compare", "Organize", "Compile", "Perform", "Compose", "Plan", "Construct", "Pretend", "Contrast", "Produce", "Create", "Progress", "Design", "Propose", "Develop", "Rearrange", "Devise", "Reconstruct", "Express", "Reinforce", "Facilitate", "Reorganize", "Formulate", "Revise", "Generate", "Rewrite", "Incorporate", "Structure", "Individualize", "Substitute", "Initiate", "Validate", "Integrate"));
-    private static final ArrayList<String> evaluation = new ArrayList<>(Arrays.asList("Appraise", "Interpret", "Argue", "Judge", "Assess", "Justify", "Choose", "Predict", "Compare&Contrast", "compare & contrast", "Prioritize", "Conclude", "Prove", "Criticize", "Rank", "Critique", "Rate", "Decide", "Reframe", "Defend", "Select", "Evaluate", "Support"));
+    private ArrayList<String> knowledge;
+    private ArrayList<String> comprehension;
+    private ArrayList<String> application;
+    private ArrayList<String> analysis;
+    private ArrayList<String> synthesis;
+    private ArrayList<String> evaluation;
+    @Value("${intentNames}")
+    private String[] intents;
 
+    // constructor is to initialize all the services required by AnalyticService and also initialize variables
     @Autowired
-    public AnalyticServiceImpl(NlpResultService nlpResultService, ParagraphProviderService paragraphProviderService) {
+    public AnalyticServiceImpl(IntentService intentService,
+                               NlpResultService nlpResultService,
+                               ParagraphProviderService paragraphProviderService) {
         this.nlpResultService = nlpResultService;
         this.paragraphProviderService = paragraphProviderService;
+        this.intentService = intentService;
+        this.knowledge = new ArrayList<>(intentService.getKnowledgeTerms());
+        this.comprehension = new ArrayList<>(intentService.getComprehensionTerms());
+        this.application = new ArrayList<>(intentService.getApplicationTerms());
+        this.analysis = new ArrayList<>(intentService.getAnalysisTerms());
+        this.synthesis = new ArrayList<>(intentService.getSynthesisTerms());
+        this.evaluation = new ArrayList<>(intentService.getEvaluationTerms());
     }
 
+    // nlpResultService is used to get all the nouns present in paragraph
+    // this method returns all the nouns as one sentence for further analysis
     public String getNounSentence() {
         NlpResult nlpResult = nlpResultService.getNlpResult();
         StringBuilder nounSentence = new StringBuilder();
@@ -59,6 +77,7 @@ public class AnalyticServiceImpl implements AnalyticService {
         return wordsFrequencyMap;
     }
 
+    // returns the highest no:of times used conceptName
     public String getMostAccurateConceptName() {
         ArrayList<ConceptNameFrequency> conceptNameFrequenciesList = new ArrayList<>(getFrequencyOfSpringConcepts());
         conceptNameFrequenciesList.sort((o1, o2) -> (int) (o2.getFrequencyCount() - o1.getFrequencyCount()));
@@ -73,6 +92,8 @@ public class AnalyticServiceImpl implements AnalyticService {
         return conceptName;
     }
 
+    // nlpResultService is used to get all the verbs present in paragraph
+    // this method returns all the verbs as one sentence for further analysis
     public String getVerbSentence() {
         StringBuilder verbSentence = new StringBuilder();
         ArrayList<String> verbs = new ArrayList<>(nlpResultService.getNlpResult().getVerbWords());
@@ -82,11 +103,13 @@ public class AnalyticServiceImpl implements AnalyticService {
         return verbSentence.toString().trim().toLowerCase();
     }
 
+    //still need to implement logic to confidenceScore
     public double getConfidenceScore() {
         double confidenceScore = 6;
         return confidenceScore;
     }
 
+    // returns the intent level of the paragraph by analysis the terms present in paragraph
     public String getIntentLevel() {
         String verbSentence = getVerbSentence().toLowerCase();
         ArrayList<ArrayList<String>> intentLevelList = new ArrayList<>();
@@ -115,7 +138,6 @@ public class AnalyticServiceImpl implements AnalyticService {
                 intentLevel = i;
             }
         }
-        String[] intents = {"knowledge", "comprehension", "application", "analysis", "synthesis", "evaluation"};
         return intents[intentLevel];
     }
 

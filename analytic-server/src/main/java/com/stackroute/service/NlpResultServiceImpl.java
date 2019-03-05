@@ -5,7 +5,9 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class NlpResultServiceImpl implements NlpResultService {
+    // This service is used to provide the NlpResults object to AnalyticService.
     private NlpResult nlpResult;
+
     public NlpResult getNlpResult() {
         return nlpResult;
     }

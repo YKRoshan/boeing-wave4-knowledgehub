@@ -1,6 +1,5 @@
 package com.stackroute.domain;
 
-import com.stackroute.nlpservice.POSTagging;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,6 +10,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class NlpResult {
+    // This JSON is used to store results of Nlp Service.
+    // The NlpResult is used by AnalyticService.
     private String clearedParagraph;
     private List<String> allTokenedSentences;
     private List<String> lemmaWords;

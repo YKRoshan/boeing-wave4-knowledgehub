@@ -5,6 +5,7 @@ import com.aliasi.tokenizer.PorterStemmerTokenizerFactory;
 import com.aliasi.tokenizer.Tokenization;
 import com.aliasi.tokenizer.TokenizerFactory;
 import com.stackroute.domain.NlpResult;
+import com.stackroute.domain.POSTagging;
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.pipeline.Annotation;

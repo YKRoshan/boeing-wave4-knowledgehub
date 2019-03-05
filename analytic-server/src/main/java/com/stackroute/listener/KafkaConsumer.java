@@ -21,12 +21,17 @@ public class KafkaConsumer {
         this.kafkaProducer = kafkaProducer;
         this.paragraphProviderService = paragraphProviderService;
     }
+
+    // It listens to topic name "ParagraphContents"
     @KafkaListener(topics = "ParagraphContents", groupId = "group_id")
     public void consume(String message) {
         JSONObject object = (JSONObject) JSONValue.parse(message);
+        //Converting JsonObject to Paragraph domain object
         Paragraph paragraph = new Paragraph(object.get("paragraphId").toString(), object.get("paragraphText").toString(), object.get("documentId").toString());
+        // these method are similar to the methods present in controller
         paragraphService.takeParagraph(paragraph);
         paragraphProviderService.setParagraph(paragraph);
+        // After analysis we call the postservice to post in kafka message bus
         kafkaProducer.postservice();
     }
 }

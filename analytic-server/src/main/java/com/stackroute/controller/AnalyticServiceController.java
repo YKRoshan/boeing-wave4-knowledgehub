@@ -24,20 +24,25 @@ public class AnalyticServiceController {
         this.paragraphProviderService = paragraphProviderService;
     }
 
+    // This method is used to call the various service method send paragraph for AnalyticService
     @PostMapping("paragraph")
     public ResponseEntity setParagraph(@RequestBody Paragraph paragraph) {
         ResponseEntity responseEntity;
         try {
+            // paragraphService is the service which calls AnalyticService
             paragraphService.takeParagraph(paragraph);
+            //paragraphProviderService just stores the input paragraph and if any other service requires
+            // paragraph it can just call the paragraphProviderService.getParagraph()
             paragraphProviderService.setParagraph(paragraph);
             responseEntity = new ResponseEntity<>("Paragraph is successfully taken.", HttpStatus.OK);
             return responseEntity;
         } catch (Exception e) {
-            responseEntity = new ResponseEntity<>("Paragraph is not taken.", HttpStatus.BAD_REQUEST);
+            responseEntity = new ResponseEntity<>("Paragraph is not taken.", HttpStatus.BAD_GATEWAY);
             return responseEntity;
         }
     }
 
+    // This method returns the output of AnalyticService results
     @GetMapping("analysisResult")
     public ResponseEntity<AnalysisResult> getAnalysisResult() {
         ResponseEntity responseEntity;
@@ -46,7 +51,7 @@ public class AnalyticServiceController {
             analysisResult = analyticService.getAnalysisResult();
             return new ResponseEntity<>(analysisResult, HttpStatus.OK);
         } catch (Exception e) {
-            responseEntity = new ResponseEntity<>("No results found.", HttpStatus.BAD_REQUEST);
+            responseEntity = new ResponseEntity<>("No results found.", HttpStatus.EXPECTATION_FAILED);
             return responseEntity;
         }
     }

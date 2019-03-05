@@ -1,4 +1,4 @@
-package com.stackroute.nlpservice;
+package com.stackroute.domain;
 
 
 import lombok.AllArgsConstructor;

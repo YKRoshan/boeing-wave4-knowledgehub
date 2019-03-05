@@ -1,6 +1,7 @@
 package com.stackroute.nlpservice;
 
 import com.stackroute.domain.NlpResult;
+import com.stackroute.domain.POSTagging;
 
 import java.util.List;
 

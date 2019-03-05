@@ -33,6 +33,8 @@ public class ParagraphServiceImpl implements ParagraphService {
         this.paragraph = paragraph;
     }
 
+    // This method is used to sequencial calls to all the services such as NlpService and AnalyticService
+    // for processing the paragraph upon receiving the input paragraph Json
     public Paragraph takeParagraph(Paragraph paragraph) {
         this.paragraph = paragraph;
         Iterator<String> iterator = conceptSerive.getConcepts().iterator();

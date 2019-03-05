@@ -14,6 +14,7 @@ public class ConceptServiceImpl implements ConceptSerive {
         this.conceptRepository = conceptRepository;
     }
 
+    // This method is used to fetch the concepts from Neo4J graph
     public ArrayList<String> getConcepts() {
         ArrayList<Concept> concepts = new ArrayList<>(conceptRepository.getAllConcepts());
         ArrayList<String> conceptNames = new ArrayList<>();
