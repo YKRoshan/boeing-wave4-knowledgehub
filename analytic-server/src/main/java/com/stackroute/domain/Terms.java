@@ -18,6 +18,6 @@ public class Terms {
     private String parent_id;
     private String parent_node_type;
     private String type;
-    private String relation;
+    private String relationship;
     private String weight;
 }

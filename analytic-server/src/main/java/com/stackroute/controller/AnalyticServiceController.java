@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/")
 public class AnalyticServiceController {
@@ -44,12 +46,12 @@ public class AnalyticServiceController {
 
     // This method returns the output of AnalyticService results
     @GetMapping("analysisResult")
-    public ResponseEntity<AnalysisResult> getAnalysisResult() {
+    public ResponseEntity<List<AnalysisResult>> getAnalysisResult() {
         ResponseEntity responseEntity;
         try {
-            AnalysisResult analysisResult;
-            analysisResult = analyticService.getAnalysisResult();
-            return new ResponseEntity<>(analysisResult, HttpStatus.OK);
+            List<AnalysisResult> analysisResultsList;
+            analysisResultsList = analyticService.getAnalysisResults();
+            return new ResponseEntity<>(analysisResultsList, HttpStatus.OK);
         } catch (Exception e) {
             responseEntity = new ResponseEntity<>("No results found.", HttpStatus.EXPECTATION_FAILED);
             return responseEntity;

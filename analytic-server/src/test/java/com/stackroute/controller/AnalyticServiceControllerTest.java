@@ -40,7 +40,7 @@ public class AnalyticServiceControllerTest {
 
     private Paragraph paragraph;
 
-    private AnalysisResult analysisResult;
+    private List<AnalysisResult> analysisResultList;
 
     @MockBean
     private ParagraphService paragraphService;
@@ -64,14 +64,15 @@ public class AnalyticServiceControllerTest {
         paragraph.setDocumentId("D001");
         paragraph.setParagraphId("P001");
         paragraph.setParagraphContent("what is spring framework");
-        analysisResult = new AnalysisResult();
-        analysisResult.setConcept("spring framework");
-        analysisResult.setConfidenceScore(25.5);
-        analysisResult.setDocumentId("D001");
-        analysisResult.setParagraphId("P001");
-        analysisResult.setDomain("spring framework");
-        analysisResult.setIntentLevel("knowledge");
-        analysisResult.setParagraphContent("what is spring framework");
+        analysisResultList = new ArrayList<>();
+        analysisResultList.add(new AnalysisResult());
+        analysisResultList.get(0).setConcept("spring framework");
+        analysisResultList.get(0).setConfidenceScore(25.5);
+        analysisResultList.get(0).setDocumentId("D001");
+        analysisResultList.get(0).setParagraphId("P001");
+        analysisResultList.get(0).setDomain("spring framework");
+        analysisResultList.get(0).setIntentLevel("knowledge");
+        analysisResultList.get(0).setParagraphContent("what is spring framework");
     }
 
     @Test
@@ -95,9 +96,9 @@ public class AnalyticServiceControllerTest {
 
     @Test
     public void getAnalysisResult() throws Exception {
-        when(analyticService.getAnalysisResult()).thenReturn(analysisResult);
+        when(analyticService.getAnalysisResults()).thenReturn(analysisResultList);
         mockMvc.perform(MockMvcRequestBuilders.get("/analysisResult")
-                .contentType(MediaType.APPLICATION_JSON).content(asJsonString(analysisResult)))
+                .contentType(MediaType.APPLICATION_JSON).content(asJsonString(analysisResultList.get(0))))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(MockMvcResultHandlers.print());
     }

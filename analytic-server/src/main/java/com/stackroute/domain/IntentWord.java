@@ -7,9 +7,10 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ConceptNameFrequency {
-    // This class has conceptName and frequencyCount
-    // (To store how many time a concepName has occured in a paragraph)
-    String conceptName;
+public class IntentWord {
+    String intentWord;
     long frequencyCount;
+    String intent;
+    String relationship;
+    double weight;
 }

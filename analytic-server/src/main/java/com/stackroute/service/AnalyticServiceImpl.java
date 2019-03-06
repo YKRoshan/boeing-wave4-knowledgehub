@@ -1,8 +1,7 @@
 package com.stackroute.service;
 
-import com.stackroute.domain.AnalysisResult;
-import com.stackroute.domain.ConceptNameFrequency;
-import com.stackroute.domain.NlpResult;
+import com.stackroute.domain.*;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -10,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -22,12 +20,13 @@ public class AnalyticServiceImpl implements AnalyticService {
     private NlpResultService nlpResultService;
     private IntentService intentService;
     private ParagraphProviderService paragraphProviderService;
-    private ArrayList<String> knowledge;
-    private ArrayList<String> comprehension;
-    private ArrayList<String> application;
-    private ArrayList<String> analysis;
-    private ArrayList<String> synthesis;
-    private ArrayList<String> evaluation;
+    private ArrayList<IntentWord> knowledge;
+    private ArrayList<IntentWord> comprehension;
+    private ArrayList<IntentWord> application;
+    private ArrayList<IntentWord> analysis;
+    private ArrayList<IntentWord> synthesis;
+    private ArrayList<IntentWord> evaluation;
+    private ArrayList<IntentWord> allIntentterms = new ArrayList<>();
     @Value("${intentNames}")
     private String[] intents;
 
@@ -45,6 +44,7 @@ public class AnalyticServiceImpl implements AnalyticService {
         this.analysis = new ArrayList<>(intentService.getAnalysisTerms());
         this.synthesis = new ArrayList<>(intentService.getSynthesisTerms());
         this.evaluation = new ArrayList<>(intentService.getEvaluationTerms());
+        this.allIntentterms = new ArrayList<>(intentService.getAllIntentWords());
     }
 
     // nlpResultService is used to get all the nouns present in paragraph
@@ -78,18 +78,22 @@ public class AnalyticServiceImpl implements AnalyticService {
     }
 
     // returns the highest no:of times used conceptName
-    public String getMostAccurateConceptName() {
-        ArrayList<ConceptNameFrequency> conceptNameFrequenciesList = new ArrayList<>(getFrequencyOfSpringConcepts());
-        conceptNameFrequenciesList.sort((o1, o2) -> (int) (o2.getFrequencyCount() - o1.getFrequencyCount()));
-        String conceptName = null;
-        long max = Integer.MIN_VALUE;
-        for (int i = 0; i < conceptNameFrequenciesList.size(); i++) {
-            if (max <= conceptNameFrequenciesList.get(i).getFrequencyCount()) {
-                max = conceptNameFrequenciesList.get(i).getFrequencyCount();
-                conceptName = conceptNameFrequenciesList.get(i).getConceptName();
+    public List<String> getTopConceptName() {
+        ArrayList<ConceptNameFrequency> sortedConceptNameFrequenciesList = new ArrayList<>(getFrequencyOfSpringConcepts());
+        sortedConceptNameFrequenciesList.sort((o1, o2) -> (int) (o2.getFrequencyCount() - o1.getFrequencyCount()));
+        List<String> topConceptNamesList = new ArrayList<>();
+        long maxConceptFrequency = sortedConceptNameFrequenciesList.get(0).getFrequencyCount();
+        for (int i = 0; i < sortedConceptNameFrequenciesList.size(); i++) {
+            if (sortedConceptNameFrequenciesList.get(i).getFrequencyCount() > 0) {
+                topConceptNamesList.add(sortedConceptNameFrequenciesList.get(i).getConceptName());
             }
         }
-        return conceptName;
+        if (maxConceptFrequency == 0) {
+            topConceptNamesList.add("No concept found");
+            return topConceptNamesList;
+        } else {
+            return topConceptNamesList;
+        }
     }
 
     // nlpResultService is used to get all the verbs present in paragraph
@@ -103,61 +107,214 @@ public class AnalyticServiceImpl implements AnalyticService {
         return verbSentence.toString().trim().toLowerCase();
     }
 
-    //still need to implement logic to confidenceScore
-    public double getConfidenceScore() {
-        double confidenceScore = 6;
-        return confidenceScore;
+    public List<IntentWord> getIntentWordWithFrequencyCount() {
+        String paragraphWithOutStopWords = nlpResultService.getNlpResult().getParagraphWithOutStopWords().toLowerCase();
+        ArrayList<IntentWord> wordsFrequencyMap = new ArrayList<>();
+        for (int i = 0; i < allIntentterms.size(); i++) {
+            String pattenString = allIntentterms.get(i).getIntentWord().toLowerCase();
+            Pattern pattern = Pattern.compile(pattenString);
+            Matcher matcher = pattern.matcher(paragraphWithOutStopWords);
+            wordsFrequencyMap.add(allIntentterms.get(i));
+            while (matcher.find()) {
+                long tempCount = wordsFrequencyMap.get(i).getFrequencyCount();
+                tempCount++;
+                wordsFrequencyMap.get(i).setFrequencyCount(tempCount);
+            }
+        }
+        System.out.println(wordsFrequencyMap.get(0).toString());
+        return wordsFrequencyMap;
     }
+
+    public List<IntentWithConfidenceScore> getConfidenceScoreOfMostAccurateIntents() {
+        List<IntentWord> intentWordWithFrequencyList = getIntentWordWithFrequencyCount();
+        double[] confidenceScore = new double[6];
+        int[] noOfTermsInEachIntent = new int[6];
+        double indicator = 0;
+        double counterIndicator = 0;
+        for (int i = 0; i < intentWordWithFrequencyList.size(); i++) {
+            switch (intentWordWithFrequencyList.get(i).getIntent()) {
+                case "Knowledge":
+                    noOfTermsInEachIntent[0]++;
+                    indicator = 0;
+                    counterIndicator = 0;
+                    if (intentWordWithFrequencyList.get(i).getRelationship().equalsIgnoreCase("indicatorOf")) {
+                        indicator = indicator + intentWordWithFrequencyList.get(i).getFrequencyCount() * intentWordWithFrequencyList.get(i).getWeight();
+                    } else {
+                        counterIndicator = counterIndicator + intentWordWithFrequencyList.get(i).getFrequencyCount() * intentWordWithFrequencyList.get(i).getWeight();
+                    }
+                    if (indicator != 0) {
+                        confidenceScore[0] += (indicator / (indicator + counterIndicator)) * 100;
+                    }
+                    break;
+                case "Comprehension":
+                    noOfTermsInEachIntent[1]++;
+                    indicator = 0;
+                    counterIndicator = 0;
+                    if (intentWordWithFrequencyList.get(i).getRelationship().equalsIgnoreCase("indicatorOf")) {
+                        indicator = indicator + intentWordWithFrequencyList.get(i).getFrequencyCount() * intentWordWithFrequencyList.get(i).getWeight();
+                    } else {
+                        counterIndicator = counterIndicator + intentWordWithFrequencyList.get(i).getFrequencyCount() * intentWordWithFrequencyList.get(i).getWeight();
+                    }
+                    if (indicator != 0) {
+                        confidenceScore[1] += (indicator / (indicator + counterIndicator)) * 100;
+                    }
+                    break;
+                case "Application":
+                    noOfTermsInEachIntent[2]++;
+                    indicator = 0;
+                    counterIndicator = 0;
+                    if (intentWordWithFrequencyList.get(i).getRelationship().equalsIgnoreCase("indicatorOf")) {
+                        indicator = indicator + intentWordWithFrequencyList.get(i).getFrequencyCount() * intentWordWithFrequencyList.get(i).getWeight();
+                    } else {
+                        counterIndicator = counterIndicator + intentWordWithFrequencyList.get(i).getFrequencyCount() * intentWordWithFrequencyList.get(i).getWeight();
+                    }
+                    if (indicator != 0) {
+                        confidenceScore[2] += (indicator / (indicator + counterIndicator)) * 100;
+                    }
+                    break;
+                case "Analysis":
+                    noOfTermsInEachIntent[3]++;
+                    indicator = 0;
+                    counterIndicator = 0;
+                    if (intentWordWithFrequencyList.get(i).getRelationship().equalsIgnoreCase("indicatorOf")) {
+                        indicator = indicator + intentWordWithFrequencyList.get(i).getFrequencyCount() * intentWordWithFrequencyList.get(i).getWeight();
+                    } else {
+                        counterIndicator = counterIndicator + intentWordWithFrequencyList.get(i).getFrequencyCount() * intentWordWithFrequencyList.get(i).getWeight();
+                    }
+                    if (indicator != 0) {
+                        confidenceScore[3] += (indicator / (indicator + counterIndicator)) * 100;
+                    }
+                    break;
+                case "Synthesis":
+                    noOfTermsInEachIntent[4]++;
+                    indicator = 0;
+                    counterIndicator = 0;
+                    if (intentWordWithFrequencyList.get(i).getRelationship().equalsIgnoreCase("indicatorOf")) {
+                        indicator = indicator + intentWordWithFrequencyList.get(i).getFrequencyCount() * intentWordWithFrequencyList.get(i).getWeight();
+                    } else {
+                        counterIndicator = counterIndicator + intentWordWithFrequencyList.get(i).getFrequencyCount() * intentWordWithFrequencyList.get(i).getWeight();
+                    }
+                    if (indicator != 0) {
+                        confidenceScore[4] += (indicator / (indicator + counterIndicator)) * 100;
+                    }
+                    break;
+                case "Evaluation":
+                    noOfTermsInEachIntent[5]++;
+                    indicator = 0;
+                    counterIndicator = 0;
+                    if (intentWordWithFrequencyList.get(i).getRelationship().equalsIgnoreCase("indicatorOf")) {
+                        indicator = indicator + intentWordWithFrequencyList.get(i).getFrequencyCount() * intentWordWithFrequencyList.get(i).getWeight();
+                    } else {
+                        counterIndicator = counterIndicator + intentWordWithFrequencyList.get(i).getFrequencyCount() * intentWordWithFrequencyList.get(i).getWeight();
+                    }
+                    if (indicator != 0) {
+                        confidenceScore[5] += (indicator / (indicator + counterIndicator)) * 100;
+                    }
+                    break;
+            }
+        }
+        List<IntentWithConfidenceScore> intentWithConfidencyScoresList = new ArrayList<>();
+        for (int i = 0; i < confidenceScore.length; i++) {
+            confidenceScore[i] = confidenceScore[i] / noOfTermsInEachIntent[i];
+            if (confidenceScore[i] >= 1) {
+                intentWithConfidencyScoresList.add(new IntentWithConfidenceScore(intents[i], confidenceScore[i]));
+            }
+        }
+        return intentWithConfidencyScoresList;
+    }
+
 
     // returns the intent level of the paragraph by analysis the terms present in paragraph
     public String getIntentLevel() {
-        String verbSentence = getVerbSentence().toLowerCase();
-        ArrayList<ArrayList<String>> intentLevelList = new ArrayList<>();
-        intentLevelList.add(knowledge);
-        intentLevelList.add(comprehension);
-        intentLevelList.add(application);
-        intentLevelList.add(analysis);
-        intentLevelList.add(synthesis);
-        intentLevelList.add(evaluation);
-        int intentLevel = 0;
-        int[] count = new int[6];
-        for (int i = 0; i < intentLevelList.size(); i++) {
-            for (int j = 0; j < intentLevelList.get(i).size(); j++) {
-                String pattenString = intentLevelList.get(i).get(j).toLowerCase();
-                Pattern pattern = Pattern.compile(pattenString);
-                Matcher matcher = pattern.matcher(verbSentence);
-                while (matcher.find()) {
-                    count[i]++;
-                }
+        List<IntentWithConfidenceScore> intentWithConfidenceScores = getConfidenceScoreOfMostAccurateIntents();
+        double maxConfidenceScore = Integer.MIN_VALUE;
+        String intentLevel = null;
+        for (int i = 0; i < intentWithConfidenceScores.size(); i++) {
+            if (intentWithConfidenceScores.get(i).getConfidenceScore() > maxConfidenceScore) {
+                maxConfidenceScore = intentWithConfidenceScores.get(i).getConfidenceScore();
+                intentLevel = intentWithConfidenceScores.get(i).getIntnet();
             }
         }
-        int maximum = Integer.MIN_VALUE;
-        for (int i = 0; i < count.length; i++) {
-            if (maximum < count[i]) {
-                maximum = count[i];
-                intentLevel = i;
+        if (intentLevel == null) {
+            return "no intentLevel found";
+        }
+        return intentLevel;
+    }
+
+    public double getConfidenceScore() {
+        List<IntentWithConfidenceScore> intentWithConfidenceScores = getConfidenceScoreOfMostAccurateIntents();
+        System.out.println("intentWithConfidenceScore" + intentWithConfidenceScores);
+        double maxConfidenceScore = Integer.MIN_VALUE;
+        for (int i = 0; i < intentWithConfidenceScores.size(); i++) {
+            if (intentWithConfidenceScores.get(i).getConfidenceScore() > maxConfidenceScore) {
+                maxConfidenceScore = intentWithConfidenceScores.get(i).getConfidenceScore();
             }
         }
-        return intents[intentLevel];
+        return maxConfidenceScore;
     }
 
-    public AnalysisResult getAnalysisResult() {
-        AnalysisResult analysisResult = new AnalysisResult();
-        analysisResult.setConfidenceScore(getConfidenceScore());
-        analysisResult.setDocumentId(paragraphProviderService.getParagraph().getDocumentId());
-        analysisResult.setParagraphId(paragraphProviderService.getParagraph().getParagraphId());
-        analysisResult.setDomain("spring framework");
-        analysisResult.setIntentLevel(getIntentLevel());
-        analysisResult.setConcept(getMostAccurateConceptName());
-        analysisResult.setParagraphContent(nlpResultService.getNlpResult().getClearedParagraph());
-        return analysisResult;
+    public List<AnalysisResult> getAnalysisResults() {
+        List<AnalysisResult> analysisResultList = new ArrayList<>();
+        for (int i = 0; i < getTopConceptName().size(); i++) {
+            analysisResultList.add(new AnalysisResult());
+        }
+        for (int i = 0; i < analysisResultList.size(); i++) {
+            analysisResultList.get(i).setConfidenceScore(getConfidenceScore());
+            analysisResultList.get(i).setDocumentId(paragraphProviderService.getParagraph().getDocumentId());
+            analysisResultList.get(i).setParagraphId(paragraphProviderService.getParagraph().getParagraphId());
+            analysisResultList.get(i).setDomain("spring framework");
+            analysisResultList.get(i).setIntentLevel(getIntentLevel());
+            analysisResultList.get(i).setConcept(getTopConceptName().get(i));
+            analysisResultList.get(i).setParagraphContent(nlpResultService.getNlpResult().getClearedParagraph());
+        }
+        return analysisResultList;
     }
 
-    public List<String> getConceptNames() {
-        return conceptNames;
+    public void setConceptNames(ArrayList<String> conceptNames) {
+        this.conceptNames = conceptNames;
     }
 
-    public void setConceptNames(List<String> conceptNames) {
-        this.conceptNames = new ArrayList<>(conceptNames);
+    public void setNlpResultService(NlpResultService nlpResultService) {
+        this.nlpResultService = nlpResultService;
+    }
+
+    public void setIntentService(IntentService intentService) {
+        this.intentService = intentService;
+    }
+
+    public void setParagraphProviderService(ParagraphProviderService paragraphProviderService) {
+        this.paragraphProviderService = paragraphProviderService;
+    }
+
+    public void setKnowledge(ArrayList<IntentWord> knowledge) {
+        this.knowledge = knowledge;
+    }
+
+    public void setComprehension(ArrayList<IntentWord> comprehension) {
+        this.comprehension = comprehension;
+    }
+
+    public void setApplication(ArrayList<IntentWord> application) {
+        this.application = application;
+    }
+
+    public void setAnalysis(ArrayList<IntentWord> analysis) {
+        this.analysis = analysis;
+    }
+
+    public void setSynthesis(ArrayList<IntentWord> synthesis) {
+        this.synthesis = synthesis;
+    }
+
+    public void setEvaluation(ArrayList<IntentWord> evaluation) {
+        this.evaluation = evaluation;
+    }
+
+    public void setAllIntentterms(ArrayList<IntentWord> allIntentterms) {
+        this.allIntentterms = allIntentterms;
+    }
+
+    public void setIntents(String[] intents) {
+        this.intents = intents;
     }
 }
