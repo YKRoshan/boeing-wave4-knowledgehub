@@ -42,18 +42,6 @@ public interface AnalyticService {
 
     public void setParagraphProviderService(ParagraphProviderService paragraphProviderService);
 
-    public void setKnowledge(ArrayList<IntentWord> knowledge);
-
-    public void setComprehension(ArrayList<IntentWord> comprehension);
-
-    public void setApplication(ArrayList<IntentWord> application);
-
-    public void setAnalysis(ArrayList<IntentWord> analysis);
-
-    public void setSynthesis(ArrayList<IntentWord> synthesis);
-
-    public void setEvaluation(ArrayList<IntentWord> evaluation);
-
     public void setAllIntentterms(ArrayList<IntentWord> allIntentterms);
 
     public void setIntents(String[] intents);

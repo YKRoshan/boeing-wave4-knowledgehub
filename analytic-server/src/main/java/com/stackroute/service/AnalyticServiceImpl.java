@@ -1,7 +1,6 @@
 package com.stackroute.service;
 
 import com.stackroute.domain.*;
-import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -20,12 +19,6 @@ public class AnalyticServiceImpl implements AnalyticService {
     private NlpResultService nlpResultService;
     private IntentService intentService;
     private ParagraphProviderService paragraphProviderService;
-    private ArrayList<IntentWord> knowledge;
-    private ArrayList<IntentWord> comprehension;
-    private ArrayList<IntentWord> application;
-    private ArrayList<IntentWord> analysis;
-    private ArrayList<IntentWord> synthesis;
-    private ArrayList<IntentWord> evaluation;
     private ArrayList<IntentWord> allIntentterms = new ArrayList<>();
     @Value("${intentNames}")
     private String[] intents;
@@ -38,12 +31,6 @@ public class AnalyticServiceImpl implements AnalyticService {
         this.nlpResultService = nlpResultService;
         this.paragraphProviderService = paragraphProviderService;
         this.intentService = intentService;
-        this.knowledge = new ArrayList<>(intentService.getKnowledgeTerms());
-        this.comprehension = new ArrayList<>(intentService.getComprehensionTerms());
-        this.application = new ArrayList<>(intentService.getApplicationTerms());
-        this.analysis = new ArrayList<>(intentService.getAnalysisTerms());
-        this.synthesis = new ArrayList<>(intentService.getSynthesisTerms());
-        this.evaluation = new ArrayList<>(intentService.getEvaluationTerms());
         this.allIntentterms = new ArrayList<>(intentService.getAllIntentWords());
     }
 
@@ -121,7 +108,6 @@ public class AnalyticServiceImpl implements AnalyticService {
                 wordsFrequencyMap.get(i).setFrequencyCount(tempCount);
             }
         }
-        System.out.println(wordsFrequencyMap.get(0).toString());
         return wordsFrequencyMap;
     }
 
@@ -243,7 +229,6 @@ public class AnalyticServiceImpl implements AnalyticService {
 
     public double getConfidenceScore() {
         List<IntentWithConfidenceScore> intentWithConfidenceScores = getConfidenceScoreOfMostAccurateIntents();
-        System.out.println("intentWithConfidenceScore" + intentWithConfidenceScores);
         double maxConfidenceScore = Integer.MIN_VALUE;
         for (int i = 0; i < intentWithConfidenceScores.size(); i++) {
             if (intentWithConfidenceScores.get(i).getConfidenceScore() > maxConfidenceScore) {
@@ -284,30 +269,6 @@ public class AnalyticServiceImpl implements AnalyticService {
 
     public void setParagraphProviderService(ParagraphProviderService paragraphProviderService) {
         this.paragraphProviderService = paragraphProviderService;
-    }
-
-    public void setKnowledge(ArrayList<IntentWord> knowledge) {
-        this.knowledge = knowledge;
-    }
-
-    public void setComprehension(ArrayList<IntentWord> comprehension) {
-        this.comprehension = comprehension;
-    }
-
-    public void setApplication(ArrayList<IntentWord> application) {
-        this.application = application;
-    }
-
-    public void setAnalysis(ArrayList<IntentWord> analysis) {
-        this.analysis = analysis;
-    }
-
-    public void setSynthesis(ArrayList<IntentWord> synthesis) {
-        this.synthesis = synthesis;
-    }
-
-    public void setEvaluation(ArrayList<IntentWord> evaluation) {
-        this.evaluation = evaluation;
     }
 
     public void setAllIntentterms(ArrayList<IntentWord> allIntentterms) {

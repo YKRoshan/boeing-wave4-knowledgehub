@@ -10,8 +10,8 @@ import org.neo4j.ogm.annotation.NodeEntity;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Terms {
-    // These are intent Terms present in Neo4j Intent graph
+public class TermNode {
+    // These are intent TermNode present in Neo4j Intent graph
     @Id
     private int id;
     private String name;

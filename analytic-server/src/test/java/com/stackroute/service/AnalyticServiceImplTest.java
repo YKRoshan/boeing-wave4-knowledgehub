@@ -1,11 +1,9 @@
 package com.stackroute.service;
 
-import com.stackroute.domain.ConceptNameFrequency;
-import com.stackroute.domain.IntentWord;
-import com.stackroute.domain.NlpResult;
 
 import java.lang.String;
 
+import com.stackroute.domain.*;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,20 +14,26 @@ import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
 
 public class AnalyticServiceImplTest {
-
+    private AnalyticServiceImpl spyTemp;
     private ArrayList<String> nouns;
     private ArrayList<String> verbs;
     private NlpResult nlpResult;
     private String paragraphWithOutStopWords;
     private ArrayList<String> conceptNames;
-    private ArrayList<ConceptNameFrequency> sortedConceptNameFrequenciesList;
+    private ArrayList<ConceptNameFrequency> frequencyOfSpringConcepts;
+    private ConceptNameFrequency conceptNameFrequency;
+    private ArrayList<IntentWord> allIntentWordWithFrequencyCount;
+    private IntentWord intentWord;
+    private List<IntentWithConfidenceScore> intentWithConfidenceScoresList;
+    private IntentWithConfidenceScore intentWithConfidenceScore;
+    private List<AnalysisResult> analysisResultList;
+    private AnalysisResult analysisResult;
+    private List<String> topConcepNamesList;
+    private Paragraph paragraph;
     @Mock
     private NlpResultService nlpResultService;
 
@@ -42,22 +46,18 @@ public class AnalyticServiceImplTest {
     @InjectMocks
     private AnalyticServiceImpl analyticServiceImpl;
 
-    private ArrayList<IntentWord> allIntentterms;
-    private IntentWord intentWord;
-
-    private AnalyticServiceImpl spyTemp;
-
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
         spyTemp = Mockito.spy(analyticServiceImpl);
-        intentWord = new IntentWord("define",0,"Knowledge","indicatorOf",8);
-        allIntentterms = new ArrayList<>();
-        allIntentterms.add(intentWord);
+        intentWord = new IntentWord("define", 1, "Knowledge", "indicatorOf", 9);
+        allIntentWordWithFrequencyCount = new ArrayList<>();
+        allIntentWordWithFrequencyCount.add(intentWord);
         conceptNames = new ArrayList<>();
         conceptNames.add("spring framework");
-        sortedConceptNameFrequenciesList = new ArrayList<>();
-        sortedConceptNameFrequenciesList.add(new ConceptNameFrequency("spring framework", 1));
+        frequencyOfSpringConcepts = new ArrayList<>();
+        conceptNameFrequency = new ConceptNameFrequency("spring framework", 1);
+        frequencyOfSpringConcepts.add(conceptNameFrequency);
         nouns = new ArrayList<>();
         nouns.add("spring");
         nouns.add("framework");
@@ -68,6 +68,23 @@ public class AnalyticServiceImplTest {
         nlpResult.setNounWords(nouns);
         nlpResult.setVerbWords(verbs);
         nlpResult.setParagraphWithOutStopWords(paragraphWithOutStopWords);
+        nlpResult.setClearedParagraph("define spring framework");
+        intentWithConfidenceScore = new IntentWithConfidenceScore("Knowledge", 100);
+        intentWithConfidenceScoresList = new ArrayList<>();
+        intentWithConfidenceScoresList.add(intentWithConfidenceScore);
+        analysisResult = new AnalysisResult();
+        analysisResult.setParagraphContent(paragraphWithOutStopWords);
+        analysisResult.setIntentLevel("Knowledge");
+        analysisResult.setDomain("spring framework");
+        analysisResult.setParagraphId("P001");
+        analysisResult.setDocumentId("D001");
+        analysisResult.setConfidenceScore(100);
+        analysisResult.setConcept("spring framework");
+        analysisResultList = new ArrayList<>();
+        analysisResultList.add(analysisResult);
+        topConcepNamesList = new ArrayList<>();
+        topConcepNamesList.add("spring framework");
+        paragraph = new Paragraph("P001", paragraphWithOutStopWords, "D001");
     }
 
     @Test
@@ -85,38 +102,18 @@ public class AnalyticServiceImplTest {
     @Test
     public void getFrequencyOfSpringConcepts() {
         when(nlpResultService.getNlpResult()).thenReturn(nlpResult);
-        ArrayList<ConceptNameFrequency> expectedConceptNameFrequencies = new ArrayList<>();
-        for (int i = 0; i < conceptNames.size(); i++) {
-            long counter = 0;
-            expectedConceptNameFrequencies.add(new ConceptNameFrequency(conceptNames.get(i), counter));
-            String pattenString = conceptNames.get(i).toLowerCase();
-            Pattern pattern = Pattern.compile(pattenString);
-            Matcher matcher = pattern.matcher(paragraphWithOutStopWords);
-            while (matcher.find()) {
-                long tempCount = expectedConceptNameFrequencies.get(i).getFrequencyCount();
-                tempCount++;
-                expectedConceptNameFrequencies.get(i).setFrequencyCount(tempCount);
-            }
-        }
-        String expectedString = expectedConceptNameFrequencies.get(0).toString();
+        String expectedConceptNameFrequencyString = conceptNameFrequency.toString();
         analyticServiceImpl.setConceptNames(conceptNames);
-        String actualString = analyticServiceImpl.getFrequencyOfSpringConcepts().get(0).toString();
-        Assert.assertEquals(expectedString, actualString);
+        String actualConceptNameFrequencyString = analyticServiceImpl.getFrequencyOfSpringConcepts().get(0).toString();
+        Assert.assertEquals(expectedConceptNameFrequencyString, actualConceptNameFrequencyString);
     }
 
     @Test
     public void getTopConceptName() {
-        Mockito.doReturn(sortedConceptNameFrequenciesList).when(spyTemp).getFrequencyOfSpringConcepts();
-        sortedConceptNameFrequenciesList.sort((o1, o2) -> (int) (o2.getFrequencyCount() - o1.getFrequencyCount()));
-        List<String> topConceptNamesList = new ArrayList<>();
-        for (int i = 0; i < 1; i++) {
-            if (sortedConceptNameFrequenciesList.get(i).getFrequencyCount() > 0) {
-                topConceptNamesList.add(sortedConceptNameFrequenciesList.get(i).getConceptName());
-            }
-        }
-        String expectedString = topConceptNamesList.get(0);
-        String actualString = spyTemp.getTopConceptName().get(0);
-        Assert.assertEquals(expectedString, actualString);
+        Mockito.doReturn(frequencyOfSpringConcepts).when(spyTemp).getFrequencyOfSpringConcepts();
+        String expectedTopConceptNameString = "spring framework";
+        String actualTopConceptNameString = spyTemp.getTopConceptName().get(0);
+        Assert.assertEquals(expectedTopConceptNameString, actualTopConceptNameString);
     }
 
     @Test
@@ -131,65 +128,52 @@ public class AnalyticServiceImplTest {
         Assert.assertEquals(expectedString, actualString);
     }
 
-    /*
-
-    public List<IntentWord> getIntentWordWithFrequencyCount() {
-        String paragraphWithOutStopWords = nlpResultService.getNlpResult().getParagraphWithOutStopWords().toLowerCase();
-        ArrayList<IntentWord> wordsFrequencyMap = new ArrayList<>();
-        for (int i = 0; i < allIntentterms.size(); i++) {
-            String pattenString = allIntentterms.get(i).getIntentWord().toLowerCase();
-            Pattern pattern = Pattern.compile(pattenString);
-            Matcher matcher = pattern.matcher(paragraphWithOutStopWords);
-            wordsFrequencyMap.add(allIntentterms.get(i));
-            while (matcher.find()) {
-                long tempCount = wordsFrequencyMap.get(i).getFrequencyCount();
-                tempCount++;
-                wordsFrequencyMap.get(i).setFrequencyCount(tempCount);
-            }
-        }
-        return wordsFrequencyMap;
-    }
-*/
     @Test
     public void getIntentWordWithFrequencyCount() {
-//        when(nlpResultService.getNlpResult()).thenReturn(nlpResult);
-//        ArrayList<IntentWord> wordsFrequencyMap = new ArrayList<>();
-//        for (int i = 0; i < allIntentterms.size(); i++) {
-//            String pattenString = allIntentterms.get(i).getIntentWord().toLowerCase();
-//            Pattern pattern = Pattern.compile(pattenString);
-//            Matcher matcher = pattern.matcher(paragraphWithOutStopWords);
-//            wordsFrequencyMap.add(allIntentterms.get(i));
-//            while (matcher.find()) {
-//                long tempCount = wordsFrequencyMap.get(i).getFrequencyCount();
-//                tempCount++;
-//                wordsFrequencyMap.get(i).setFrequencyCount(tempCount);
-//            }
-//        }
-//        analyticServiceImpl.setAllIntentterms(allIntentterms);
-//        String expectedString = wordsFrequencyMap.get(0).toString();
-//        String actualString = analyticServiceImpl.getIntentWordWithFrequencyCount().get(0).toString();
-////        System.out.println(expectedString);
-////        System.out.println(actualString);
-//        Assert.assertEquals(expectedString, actualString);
+        when(nlpResultService.getNlpResult()).thenReturn(nlpResult);
+        String expectedIntentWordFrequencyCount = allIntentWordWithFrequencyCount.get(0).toString();
+        ArrayList<IntentWord> intentWordList = new ArrayList<>();
+        intentWordList.add(new IntentWord("define", 0, "Knowledge", "indicatorOf", 9));
+        analyticServiceImpl.setAllIntentterms(intentWordList);
+        String actualIntentWordFrequencyCount = analyticServiceImpl.getIntentWordWithFrequencyCount().get(0).toString();
+        Assert.assertEquals(expectedIntentWordFrequencyCount, actualIntentWordFrequencyCount);
     }
 
     @Test
     public void getConfidenceScoreOfMostAccurateIntents() {
+        Mockito.doReturn(allIntentWordWithFrequencyCount).when(spyTemp).getIntentWordWithFrequencyCount();
+        String expectedIntentWithConfidenceScoreString = intentWithConfidenceScore.toString();
+        spyTemp.setIntents(new String[]{"Knowledge", "Comprehension", "Application", "Analysis", "Synthesis", "Evaluation"});
+        String actualIntentWithConfidenceScoreString = spyTemp.getConfidenceScoreOfMostAccurateIntents().get(0).toString();
+        Assert.assertEquals(expectedIntentWithConfidenceScoreString, actualIntentWithConfidenceScoreString);
     }
 
     @Test
     public void getIntentLevel() {
+        Mockito.doReturn(intentWithConfidenceScoresList).when(spyTemp).getConfidenceScoreOfMostAccurateIntents();
+        String expectedIntentLevel = "Knowledge";
+        String actualIntentLevel = spyTemp.getIntentLevel();
+        Assert.assertEquals(expectedIntentLevel, actualIntentLevel);
+    }
+
+    @Test
+    public void getConfidenceScore() {
+        Mockito.doReturn(intentWithConfidenceScoresList).when(spyTemp).getConfidenceScoreOfMostAccurateIntents();
+        double expectedConfidenceScore = 100;
+        double actualConfidenceScore = spyTemp.getConfidenceScore();
+        Assert.assertEquals(expectedConfidenceScore, actualConfidenceScore, 0);
     }
 
     @Test
     public void getAnalysisResults() {
-    }
-
-    @Test
-    public void getConceptNames() {
-    }
-
-    @Test
-    public void setConceptNames() {
+        Mockito.doReturn(topConcepNamesList).when(spyTemp).getTopConceptName();
+        Mockito.doReturn(100.0).when(spyTemp).getConfidenceScore();
+        Mockito.doReturn("Knowledge").when(spyTemp).getIntentLevel();
+        when(nlpResultService.getNlpResult()).thenReturn(nlpResult);
+        when(paragraphProviderService.getParagraph()).thenReturn(paragraph);
+        spyTemp.setConceptNames(conceptNames);
+        String expectedAnalysisResultsString = analysisResultList.get(0).toString();
+        String actualAnalysisResultsString = spyTemp.getAnalysisResults().get(0).toString();
+        Assert.assertEquals(expectedAnalysisResultsString, actualAnalysisResultsString);
     }
 }
