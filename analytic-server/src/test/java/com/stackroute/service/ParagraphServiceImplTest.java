@@ -1,6 +1,5 @@
 package com.stackroute.service;
 
-import com.stackroute.domain.Concept;
 import com.stackroute.domain.NlpResult;
 import com.stackroute.domain.Paragraph;
 import com.stackroute.nlpservice.NlpService;
@@ -14,7 +13,6 @@ import org.mockito.MockitoAnnotations;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 

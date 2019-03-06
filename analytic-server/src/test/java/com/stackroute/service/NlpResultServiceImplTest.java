@@ -7,7 +7,6 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
 
-import static org.junit.Assert.*;
 public class NlpResultServiceImplTest {
     private NlpResult nlpResult;
 
@@ -25,7 +24,7 @@ public class NlpResultServiceImplTest {
         nlpResultServiceImpl.setNlpResult(nlpResult);
         String expected = nlpResult.toString();
         String actual = nlpResultServiceImpl.getNlpResult().toString();
-        Assert.assertEquals(expected,actual);
+        Assert.assertEquals(expected, actual);
     }
 
     @Test

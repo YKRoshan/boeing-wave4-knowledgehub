@@ -7,8 +7,6 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
 
-import static org.junit.Assert.*;
-
 public class ParagraphProviderServiceImplTest {
     private Paragraph paragraph;
     @InjectMocks
