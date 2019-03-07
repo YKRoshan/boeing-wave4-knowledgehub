@@ -1,9 +1,7 @@
 package com.stackroute.controller;
 
 import com.stackroute.domain.AnalysisResult;
-import com.stackroute.domain.Concept;
 import com.stackroute.service.AnalyticService;
-import com.stackroute.service.ConceptSerive;
 import com.stackroute.domain.Paragraph;
 import com.stackroute.service.ParagraphProviderService;
 import com.stackroute.service.ParagraphService;
@@ -12,8 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 @RestController
@@ -24,36 +20,40 @@ public class AnalyticServiceController {
     private ParagraphProviderService paragraphProviderService;
 
     @Autowired
-    public AnalyticServiceController(ParagraphProviderService paragraphProviderService,ParagraphService paragraphService, AnalyticService analyticService) {
+    public AnalyticServiceController(ParagraphProviderService paragraphProviderService, ParagraphService paragraphService, AnalyticService analyticService) {
         this.paragraphService = paragraphService;
         this.analyticService = analyticService;
         this.paragraphProviderService = paragraphProviderService;
     }
 
+    // This method is used to call the various service method send paragraph for AnalyticService
     @PostMapping("paragraph")
-    public ResponseEntity<?> setParagraph(@RequestBody Paragraph paragraph) {
+    public ResponseEntity setParagraph(@RequestBody Paragraph paragraph) {
         ResponseEntity responseEntity;
         try {
+            // paragraphService is the service which calls AnalyticService
             paragraphService.takeParagraph(paragraph);
+            //paragraphProviderService just stores the input paragraph and if any other service requires
+            // paragraph it can just call the paragraphProviderService.getParagraph()
             paragraphProviderService.setParagraph(paragraph);
-            responseEntity = new ResponseEntity<String>("Paragraph is successfully taken.", HttpStatus.OK);
+            responseEntity = new ResponseEntity<>("Paragraph is successfully taken.", HttpStatus.OK);
             return responseEntity;
         } catch (Exception e) {
-            responseEntity = new ResponseEntity<String>("Paragraph is not taken.", HttpStatus.BAD_REQUEST);
+            responseEntity = new ResponseEntity<>("Paragraph is not taken.", HttpStatus.BAD_GATEWAY);
             return responseEntity;
         }
     }
 
+    // This method returns the output of AnalyticService results
     @GetMapping("analysisResult")
-    public ResponseEntity<AnalysisResult> getAnalysisResult() {
+    public ResponseEntity<List<AnalysisResult>> getAnalysisResult() {
         ResponseEntity responseEntity;
         try {
-
-            AnalysisResult analysisResult;
-            analysisResult = analyticService.getAnalysisResult();
-            return new ResponseEntity<AnalysisResult>(analysisResult,HttpStatus.OK);
-        }catch (Exception e){
-            responseEntity = new ResponseEntity<String>("No results found.", HttpStatus.BAD_REQUEST);
+            List<AnalysisResult> analysisResultsList;
+            analysisResultsList = analyticService.getAnalysisResults();
+            return new ResponseEntity<>(analysisResultsList, HttpStatus.OK);
+        } catch (Exception e) {
+            responseEntity = new ResponseEntity<>("No results found.", HttpStatus.EXPECTATION_FAILED);
             return responseEntity;
         }
     }

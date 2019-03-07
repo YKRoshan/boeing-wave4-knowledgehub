@@ -1,23 +1,24 @@
 package com.stackroute.domain;
 
-import com.stackroute.nlpService.POSTagging;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class NlpResult {
+    // This JSON is used to store results of Nlp Service.
+    // The NlpResult is used by AnalyticService.
     private String clearedParagraph;
-    private ArrayList<String> allTokenedSentences;
-    private ArrayList<String> lemmaWords;
-    private ArrayList<String> stemmedWords;
-    private ArrayList<String> wordsWithOutStopWords;
+    private List<String> allTokenedSentences;
+    private List<String> lemmaWords;
+    private List<String> stemmedWords;
+    private List<String> wordsWithOutStopWords;
     private String paragraphWithOutStopWords;
-    private ArrayList<POSTagging> posTaggings;
-    private ArrayList<String> nounWords;
-    private ArrayList<String> verbWords;
+    private List<POSTagging> posTaggings;
+    private List<String> nounWords;
+    private List<String> verbWords;
 }

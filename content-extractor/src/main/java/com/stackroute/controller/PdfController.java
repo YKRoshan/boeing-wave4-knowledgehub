@@ -25,7 +25,7 @@ import java.io.IOException;
 
 @CrossOrigin(origins = "*")
 @Controller
-@PropertySource(value = "classpath:application.properties")
+@PropertySource(value = "classpath:application.yml")
 public class PdfController {
 
         private PdfExtractionService contentExtractionService;

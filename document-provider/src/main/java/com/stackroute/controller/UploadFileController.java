@@ -1,12 +1,9 @@
 package com.stackroute.controller;
 
-import com.stackroute.model.FileUrl;
+import com.stackroute.domain.FileUrl;
 import com.stackroute.service.S3Service;
-import netscape.javascript.JSObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -48,8 +45,8 @@ public class UploadFileController {
         //calling the serviceImpl method to upload file to s3
         this.amazonS3ClientService.uploadFileToS3Bucket(file, true);
 
-        ResponseEntity responseEntity;
-        responseEntity = new ResponseEntity(fileUrl, HttpStatus.OK);
+
+        //sending the fileurl to kafka bus
         kafkaTemplate.send(TOPIC,fileUrl);
         return fileUrl;
     }

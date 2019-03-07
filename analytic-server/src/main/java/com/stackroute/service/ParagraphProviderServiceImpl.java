@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 public class ParagraphProviderServiceImpl implements ParagraphProviderService {
     private Paragraph paragraph;
 
+    // This service just stores the input paragraph Json.
     @Override
     public Paragraph getParagraph() {
         return paragraph;

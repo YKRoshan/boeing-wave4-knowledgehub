@@ -1,11 +1,11 @@
 import { BrowserModule, BrowserTransferStateModule } from '@angular/platform-browser';
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
-import { A11yModule } from '@angular/cdk/a11y';
-import { DragDropModule } from '@angular/cdk/drag-drop';
-import { ScrollingModule } from '@angular/cdk/scrolling';
-import { CdkStepperModule } from '@angular/cdk/stepper';
-import { CdkTableModule } from '@angular/cdk/table';
-import { CdkTreeModule } from '@angular/cdk/tree';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
+import {A11yModule} from '@angular/cdk/a11y';
+import {DragDropModule} from '@angular/cdk/drag-drop';
+import {ScrollingModule} from '@angular/cdk/scrolling';
+import {CdkStepperModule} from '@angular/cdk/stepper';
+import {CdkTableModule} from '@angular/cdk/table';
+import {CdkTreeModule} from '@angular/cdk/tree';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -15,10 +15,12 @@ import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { TokenService } from './service/token.service';
 import { AuthService } from './service/auth.service';
+import {SearchinfoService } from './service/searchinfo.service';
 import { HttpClientModule } from '@angular/common/http';
 import { FooterComponent } from './footer/footer.component';
 import { SearchbuttonComponent } from './searchbutton/searchbutton.component';
 import { FileDropModule } from 'ngx-file-drop';
+
 // MDB Angular Free
 import { WavesModule, ButtonsModule, IconsModule, MDBBootstrapModule } from 'angular-bootstrap-md'
 
@@ -54,10 +56,18 @@ import {
   MatToolbarModule,
   MatTooltipModule,
   MatTreeModule,
+  
 } from '@angular/material';
 import { UploadComponent } from './upload/upload.component';
 import { UploadService } from './service/upload.service';
 import { HeaderComponent } from './header/header.component';
+import { SearchcardComponent } from './searchcard/searchcard.component';
+import { PaginatorComponent } from './paginator/paginator.component';
+import { RouterModule } from '@angular/router';
+import { DataService } from './domain/data-service';
+import { ChatComponent } from './chat/chat.component';
+import { IdGeneratorComponent } from './id-generator/id-generator.component';
+import { SessionId } from './domain/sessionId';
 
 @NgModule({
   declarations: [
@@ -67,7 +77,11 @@ import { HeaderComponent } from './header/header.component';
     FooterComponent,
     SearchbuttonComponent,
     UploadComponent,
-    HeaderComponent
+    HeaderComponent,
+    SearchcardComponent,
+    PaginatorComponent,
+    ChatComponent,
+    IdGeneratorComponent
   ],
   imports: [
     BrowserModule,
@@ -128,12 +142,19 @@ import { HeaderComponent } from './header/header.component';
     IconsModule,
     ButtonsModule,
     WavesModule,
-    MDBBootstrapModule
+    MDBBootstrapModule,
+    HttpClientModule,
+    AppRoutingModule,
+    RouterModule.forRoot([
+      {path : 'searchinfo', component: SearchcardComponent}
+    ])
   ],
-  providers: [TokenService,
-    AuthService, UploadService],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  bootstrap: [AppComponent]
+  providers: [TokenService,SearchinfoService,
+              AuthService,UploadService,DataService,SessionId],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
+  bootstrap: [AppComponent],
+  entryComponents: [ChatComponent]
+
 })
 export class AppModule { }
 

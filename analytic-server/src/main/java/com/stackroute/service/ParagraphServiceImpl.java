@@ -2,8 +2,7 @@ package com.stackroute.service;
 
 import com.stackroute.domain.NlpResult;
 import com.stackroute.domain.Paragraph;
-import com.stackroute.nlpService.NlpService;
-import com.stackroute.nlpService.NlpServiceImpl;
+import com.stackroute.nlpservice.NlpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,6 +33,8 @@ public class ParagraphServiceImpl implements ParagraphService {
         this.paragraph = paragraph;
     }
 
+    // This method is used to sequencial calls to all the services such as NlpService and AnalyticService
+    // for processing the paragraph upon receiving the input paragraph Json
     public Paragraph takeParagraph(Paragraph paragraph) {
         this.paragraph = paragraph;
         Iterator<String> iterator = conceptSerive.getConcepts().iterator();

@@ -30,7 +30,7 @@ import java.net.URL;
 import java.util.UUID;
 
 @Service
-@PropertySource(value = "classpath:application.properties")
+@PropertySource(value = "classpath:application.yml")
 public class PdfExtractionServiceImpl implements PdfExtractionService {
 
     @Value("${fileNotFound}")

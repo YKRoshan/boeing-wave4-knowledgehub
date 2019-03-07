@@ -12,18 +12,22 @@ public class POSTagging {
         this.POSTag = POSTag;
     }
 
+    /*getter method for originalWrd*/
     public String getOriginalWord() {
         return originalWord;
     }
 
+    /*setter method for originalWord*/
     public void setOriginalWord(String originalWord) {
         this.originalWord = originalWord;
     }
 
+    /*getter method for POSTag*/
     public String getPOSTag() {
         return POSTag;
     }
 
+    /*setter method for POSTag*/
     public void setPOSTag(String POSTag) {
         this.POSTag = POSTag;
     }

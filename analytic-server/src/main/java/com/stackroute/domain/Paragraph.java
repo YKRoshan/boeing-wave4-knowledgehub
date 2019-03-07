@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Paragraph {
-
+    //  The input paragraph Json format which I get through kafka message bus
     private String paragraphId;
     private String paragraphContent;
     private String documentId;

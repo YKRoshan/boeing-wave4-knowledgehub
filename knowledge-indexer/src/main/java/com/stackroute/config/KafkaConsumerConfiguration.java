@@ -1,6 +1,6 @@
 package com.stackroute.config;
 
-import com.stackroute.model.Knowledge;
+import com.stackroute.domain.Knowledge;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.context.annotation.Bean;

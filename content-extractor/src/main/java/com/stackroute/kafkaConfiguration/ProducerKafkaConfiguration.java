@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /*
+    This Class will send Pdfs to paragraph tokenizer
     Setting Kafka and Zookeeper Configuration
  */
 @Configuration

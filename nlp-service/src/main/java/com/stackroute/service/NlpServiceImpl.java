@@ -1,8 +1,8 @@
 package com.stackroute.service;
 
-import com.aliasi.sentences.IndoEuropeanSentenceModel;
-import com.aliasi.sentences.SentenceModel;
 import com.aliasi.tokenizer.*;
+import com.stackroute.domain.ConceptNameFrequency;
+import com.stackroute.domain.NlpResult;
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.pipeline.Annotation;
@@ -12,25 +12,94 @@ import edu.stanford.nlp.util.CoreMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 @Service
 @PropertySource(value = "classpath:application.properties")
 public class NlpServiceImpl implements NlpService {
 
-    String paragraph;
-    String paragraphId = "para001";
-    String documentId = "doc001";
+    private String paragraph;
+    private String sessonId;
+    private ArrayList<String> conceptName;
+    private IntentService intentService;
+    private ConceptService conceptService;
 
-    String[] stopwords={"i", "me", "my", "myself", "we", "our", "ours", "ourselves", "could", "he'd","he'll", "he's", "here's", "how's", "ought", "she'd", "she'll", "that's", "there's", "they'd","they'll", "they're", "they've", "we'd", "we'll", "we're", "we've", "what's", "when's", "where's","who's", "why's", "would", "i'd", "i'll", "i'm", "i've", "you", "you're", "you've", "you'll","you'd", "your", "yours", "yourself", "yourselves", "he", "him", "his", "himself", "she","she's", "her", "hers", "herself", "it", "it's", "its", "itself", "they", "them", "their","theirs", "themselves", "what", "which", "who", "whom", "this", "that", "that'll", "these","those", "am", "is", "are", "was", "were", "be", "been", "being", "have", "has", "had", "having","do", "does", "did", "doing", "a", "an", "the", "and", "but", "if", "or", "because", "as", "until","while", "of", "at", "by", "for", "with", "about", "against", "between", "into", "through","during", "before", "after", "above", "below", "to", "from", "up", "down", "in", "out", "off", "over", "under", "again", "further", "then", "once", "here", "there", "when", "where","why", "how", "all", "any", "both", "each", "few", "more", "most", "other", "some", "such", "no","nor", "not", "only", "own", "same", "so", "than", "too", "very", "s", "t", "can", "will","just", "don", "don't", "should", "should've", "now", "d", "ll", "m", "o", "re", "ve", "y", "ain","aren", "aren't", "couldn", "couldn't", "didn", "didn't", "doesn", "doesn't", "hadn", "hadn't","hasn", "hasn't", "haven", "haven't", "isn", "isn't", "ma", "mightn", "mightn't", "mustn", "mustn't","needn", "needn't", "shan", "shan't", "shouldn", "shouldn't", "wasn", "wasn't", "weren", "weren't","won", "won't", "wouldn", "wouldn't"};
-    String[] domainSpecificNgrams={"annotations", "ioc container", "beans", "spring core", "spring data jpa", "spring datajpa","spring aop", "spring security", "spring cloud", "spring reactive", "spring mvc"};
+    /*
+    This method will return concept name
+    */
+    public ArrayList<String> getConceptName() {
+        return conceptName;
+    }
 
+    /*
+    This method will set concept name
+    */
+    public void setConceptName(ArrayList<String> conceptName) {
+        this.conceptName = conceptName;
+    }
+
+    /*
+    This method will return paragraph
+    */
+    public String getParagraph() {
+        return paragraph;
+    }
+
+    /*
+    This method will return session ID
+    */
+    public String getSessonId() {
+        return sessonId;
+    }
+
+    /*
+    This method will set session ID
+    */
+    public void setSessonId(String sessonId) {
+        this.sessonId = sessonId;
+    }
+
+    /*
+    This method will set paragraph
+    */
     public void setParagraph(String paragraph) {
         this.paragraph = paragraph;
     }
 
+    private ArrayList<String> knowledge;
+    private ArrayList<String> comprehension;
+    private ArrayList<String> application;
+    private ArrayList<String> analysis;
+    private ArrayList<String> synthesis;
+    private ArrayList<String> evaluation;
+    private ArrayList<ArrayList<String>> intentGraph;
+    @Value("${stopwords}")
+    private String[] stopwords;
+    @Value("${intentNames}")
+    private String[] intents;
+
+    /*Constructor*/
+    @Autowired
+    public NlpServiceImpl(IntentService intentService, ConceptService conceptService) {
+        this.intentService = intentService;
+        this.conceptService = conceptService;
+        this.knowledge = new ArrayList<>(intentService.getKnowledgeTerms());
+        this.comprehension = new ArrayList<>(intentService.getComprehensionTerms());
+        this.application = new ArrayList<>(intentService.getApplicationTerms());
+        this.analysis = new ArrayList<>(intentService.getAnalysisTerms());
+        this.synthesis = new ArrayList<>(intentService.getSynthesisTerms());
+        this.evaluation = new ArrayList<>(intentService.getEvaluationTerms());
+        this.conceptName = new ArrayList<>(conceptService.getConcepts());
+
+    }
+
+    /*
+    This method will remove all extra spaces and returns cleaned paragraph
+    */
     public String getCleanerParagrah() {
         String inputParagraph = this.paragraph;
         // Data Cleaning by removing extra spaces.
@@ -46,6 +115,41 @@ public class NlpServiceImpl implements NlpService {
         return cleanedParagraph.toString().trim();
     }
 
+    /*
+    This method will remove all stopwords and returns list of strings which are not a stopword
+    */
+    public ArrayList<String> getWordsWithoutStopWords() {
+        String wordsWithOutStopwords[] = getCleanerParagrah().split(" ");
+        ArrayList<String> listWithOutStopWords = new ArrayList<>();
+        for (int i = 0; i < wordsWithOutStopwords.length; i++) {
+            listWithOutStopWords.add(wordsWithOutStopwords[i].trim());
+        }
+        for (int i = 0; i < stopwords.length; i++) {
+            for (int j = 0; j < listWithOutStopWords.size(); j++) {
+                if (listWithOutStopWords.get(j).equalsIgnoreCase(stopwords[i].trim())) {
+                    listWithOutStopWords.remove(j);
+                }
+            }
+        }
+        return listWithOutStopWords;
+    }
+
+    /*
+    This method will remove all stopwords and returns paragraph without stopwords
+    */
+    public String getParagraphWithOutStopWords() {
+        ArrayList<String> wordsWithOutStopwords = getWordsWithoutStopWords();
+        StringBuffer paragraphWithOutStopWords = new StringBuffer();
+        for (int i = 0; i < wordsWithOutStopwords.size(); i++) {
+            paragraphWithOutStopWords.append(wordsWithOutStopwords.get(i) + " ");
+        }
+        return paragraphWithOutStopWords.toString().trim();
+    }
+
+
+    /*
+    This method will lemmitized each word and returns list of lemmitized words
+    */
     public ArrayList<String> getLemmitizedWords() {
         Properties properties = new Properties();
         properties.setProperty("annotator", "lemma");
@@ -54,8 +158,8 @@ public class NlpServiceImpl implements NlpService {
         // different set of propeties provide different NLP tasks
         StanfordCoreNLP pipeline = new StanfordCoreNLP(properties);
         // This annotations object gives the special meaning to the
-        // string we used in propeties.put() method
-        Annotation annotations = new Annotation(getCleanerParagrah());
+        // string we used in properties.put() method
+        Annotation annotations = new Annotation(getParagraphWithOutStopWords());
         // pipeline.annotate(annotations)  provies the annotation to those particular objects.
         pipeline.annotate(annotations);
         // sentenceList contains list of sentences
@@ -71,6 +175,21 @@ public class NlpServiceImpl implements NlpService {
         return lemmaWords;
     }
 
+    /*
+    This method will lemmitized each word and returns lemmitized string
+    */
+    public String getParagraphWithLemmatizedWords() {
+        ArrayList<String> lemmatizedWords = getLemmitizedWords();
+        StringBuffer paragraphWithLemmatizedWords = new StringBuffer();
+        for (int i = 0; i < lemmatizedWords.size(); i++) {
+            paragraphWithLemmatizedWords.append(lemmatizedWords.get(i) + " ");
+        }
+        return paragraphWithLemmatizedWords.toString().trim();
+    }
+
+    /*
+    This method will returns list of stemmed words
+    */
     public List<String> getStemmedWords() {
         TokenizerFactory tokenizerFactory = IndoEuropeanTokenizerFactory.INSTANCE;
         TokenizerFactory porterFactory = new PorterStemmerTokenizerFactory(tokenizerFactory);
@@ -83,47 +202,91 @@ public class NlpServiceImpl implements NlpService {
         return stemmedWordsList;
     }
 
-    public ArrayList<String> getWordsWithoutStopWords() {
-        ArrayList<String> wordsWithOutStopwords = getLemmitizedWords();
-        for (int j = 0; j < stopwords.length; j++) {
-            if (wordsWithOutStopwords.contains(stopwords[j])) {
-                wordsWithOutStopwords.remove(stopwords[j]);//remove it
+    /*
+    This method will calculate frequency of each concepts and returns list of list of concept
+    name and its frequency
+    */
+    public ArrayList<ConceptNameFrequency> getFrequencyOfSpringConcepts() {
+        String paragraphWithOutStopWords = getParagraphWithOutStopWords().toLowerCase();
+        ArrayList<ConceptNameFrequency> wordsFrequencyMap = new ArrayList<>();
+        for (int i = 0; i < conceptName.size(); i++) {
+            long counter = 0;
+            wordsFrequencyMap.add(new ConceptNameFrequency(conceptName.get(i), counter));
+            String pattenString = conceptName.get(i).toLowerCase();
+            Pattern pattern = Pattern.compile(pattenString);
+            Matcher matcher = pattern.matcher(paragraphWithOutStopWords);
+            while (matcher.find()) {
+                long tempCount = wordsFrequencyMap.get(i).getFrequencyCount();
+                tempCount++;
+                wordsFrequencyMap.get(i).setFrequencyCount(tempCount);
             }
         }
-        return wordsWithOutStopwords;
+        return wordsFrequencyMap;
     }
 
-    public String getParagraphWithOutStopWords() {
-        ArrayList<String> wordsWithOutStopwords = getWordsWithoutStopWords();
-        StringBuffer paragraphWithOutStopWords = new StringBuffer();
-        for (int i = 0; i < wordsWithOutStopwords.size(); i++) {
-            paragraphWithOutStopWords.append(wordsWithOutStopwords.get(i) + " ");
+    /*
+    This method will return most accurate concept name based on concept frequencies
+    */
+    public String getMostAccurateConceptName() {
+        ArrayList<ConceptNameFrequency> conceptNameFrequenciesList = getFrequencyOfSpringConcepts();
+        conceptNameFrequenciesList.sort(new Comparator<ConceptNameFrequency>() {
+            @Override
+            public int compare(ConceptNameFrequency o1, ConceptNameFrequency o2) {
+                return (int) (o2.getFrequencyCount() - o1.getFrequencyCount());
+            }
+        });
+        String conceptName = new String();
+        long max = Integer.MIN_VALUE;
+        for (int i = 0; i < conceptNameFrequenciesList.size(); i++) {
+            if (max <= conceptNameFrequenciesList.get(i).getFrequencyCount()) {
+                max = conceptNameFrequenciesList.get(i).getFrequencyCount();
+                conceptName = conceptNameFrequenciesList.get(i).getConceptName();
+            }
         }
-        return paragraphWithOutStopWords.toString().trim();
+        return conceptName;
     }
 
-    public ArrayList<POSTagging> getPOSWords() {
-        Properties properties = new Properties();
-        properties.setProperty("annotator", "pos");
-        StanfordCoreNLP pipeline = new StanfordCoreNLP(properties);
-        CoreDocument coreDocument = new CoreDocument(getParagraphWithOutStopWords());
-        pipeline.annotate(coreDocument);
-        List<CoreLabel> coreLabelsList = coreDocument.tokens();
-        ArrayList<POSTagging> wordsWithPOSTag = new ArrayList<>();
-        for (CoreLabel coreLabel : coreLabelsList) {
-            String partsOfSpeech = coreLabel.get(CoreAnnotations.PartOfSpeechAnnotation.class);
-            wordsWithPOSTag.add(new POSTagging(coreLabel.originalText(), partsOfSpeech));
+    /*
+    This method will return intent of query
+    */
+    public String getUserIntent() {
+        for (int i = 0; i < conceptName.size(); i++) {
+            if (conceptName.get(i).equalsIgnoreCase(getParagraphWithLemmatizedWords())) {
+                return "Knowledge";
+            }
         }
-        return wordsWithPOSTag;
+
+        intentGraph = new ArrayList<>();
+        intentGraph.add(knowledge);
+        intentGraph.add(comprehension);
+        intentGraph.add(application);
+        intentGraph.add(analysis);
+        intentGraph.add(synthesis);
+        intentGraph.add(evaluation);
+
+        String searchString = getParagraphWithLemmatizedWords();
+        for (int i = 0; i < intentGraph.size(); i++) {
+            for (int j = 0; j < intentGraph.get(i).size(); j++) {
+                String pattenString = intentGraph.get(i).get(j).toLowerCase();
+                Pattern pattern = Pattern.compile(pattenString);
+                Matcher matcher = pattern.matcher(searchString.toLowerCase());
+                if (matcher.find()) {
+                    return intents[i];
+                }
+            }
+        }
+        return "no intent found";
     }
 
-    public void showAllResults() {
-        String clearedParagraph = new String(getCleanerParagrah());
-        ArrayList<String> allLemmas = new ArrayList<>(getLemmitizedWords());
-        ArrayList<String> allStems = new ArrayList<>(getStemmedWords());
-        ArrayList<String> allStopWords = new ArrayList<>(getWordsWithoutStopWords());
-        String paragraphWithOutStopWords = new String(getParagraphWithOutStopWords());
-        ArrayList<POSTagging> posTaggings = new ArrayList<>(getPOSWords());
+    /*
+    This method will return NLP result
+    */
+    public NlpResult getNlpResults() {
+        NlpResult nlpResult = new NlpResult();
+        nlpResult.setConcept(getMostAccurateConceptName());
+        nlpResult.setIntent(getUserIntent());
+        nlpResult.setSessonId(getSessonId());
+        return nlpResult;
     }
 
 }

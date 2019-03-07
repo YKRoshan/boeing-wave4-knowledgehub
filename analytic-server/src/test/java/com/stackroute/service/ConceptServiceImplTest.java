@@ -12,7 +12,6 @@ import org.mockito.MockitoAnnotations;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
 
 public class ConceptServiceImplTest {
@@ -25,16 +24,6 @@ public class ConceptServiceImplTest {
     @InjectMocks
     private ConceptServiceImpl conceptServiceImpl;
 
-    /*
-    <id>:1
-    classType: concept
-    context: Spring framework
-    identity: SPRING:2
-    name: Spring Core
-    parent_id: SPRING:1
-    relation: subconcept of
-    type: concept
-     */
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);

@@ -34,9 +34,14 @@
         <module>login-service</module>
         <module>paragraph-tokenizer</module>
         <module>nlp-service</module>
+        <module>search-upstream-service</module>
         <module>knowledge-indexer</module>
 	    <module>document-provider</module>
         <module>analytic-server</module>
+        <module>query-engine</module>
+        <module>question-provider</module>
+        <module>question-publisher</module>
+        <module>websocket-service</module>
     </modules>
     <dependencies>
         <dependency>
@@ -86,6 +91,11 @@
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.sonarsource.scanner.maven</groupId>
+                <artifactId>sonar-maven-plugin</artifactId>
+                <version>3.6.0.1398</version>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-clean-plugin</artifactId>
@@ -226,6 +236,7 @@
 
         </plugins>
     </build>
+
     <reporting>
         <plugins>
             <plugin>

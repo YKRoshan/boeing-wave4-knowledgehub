@@ -3,7 +3,6 @@ package com.stackroute.controller;
 
 import com.stackroute.message.request.LoginForm;
 import com.stackroute.message.response.JwtResponse;
-import com.stackroute.repository.UserRepository;
 import com.stackroute.security.jwt.JwtProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -12,13 +11,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.session.SessionAuthenticationException;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
-import java.io.IOException;
-import java.security.SignatureException;
+
 
 @CrossOrigin(origins = "*", maxAge = 3600) //allows cross origin to access rest end point
 @RestController //specifies this class as rest controller
@@ -35,7 +30,7 @@ public class AuthRestAPI {
 
     //this method is called when /api/auth/signIn end point is called
     @PostMapping("/signin")
-    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginForm loginRequest) throws SecurityException , SessionAuthenticationException  {
+    public ResponseEntity authenticateUser(@Valid @RequestBody LoginForm loginRequest) {
         //authentication manager verifies username and password received against database
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));

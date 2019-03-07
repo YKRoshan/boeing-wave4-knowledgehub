@@ -2,13 +2,9 @@ package com.stackroute.service;
 
 import com.stackroute.domain.Concept;
 import com.stackroute.repository.ConceptRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 
 @Service
 public class ConceptServiceImpl implements ConceptSerive {
@@ -18,6 +14,7 @@ public class ConceptServiceImpl implements ConceptSerive {
         this.conceptRepository = conceptRepository;
     }
 
+    // This method is used to fetch the concepts from Neo4J graph
     public ArrayList<String> getConcepts() {
         ArrayList<Concept> concepts = new ArrayList<>(conceptRepository.getAllConcepts());
         ArrayList<String> conceptNames = new ArrayList<>();

@@ -1,4 +1,4 @@
- /* custom styles for html page of login component */
+ /* custom styles for html page of login component
  body{
     padding:10%;
     padding-left: 0%;
@@ -22,25 +22,29 @@
     margin-left:500px;
     text-decoration: none;
     color:inherit;
-}
-#title a:hover{
+} */
+/* #title a:hover{
     text-decoration: none;
-}
-#loginbutton{
+} */
+/* #loginbutton{
     margin-left: 420px;
-}
-.mat-card{
+} */
+/* .mat-card{
     width: 430px;
     margin: auto;
     background-color: aqua;
     margin-top: 50px;
     margin-bottom: 50px
-}
+} */
 .my-card{
-    width: 400px;
+     width: 400px; 
     margin: auto;
-    background-color: rgb(49, 143, 180);
-    margin-top: 40px;
+
+    /* margin-top: 40px; */
+}
+
+.close{
+    float: right; 
 }
 
 

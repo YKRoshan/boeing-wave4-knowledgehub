@@ -3,12 +3,13 @@ package com.stackroute.domain;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.neo4j.ogm.annotation.NodeEntity;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class ConceptNameFrequency {
+    // This class has conceptName and frequencyCount
+    // (To store how many time a concepName has occured in a paragraph)
     String conceptName;
-    Long frequencyCount;
+    long frequencyCount;
 }

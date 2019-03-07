@@ -15,6 +15,10 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+
+/*
+This class will recieve the PDF file link from AWS in JSON format
+ */
 @EnableKafka
 @Configuration
 public class ConsumerKafkaConfiguration {

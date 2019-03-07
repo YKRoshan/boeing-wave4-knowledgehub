@@ -20,10 +20,13 @@ public class KafkaProducer {
 
     private static final String TOPIC = "AnalyticsResults";
 
+    // the postservice() will post the analyticResuls object in kafka message bus
     public String postservice() {
-        AnalysisResult analysisResult;
-        analysisResult = analyticService.getAnalysisResult();
-        kafkaTemplate2.send(TOPIC, analysisResult);
+        for (int i = 0; i < analyticService.getAnalysisResults().size(); i++) {
+            AnalysisResult analysisResult;
+            analysisResult = analyticService.getAnalysisResults().get(i);
+            kafkaTemplate2.send(TOPIC, analysisResult);
+        }
         return "Published successfully";
     }
 }
