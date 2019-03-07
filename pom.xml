@@ -42,6 +42,7 @@
         <module>question-provider</module>
         <module>question-publisher</module>
         <module>websocket-service</module>
+        <module>web-analytic-service</module>
     </modules>
     <dependencies>
         <dependency>
