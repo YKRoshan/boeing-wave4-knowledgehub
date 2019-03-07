@@ -44,6 +44,7 @@
         <module>websocket-service</module>
         <module>web-analytic-service</module>
         <module>web-content-extractor</module>
+        <module>web-search-service</module>
     </modules>
     <dependencies>
         <dependency>
