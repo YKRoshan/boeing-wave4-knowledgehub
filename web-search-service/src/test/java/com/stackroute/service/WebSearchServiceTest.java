@@ -45,6 +45,7 @@ public class WebSearchServiceTest {
     }
 
 
+    @Test
     public void getUrlsFailure() throws IOException, DomainNotFoundException {
         searchDocument.setConceptName("java");
         searchDocument.setDomain("Angular");
