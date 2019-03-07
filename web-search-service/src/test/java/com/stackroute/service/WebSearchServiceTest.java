@@ -40,7 +40,6 @@ public class WebSearchServiceTest {
         searchDocumentList = webSearchService.getUrls(uiDocument);
         Assert.assertEquals(searchDocument.getConceptName(),searchDocumentList.get(0).getConceptName());
         Assert.assertEquals(searchDocument.getDomain(),searchDocumentList.get(0).getDomain());
-        Assert.assertEquals(searchDocument.getUrl().substring(0,45),searchDocumentList.get(0).getUrl().substring(0,45));
 
     }
 
