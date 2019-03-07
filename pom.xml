@@ -43,6 +43,7 @@
         <module>question-publisher</module>
         <module>websocket-service</module>
         <module>web-analytic-service</module>
+        <module>web-content-extractor</module>
     </modules>
     <dependencies>
         <dependency>

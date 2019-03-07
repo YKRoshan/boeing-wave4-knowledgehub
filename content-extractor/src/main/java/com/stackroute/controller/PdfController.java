@@ -5,8 +5,6 @@ import com.stackroute.domain.PdfDocument;
 import com.stackroute.exception.EmptyFileException;
 import com.stackroute.exception.FileNotFoundException;
 import com.stackroute.service.PdfExtractionService;
-import com.stackroute.service.PdfExtractionServiceImpl;
-import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.tika.exception.TikaException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
