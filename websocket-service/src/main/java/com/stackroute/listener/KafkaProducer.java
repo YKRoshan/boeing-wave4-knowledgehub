@@ -21,13 +21,13 @@ public class KafkaProducer {
 
 
     @Autowired
-    private KafkaTemplate<String, ChatMessage> kafkaTemplate2;
+    private KafkaTemplate<String, Object> kafkaTemplate2;
 
-    private static final String TOPIC="QueryEngine";
+    private static final String TOPIC="QueryEngineResults";
 
     ChatMessage chatMessage;
 
-    public String postservice(ChatMessage chatMessage)
+    public String postservice(Object chatMessage)
     {
         kafkaTemplate2.send(TOPIC,chatMessage);
 

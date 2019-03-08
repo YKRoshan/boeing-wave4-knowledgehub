@@ -2,14 +2,15 @@ package com.stackroute.listener;
 
 import com.stackroute.domain.ChatMessage;
 import com.stackroute.service.WebSocketService;
-import org.json.simple.JSONObject;
-import org.json.simple.JSONValue;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
-import org.springframework.messaging.handler.annotation.Payload;
-import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class KafkaConsumer {
@@ -30,28 +31,27 @@ public class KafkaConsumer {
         this.webSocketService = webSocketService;
     }
 
-//    @SendTo("/topic/public/{sessionId}")
     @KafkaListener(topics = "QueryEngineResults", groupId = "group_id")
     public void consume(String  message){
-        JSONObject object = (JSONObject) JSONValue.parse(message);
-        ChatMessage chatMessage=new ChatMessage(object.get("name").toString(),object.get("sessionId").toString(),object.get("paragraphId").toString(),object.get("documentId").toString(),object.get("domain").toString(),object.get("concept").toString(),object.get("intentLevel").toString(),object.get("confidenceScore").toString());
-        System.out.println("in consumer"+chatMessage.getSessionId());
-        System.out.println(chatMessage.getConcept());
-        template.convertAndSend("/topic/public/"+chatMessage.getSessionId().toString(),webSocketService.sendMessageService(chatMessage));
-//        return webSocketService.sendMessageService(message);
+
+        List<ChatMessage> messages=new ArrayList<>();
+        JSONObject object = new JSONObject(message);
+        JSONArray values = object.getJSONArray("result");
+        String sessionid="";
+        for(int i=0; i<values.length();i++){
+            JSONObject result = values.getJSONObject(i);
+            System.out.println("bbbbbbbbbbbbbbbbbbb");
+            System.out.println(result);
+
+            ChatMessage chatMessage=new ChatMessage(result.get("name").toString(),result.get("sessionId").toString(),result.get("paragraphId").toString(),result.get("documentId").toString(),result.get("domain").toString(),result.get("concept").toString(),result.get("intentLevel").toString(),result.get("confidenceScore").toString());
+            sessionid=result.get("sessionId").toString();
+            messages.add(chatMessage);
+
+        }
+        template.convertAndSend("/topic/public/"+sessionid,webSocketService.sendMessageService(messages));
+
     }
-//    public ChatMessage consume(String message) {
-//
-//        JSONObject object = (JSONObject) JSONValue.parse(message);
-//        ChatMessage chatMessage=new ChatMessage(object.get("content").toString()
-//                ,object.get("sender").toString());
-//        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-//        System.out.println(chatMessage.getSender());
-//        System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbb");
-//        System.out.println(chatMessage.getContent());
-//
-//        return webSocketService.sendMessageService(chatMessage);
-//
-////        kafkaProducer.postservice(chatMessage);
-//    }
+
+
+
 }

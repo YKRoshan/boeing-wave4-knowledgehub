@@ -19,7 +19,7 @@ export class SearchinfoService {
   //  return this.http.get<Info[]>(this.url + '?_sort=ConfidenceScore&_order=desc');
     }
     
-    getResults(search:any){
+    postResults(search:any){
       return this.http.post("http://localhost:8094/vsearch/",search);
     }
   

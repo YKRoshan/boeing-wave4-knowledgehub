@@ -35,7 +35,7 @@ public class ConsumerKafkaConfiguration {
     }
 
     @Bean
-    public ConsumerFactory<String, ChatMessage> userConsumerFactory() {
+    public ConsumerFactory<String, Object> userConsumerFactory() {
         Map<String, Object> config = new HashMap<>();
 
         config.put(org.apache.kafka.clients.consumer.ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
@@ -43,12 +43,12 @@ public class ConsumerKafkaConfiguration {
         config.put(org.apache.kafka.clients.consumer.ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         config.put(org.apache.kafka.clients.consumer.ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
         return new DefaultKafkaConsumerFactory<>(config, new StringDeserializer(),
-                new JsonDeserializer<>(ChatMessage.class));
+                new JsonDeserializer<>(Object.class));
     }
 
     @Bean
-    public ConcurrentKafkaListenerContainerFactory<String, ChatMessage> userKafkaListenerFactory() {
-        ConcurrentKafkaListenerContainerFactory<String, ChatMessage> factory = new ConcurrentKafkaListenerContainerFactory<>();
+    public ConcurrentKafkaListenerContainerFactory<String, Object> userKafkaListenerFactory() {
+        ConcurrentKafkaListenerContainerFactory<String, Object> factory = new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(userConsumerFactory());
         return factory;
     }

@@ -109,7 +109,7 @@
                 <div id="voicesearch">
                   <div class="col-auto">
                     <img src="assets/img/mic.png" alt="mic" (click)="voiceSearch()" id="mic">
-                    <button class="btn btn-lg btn-success" type="submit" (click)="post(searchTerm)" >Search</button>
+                    <button class="btn btn-lg btn-success" type="submit" (click)="subscribe(searchTerm)" >Search</button>
                   </div>
                 </div>
               </form>
@@ -121,8 +121,13 @@
       </div>
     </div>
   </div>
+  <app-id-generator></app-id-generator>
 
   <button mat-fab color="primary" id="add-button" (click)="openDialog()" matTooltip="Knowledge Bot"><ng-md-icon class="material-icons">Bot</ng-md-icon></button>
+
+  <div *ngIf = "show==true">
+    <app-searchcard></app-searchcard>
+  </div>
 
   <app-footer></app-footer>
 

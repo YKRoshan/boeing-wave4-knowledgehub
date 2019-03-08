@@ -6,6 +6,7 @@ import { isPlatformServer } from '@angular/common';
 import { Router } from '@angular/router';
 import { DataService } from '../domain/data-service';
 import { TransferState, makeStateKey } from '@angular/platform-browser';
+import { SessionId } from '../domain/sessionId';
 // import { Info } from '../domain/info.model';
 const configKey = makeStateKey('CONFIG');
 declare var webkitSpeechRecognition: any;
@@ -13,7 +14,7 @@ declare var webkitSpeechRecognition: any;
 @Component({
   selector: 'app-searchcard',
   templateUrl: './searchcard.component.html',
-  styleUrls: ['./searchcard.component.css']
+  styleUrls: ['./searchcard.component.scss']
 })
 export class SearchcardComponent {
   title: any;
@@ -23,6 +24,7 @@ export class SearchcardComponent {
   pageSizeOptions = [2, 4, 6, 8];
   splicedData: any;
   searchTerm: string;
+  object : any;
 
   // viewChild- Property decorator that configures a view query
   // The change detector looks for the first element or the directive matching
@@ -36,6 +38,9 @@ export class SearchcardComponent {
     private search: SearchinfoService,
     private router: Router,
     private dataService: DataService,
+    private result : SessionId,
+    private searchService : SearchinfoService,
+    private SessionIdNew:SessionId,
 
     @Inject(PLATFORM_ID) private platformid: Object, private route: Router
   ) {
@@ -58,7 +63,8 @@ export class SearchcardComponent {
       console.log(this.pageLength);
       this.loadData(0)
     });
-    
+    this.object = this.result.greetings;
+    let length = this.object.length;
 
   }
 
@@ -72,12 +78,12 @@ export class SearchcardComponent {
   }
 
 
-  getResult(searchString){
-    this.search.getResults(searchString).subscribe((results)=>{ this.info = results;
-      this.pageLength = this.info.length;
-      console.log(this.pageLength);
-      this.loadData(0)})
-}
+//   getResult(searchString){
+//     this.search.getResults(searchString).subscribe((results)=>{ this.info = results;
+//       this.pageLength = this.info.length;
+//       console.log(this.pageLength);
+//       this.loadData(0)})
+// }
 
 
   public voiceSearch() {
@@ -112,9 +118,23 @@ export class SearchcardComponent {
     }
   }
     
-  getdata() {  
+  // getdata() {  
+  //   this.dataService.dataService = this.searchTerm; 
+  //   this.router.navigate(['/cards']);
+  // }
+  getdata(search:string) {  
+    var output = {
+      sessionId : this.SessionIdNew.SessionId,
+      searchString : search
+    };
+    this.searchService.postResults(output).subscribe();
     this.dataService.dataService = this.searchTerm; 
-    this.router.navigate(['/cards']);
+    // console.log("home :"+this.result.greetings);
+    // console.log("TO searchservice :"+output.sessionId+" "+output.searchString);
+    this.object = this.result.greetings;
+    this.router.navigate(['/cards'])
+    // this.dataService.dataService = this.searchTerm; 
+    // this.router.navigate(['/cards']);
+      this.ngOnInit();
   }
-
 }

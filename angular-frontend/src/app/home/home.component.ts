@@ -27,7 +27,11 @@ export class HomeComponent implements OnInit {
   user:any;
   info:any;
   add:boolean;
+  show:boolean=false;
+  object : any;
+  private stompClient;
 
+  public message : string;
   chatComponent: MatDialogRef<ChatComponent>;
 
 
@@ -37,6 +41,7 @@ export class HomeComponent implements OnInit {
       private searchService : SearchinfoService,
       private SessionIdNew:SessionId,
       public dataService:DataService,
+      private result : SessionId,
       @Inject(PLATFORM_ID) private platformid: Object,private route:Router) { this.title = 'Voice Search POC';
       //isPlatformServer -Returns whether a platform id represents a server platform.
       if(isPlatformServer(this.platformid)){
@@ -143,23 +148,36 @@ export class HomeComponent implements OnInit {
     this.route.navigateByUrl("https://www.google.com/search")
   }
   
-  getdata() {  
-    this.dataService.dataService = this.searchTerm; 
-    this.router.navigate(['/cards']);
-  }
+  // getdata() {  
+  //   this.dataService.dataService = this.searchTerm; 
+  //   this.router.navigate(['/cards']);
+  // }
 
-  post(search:string){
-    var chatMessage = {
-      sessionId : this.SessionIdNew.SessionId,
-      searchString : search,
-     };
-     console.log(this.SessionIdNew.SessionId);
+  // post(search:string){
+  //   var chatMessage = {
+  //     sessionId : this.SessionIdNew.SessionId,
+  //     searchString : search,
+  //    };
+  //    console.log(this.SessionIdNew.SessionId);
       
-    this.searchService.getResults(chatMessage).subscribe((data)=>{
-      console.log(",mnmnjnk,")
-    });
+  //   this.searchService.getResults(chatMessage).subscribe((data)=>{
+  //     console.log(",mnmnjnk,")
+  //   });
+  // }
+  subscribe(search:string){
+    var output = {
+      sessionId : this.SessionIdNew.SessionId,
+      searchString : search
+    };
+    this.searchService.postResults(output).subscribe();
+    this.dataService.dataService = this.searchTerm; 
+    // console.log("home :"+this.result.greetings);
+    // console.log("TO searchservice :"+output.sessionId+" "+output.searchString);
+    this.object = this.result.greetings;
+    this.show = true;
+    // this.router.navigate(['/cards'])
+
   }
-  
 
 }
 

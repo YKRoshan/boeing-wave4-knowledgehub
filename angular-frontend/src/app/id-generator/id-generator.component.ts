@@ -32,12 +32,15 @@ export class IdGeneratorComponent{
     const _this = this;
     this.stompClient.connect({}, function (frame) {
       _this.stompClient.subscribe("/topic/public/"+id, (message) => {
-        if (message.body) {
-          $(".chat").append("<div class='message'>" + JSON.parse(message.body).content + "</div>")
-          console.log(message.body);
-        }
+        var res = JSON.parse(message.body);
+        res.forEach(element => {
+          _this.show(element);
+        });
       });
     });
+  }
+  show(name){
+    this.SessionIdNew.greetings.push(name);
   }
 
 IDGenerator() {
@@ -64,19 +67,7 @@ IDGenerator() {
     }
  
 
-  sendMessage(message) {
-    /* (void) send(destination, headers = {}, body = '')
-     *     Send a message to a named destination.
-     */
-    let id = this.sessionId+"";
-    var chatMessage = {
-      sender : id,
-      content : message,
-     
-    };
-    this.stompClient.send("/app/chat.send/"+id,{},JSON.stringify(chatMessage));
-     this.message= null;
-  }
+  
 
   
   
