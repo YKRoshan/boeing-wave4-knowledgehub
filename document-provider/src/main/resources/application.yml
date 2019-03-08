@@ -1,0 +1,38 @@
+
+server:
+  port: 8087
+  ports:
+    http: 8076
+
+  ssl:
+    key-store: keystore.p12
+    key-store-password: 123456
+    keyStoreType: PKCS12
+    keyAlias: tomcat
+
+aws:
+  access:
+    key:
+      id: AKIAIOS7OGA3BQ4OJVYA
+      secret: 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
+  region: ap-south-1
+  s3:
+    bucket: knowledge-hub
+  credentials:
+    instanceProfile: true
+
+spring:
+  batch:
+    job:
+      enabled: false
+  http:
+    multipart:
+      enabled: true
+  servlet:
+    multipart:
+      max-file-size: 500MB
+      max-request-size: 500MB
+
+
+
+
