@@ -5,6 +5,7 @@ import com.stackroute.Service.WebSearchService;
 import com.stackroute.domain.SearchDocument;
 import com.stackroute.domain.UIDocument;
 import com.stackroute.exception.DomainNotFoundException;
+import com.stackroute.listener.KafkaProducer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,11 +22,13 @@ public class WebSearchController {
 
     private WebSearchService webSearchService;
     private UIDocument uiDocument;
+    private KafkaProducer kafkaProducer;
 
     @Autowired
-    public WebSearchController (WebSearchService webSearchService)
+    public WebSearchController (WebSearchService webSearchService,KafkaProducer kafkaProducer)
     {
         this.webSearchService=webSearchService;
+        this.kafkaProducer=kafkaProducer;
     }
 
     @PostMapping("/domain")
@@ -37,6 +40,7 @@ public class WebSearchController {
         {
             uiDocument.setDomain(uiDocument1.getDomain());
             uiDocument.setConceptName(uiDocument1.getConceptName());
+            kafkaProducer.postservice(uiDocument);
             message="Successfully upload";
             return ResponseEntity.status(HttpStatus.OK).body(message);
 

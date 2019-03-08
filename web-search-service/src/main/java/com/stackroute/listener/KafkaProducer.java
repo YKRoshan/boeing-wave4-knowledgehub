@@ -26,9 +26,6 @@ public class KafkaProducer {
         this.kafkaTemplate2=kafkaTemplate2;
     }
 
-    @Autowired
-
-
     private static final String TOPIC="WebSearch";
     public String postservice(UIDocument uiDocument) throws IOException, DomainNotFoundException {
 
