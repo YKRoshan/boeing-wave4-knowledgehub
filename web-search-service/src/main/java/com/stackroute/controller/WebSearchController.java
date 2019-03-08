@@ -25,10 +25,9 @@ public class WebSearchController {
     private KafkaProducer kafkaProducer;
 
     @Autowired
-    public WebSearchController (WebSearchService webSearchService,KafkaProducer kafkaProducer)
+    public WebSearchController (WebSearchService webSearchService)
     {
         this.webSearchService=webSearchService;
-        this.kafkaProducer=kafkaProducer;
     }
 
     @PostMapping("/domain")

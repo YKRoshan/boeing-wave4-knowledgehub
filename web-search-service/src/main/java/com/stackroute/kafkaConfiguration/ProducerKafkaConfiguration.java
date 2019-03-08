@@ -14,13 +14,14 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Configuration
 public class ProducerKafkaConfiguration {
 
     @Bean
-    public ProducerFactory<String, SearchDocument> producerFactory() {
+    public ProducerFactory<Object, List<SearchDocument>> producerFactory() {
         Map<String, Object> config = new HashMap<>();
 
         config.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
@@ -33,7 +34,7 @@ public class ProducerKafkaConfiguration {
 
 
     @Bean
-    public KafkaTemplate<String, SearchDocument> kafkaTemplate() {
+    public KafkaTemplate<Object, List<SearchDocument>> kafkaTemplate() {
         return new KafkaTemplate<>(producerFactory());
     }
 
