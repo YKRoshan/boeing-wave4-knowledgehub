@@ -13,8 +13,8 @@ server:
 aws:
   access:
     key:
-      id: AKIAIOS7OGA3BQ4OJVYA
-      secret: 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
+      id: xxxxxxxxxxxxxx
+      secret: yyyyyyyyyyyyyyyyyyyy
   region: ap-south-1
   s3:
     bucket: knowledge-hub
