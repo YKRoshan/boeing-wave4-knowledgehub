@@ -5,6 +5,7 @@ import com.stackroute.Service.WebSearchService;
 import com.stackroute.domain.SearchDocument;
 import com.stackroute.domain.UIDocument;
 import com.stackroute.exception.DomainNotFoundException;
+import com.stackroute.listener.KafkaProducer;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -41,6 +42,8 @@ public class WebSearchControllerTest {
 
     @MockBean
     private WebSearchService webSearchService;
+    @MockBean
+    private KafkaProducer kafkaProducer;
 
     @InjectMocks
     private WebSearchController webSearchController;

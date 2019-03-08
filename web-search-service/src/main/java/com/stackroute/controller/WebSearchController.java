@@ -25,8 +25,9 @@ public class WebSearchController {
     private KafkaProducer kafkaProducer;
 
     @Autowired
-    public WebSearchController (WebSearchService webSearchService)
+    public WebSearchController (WebSearchService webSearchService, KafkaProducer kafkaProducer)
     {
+        this.kafkaProducer=kafkaProducer;
         this.webSearchService=webSearchService;
     }
 
