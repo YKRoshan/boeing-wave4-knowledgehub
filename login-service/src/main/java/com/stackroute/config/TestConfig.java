@@ -11,7 +11,6 @@ import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import java.util.Properties;
@@ -22,7 +21,6 @@ import java.util.Properties;
 })
 @EnableTransactionManagement
 public class TestConfig {
-
     @Autowired
     private Environment env;
     @Bean
@@ -36,10 +34,7 @@ public class TestConfig {
 
         return dataSource;
     }
-
     // configure entityManagerFactory
-    // configure transactionManager
-    // configure additional Hibernate properties
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         final LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
@@ -49,14 +44,14 @@ public class TestConfig {
         em.setJpaProperties(additionalProperties());
         return em;
     }
-
+    // configure transactionManager
     @Bean
     JpaTransactionManager transactionManager(final EntityManagerFactory entityManagerFactory) {
         final JpaTransactionManager transactionManager = new JpaTransactionManager();
         transactionManager.setEntityManagerFactory(entityManagerFactory);
         return transactionManager;
     }
-
+    // configure additional Hibernate properties
     final Properties additionalProperties() {
         final Properties hibernateProperties = new Properties();
 
