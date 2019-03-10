@@ -26,7 +26,7 @@ export class IdGeneratorComponent{
   initializeWebSocketConnection() {
  
     let id = this.sessionId+"";
-    const socket = new SockJS('http://localhost:8097/socket');
+    const socket = new SockJS('https://localhost:8097/socket');
     this.stompClient = Stomp.over(socket);
 
     const _this = this;

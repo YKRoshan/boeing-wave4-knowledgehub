@@ -18,8 +18,8 @@ const httpOptions = {
 })
 export class AuthService {
 
-  private url = 'http://localhost:8092/login-service/api/auth/signin';
-  private url2 = 'http://13.234.94.132:8092/login-service/api/test/user';
+  private url = 'https://localhost:8092/login-service/api/auth/signin';
+  private url2 = 'https://13.234.94.132:8092/login-service/api/test/user';
 
   constructor( private http:HttpClient,private token: TokenService) {}
   //This method is to post login credentials to backend and get response.

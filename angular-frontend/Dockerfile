@@ -10,10 +10,11 @@ RUN npm install api-ai-javascript
 RUN npm install stompjs
 RUN npm install sockjs
 RUN npm install jquery
+RUN npm install browser-sync --save-dev
 RUN npm i net -S
 COPY . .
 RUN npm run build
 # Stage 2
 FROM node
 RUN npm install http-server -g
-CMD ["http-server","-p","8079", "dist/Knowledgehub"]
+CMD ["http-server","-p","8079", "dist/Knowledgehub","-S","--cert","ssl/cert.pem","--key","ssl/key.pem"]
