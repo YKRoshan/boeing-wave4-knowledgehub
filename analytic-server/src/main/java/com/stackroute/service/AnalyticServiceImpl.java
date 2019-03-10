@@ -19,7 +19,11 @@ public class AnalyticServiceImpl implements AnalyticService {
     private NlpResultService nlpResultService;
     private IntentService intentService;
     private ParagraphProviderService paragraphProviderService;
-    private ArrayList<IntentWord> allIntentterms = new ArrayList<>();
+    private ArrayList<IntentWord> allIntentterms;
+    private NlpResult nlpResult;
+    private ArrayList<ConceptNameFrequency> frequencyOfSpringConcept;
+    private List<IntentWord> intentWordWithFrequencyList;
+    private List<IntentWithConfidenceScore> intentWithConfidenceScores;
     @Value("${intentNames}")
     private String[] intents;
 
@@ -31,23 +35,10 @@ public class AnalyticServiceImpl implements AnalyticService {
         this.nlpResultService = nlpResultService;
         this.paragraphProviderService = paragraphProviderService;
         this.intentService = intentService;
-        this.allIntentterms = new ArrayList<>(intentService.getAllIntentWords());
-    }
-
-    // nlpResultService is used to get all the nouns present in paragraph
-    // this method returns all the nouns as one sentence for further analysis
-    public String getNounSentence() {
-        NlpResult nlpResult = nlpResultService.getNlpResult();
-        StringBuilder nounSentence = new StringBuilder();
-        ArrayList<String> nouns = new ArrayList<>(nlpResult.getNounWords());
-        for (int i = 0; i < nouns.size(); i++) {
-            nounSentence.append(nouns.get(i) + " ");
-        }
-        return nounSentence.toString().trim().toLowerCase();
     }
 
     public List<ConceptNameFrequency> getFrequencyOfSpringConcepts() {
-        String paragraphWithOutStopWords = nlpResultService.getNlpResult().getParagraphWithOutStopWords().toLowerCase();
+        String paragraphWithOutStopWords = nlpResult.getParagraphWithOutStopWords().toLowerCase();
         ArrayList<ConceptNameFrequency> wordsFrequencyMap = new ArrayList<>();
         for (int i = 0; i < conceptNames.size(); i++) {
             long counter = 0;
@@ -66,13 +57,12 @@ public class AnalyticServiceImpl implements AnalyticService {
 
     // returns the highest no:of times used conceptName
     public List<String> getTopConceptName() {
-        ArrayList<ConceptNameFrequency> sortedConceptNameFrequenciesList = new ArrayList<>(getFrequencyOfSpringConcepts());
-        sortedConceptNameFrequenciesList.sort((o1, o2) -> (int) (o2.getFrequencyCount() - o1.getFrequencyCount()));
+        frequencyOfSpringConcept.sort((o1, o2) -> (int) (o2.getFrequencyCount() - o1.getFrequencyCount()));
         List<String> topConceptNamesList = new ArrayList<>();
-        long maxConceptFrequency = sortedConceptNameFrequenciesList.get(0).getFrequencyCount();
-        for (int i = 0; i < sortedConceptNameFrequenciesList.size(); i++) {
-            if (sortedConceptNameFrequenciesList.get(i).getFrequencyCount() > 0) {
-                topConceptNamesList.add(sortedConceptNameFrequenciesList.get(i).getConceptName());
+        long maxConceptFrequency = frequencyOfSpringConcept.get(0).getFrequencyCount();
+        for (int i = 0; i < frequencyOfSpringConcept.size(); i++) {
+            if (frequencyOfSpringConcept.get(i).getFrequencyCount() > 0) {
+                topConceptNamesList.add(frequencyOfSpringConcept.get(i).getConceptName());
             }
         }
         if (maxConceptFrequency == 0) {
@@ -83,19 +73,8 @@ public class AnalyticServiceImpl implements AnalyticService {
         }
     }
 
-    // nlpResultService is used to get all the verbs present in paragraph
-    // this method returns all the verbs as one sentence for further analysis
-    public String getVerbSentence() {
-        StringBuilder verbSentence = new StringBuilder();
-        ArrayList<String> verbs = new ArrayList<>(nlpResultService.getNlpResult().getVerbWords());
-        for (int i = 0; i < verbs.size(); i++) {
-            verbSentence.append(verbs.get(i) + " ");
-        }
-        return verbSentence.toString().trim().toLowerCase();
-    }
-
     public List<IntentWord> getIntentWordWithFrequencyCount() {
-        String paragraphWithOutStopWords = nlpResultService.getNlpResult().getParagraphWithOutStopWords().toLowerCase();
+        String paragraphWithOutStopWords = nlpResult.getParagraphWithOutStopWords().toLowerCase();
         ArrayList<IntentWord> wordsFrequencyMap = new ArrayList<>();
         for (int i = 0; i < allIntentterms.size(); i++) {
             String pattenString = allIntentterms.get(i).getIntentWord().toLowerCase();
@@ -112,7 +91,6 @@ public class AnalyticServiceImpl implements AnalyticService {
     }
 
     public List<IntentWithConfidenceScore> getConfidenceScoreOfMostAccurateIntents() {
-        List<IntentWord> intentWordWithFrequencyList = getIntentWordWithFrequencyCount();
         double[] confidenceScore = new double[6];
         int[] noOfTermsInEachIntent = new int[6];
         double indicator = 0;
@@ -212,7 +190,7 @@ public class AnalyticServiceImpl implements AnalyticService {
 
     // returns the intent level of the paragraph by analysis the terms present in paragraph
     public String getIntentLevel() {
-        List<IntentWithConfidenceScore> intentWithConfidenceScores = getConfidenceScoreOfMostAccurateIntents();
+
         double maxConfidenceScore = Integer.MIN_VALUE;
         String intentLevel = null;
         for (int i = 0; i < intentWithConfidenceScores.size(); i++) {
@@ -228,7 +206,6 @@ public class AnalyticServiceImpl implements AnalyticService {
     }
 
     public double getConfidenceScore() {
-        List<IntentWithConfidenceScore> intentWithConfidenceScores = getConfidenceScoreOfMostAccurateIntents();
         double maxConfidenceScore = Integer.MIN_VALUE;
         for (int i = 0; i < intentWithConfidenceScores.size(); i++) {
             if (intentWithConfidenceScores.get(i).getConfidenceScore() > maxConfidenceScore) {
@@ -239,11 +216,20 @@ public class AnalyticServiceImpl implements AnalyticService {
     }
 
     public List<AnalysisResult> getAnalysisResults() {
+        this.allIntentterms = null;
+        this.allIntentterms = new ArrayList<>(intentService.getAllIntentWords());
+        this.nlpResult = null;
+        nlpResult = nlpResultService.getNlpResult();
+        this.frequencyOfSpringConcept = null;
+        frequencyOfSpringConcept = new ArrayList<>(getFrequencyOfSpringConcepts());
+        this.intentWordWithFrequencyList = null;
+        this.intentWordWithFrequencyList = getIntentWordWithFrequencyCount();
+        this.intentWithConfidenceScores = null;
+        this.intentWithConfidenceScores = getConfidenceScoreOfMostAccurateIntents();
+
         List<AnalysisResult> analysisResultList = new ArrayList<>();
         for (int i = 0; i < getTopConceptName().size(); i++) {
             analysisResultList.add(new AnalysisResult());
-        }
-        for (int i = 0; i < analysisResultList.size(); i++) {
             analysisResultList.get(i).setConfidenceScore(getConfidenceScore());
             analysisResultList.get(i).setDocumentId(paragraphProviderService.getParagraph().getDocumentId());
             analysisResultList.get(i).setParagraphId(paragraphProviderService.getParagraph().getParagraphId());
@@ -269,6 +255,22 @@ public class AnalyticServiceImpl implements AnalyticService {
 
     public void setParagraphProviderService(ParagraphProviderService paragraphProviderService) {
         this.paragraphProviderService = paragraphProviderService;
+    }
+
+    public void setFrequencyOfSpringConcept(ArrayList<ConceptNameFrequency> frequencyOfSpringConcept) {
+        this.frequencyOfSpringConcept = frequencyOfSpringConcept;
+    }
+
+    public void setNlpResult(NlpResult nlpResult) {
+        this.nlpResult = nlpResult;
+    }
+
+    public void setIntentWordWithFrequencyList(List<IntentWord> intentWordWithFrequencyList) {
+        this.intentWordWithFrequencyList = intentWordWithFrequencyList;
+    }
+
+    public void setIntentWithConfidenceScores(List<IntentWithConfidenceScore> intentWithConfidenceScores) {
+        this.intentWithConfidenceScores = intentWithConfidenceScores;
     }
 
     public void setAllIntentterms(ArrayList<IntentWord> allIntentterms) {

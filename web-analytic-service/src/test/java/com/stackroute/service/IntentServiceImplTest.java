@@ -1,6 +1,6 @@
 package com.stackroute.service;
 
-import com.stackroute.domain.IntentWord;
+import com.stackroute.domain.IntentWordWithFrequencyCount;
 import com.stackroute.domain.Terms;
 import com.stackroute.repository.IntentRepository;
 import org.junit.Assert;
@@ -18,8 +18,8 @@ import static org.mockito.Mockito.when;
 public class IntentServiceImplTest {
     private Terms termNode;
     private List<Terms> termNodeList;
-    private IntentWord intentWord;
-    private List<IntentWord> intentWordList;
+    private IntentWordWithFrequencyCount intentWordWithFrequencyCount;
+    private List<IntentWordWithFrequencyCount> intentWordWithFrequencyCountList;
     @Mock
     private IntentRepository intentRepository;
     @InjectMocks
@@ -31,10 +31,10 @@ public class IntentServiceImplTest {
         termNode = new Terms(1001, "define", "SPRING:2", "Knowledge", "term", "indicatorOf", "9");
         termNodeList = new ArrayList<>();
         termNodeList.add(termNode);
-        intentWord = new IntentWord();
-        intentWord = new IntentWord("define", 0, "Knowledge", "indicatorOf", 9);
-        intentWordList = new ArrayList<>();
-        intentWordList.add(intentWord);
+        intentWordWithFrequencyCount = new IntentWordWithFrequencyCount();
+        intentWordWithFrequencyCount = new IntentWordWithFrequencyCount("define", 0, "Knowledge", "indicatorOf", 9);
+        intentWordWithFrequencyCountList = new ArrayList<>();
+        intentWordWithFrequencyCountList.add(intentWordWithFrequencyCount);
     }
 
     @Test
@@ -42,8 +42,8 @@ public class IntentServiceImplTest {
         intentRepository.save(termNode);
         when(intentRepository.getAllTerms()).thenReturn(termNodeList);
         intentServiceImpl.setAllTermNodes(new ArrayList<>(termNodeList));
-        List<IntentWord> expectedIntentWordList = intentWordList;
-        List<IntentWord> actualIntentWordList = intentServiceImpl.getAllIntentWords();
+        List<IntentWordWithFrequencyCount> expectedIntentWordList = intentWordWithFrequencyCountList;
+        List<IntentWordWithFrequencyCount> actualIntentWordList = intentServiceImpl.getAllIntentWords();
         Assert.assertEquals(expectedIntentWordList, actualIntentWordList);
     }
 }

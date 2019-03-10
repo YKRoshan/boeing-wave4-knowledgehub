@@ -16,6 +16,9 @@ public class ParagraphProviderServiceImplTest {
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
         paragraph = new Paragraph();
+        paragraph.setDocumentId("D001");
+        paragraph.setParagraphId("P001");
+        paragraph.setParagraphContent("what is spring framework");
     }
 
     @Test

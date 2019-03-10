@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class IntentWord {
+public class IntentWordWithFrequencyCount {
     String intentWord;
     long frequencyCount;
     String intent;
