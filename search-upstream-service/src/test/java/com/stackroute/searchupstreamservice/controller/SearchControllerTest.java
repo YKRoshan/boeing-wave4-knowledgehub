@@ -27,8 +27,6 @@ import static org.mockito.Mockito.when;
 @WebMvcTest
 public class SearchControllerTest {
 
-
-
     @Autowired
     private MockMvc mockMvc;
 
