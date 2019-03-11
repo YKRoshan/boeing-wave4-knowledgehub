@@ -31,8 +31,9 @@ public class KafkaProducer {
 
     public String postservice(WebDocument webDocument)
     {
+        System.out.println("Bbbbbbbbbbbbbbbbbbb");
         kafkaTemplate2.send(TOPIC,webDocument);
-
+        System.out.println("cccccccccccc");
         return "Published successfully";
     }
 

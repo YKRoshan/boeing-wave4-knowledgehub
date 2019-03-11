@@ -14,7 +14,6 @@ import lombok.NoArgsConstructor;
 public class WebAnalysisResult {
     private String id;
     private String domain;
-    private List<JSONObject> metadata;
     private String link;
     private String conceptName;
     private String keywords;

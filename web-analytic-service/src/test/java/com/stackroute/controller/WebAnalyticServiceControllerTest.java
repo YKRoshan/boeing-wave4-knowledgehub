@@ -59,15 +59,11 @@ public class WebAnalyticServiceControllerTest {
         webDocument.setId("webDoc001");
         webDocument.setImageCount(15);
         webDocument.setKeywords("spring mvc, spring core");
-        webDocument.setMetadata(null);
         webDocument.setTitle("spring mvc");
-        webDocument.setWebContent("web content");
-
         webAnalysisResults = new WebAnalysisResult();
         webAnalysisResults.setIntentLevel("Application");
         webAnalysisResults.setConfidenceScore(4.55544);
         webAnalysisResults.setTitle("spring mvc");
-        webAnalysisResults.setMetadata(null);
         webAnalysisResults.setLink("https://www.tutorialspoint.com/spring/spring_web_mvc_framework.htm");
         webAnalysisResults.setKeywords("spring mvc, spring core");
         webAnalysisResults.setImageCount(15);
