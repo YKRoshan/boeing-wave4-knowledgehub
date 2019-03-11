@@ -29,6 +29,7 @@ public class KafkaConsumer {
         //Converting JsonObject to Paragraph domain object
         Paragraph paragraph = new Paragraph(object.get("paragraphId").toString(), object.get("paragraphText").toString(), object.get("documentId").toString());
         // these method are similar to the methods present in controller
+        System.out.println("Paragraph"+" "+paragraph.toString());
         paragraphService.takeParagraph(paragraph);
         paragraphProviderService.setParagraph(paragraph);
         // After analysis we call the postservice to post in kafka message bus
