@@ -31,6 +31,8 @@ public class WebSearchController {
         this.webSearchService=webSearchService;
     }
 
+    //This method is posting UI document in Kafka Producer
+
     @PostMapping("/domain")
     public ResponseEntity<String> domainUpload(@RequestBody UIDocument uiDocument1){
 
@@ -51,6 +53,8 @@ public class WebSearchController {
             return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(message);
         }
     }
+
+    // This method is getting searchResults in postman
 
     @GetMapping("/results")
     public ResponseEntity<List<SearchDocument>> searchResults() throws IOException

@@ -12,6 +12,9 @@ import org.springframework.kafka.support.serializer.JsonSerializer;
 import java.util.HashMap;
 import java.util.Map;
 
+
+//This configuration class will specify configuration for producer
+
 @Configuration
 public class ProducerConfiguration {
     @Bean
@@ -26,6 +29,7 @@ public class ProducerConfiguration {
     }
 
 
+    // Creating bean of kafka template
     @Bean
     public KafkaTemplate<String, SearchDocument> kafkaTemplate() {
         return new KafkaTemplate<>(producerFactory());

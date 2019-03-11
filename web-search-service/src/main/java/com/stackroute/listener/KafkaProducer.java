@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+
+//This service will send Search Results to Kafka Message Bus with topic name = WebSearch
 @Service
 public class KafkaProducer {
     private WebSearchService webSearchService;

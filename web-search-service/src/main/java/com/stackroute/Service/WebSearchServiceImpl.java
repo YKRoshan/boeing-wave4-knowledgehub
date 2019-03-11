@@ -13,6 +13,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+/*
+This service class will Search first top 10 urls of google search
+ */
+
 @Service
 public class WebSearchServiceImpl implements WebSearchService  {
 

@@ -1,5 +1,7 @@
 package com.stackroute.exception;
 
+//Custom Exception when Domain is not found
+
 public class DomainNotFoundException extends Exception{
     private String message;
 
