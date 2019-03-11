@@ -19,7 +19,7 @@ public class WebSearchServiceImpl implements WebSearchService  {
     public static final String USER_AGENT = "Chrome Morzilla Safari";
 
     public List<SearchDocument> getUrls(UIDocument uiDocument) throws IOException, DomainNotFoundException {
-//        System.out.println("Inside Service");
+        System.out.println("Inside Service");
 
         List<SearchDocument> searchDocumentList = new ArrayList<>();
         String[] conceptArray = uiDocument.getConceptName();
@@ -38,12 +38,13 @@ public class WebSearchServiceImpl implements WebSearchService  {
                 searchDocument.setConceptName(conceptArray[i]);
                 String url = result.attr("href");
                 url = url.substring(7);
-                searchDocument.setUrl(url);
-//                System.out.println("search Document:" +searchDocument.toString());
+                String[] splitUrl=url.split("&sa");
+                searchDocument.setUrl(splitUrl[0]);
+                System.out.println("search Document:" +searchDocument.toString());
                 searchDocumentList.add(searchDocument);
             }
         }
-//        System.out.println("SearchDocumentlist: "+searchDocumentList);
+        System.out.println("SearchDocumentlist: "+searchDocumentList);
         return searchDocumentList;
     }
 }
