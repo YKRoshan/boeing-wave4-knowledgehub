@@ -68,6 +68,7 @@ import { DataService } from './domain/data-service';
 import { ChatComponent } from './chat/chat.component';
 import { IdGeneratorComponent } from './id-generator/id-generator.component';
 import { SessionId } from './domain/sessionId';
+import { AdminUiComponent } from './admin-ui/admin-ui.component';
 
 @NgModule({
   declarations: [
@@ -81,7 +82,8 @@ import { SessionId } from './domain/sessionId';
     SearchcardComponent,
     PaginatorComponent,
     ChatComponent,
-    IdGeneratorComponent
+    IdGeneratorComponent,
+    AdminUiComponent
   ],
   imports: [
     BrowserModule,
