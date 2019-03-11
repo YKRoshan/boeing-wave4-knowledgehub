@@ -1,20 +1,20 @@
 
 server:
   port: 8087
-  ports:
-    http: 8076
+#  ports:
+#    http: 8076
 
-  ssl:
-    key-store: keystore.p12
-    key-store-password: 123456
-    keyStoreType: PKCS12
-    keyAlias: tomcat
+#  ssl:
+#    key-store: keystore.p12
+#    key-store-password: 123456
+#    keyStoreType: PKCS12
+#    keyAlias: tomcat
 
 aws:
   access:
     key:
       id: xxxxxxxxxxxxxx
-      secret: yyyyyyyyyyyyyyyyyyyy
+      secret: yyyyyyyyyyyyyyyyy
   region: ap-south-1
   s3:
     bucket: knowledge-hub
