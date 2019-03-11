@@ -4,6 +4,7 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { UploadComponent } from './upload/upload.component';
 import { SearchcardComponent } from './searchcard/searchcard.component';
+import { AdminUiComponent } from './admin-ui/admin-ui.component';
 
 const routes: Routes = [
   {
@@ -28,6 +29,10 @@ const routes: Routes = [
   path:'cards',
 
   component: SearchcardComponent
+},
+{
+  path:'adminUI',
+  component: AdminUiComponent
 }
 ];
 

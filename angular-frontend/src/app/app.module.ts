@@ -146,10 +146,10 @@ import { AdminUiComponent } from './admin-ui/admin-ui.component';
     WavesModule,
     MDBBootstrapModule,
     HttpClientModule,
-    AppRoutingModule,
-    RouterModule.forRoot([
-      {path : 'searchinfo', component: SearchcardComponent}
-    ])
+    AppRoutingModule
+    // RouterModule.forRoot([
+    //   {path : 'searchinfo', component: SearchcardComponent}
+    // ])
   ],
   providers: [TokenService,SearchinfoService,
               AuthService,UploadService,DataService,SessionId],
