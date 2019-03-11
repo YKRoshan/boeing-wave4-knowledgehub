@@ -19,6 +19,7 @@ public class WebSearchServiceImpl implements WebSearchService  {
     public static final String USER_AGENT = "Chrome Morzilla Safari";
 
     public List<SearchDocument> getUrls(UIDocument uiDocument) throws IOException, DomainNotFoundException {
+//        System.out.println("Inside Service");
 
         List<SearchDocument> searchDocumentList = new ArrayList<>();
         String[] conceptArray = uiDocument.getConceptName();
@@ -28,18 +29,21 @@ public class WebSearchServiceImpl implements WebSearchService  {
         }
 
         for (int i = 0; i < conceptArray.length; i++) {
-            SearchDocument searchDocument = new SearchDocument();
-            searchDocument.setId(UUID.randomUUID().toString());
-            searchDocument.setDomain(uiDocument.getDomain());
-            searchDocument.setConceptName(conceptArray[i]);
+
             Document doc = Jsoup.connect("https://google.com/search?q=" + conceptArray[i]).userAgent(USER_AGENT).get();
             for (Element result : doc.select("h3.r>a")) {
+                SearchDocument searchDocument = new SearchDocument();
+                searchDocument.setId(UUID.randomUUID().toString());
+                searchDocument.setDomain(uiDocument.getDomain());
+                searchDocument.setConceptName(conceptArray[i]);
                 String url = result.attr("href");
                 url = url.substring(7);
                 searchDocument.setUrl(url);
+//                System.out.println("search Document:" +searchDocument.toString());
                 searchDocumentList.add(searchDocument);
             }
         }
+//        System.out.println("SearchDocumentlist: "+searchDocumentList);
         return searchDocumentList;
     }
 }
