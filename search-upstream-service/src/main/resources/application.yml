@@ -1,13 +1,13 @@
 server:
-  ports:
-    http: 8075
+#  ports:
+#    http: 8075
   port: 8094
-
-  ssl:
-    key-store: keystore.p12
-    key-store-password: 123456
-    keyStoreType: PKCS12
-    keyAlias: tomcat
+#
+#  ssl:
+#    key-store: keystore.p12
+#    key-store-password: 123456
+#    keyStoreType: PKCS12
+#    keyAlias: tomcat
 
 spring:
   data:
