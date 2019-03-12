@@ -1,6 +1,7 @@
 package com.stackroute.config;
 
 import com.stackroute.domain.Knowledge;
+import com.stackroute.domain.WebAnalyticsKnowledge;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.context.annotation.Bean;
@@ -54,9 +55,32 @@ public class KafkaConsumerConfiguration {
 
     //Kafka listener
     @Bean
-    public ConcurrentKafkaListenerContainerFactory<String, Knowledge> userKafkaListenerFactory() {
+    public ConcurrentKafkaListenerContainerFactory<String, Knowledge> userKafkaListenerFactory1() {
         ConcurrentKafkaListenerContainerFactory<String, Knowledge> factory = new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(userConsumerFactory());
         return factory;
     }
+
+    //Consumer method for knowledge object type
+    @Bean
+    public ConsumerFactory<String, WebAnalyticsKnowledge> userConsumerFactory1() {
+        Map<String, Object> config = new HashMap<>();
+
+        config.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+        config.put(ConsumerConfig.GROUP_ID_CONFIG, "group_json");
+        config.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+        config.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
+        return new DefaultKafkaConsumerFactory<>(config, new StringDeserializer(),
+                new JsonDeserializer<>(WebAnalyticsKnowledge.class));
+    }
+
+    //Kafka listener
+    @Bean
+    public ConcurrentKafkaListenerContainerFactory<String, WebAnalyticsKnowledge> userKafkaListenerFactory2() {
+        ConcurrentKafkaListenerContainerFactory<String, WebAnalyticsKnowledge> factory = new ConcurrentKafkaListenerContainerFactory<>();
+        factory.setConsumerFactory(userConsumerFactory1());
+        return factory;
+    }
+
+
 }
