@@ -1,14 +1,6 @@
 
 server:
   port: 8087
-#  ports:
-#    http: 8076
-
-#  ssl:
-#    key-store: keystore.p12
-#    key-store-password: 123456
-#    keyStoreType: PKCS12
-#    keyAlias: tomcat
 
 aws:
   access:
@@ -22,6 +14,8 @@ aws:
     instanceProfile: true
 
 spring:
+  application:
+    name: document-provider
   batch:
     job:
       enabled: false
@@ -33,6 +27,14 @@ spring:
       max-file-size: 500MB
       max-request-size: 500MB
 
-
+eureka:
+  instance:
+    leaseRenewalIntervalInSeconds: 1
+    leaseExpirationDurationInSeconds: 2
+  client:
+    serviceUrl:
+      defaultZone: http://127.0.0.1:9091/eureka/
+    lease:
+      duration: 5
 
 
