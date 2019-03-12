@@ -22,11 +22,10 @@ public class WebKafkaConsumer {
     @KafkaListener(topics = "WebAnalyticsResults", groupId = "group_id")
     public void consume(String message)
     {
-
         JSONObject object = (JSONObject) JSONValue.parse(message);
 
         WebAnalyticsKnowledge webAnalyticsKnowledge=new WebAnalyticsKnowledge(
-          object.get("webAnalyticsId").toString(),object.get("domain").toString(),object.get("link").toString(),
+          object.get("id").toString(),object.get("domain").toString(),object.get("link").toString(),
           object.get("conceptName").toString(),object.get("keywords").toString(),Integer.parseInt(object.get("imageCount").toString()),
           Float.parseFloat(object.get("codePercentage").toString()),object.get("title").toString(),object.get("description").toString(),
           object.get("intentLevel").toString(),Double.parseDouble(object.get("confidenceScore").toString())
