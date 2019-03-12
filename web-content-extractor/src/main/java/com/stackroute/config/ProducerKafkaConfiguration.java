@@ -1,5 +1,6 @@
-package com.stackroute.config;
+//Kafka Producer Configuration class
 
+package com.stackroute.config;
 
 import com.stackroute.domain.WebDocument;
 import org.apache.kafka.clients.producer.ProducerConfig;

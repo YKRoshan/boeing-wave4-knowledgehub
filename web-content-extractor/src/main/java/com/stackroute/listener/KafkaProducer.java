@@ -1,3 +1,5 @@
+//Kafka Producer Code
+
 package com.stackroute.listener;
 
 import com.stackroute.domain.WebDocument;
@@ -28,13 +30,10 @@ public class KafkaProducer {
 
     private static final String TOPIC="WebContentExtractor";
 
-
+    //service for posting web document as kafka producer
     public String postservice(WebDocument webDocument)
     {
-        System.out.println("Bbbbbbbbbbbbbbbbbbb");
         kafkaTemplate2.send(TOPIC,webDocument);
-        System.out.println("cccccccccccc");
         return "Published successfully";
     }
-
 }

@@ -1,3 +1,5 @@
+//Web document controller class
+
 package com.stackroute.controller;
 
 import com.stackroute.domain.SearchDocument;
@@ -19,6 +21,7 @@ public class WebDocumentController {
         this.webDocumentService = webDocumentService;
     }
 
+    //post mapping for search document by sending search document in body
     @PostMapping("/searchdoc")
     public ResponseEntity<String> postSearchDoc(@RequestBody SearchDocument searchDoc){
         ResponseEntity responseEntity;
@@ -37,13 +40,12 @@ public class WebDocumentController {
         return responseEntity;
     }
 
+    //get mapping for getting web document from posted search document
     @GetMapping("webdoc")
     public ResponseEntity<?> getWebDoc(){
         ResponseEntity responseEntity;
         try {
-//            webDocumentService.extractWebContent(searchDocument1);
             webDocumentService.extractTitle(searchDocument1);
-//            webDocumentService.extractMetadata(searchDocument1);
             webDocumentService.extractDescription(searchDocument1);
             webDocumentService.extractKeywords(searchDocument1);
             webDocumentService.extractImageCount(searchDocument1);
