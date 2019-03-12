@@ -32,10 +32,10 @@ public class ParagraphController {
         ResponseEntity responseEntity;
         try{
             this.objects=document;
-            responseEntity = new ResponseEntity<String>("Successfully posted", HttpStatus.ACCEPTED);
+            responseEntity = new ResponseEntity<String>("Successfully posted", HttpStatus.OK);
         }
         catch (Exception ex){
-            responseEntity = new ResponseEntity<String>(ex.getMessage(),HttpStatus.NOT_FOUND);
+            responseEntity = new ResponseEntity<String>(ex.getMessage(),HttpStatus.CONFLICT);
         }
         return responseEntity;
     }
@@ -50,7 +50,7 @@ public class ParagraphController {
         try {
             responseEntity= new ResponseEntity<List<JSONObject>>(paragraphService.getParagraphObject(objects.get("documentId").toString(),objects.get("documentText").toString()), HttpStatus.OK);
         } catch (ParagraphNotFoundException ex) {
-            responseEntity = new ResponseEntity<String>(ex.getMessage(),HttpStatus.CONFLICT);
+            responseEntity = new ResponseEntity<String>(ex.getMessage(),HttpStatus.NOT_FOUND);
         }
         return responseEntity;
     }

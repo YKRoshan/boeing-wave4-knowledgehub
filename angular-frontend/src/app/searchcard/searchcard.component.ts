@@ -64,8 +64,6 @@ export class SearchcardComponent {
       this.loadData(0)
     });
     this.object = this.result.greetings;
-    let length = this.object.length;
-
   }
 
   loadData(pageIndex) {

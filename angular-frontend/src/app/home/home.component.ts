@@ -27,7 +27,7 @@ export class HomeComponent implements OnInit {
   user:any;
   info:any;
   add:boolean;
-  show:boolean=false;
+  // show:boolean=false;
   object : any;
   private stompClient;
 
@@ -173,8 +173,8 @@ export class HomeComponent implements OnInit {
     this.dataService.dataService = this.searchTerm; 
     // console.log("home :"+this.result.greetings);
     // console.log("TO searchservice :"+output.sessionId+" "+output.searchString);
-    this.object = this.result.greetings;
-    this.show = true;
+    // this.object = this.result.greetings;
+    this.result.show = true;
     // this.router.navigate(['/cards'])
 
   }
