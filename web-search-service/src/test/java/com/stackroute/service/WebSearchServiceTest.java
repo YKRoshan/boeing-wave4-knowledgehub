@@ -1,11 +1,8 @@
 package com.stackroute.service;
 
-import com.stackroute.Service.WebSearchService;
-import com.stackroute.Service.WebSearchServiceImpl;
 import com.stackroute.domain.SearchDocument;
 import com.stackroute.domain.UIDocument;
 import com.stackroute.exception.DomainNotFoundException;
-import org.json.simple.JSONObject;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
