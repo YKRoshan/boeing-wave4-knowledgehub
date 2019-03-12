@@ -1,3 +1,5 @@
+//domain object search document consumed by kafka consumer
+
 package com.stackroute.domain;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

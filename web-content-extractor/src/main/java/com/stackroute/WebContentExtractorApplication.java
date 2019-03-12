@@ -1,3 +1,5 @@
+//Spring boot application main class
+
 package com.stackroute;
 
 import org.springframework.boot.SpringApplication;

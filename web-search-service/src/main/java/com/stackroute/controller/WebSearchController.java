@@ -1,7 +1,7 @@
 package com.stackroute.controller;
 
 
-import com.stackroute.Service.WebSearchService;
+import com.stackroute.service.WebSearchService;
 import com.stackroute.domain.SearchDocument;
 import com.stackroute.domain.UIDocument;
 import com.stackroute.exception.DomainNotFoundException;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.util.List;
 
-
+@CrossOrigin("*")
 @Controller
 public class WebSearchController {
 
@@ -50,7 +50,7 @@ public class WebSearchController {
         catch(Exception e)
         {
             message="Failed to uplaod";
-            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(message);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
         }
     }
 
@@ -68,7 +68,7 @@ public class WebSearchController {
         }
         catch(DomainNotFoundException e)
         {
-            responseEntity =new ResponseEntity<>("No results found.", HttpStatus.EXPECTATION_FAILED);
+            responseEntity =new ResponseEntity<>("No results found.", HttpStatus.NOT_FOUND);
         }
         return responseEntity;
 

@@ -1,3 +1,5 @@
+//Kafka Consumer Configuration class
+
 package com.stackroute.config;
 
 import com.stackroute.domain.SearchDocument;

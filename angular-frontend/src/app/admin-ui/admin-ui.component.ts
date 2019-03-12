@@ -28,7 +28,5 @@ export class AdminUiComponent implements OnInit {
     }).subscribe((data)=>{
       console.log(data);
     })
-
-
   }
 }

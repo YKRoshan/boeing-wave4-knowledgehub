@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 // import { BehaviorSubject } from 'rxjs/BehaviorSubject';
@@ -5,6 +6,9 @@ import { ApiAiClient } from 'api-ai-javascript/es6/ApiAiClient';
 import { environment } from 'src/environments/environment';
 import { BehaviorSubject } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
+import { SessionId } from '../domain/sessionId';
+import { SearchinfoService } from './searchinfo.service';
+
 
 export class Message {
   constructor(public content: string, public sentBy: string) {}
@@ -14,13 +18,13 @@ export class Message {
   providedIn: 'root'
 })
 export class ChatService {
-
+  object : any;
   readonly token = environment.dialogflow.angularBot;
   readonly client = new ApiAiClient({ accessToken: this.token });
 
   conversation = new BehaviorSubject<Message[]>([]);
 
-  constructor(private dialog:MatDialog) {}
+  constructor(private dialog:MatDialog,private http:HttpClient,private SessionIdNew:SessionId,private searchService : SearchinfoService, private result : SessionId) {}
 
   // Sends and receives messages via DialogFlow
   converse(msg: string) {
@@ -34,7 +38,7 @@ export class ChatService {
                   {
                     console.log("inside if of speech");
                     // this.navigate();
-                  this.closeDialog();
+                  this.closeDialog(msg);
                   }
                   const botMessage = new Message(speech, 'bot');
                   this.update(botMessage);
@@ -45,11 +49,23 @@ export class ChatService {
     this.conversation.next([msg]);
   }
 
-  closeDialog(){
+  closeDialog(text:string){
+    var output = {
+      sessionId : this.SessionIdNew.SessionId,
+      searchString : text
+    };
     setTimeout(()=>{    
       this.dialog.closeAll();
  }, 3000);   
+  console.log(output);
+ 
+   this.searchService.postResults(output).subscribe();
+   this.result.show = true;
+  // this.dataService.dataService = this.searchTerm; 
 
+  // this.object = this.result.greetings;
+  // console.log("object :"+this.object);
+
+  // this.http.post("http://localhost:8094/vsearch/",output)
   }
-
 }

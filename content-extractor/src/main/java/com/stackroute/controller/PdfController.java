@@ -63,7 +63,7 @@ public class PdfController {
             }
         }
 
-        // This method will call Service Class to convert PDF to JSON Format then return the response body in Postman
+        // This method will call service Class to convert PDF to JSON Format then return the response body in Postman
         @GetMapping("/result")
         @ResponseBody
         public ResponseEntity<String> getFile() throws TikaException, SAXException, IOException, FileNotFoundException, EmptyFileException {

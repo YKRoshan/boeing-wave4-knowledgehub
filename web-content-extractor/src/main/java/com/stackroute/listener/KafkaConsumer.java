@@ -1,3 +1,4 @@
+//Kafka Consumer code
 
 package com.stackroute.listener;
 
@@ -29,26 +30,24 @@ public class KafkaConsumer {
     @KafkaListener(topics = "WebSearch", groupId = "group_id")
     public void consume(String message) throws IOException {
                 JSONObject object=(JSONObject) JSONValue.parse(message);
+                //search document that has to be consumed
         SearchDocument searchDocument=new SearchDocument(object.get("id").toString(),object.get("conceptName").toString(), object.get("domain").toString(),object.get("url").toString());
         Document document =null;
         try {
             document = Jsoup.connect(searchDocument.getLink()).userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0")
                     .referrer("http://www.google.com").ignoreHttpErrors(true)
                     .get();
+            //checking and avoiding youtube videos
             if (document!=null && (!searchDocument.getLink().contains("youtube.com"))) {
-                System.out.println(message);
                 webDocumentService.sendSearchdoc(searchDocument);
-//                webDocumentService.extractWebContent(searchDocument);
                 webDocumentService.extractTitle(searchDocument);
-//            webDocumentService.extractMetadata(searchDocument);
                 webDocumentService.extractDescription(searchDocument);
                 webDocumentService.extractKeywords(searchDocument);
                 webDocumentService.extractImageCount(searchDocument);
                 webDocumentService.extractCodePercentage(searchDocument);
                 WebDocument webDocument = webDocumentService.getContentExtractorResults();
-                System.out.println("aaaaaaaaaaaaaaaaa");
+                //sending web document as kafka producer
                 kafkaProducer.postservice(webDocument);
-                System.out.println(message);
             }
         }
         catch (Exception e){

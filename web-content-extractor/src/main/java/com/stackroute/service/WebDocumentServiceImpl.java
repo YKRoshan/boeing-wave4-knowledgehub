@@ -1,16 +1,14 @@
+//web document service methods implemented
+
 package com.stackroute.service;
 
 import com.stackroute.domain.SearchDocument;
 import com.stackroute.domain.WebDocument;
-import org.json.simple.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class WebDocumentServiceImpl implements WebDocumentService{
@@ -24,22 +22,6 @@ public class WebDocumentServiceImpl implements WebDocumentService{
         webDocument.setLink(searchDocument.getLink());
     }
 
-//    @Override
-//    public void extractWebContent(SearchDocument searchDocument) {
-//        String webContent="";
-//        String link=searchDocument.getLink();
-//        try {
-//            Document document = Jsoup.connect(link).userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0")
-//                    .referrer("http://www.google.com").ignoreHttpErrors(true)
-//                    .get();
-//            //getting the whole content of the webpage
-//            webContent=document.outerHtml();
-//            webDocument.setWebContent(webContent);
-//        }
-//        catch (Exception ex){
-//            ex.printStackTrace();
-//        }
-//    }
 
     @Override
     public String extractTitle(SearchDocument searchDocument) {
@@ -58,39 +40,6 @@ public class WebDocumentServiceImpl implements WebDocumentService{
         }
         return webDocument.getTitle();
     }
-
-//    @Override
-//    public void extractMetadata(SearchDocument searchDocument) {
-//        List<JSONObject> metadata = new ArrayList<>();
-//        String link=searchDocument.getLink();
-//        try {
-//            Document document = Jsoup.connect(link).get();
-//            Elements metaTags = document.getElementsByTag("meta");
-//            for (Element mTag : metaTags) {
-//                JSONObject metatag = new JSONObject();
-//                //storing the meta tag properties
-//                String content = mTag.attr("content");
-//                String name = mTag.attr("name");
-//                String property = mTag.attr("property");
-//                if (!name.equals("")) {
-//                    metatag.put("name", name);
-//                    metatag.put("content", content);
-//                    //adding the meta tags in json list metadata
-//                    metadata.add(metatag);
-//                }
-//                if (!property.equals("")) {
-//                    metatag.put("property", property);
-//                    metatag.put("content", content);
-//                    //adding the meta tags in JSONObject list metadata
-//                    metadata.add(metatag);
-//                }
-//            }
-//            webDocument.setMetadata(metadata);
-//        }
-//        catch (Exception ex){
-//            ex.printStackTrace();
-//        }
-//    }
 
     @Override
     public String extractDescription(SearchDocument searchDocument) {

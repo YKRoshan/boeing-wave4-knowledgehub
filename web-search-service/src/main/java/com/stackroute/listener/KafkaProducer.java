@@ -1,6 +1,6 @@
 package com.stackroute.listener;
 
-import com.stackroute.Service.WebSearchService;
+import com.stackroute.service.WebSearchService;
 import com.stackroute.domain.SearchDocument;
 import com.stackroute.domain.UIDocument;
 import com.stackroute.exception.DomainNotFoundException;
