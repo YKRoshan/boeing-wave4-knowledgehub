@@ -14,8 +14,8 @@ import lombok.NoArgsConstructor;
 @Builder
 public class WebDocument {
     private String title;
-    private String webContent;
-    private List<JSONObject> metadata;
+//    private String webContent;
+//    private List<JSONObject> metadata;
     private String description;
     private String keywords;
     private int imageCount;

@@ -15,7 +15,6 @@ import lombok.NoArgsConstructor;
 public class WebDocument {
     private String id;
     private String domain;
-    private List<JSONObject> metadata;
     private String link;
     private String conceptName;
     private String keywords;
@@ -23,5 +22,4 @@ public class WebDocument {
     private float codePercentage;
     private String title;
     private String description;
-    private String webContent;
 }

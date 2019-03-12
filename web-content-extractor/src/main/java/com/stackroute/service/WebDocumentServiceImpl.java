@@ -24,27 +24,31 @@ public class WebDocumentServiceImpl implements WebDocumentService{
         webDocument.setLink(searchDocument.getLink());
     }
 
-    @Override
-    public void extractWebContent(SearchDocument searchDocument) {
-        String webContent="";
-        String link=searchDocument.getLink();
-        try {
-            Document document = Jsoup.connect(link).get();
-            //getting the whole content of the webpage
-            webContent=document.outerHtml();
-            webDocument.setWebContent(webContent);
-        }
-        catch (Exception ex){
-            ex.printStackTrace();
-        }
-    }
+//    @Override
+//    public void extractWebContent(SearchDocument searchDocument) {
+//        String webContent="";
+//        String link=searchDocument.getLink();
+//        try {
+//            Document document = Jsoup.connect(link).userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0")
+//                    .referrer("http://www.google.com").ignoreHttpErrors(true)
+//                    .get();
+//            //getting the whole content of the webpage
+//            webContent=document.outerHtml();
+//            webDocument.setWebContent(webContent);
+//        }
+//        catch (Exception ex){
+//            ex.printStackTrace();
+//        }
+//    }
 
     @Override
     public String extractTitle(SearchDocument searchDocument) {
         String title="";
         String link=searchDocument.getLink();
         try {
-            Document document = Jsoup.connect(link).get();
+            Document document = Jsoup.connect(link).userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0")
+                    .referrer("http://www.google.com").ignoreHttpErrors(true)
+                    .get();
             //getting the title of the webpage
             title=document.title();
             webDocument.setTitle(title);
@@ -55,45 +59,47 @@ public class WebDocumentServiceImpl implements WebDocumentService{
         return webDocument.getTitle();
     }
 
-    @Override
-    public void extractMetadata(SearchDocument searchDocument) {
-        List<JSONObject> metadata = new ArrayList<>();
-        String link=searchDocument.getLink();
-        try {
-            Document document = Jsoup.connect(link).get();
-            Elements metaTags = document.getElementsByTag("meta");
-            for (Element mTag : metaTags) {
-                JSONObject metatag = new JSONObject();
-                //storing the meta tag properties
-                String content = mTag.attr("content");
-                String name = mTag.attr("name");
-                String property = mTag.attr("property");
-                if (!name.equals("")) {
-                    metatag.put("name", name);
-                    metatag.put("content", content);
-                    //adding the meta tags in json list metadata
-                    metadata.add(metatag);
-                }
-                if (!property.equals("")) {
-                    metatag.put("property", property);
-                    metatag.put("content", content);
-                    //adding the meta tags in JSONObject list metadata
-                    metadata.add(metatag);
-                }
-            }
-            webDocument.setMetadata(metadata);
-        }
-        catch (Exception ex){
-            ex.printStackTrace();
-        }
-    }
+//    @Override
+//    public void extractMetadata(SearchDocument searchDocument) {
+//        List<JSONObject> metadata = new ArrayList<>();
+//        String link=searchDocument.getLink();
+//        try {
+//            Document document = Jsoup.connect(link).get();
+//            Elements metaTags = document.getElementsByTag("meta");
+//            for (Element mTag : metaTags) {
+//                JSONObject metatag = new JSONObject();
+//                //storing the meta tag properties
+//                String content = mTag.attr("content");
+//                String name = mTag.attr("name");
+//                String property = mTag.attr("property");
+//                if (!name.equals("")) {
+//                    metatag.put("name", name);
+//                    metatag.put("content", content);
+//                    //adding the meta tags in json list metadata
+//                    metadata.add(metatag);
+//                }
+//                if (!property.equals("")) {
+//                    metatag.put("property", property);
+//                    metatag.put("content", content);
+//                    //adding the meta tags in JSONObject list metadata
+//                    metadata.add(metatag);
+//                }
+//            }
+//            webDocument.setMetadata(metadata);
+//        }
+//        catch (Exception ex){
+//            ex.printStackTrace();
+//        }
+//    }
 
     @Override
     public String extractDescription(SearchDocument searchDocument) {
         String description = "";
         String link=searchDocument.getLink();
         try {
-            Document document = Jsoup.connect(link).get();
+            Document document = Jsoup.connect(link).userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0")
+                    .referrer("http://www.google.com").ignoreHttpErrors(true)
+                    .get();
             Elements metaTags = document.getElementsByTag("meta");
             for (Element mTag : metaTags) {
                 //storing the meta tag properties
@@ -106,11 +112,14 @@ public class WebDocumentServiceImpl implements WebDocumentService{
                         webDocument.setDescription(description);
                     }
                 }
-                if (!property.equals("")) {
+                else if (!property.equals("")) {
                     if (property.equals("og:description")) {
                         description = document.select("meta[property=og:description]").first().attr("content");
                         webDocument.setDescription(description);
                     }
+                }
+                else{
+                    webDocument.setDescription(description);
                 }
             }
         }
@@ -125,7 +134,9 @@ public class WebDocumentServiceImpl implements WebDocumentService{
         String keywords = "";
         String link=searchDocument.getLink();
         try {
-            Document document = Jsoup.connect(link).get();
+            Document document = Jsoup.connect(link).userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0")
+                    .referrer("http://www.google.com").ignoreHttpErrors(true)
+                    .get();
             Elements metaTags = document.getElementsByTag("meta");
             for (Element mTag : metaTags) {
                 //storing the meta tag properties
@@ -138,11 +149,14 @@ public class WebDocumentServiceImpl implements WebDocumentService{
                         webDocument.setKeywords(keywords);
                     }
                 }
-                if (!property.equals("")) {
+                else if (!property.equals("")) {
                     if (name.equals("og:keywords")) {
                         keywords = document.select("meta[property=og:keywords]").first().attr("content");
                         webDocument.setKeywords(keywords);
                     }
+                }
+                else{
+                    webDocument.setKeywords(keywords);
                 }
             }
         }
@@ -157,7 +171,9 @@ public class WebDocumentServiceImpl implements WebDocumentService{
         int imageCount=0;
         String link=searchDocument.getLink();
         try {
-            Document document = Jsoup.connect(link).get();
+            Document document = Jsoup.connect(link).userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0")
+                    .referrer("http://www.google.com").ignoreHttpErrors(true)
+                    .get();
             //counting the number of images on the html page
             Elements images = document.select("img[src~=(?i)\\.(png|jpe?g|gif)]");
             for (Element image : images) {
@@ -176,7 +192,9 @@ public class WebDocumentServiceImpl implements WebDocumentService{
         double codePercentage=0;
         String link=searchDocument.getLink();
         try {
-            Document document = Jsoup.connect(link).get();
+            Document document = Jsoup.connect(link).userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0")
+                    .referrer("http://www.google.com").ignoreHttpErrors(true)
+                    .get();
             //calculating all the pre code tags and counting the number of times they occur
             Elements code = document.getElementsByTag("pre").tagName("code");
             float codecnt=0;

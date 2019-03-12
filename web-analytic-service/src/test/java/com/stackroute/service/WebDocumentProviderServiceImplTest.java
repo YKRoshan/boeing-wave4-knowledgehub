@@ -24,9 +24,7 @@ public class WebDocumentProviderServiceImplTest {
         webDocument.setId("webDoc001");
         webDocument.setImageCount(15);
         webDocument.setKeywords("spring mvc, spring core");
-        webDocument.setMetadata(null);
         webDocument.setTitle("spring mvc");
-        webDocument.setWebContent("web content");
     }
 
     @Test

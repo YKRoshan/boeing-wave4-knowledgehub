@@ -213,7 +213,6 @@ public class WebAnalyticServiceImpl implements WebAnalyticService {
         webAnalysisResult.setImageCount(webDocumentProviderService.getWebDocument().getImageCount());
         webAnalysisResult.setKeywords(webDocumentProviderService.getWebDocument().getKeywords());
         webAnalysisResult.setLink(webDocumentProviderService.getWebDocument().getLink());
-        webAnalysisResult.setMetadata(webDocumentProviderService.getWebDocument().getMetadata());
         webAnalysisResult.setTitle(webDocumentProviderService.getWebDocument().getTitle());
         webAnalysisResult.setConfidenceScore(getConfidenceScore());
         webAnalysisResult.setIntentLevel(getIntentLevel());

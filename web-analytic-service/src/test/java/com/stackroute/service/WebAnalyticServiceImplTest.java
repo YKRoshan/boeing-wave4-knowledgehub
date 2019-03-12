@@ -45,9 +45,7 @@ public class WebAnalyticServiceImplTest {
         webDocument.setId("webDoc001");
         webDocument.setImageCount(15);
         webDocument.setKeywords("spring mvc, spring core");
-        webDocument.setMetadata(null);
         webDocument.setTitle("spring mvc");
-        webDocument.setWebContent("web content");
 
         htmlTags = new String[]{"title"};
         htmlTagScores = new int[]{45};
@@ -68,7 +66,6 @@ public class WebAnalyticServiceImplTest {
         webAnalysisResults.setIntentLevel("Application");
         webAnalysisResults.setConfidenceScore(22.727272727272727);
         webAnalysisResults.setTitle("spring mvc");
-        webAnalysisResults.setMetadata(null);
         webAnalysisResults.setLink("https://www.tutorialspoint.com/spring/spring_web_mvc_framework.htm");
         webAnalysisResults.setKeywords("spring mvc, spring core");
         webAnalysisResults.setImageCount(15);

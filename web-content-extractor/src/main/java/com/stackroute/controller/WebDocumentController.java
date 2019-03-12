@@ -41,9 +41,9 @@ public class WebDocumentController {
     public ResponseEntity<?> getWebDoc(){
         ResponseEntity responseEntity;
         try {
-            webDocumentService.extractWebContent(searchDocument1);
+//            webDocumentService.extractWebContent(searchDocument1);
             webDocumentService.extractTitle(searchDocument1);
-            webDocumentService.extractMetadata(searchDocument1);
+//            webDocumentService.extractMetadata(searchDocument1);
             webDocumentService.extractDescription(searchDocument1);
             webDocumentService.extractKeywords(searchDocument1);
             webDocumentService.extractImageCount(searchDocument1);
