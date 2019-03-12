@@ -125,7 +125,7 @@
 
   <button mat-fab color="primary" id="add-button" (click)="openDialog()" matTooltip="Knowledge Bot"><ng-md-icon class="material-icons">Bot</ng-md-icon></button>
 
-  <div *ngIf = "show==true">
+  <div *ngIf = "this.result.show==true">
     <app-searchcard></app-searchcard>
   </div>
 
