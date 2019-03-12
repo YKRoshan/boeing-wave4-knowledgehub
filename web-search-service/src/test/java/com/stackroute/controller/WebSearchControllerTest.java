@@ -1,10 +1,9 @@
 package com.stackroute.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.stackroute.Service.WebSearchService;
+import com.stackroute.service.WebSearchService;
 import com.stackroute.domain.SearchDocument;
 import com.stackroute.domain.UIDocument;
-import com.stackroute.exception.DomainNotFoundException;
 import com.stackroute.listener.KafkaProducer;
 import org.junit.Before;
 import org.junit.Test;
@@ -21,12 +20,11 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.ui.context.support.UiApplicationContextUtils;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
@@ -72,6 +70,18 @@ public class WebSearchControllerTest {
                 .contentType(MediaType.APPLICATION_JSON).content(asJsonString(searchDocumentList.get(0))))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(MockMvcResultHandlers.print());
+    }
+
+    @Test
+    public void postSearchList() throws Exception
+    {
+        when(kafkaProducer.postservice(uiDocument)).thenReturn("Published successfully");
+        mockMvc.perform(MockMvcRequestBuilders.post("/domain")
+                .contentType(MediaType.APPLICATION_JSON).content(asJsonString(uiDocument)))
+                .andExpect(MockMvcResultMatchers.content().string("Successfully upload"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
+
     }
 
     private static String asJsonString(final Object obj) {

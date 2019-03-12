@@ -1,4 +1,4 @@
-package com.stackroute.Service;
+package com.stackroute.service;
 
 
 import com.stackroute.domain.SearchDocument;
@@ -7,6 +7,8 @@ import com.stackroute.exception.DomainNotFoundException;
 
 import java.io.IOException;
 import java.util.List;
+
+//Service Interface
 
 public interface WebSearchService {
 

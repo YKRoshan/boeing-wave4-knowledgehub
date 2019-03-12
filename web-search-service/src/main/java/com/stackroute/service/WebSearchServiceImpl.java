@@ -1,4 +1,4 @@
-package com.stackroute.Service;
+package com.stackroute.service;
 
 import com.stackroute.domain.SearchDocument;
 import com.stackroute.domain.UIDocument;
@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.UUID;
 
 /*
-This service class will Search first top 10 urls of google search
+This service class will Search first top 10 urls of google search using JSoup
  */
 
 @Service

@@ -10,7 +10,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class NlpResult {
-    // This JSON is used to store results of Nlp Service.
+    // This JSON is used to store results of Nlp service.
     // The NlpResult is used by AnalyticService.
     private String clearedParagraph;
     private List<String> allTokenedSentences;

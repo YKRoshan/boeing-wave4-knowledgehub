@@ -26,7 +26,7 @@ public class SearchController {
 
     @GetMapping("home")
     public String home(){
-        return "Service is up and working";
+        return "service is up and working";
     }
 
     //rest end point for search
