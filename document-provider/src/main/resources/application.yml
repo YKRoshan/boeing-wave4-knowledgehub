@@ -5,8 +5,8 @@ server:
 aws:
   access:
     key:
-      id: xxx
-      secret: yyy
+      id: AKIAIM36F55B27IBJPLQ
+      secret: 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
   region: ap-south-1
   s3:
     bucket: knowledge-hub
