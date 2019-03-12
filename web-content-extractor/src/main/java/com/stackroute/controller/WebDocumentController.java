@@ -32,7 +32,7 @@ public class WebDocumentController {
             responseEntity = new ResponseEntity<String>("Successfully posted", HttpStatus.ACCEPTED);
         }
         catch (Exception ex){
-            responseEntity = new ResponseEntity<String>(ex.getMessage(),HttpStatus.NOT_FOUND);
+            responseEntity = new ResponseEntity<String>(ex.getMessage(),HttpStatus.CONFLICT);
         }
         return responseEntity;
     }
