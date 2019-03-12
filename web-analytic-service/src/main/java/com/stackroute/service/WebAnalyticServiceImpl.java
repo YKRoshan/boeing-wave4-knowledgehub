@@ -38,6 +38,7 @@ public class WebAnalyticServiceImpl implements WebAnalyticService {
         this.intentService = intentService;
     }
 
+    // this method fetches the contents of each htmlTag
     public List<HtmlTagWithContentAndScore> getAllHtmlTagsWithContentAndScore() throws IOException {
         List<HtmlTagWithContentAndScore> htmlTagWithContentAndScoreList = new ArrayList<>();
         Document document = Jsoup.connect(webDocumentProviderService.getWebDocument().getLink()).get();
@@ -48,6 +49,7 @@ public class WebAnalyticServiceImpl implements WebAnalyticService {
         return htmlTagWithContentAndScoreList;
     }
 
+    // this method finds the frequecy of occurence of each intentWord in htmlTag content
     public List<IntentWordWithFrequencyCount> getIntentWordWithFrequencyCount() {
         ArrayList<IntentWordWithFrequencyCount> wordsFrequencyMap = new ArrayList<>();
         for (int i = 0; i < allIntentTermNodesWithFrequencyCount.size(); i++) {
@@ -71,6 +73,7 @@ public class WebAnalyticServiceImpl implements WebAnalyticService {
         return wordsFrequencyMap;
     }
 
+    // this method is used to calculate confidence score of each intent based on intentWord frequecny , intentword weight , and htmlTagWeight
     public List<IntentWithConfidenceScore> getConfidenceScoreOfMostAccurateIntents() {
         double[] confidenceScore = new double[6];
         int[] noOfTermsInEachIntent = new int[6];
@@ -170,6 +173,7 @@ public class WebAnalyticServiceImpl implements WebAnalyticService {
         return intentWithConfidencyScoresList;
     }
 
+    // this method returns the intentLevel having maximum confidenceScoreA
     public String getIntentLevel() {
         double maxConfidenceScore = 0;
         String intentLevel = null;
@@ -185,6 +189,7 @@ public class WebAnalyticServiceImpl implements WebAnalyticService {
         return intentLevel;
     }
 
+    // this method returns the maximum confidenceScoreA
     public double getConfidenceScore() {
         double maxConfidenceScore = 0;
         for (int i = 0; i < intentWithConfidenceScoresList.size(); i++) {
@@ -195,6 +200,7 @@ public class WebAnalyticServiceImpl implements WebAnalyticService {
         return maxConfidenceScore;
     }
 
+    // This method returns the webAnalyticsResult object
     public WebAnalysisResult getWebAnalysisResult() throws IOException {
         WebAnalysisResult webAnalysisResult = new WebAnalysisResult();
         this.allIntentTermNodesWithFrequencyCount = null;

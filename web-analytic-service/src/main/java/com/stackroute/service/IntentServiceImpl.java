@@ -19,6 +19,8 @@ public class IntentServiceImpl implements IntentService {
         this.allTermNodes = new ArrayList<>(intentRepository.getAllTerms());
     }
 
+    //This method extracts all the intent words form Neo4J intent graph
+    // and intializes the frequency = 0  for each intent word
     public ArrayList<IntentWordWithFrequencyCount> getAllIntentWords() {
         ArrayList<IntentWordWithFrequencyCount> allIntentWordWithFrequencyCounts = new ArrayList<>();
         for (int i = 0; i < allTermNodes.size(); i++) {

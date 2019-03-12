@@ -22,6 +22,7 @@ public class WebAnalyticServiceController {
         this.webDocumentProviderService = webDocumentProviderService;
     }
 
+    // this method receives webDocumet from postman
     @PostMapping("webDocument")
     public ResponseEntity setWebDocument(@RequestBody WebDocument webDocument) {
         ResponseEntity responseEntity;
@@ -29,23 +30,24 @@ public class WebAnalyticServiceController {
             //webDocumentProviderService just stores the input webDocument and if any other service requires
             // webDocument it can just call the webDocumentProviderService.getWebDocument()
             webDocumentProviderService.setWebDocument(webDocument);
-            responseEntity = new ResponseEntity<>("Web Document is successfully taken.", HttpStatus.OK);
+            responseEntity = new ResponseEntity<>("Web Document is successfully taken.", HttpStatus.ACCEPTED);
             return responseEntity;
         } catch (Exception e) {
-            responseEntity = new ResponseEntity<>("Web Document is not taken.", HttpStatus.BAD_GATEWAY);
+            responseEntity = new ResponseEntity<>("Web Document is not taken.", HttpStatus.CONFLICT);
             return responseEntity;
         }
     }
 
+    // This method is used  returns the WebAnalysisResult object through controller
     @GetMapping("webAnalysisResult")
     public ResponseEntity<WebAnalysisResult> getWebAnalysisResult() {
         ResponseEntity responseEntity;
         try {
             WebAnalysisResult webAnalysisResult;
             webAnalysisResult = webAnalyticService.getWebAnalysisResult();
-            return new ResponseEntity<>(webAnalysisResult, HttpStatus.OK);
+            return new ResponseEntity<>(webAnalysisResult, HttpStatus.FOUND);
         } catch (Exception e) {
-            responseEntity = new ResponseEntity<>("No results found.", HttpStatus.EXPECTATION_FAILED);
+            responseEntity = new ResponseEntity<>("No results found.", HttpStatus.NOT_FOUND);
             return responseEntity;
         }
     }

@@ -77,10 +77,10 @@ public class KafkaConsumer {
         }else {
             webDocument.setDomain("");
         }
-        // these method are similar to the methods present in controller
+        // this will pass the input webdocument to webDocumentProviderService
         webDocumentProviderService.setWebDocument(webDocument);
 
-        // After analysis we call the postservice to post in kafka message bus
+        // After web content analysis we call the postservice to post WebAnalysisResults in kafka message bus
         kafkaProducer.postservice();
     }
 }

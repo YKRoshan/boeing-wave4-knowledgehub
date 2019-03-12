@@ -96,11 +96,6 @@ public class WebAnalyticServiceImplTest {
     }
 
     @Test
-    public void getConfidenceScoreOfMostAccurateIntents() {
-
-    }
-
-    @Test
     public void getIntentLevel() {
         webAnalyticServiceImpl.setIntentWithConfidenceScoresList(intentWithConfidenceScoresList);
         String expectedIntentLevel = "no intentLevel found";
@@ -116,8 +111,4 @@ public class WebAnalyticServiceImplTest {
         Assert.assertEquals(expectedConfidenceScore,actualConfidenceScore,0);
     }
 
-    @Test
-    public void getWebAnalysisResult() throws IOException {
-
-    }
 }

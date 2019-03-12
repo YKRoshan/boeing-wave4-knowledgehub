@@ -80,7 +80,7 @@ public class WebAnalyticServiceControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.post("/webDocument")
                 .contentType(MediaType.APPLICATION_JSON).content(asJsonString(webDocument)))
                 .andExpect(MockMvcResultMatchers.content().string("Web Document is successfully taken."))
-                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.status().isAccepted())
                 .andDo(MockMvcResultHandlers.print());
     }
 
@@ -98,7 +98,7 @@ public class WebAnalyticServiceControllerTest {
         when(webAnalyticService.getWebAnalysisResult()).thenReturn(webAnalysisResults);
         mockMvc.perform(MockMvcRequestBuilders.get("/webAnalysisResult")
                 .contentType(MediaType.APPLICATION_JSON).content(asJsonString(webAnalysisResults)))
-                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.status().isFound())
                 .andDo(MockMvcResultHandlers.print());
     }
 }

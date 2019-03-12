@@ -22,7 +22,7 @@ public class KafkaProducer {
 
     private static final String TOPIC = "WebAnalyticsResults";
 
-    // the postservice() will post the analyticResuls object in kafka message bus
+    // the postservice() will post the WebAnalyticResuls object in kafka message bus
     public String postservice() throws IOException {
         WebAnalysisResult webAnalysisResult;
         webAnalysisResult = webAnalyticService.getWebAnalysisResult();
