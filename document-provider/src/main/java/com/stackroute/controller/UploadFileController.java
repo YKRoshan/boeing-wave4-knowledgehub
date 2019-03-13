@@ -4,6 +4,8 @@ import com.stackroute.domain.FileUrl;
 import com.stackroute.service.S3Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -11,7 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.HashMap;
 import java.util.Map;
 
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "*",maxAge = 3600,allowedHeaders = "Origin, X-Requested-With, Content-Type, Accept")
 @RestController
 @RequestMapping("/files")
 public class UploadFileController {
@@ -36,7 +38,7 @@ public class UploadFileController {
        a file as a parameter
     */
     @PostMapping
-    public FileUrl uploadFile(@RequestPart(value = "file") MultipartFile file)
+    public ResponseEntity uploadFile(@RequestPart(value = "file") MultipartFile file)
     {
         String url="https://s3."+ awsRegion+".amazonaws.com/"+awsS3AudioBucket+"/"+file.getOriginalFilename();
         fileUrl = new FileUrl();
@@ -48,7 +50,7 @@ public class UploadFileController {
 
         //sending the fileurl to kafka bus
         kafkaTemplate.send(TOPIC,fileUrl);
-        return fileUrl;
+        return new ResponseEntity<FileUrl>(fileUrl, HttpStatus.OK);
     }
 
     /* A controller method to delete a file which accepts

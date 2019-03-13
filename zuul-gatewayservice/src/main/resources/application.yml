@@ -16,7 +16,7 @@ zuul:
         web-socket-service:
             url: http://localhost:8097
     sensitiveHeaders:
-
+    ignored-headers: Access-Control-Allow-Credentials, Access-Control-Allow-Origin
 eureka:
     instance:
         leaseRenewalIntervalInSeconds: 1
@@ -27,11 +27,11 @@ eureka:
         lease:
             duration: 5
 server:
-    ports:
-        http: 8070
+#    ports:
+#        http: 8071
     port: 8092
-    ssl:
-        key-store: keystore.p12
-        key-store-password: 123456
-        keyStoreType: PKCS12
-        keyAlias: tomcat
+#    ssl:
+#        key-store: keystore.p12
+#        key-store-password: 123456
+#        keyStoreType: PKCS12
+#        keyAlias: tomcat

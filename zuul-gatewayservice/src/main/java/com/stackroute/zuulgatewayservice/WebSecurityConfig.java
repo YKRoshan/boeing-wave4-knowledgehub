@@ -6,6 +6,7 @@ import com.stackroute.zuulgatewayservice.security.JwtProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -21,8 +22,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
         prePostEnabled = true
 )
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-//    @Autowired
-//    UserDetailsServiceImpl userDetailsService;
 
     @Autowired
     private JwtAuthEntryPoint unauthorizedHandler;
@@ -36,24 +35,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
          return new JwtAuthTokenFilter(); }
 
 
-
-//    @Override
-//    public AuthenticationManager authenticationManagerBean() throws Exception {
-//        return super.authenticationManagerBean();
-//    }
-
-
-
-    @Override
+         @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable().
                 authorizeRequests()
+                .antMatchers(HttpMethod.OPTIONS).permitAll()
                 .antMatchers("/login-service/api/auth/signin").permitAll()
-                .antMatchers("/files").permitAll()
-                .antMatchers("/search").permitAll()
-                .antMatchers("/vsearch").permitAll()
-                .antMatchers("/topic/*").permitAll()
-                .anyRequest().authenticated()
+
+                .antMatchers("/document-provider/*").permitAll()
+                .antMatchers("/upstream-service/*").permitAll()
+                .antMatchers("/web-socket-service/*").permitAll()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler)
                 .and()

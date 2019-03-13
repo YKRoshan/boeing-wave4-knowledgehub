@@ -19,7 +19,8 @@ export class Message {
 })
 export class ChatService {
   object : any;
-  readonly token = environment.dialogflow.angularBot;
+  // readonly token = environment.dialogflow.angularBot;
+  readonly token = '7598a589d5494f2ba0170e29fbb7392d';
   readonly client = new ApiAiClient({ accessToken: this.token });
 
   conversation = new BehaviorSubject<Message[]>([]);
@@ -61,11 +62,6 @@ export class ChatService {
  
    this.searchService.postResults(output).subscribe();
    this.result.show = true;
-  // this.dataService.dataService = this.searchTerm; 
-
-  // this.object = this.result.greetings;
-  // console.log("object :"+this.object);
-
-  // this.http.post("http://localhost:8094/vsearch/",output)
+  
   }
 }

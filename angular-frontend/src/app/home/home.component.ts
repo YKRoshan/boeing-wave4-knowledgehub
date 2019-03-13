@@ -41,7 +41,7 @@ export class HomeComponent implements OnInit {
       private searchService : SearchinfoService,
       private SessionIdNew:SessionId,
       public dataService:DataService,
-      private result : SessionId,
+      public result : SessionId,
       @Inject(PLATFORM_ID) private platformid: Object,private route:Router) { this.title = 'Voice Search POC';
       //isPlatformServer -Returns whether a platform id represents a server platform.
       if(isPlatformServer(this.platformid)){

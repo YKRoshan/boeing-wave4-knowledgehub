@@ -2,14 +2,15 @@ package com.stackroute.configuration;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.socket.config.annotation.AbstractWebSocketMessageBrokerConfigurer;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 
 
-@Configuration                // to indicate that it is a Spring configuration class
+@Configuration// to indicate that it is a Spring configuration class
 @EnableWebSocketMessageBroker //enables WebSocket message handling, backed by a message broker.
-
+@CrossOrigin(origins = "*")
 public class WebSocketConfiguration  extends AbstractWebSocketMessageBrokerConfigurer {
     /*Registration of stompEndPoints
      * method registers the "/socket" endpoint, enabling SockJS fallback

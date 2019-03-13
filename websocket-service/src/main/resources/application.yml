@@ -1,5 +1,12 @@
 server:
+#    ports:
+#        http: 8070
     port: 8097
+#    ssl:
+#        key-store: keystore.p12
+#        key-store-password: 123456
+#        keyStoreType: PKCS12
+#        keyAlias: tomcat
 eureka:
     instance:
         leaseRenewalIntervalInSeconds: 1
