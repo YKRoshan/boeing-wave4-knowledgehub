@@ -13,9 +13,9 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.HashMap;
 import java.util.Map;
 
-@CrossOrigin(origins = "*",maxAge = 3600,allowedHeaders = "Origin, X-Requested-With, Content-Type, Accept")
+@CrossOrigin(origins = "*",maxAge = 3600)
 @RestController
-@RequestMapping("/files")
+@RequestMapping("/")
 public class UploadFileController {
 
     @Autowired
@@ -37,7 +37,13 @@ public class UploadFileController {
     /* A controller method to upload a file which accepts
        a file as a parameter
     */
-    @PostMapping
+
+    @GetMapping("home")
+    public String home(){
+        return "service is up and working";
+    }
+
+    @PostMapping("files")
     public ResponseEntity uploadFile(@RequestPart(value = "file") MultipartFile file)
     {
         String url="https://s3."+ awsRegion+".amazonaws.com/"+awsS3AudioBucket+"/"+file.getOriginalFilename();
@@ -56,7 +62,7 @@ public class UploadFileController {
     /* A controller method to delete a file which accepts
       a file as a parameter
    */
-    @DeleteMapping
+    @DeleteMapping("files")
     public Map<String, String> deleteFile(@RequestParam("file_name") String fileName)
     {
         this.amazonS3ClientService.deleteFileFromS3Bucket(fileName);

@@ -18,11 +18,7 @@ export class SearchinfoService {
 
  constructor(private http: HttpClient) { }
 
- getAll(){
-    console.log("In get all");
-    return this.http.get("http://localhost:3000/result");
-  //  return this.http.get<Info[]>(this.url + '?_sort=ConfidenceScore&_order=desc');
-    }
+
     
     postResults(search:any){
       return this.http.post("https://localhost:8092/upstream-service/vsearch/",search,httpOptions);

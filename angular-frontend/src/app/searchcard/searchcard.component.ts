@@ -57,12 +57,12 @@ export class SearchcardComponent {
 
   ngOnInit() {
     this.searchTerm = this.dataService.dataService
-    this.search.getAll().subscribe((data) => {
-      this.info = data;
-      this.pageLength = this.info.length;
-      console.log(this.pageLength);
-      this.loadData(0)
-    });
+    // this.search.getAll().subscribe((data) => {
+    //   this.info = data;
+    //   this.pageLength = this.info.length;
+    //   console.log(this.pageLength);
+    //   this.loadData(0)
+    // });
     this.object = this.result.greetings;
   }
 

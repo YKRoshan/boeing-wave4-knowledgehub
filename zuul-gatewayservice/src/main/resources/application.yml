@@ -10,13 +10,13 @@ zuul:
         login-service:
             url: http://localhost:8084
         document-provider:
-            url: http://loacalhost:8087
+            url: http://localhost:8087
         upstream-service:
             url: http://localhost:8094
         web-socket-service:
             url: http://localhost:8097
     sensitiveHeaders:
-    ignored-headers: Access-Control-Allow-Credentials, Access-Control-Allow-Origin
+
 eureka:
     instance:
         leaseRenewalIntervalInSeconds: 1
@@ -27,11 +27,11 @@ eureka:
         lease:
             duration: 5
 server:
-#    ports:
-#        http: 8071
+    ports:
+        http: 8071
     port: 8092
-#    ssl:
-#        key-store: keystore.p12
-#        key-store-password: 123456
-#        keyStoreType: PKCS12
-#        keyAlias: tomcat
+    ssl:
+        key-store: classpath:keystore.p12
+        key-store-password: 123456
+        keyStoreType: PKCS12
+        keyAlias: tomcat

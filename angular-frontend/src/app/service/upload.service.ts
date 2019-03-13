@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 const httpOptions = {
-  headers: new HttpHeaders({ "Access-Control-Allow-Origin" : "*",responseType: 'blob' as 'json' ,'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE',
+  headers: new HttpHeaders({ "Access-Control-Allow-Origin" : "*",'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE',
  })
  };
 
@@ -23,14 +23,14 @@ export class UploadService {
     this._url="https://localhost:8092/document-provider/files/"
     
  
-    return this.http.post(this._url,formdata,httpOptions)
+    return this.http.post(this._url,formdata,{responseType: 'blob' as 'json'} )
   
   }
  
-  getFiles():Observable<any> {
-    this._url="http://13.234.94.132:8080/getallfiles/"
-    return this.http.get(this._url,{
+  // getFiles():Observable<any> {
+  //   this._url="http://13.234.94.132:8080/getallfiles/"
+  //   return this.http.get(this._url,{
       
-    });
-  }
+  //   });
+  // }
 }
