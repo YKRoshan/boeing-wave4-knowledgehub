@@ -1,21 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { DomainConceptService } from '../service/domain-conceptName-service';
 
 
 @Component({
   selector: 'app-admin-ui',
   templateUrl: './admin-ui.component.html',
-  styleUrls: ['./admin-ui.component.css']
+  styleUrls: ['./admin-ui.component.css'],
+  providers:[DomainConceptService]
 })
 export class AdminUiComponent implements OnInit {
-  domain:string;
-  concept:string;
-  conceptArray : String[];
+  private domain:string;
+  private concepts:string;
+  constructor(private domainConceptService:DomainConceptService){
 
-  constructor(private http:HttpClient) { }
-
+  }
   ngOnInit() {
   }
+<<<<<<< HEAD
   display(){
   
     this.conceptArray=this.concept.split(",");
@@ -28,5 +29,9 @@ export class AdminUiComponent implements OnInit {
     }).subscribe((data)=>{
       console.log(data);
     })  
+=======
+  publishDomainConceptName(){
+    this.domainConceptService.postDomainConceptName(this.domain,this.concepts)
+>>>>>>> be45cb62f3b36fc883e18ee3138bd848cffa7deb
   }
 }
