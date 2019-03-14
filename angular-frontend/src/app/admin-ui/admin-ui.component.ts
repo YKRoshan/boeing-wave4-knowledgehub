@@ -16,22 +16,7 @@ export class AdminUiComponent implements OnInit {
   }
   ngOnInit() {
   }
-<<<<<<< HEAD
-  display(){
-  
-    this.conceptArray=this.concept.split(",");
-    console.log(this.domain);
-    console.log(this.concept);
-    console.log(this.conceptArray);
-    this.http.post("http://localhost:8099/domain",{
-      "domain":this.domain,
-      "conceptName":this.conceptArray
-    }).subscribe((data)=>{
-      console.log(data);
-    })  
-=======
   publishDomainConceptName(){
     this.domainConceptService.postDomainConceptName(this.domain,this.concepts)
->>>>>>> be45cb62f3b36fc883e18ee3138bd848cffa7deb
   }
 }
