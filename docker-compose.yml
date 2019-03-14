@@ -10,8 +10,10 @@ services:
     - eurekaserver
     ports:
     - 8092:8092
+    - 8071-8071
     expose:
     - 8092
+    - 8071
     healthcheck:
       test: "exit 0"
 
@@ -21,9 +23,9 @@ services:
     restart: always
     network_mode: host
     ports:
-    - 9091:9901
+    - 9091:9091
     expose:
-    - 9901
+    - 9091
     healthcheck:
       test: "exit 0"
 
@@ -76,6 +78,8 @@ services:
     volumes:
       - $PWD/plugins:/plugins
       - $PWD/import:/import
+    environment:
+      - NEO4J_AUTH=neo4j/neo4j@123
     healthcheck:
       test: "exit 0"
 
@@ -106,6 +110,9 @@ services:
     container_name: Angular
     network_mode: "host"
     hostname: localhost
+    depends_on:
+      websocket-service:
+        condition: service_healthy
     ports:
       - 8079:8079
     expose:
@@ -160,8 +167,6 @@ services:
       zookeeper:
         condition: service_healthy
       kafka:
-        condition: service_healthy
-      angular-app:
         condition: service_healthy
     ports:
       - 8087:8087
@@ -241,8 +246,6 @@ services:
     ports:
       - 8094:8094
     depends_on:
-      angular-app:
-        condition: service_healthy
       mongodb:
         condition: service_healthy
       zookeeper:
@@ -333,11 +336,11 @@ services:
         condition: service_healthy
       nlp-service:
         condition: service_healthy
-      angular-app:
-        condition: service_healthy
     ports:
       - 8097:8097
+      - 8070:8070
     expose:
       - 8097
+      - 8070
     healthcheck:
       test: "exit 0"

@@ -1,7 +1,6 @@
 package com.stackroute.repository;
 
 import com.netflix.discovery.shared.Application;
-import com.stackroute.config.TestConfig;
 import com.stackroute.domain.User;
 import org.junit.After;
 import org.junit.Assert;
