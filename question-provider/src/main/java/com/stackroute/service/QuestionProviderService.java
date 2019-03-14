@@ -1,11 +1,11 @@
 package com.stackroute.service;
 
-import com.stackroute.domain.Question;
+import com.stackroute.domain.QueryQuestions;
 
 import java.util.List;
 
 public interface QuestionProviderService {
 
-    public List<Question> getAllQuestions();
+    public List<QueryQuestions> getAllQueryQuestions();
 
 }

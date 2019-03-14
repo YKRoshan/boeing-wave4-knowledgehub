@@ -8,7 +8,7 @@ import org.springframework.data.annotation.Id;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Question {
+public class QueryQuestions {
     @Id
     private String uniqueId;
     private String searchString;

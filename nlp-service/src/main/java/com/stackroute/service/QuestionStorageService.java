@@ -1,8 +1,8 @@
 package com.stackroute.service;
 
-import com.stackroute.domain.Question;
+import com.stackroute.domain.QueryQuestions;
 
 public interface QuestionStorageService {
 
-    public Question saveQuestion(String question);
+    public QueryQuestions saveQuestion(String question);
 }
