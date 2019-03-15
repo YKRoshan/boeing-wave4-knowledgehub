@@ -15,6 +15,7 @@ import java.util.regex.Pattern;
 @Service
 @PropertySource(value = "classpath:application.yml")
 public class AnalyticServiceImpl implements AnalyticService {
+    // Variables for AnalyticServiceImpl
     private ArrayList<String> conceptNames;
     private NlpResultService nlpResultService;
     private IntentService intentService;
