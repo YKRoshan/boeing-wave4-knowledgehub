@@ -14,6 +14,7 @@ public class QuestionDeleterServiceImpl implements QuestionDeleterService {
     }
 
     public void deleteQuestion(String id){
+        System.out.println("delete"+id);
         questionsRepository.deleteById(id);
     }
 }
