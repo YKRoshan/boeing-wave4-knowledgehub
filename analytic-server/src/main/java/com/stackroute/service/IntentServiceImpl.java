@@ -28,6 +28,8 @@ public class IntentServiceImpl implements IntentService {
                     allTermNodes.get(i).getRelationship(),
                     Double.parseDouble(allTermNodes.get(i).getWeight())));
         }
+        System.out.println("---------------getAllIntentWords()---------------------()");
+        System.out.println(allIntentWords);
         return allIntentWords;
     }
 

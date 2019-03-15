@@ -218,7 +218,12 @@ public class AnalyticServiceImpl implements AnalyticService {
 
     public List<AnalysisResult> getAnalysisResults() {
         this.allIntentterms = null;
+        System.out.println("---------------getAnalysisResults() before---------------------");
+        System.out.println(allIntentterms);
         this.allIntentterms = new ArrayList<>(intentService.getAllIntentWords());
+        System.out.println("---------------getAnalysisResults() after---------------------");
+        System.out.println(allIntentterms);
+        System.out.println("*****************************************************************");
         this.nlpResult = null;
         nlpResult = nlpResultService.getNlpResult();
         this.frequencyOfSpringConcept = null;
