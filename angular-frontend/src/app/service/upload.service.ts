@@ -20,7 +20,7 @@ export class UploadService {
  
     formdata.append('file', file);
 
-    this._url="https://localhost:8092/document-provider/files/"
+    this._url="https://13.234.94.132:8092/document-provider/files/"
     
  
     return this.http.post(this._url,formdata,{responseType: 'blob' as 'json'} )
