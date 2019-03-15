@@ -16,10 +16,10 @@ public class IntentServiceImpl implements IntentService {
     @Autowired
     public IntentServiceImpl(IntentRepository intentRepository) {
         this.intentRepository = intentRepository;
-        this.allTermNodes = new ArrayList<>(intentRepository.getAllTerms());
     }
 
     public ArrayList<IntentWord> getAllIntentWords() {
+        this.allTermNodes = new ArrayList<>(intentRepository.getAllTerms());
         ArrayList<IntentWord> allIntentWords = new ArrayList<>();
         for (int i = 0; i < allTermNodes.size(); i++) {
             allIntentWords.add(new IntentWord(allTermNodes.get(i).getName(),

@@ -20,4 +20,5 @@ public class Terms {
     private String type;
     private String relationship;
     private String weight;
+    private String id3;
 }
