@@ -3,9 +3,11 @@ package com.stackroute.service;
 import com.stackroute.domain.NlpResult;
 import com.stackroute.repository.NlpResultRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class NlpResultServiceImpl implements NlpResultService {
     NlpResultRepository nlpresultRepository;
 

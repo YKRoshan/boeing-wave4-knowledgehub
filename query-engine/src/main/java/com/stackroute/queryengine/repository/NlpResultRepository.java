@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface NlpResultRepository extends MongoRepository<NlpResult, String> {
-    public boolean existsBySessionId(String sessionId);
+    public boolean existsBySessonId(String sessionId);
 }
