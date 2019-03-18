@@ -19,16 +19,16 @@ public interface KnowledgeRepository extends Neo4jRepository<Knowledge,String> {
     Collection<Knowledge> getComprehensionNode(String concept,String intentLevel);
 
     @Query("MATCH p=(c:Concept{name:{0}})-[r:applicationOf]->() RETURN p")
-    Collection<Knowledge> getapplicationNode(String concept,String intentLevel);
+    Collection<Knowledge> getApplicationNode(String concept,String intentLevel);
 
 
     @Query("MATCH p=(c:Concept{name:{0}})-[r:analysisOf]->() RETURN p")
-    Collection<Knowledge> getanalysisNode(String concept,String intentLevel);
+    Collection<Knowledge> getAnalysisNode(String concept,String intentLevel);
 
     @Query("MATCH p=(c:Concept{name:{0}})-[r:synthesisOf]->() RETURN p")
-    Collection<Knowledge> getsynthesisNode(String concept,String intentLevel);
+    Collection<Knowledge> getSynthesisNode(String concept,String intentLevel);
 
     @Query("MATCH p=(c:Concept{name:{0}})-[r:evaluationOf]->() RETURN p")
-    Collection<Knowledge> getevaluationNode(String concept,String intentLevel);
+    Collection<Knowledge> getEvaluationNode(String concept,String intentLevel);
 
 }

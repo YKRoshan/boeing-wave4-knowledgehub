@@ -1,5 +1,5 @@
-
 package com.stackroute.queryengine.domain;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,20 +10,23 @@ import org.neo4j.ogm.annotation.NodeEntity;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class QueryEngineResult implements Comparable<QueryEngineResult>  {
+public class WebAnalyticsKnowledge implements Comparable<WebAnalyticsKnowledge>{
 
     @Id
-    private String paragraphId;
-    private String name;  //paragraphContent(given as name to identify in neo4j database easily)
-    private String documentId;
+    private String webAnalyticsId;
     private String domain;
-    private String concept;
+    private String link;
+    private String conceptName;
+    private String keywords;
+    private int imageCount;
+    private float codePercentage;
+    private String title;
+    private String description;
     private String intentLevel;
     private double confidenceScore;
-    private String sessionId;
 
     @Override
-    public int compareTo(QueryEngineResult m)
+    public int compareTo(WebAnalyticsKnowledge m)
     {
         if(this.confidenceScore<m.confidenceScore)
             return -1;
@@ -31,5 +34,4 @@ public class QueryEngineResult implements Comparable<QueryEngineResult>  {
             return 1;
         return 0;
     }
-
 }

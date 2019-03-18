@@ -13,5 +13,10 @@ import java.util.List;
 @AllArgsConstructor
 public class JsonResult {
 
-    private List<QueryEngineResult> result;
+    private String sessionId;
+    private List<Knowledge> result;
+    private List<WebAnalyticsKnowledge> webResult;
+    private List<Concept> recommendations;
+    private List<NlpResultFrequency> nlpResultFrequencies;
+    private List<SearchFrequency> searchFrequencies;
 }
