@@ -2,6 +2,7 @@ package com.stackroute.queryengine.listener;
 
 
 import com.stackroute.queryengine.domain.Knowledge;
+import com.stackroute.queryengine.service.QueryEngineService;
 import com.stackroute.queryengine.service.QueryEngineServiceImpl;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
@@ -12,13 +13,13 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class KafkaConsumer {
-    private QueryEngineServiceImpl queryEngineServiceImpl;
+    private QueryEngineService queryEngineService;
     private KafkaProducer kafkaProducer;
 
 
     @Autowired
-    public KafkaConsumer(QueryEngineServiceImpl queryEngineServiceImpl, KafkaProducer kafkaProducer) {
-        this.queryEngineServiceImpl = queryEngineServiceImpl;
+    public KafkaConsumer(QueryEngineService queryEngineService, KafkaProducer kafkaProducer) {
+        this.queryEngineService = queryEngineService;
         this.kafkaProducer = kafkaProducer;
     }
 

@@ -1,9 +1,7 @@
 package com.stackroute.queryengine.listener;
 
 import com.stackroute.queryengine.domain.*;
-import com.stackroute.queryengine.service.NlpResultSeviceImpl;
-import com.stackroute.queryengine.service.QueryEngineServiceImpl;
-import com.stackroute.queryengine.service.SearchServiceImpl;
+import com.stackroute.queryengine.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
@@ -14,16 +12,16 @@ import java.util.List;
 
 @Service
 public class KafkaProducer {
-    private QueryEngineServiceImpl queryEngineServiceImpl;
-    private NlpResultSeviceImpl nlpResultSevice;
-    private SearchServiceImpl searchServiceImpl;
+    private QueryEngineService queryEngineService;
+    private NlpResultService nlpResultService;
+    private SearchService searchService;
 
     @Autowired
-    public KafkaProducer(QueryEngineServiceImpl queryEngineServiceImpl, NlpResultSeviceImpl nlpResultSeviceImpl,
-                         SearchServiceImpl searchServiceImpl) {
-        this.queryEngineServiceImpl = queryEngineServiceImpl;
-        this.nlpResultSevice=nlpResultSeviceImpl;
-        this.searchServiceImpl=searchServiceImpl;
+    public KafkaProducer(QueryEngineService queryEngineService, NlpResultService nlpResultService,
+                         SearchService searchService) {
+        this.queryEngineService = queryEngineService;
+        this.nlpResultService=nlpResultService;
+        this.searchService=searchService;
     }
 
     @Autowired
@@ -36,14 +34,14 @@ public class KafkaProducer {
         Knowledge knowledge;
         WebAnalyticsKnowledge webAnalyticsKnowledge;
         JsonResult jsonResult=new JsonResult();
-        List<Knowledge> knowledgeresults = (List<Knowledge>) queryEngineServiceImpl.getQueryResult(concept, intentLevel);
-        List<WebAnalyticsKnowledge> webKnowledgeResults= (List<WebAnalyticsKnowledge>)queryEngineServiceImpl.getWebQueryResult(concept,intentLevel);
-        List<Concept> recommendationsList1=(List<Concept>) queryEngineServiceImpl.getRecommendations(concept);
-        List<Concept> recommendationsList2=(List<Concept>) queryEngineServiceImpl.Recommendations(concept);
+        List<Knowledge> knowledgeresults = (List<Knowledge>) queryEngineService.getQueryResult(concept, intentLevel);
+        List<WebAnalyticsKnowledge> webKnowledgeResults= (List<WebAnalyticsKnowledge>)queryEngineService.getWebQueryResult(concept,intentLevel);
+        List<Concept> recommendationsList1=(List<Concept>) queryEngineService.getRecommendations(concept);
+        List<Concept> recommendationsList2=(List<Concept>) queryEngineService.Recommendations(concept);
         List<Concept> recommendations = new ArrayList<Concept>();
 
-        List<NlpResultFrequency> nlpResultFrequencies=nlpResultSevice.getNLPFrequencyResults();
-        List<SearchFrequency> searchResultFrequencies=searchServiceImpl.getSearchStringResults();
+        List<NlpResultFrequency> nlpResultFrequencies=nlpResultService.getNLPFrequencyResults();
+        List<SearchFrequency> searchResultFrequencies=searchService.getSearchStringResults();
 
 //        List<QueryEngineResult> qs=new ArrayList<>();
 //        List<QueryEngineWebResult> wqs=new ArrayList<>();

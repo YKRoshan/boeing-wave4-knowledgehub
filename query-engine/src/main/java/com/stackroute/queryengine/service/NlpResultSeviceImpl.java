@@ -10,7 +10,7 @@ import java.util.*;
 
 @Service
 public class NlpResultSeviceImpl implements NlpResultService{
-    NlpResultRepository nlpresultRepository;
+    private NlpResultRepository nlpresultRepository;
 
     @Autowired
     public NlpResultSeviceImpl(NlpResultRepository nlpresultRepository) {

@@ -11,7 +11,7 @@ import java.util.*;
 
 @Service
 public class SearchServiceImpl implements SearchService {
-    SearchRepository searchRepository;
+    private SearchRepository searchRepository;
 
     @Autowired
     public SearchServiceImpl(SearchRepository searchRepository) {

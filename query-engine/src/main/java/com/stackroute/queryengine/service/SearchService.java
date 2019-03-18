@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 
 /*Search service interface*/
-@Service
+
 public interface SearchService {
 //    public Search saveSearch(Search searchString);
     public List<Search> getAllSearch();

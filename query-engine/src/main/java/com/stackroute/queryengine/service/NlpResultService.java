@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.List;
 
-@Service
 public interface NlpResultService {
    // public NlpResult saveNlpResult(NlpResult nlpResult);
     public List<NlpResult> getAllNlpResult();
