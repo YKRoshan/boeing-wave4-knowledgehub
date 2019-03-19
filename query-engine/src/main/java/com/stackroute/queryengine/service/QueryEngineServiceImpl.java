@@ -31,6 +31,7 @@ public class QueryEngineServiceImpl implements QueryEngineService {
     @Override
     public Iterable<Knowledge> getQueryResult(String concept, String intentLevel) {
 
+        System.out.println("uday");
         if(intentLevel.equalsIgnoreCase("Knowledge"))
         {
             return  knowledgeRepository.getKnowledgeNode(concept,intentLevel);

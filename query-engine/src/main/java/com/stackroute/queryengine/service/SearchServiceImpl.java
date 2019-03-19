@@ -70,7 +70,7 @@ public class SearchServiceImpl implements SearchService {
                 }
             }
             map.put(allquestions.get(i),count);
-            System.out.println(allquestions.get(i) + " " + count);
+           // System.out.println(allquestions.get(i) + " " + count);
         }
         return map;
     }

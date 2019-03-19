@@ -29,8 +29,10 @@ public class KafkaConsumer {
     public void consume(String message) {
         JSONObject object = (JSONObject) JSONValue.parse(message);
 
-        System.out.println("message"+message);
+        System.out.println("Inside Kafka consume"+message);
         kafkaProducer.postservice(object.get("concept").toString(),object.get("intent").toString(),
                 object.get("sessonId").toString());
+
+        System.out.println("after kafka producer call");
     }
 }

@@ -42,16 +42,16 @@ public class NlpResultSeviceImpl implements NlpResultService{
         HashMap map = new HashMap();
         map = countFreq(nlpResults,nlpResults.size());
         map = sortByValue(map);
-        System.out.println("size of map"+map.size());
+       // System.out.println("size of map"+map.size());
         Iterator<Map.Entry<NlpResult, Integer>> itr = map.entrySet().iterator();
 
         while(itr.hasNext())
         {
             Map.Entry<NlpResult, Integer> entry = itr.next();
             NlpResultFrequency nlpResultFrequency=new NlpResultFrequency();
-            System.out.println("aaaaaaaaaaaaa");
-            System.out.println(entry.getKey().getConcept());
-            System.out.println(entry.getValue());
+          //  System.out.println("aaaaaaaaaaaaa");
+           // System.out.println(entry.getKey().getConcept());
+           // System.out.println(entry.getValue());
             nlpResultFrequency.setConcept(entry.getKey().getConcept());
             nlpResultFrequency.setFrequency(entry.getValue());
             nlpResultFrequencies.add(nlpResultFrequency);
@@ -82,7 +82,7 @@ public class NlpResultSeviceImpl implements NlpResultService{
                 }
             }
             map.put(nlpresult.get(i),count);
-            System.out.println(nlpresult.get(i) + " " + count);
+           // System.out.println(nlpresult.get(i) + " " + count);
         }
         return map;
     }
