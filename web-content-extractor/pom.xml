@@ -11,7 +11,7 @@
 	<groupId>com.stackroute</groupId>
 	<artifactId>web-content-extractor</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>webscrape</name>
+	<name>web-content-extractor</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>
