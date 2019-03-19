@@ -15,7 +15,7 @@ public class JsonResult {
     private String sessionId;
     private List<Knowledge> result;
     private List<WebAnalyticsKnowledge> webResult;
-    private List<Concept> recommendations;
+    private List<String> recommendations;
     private List<NlpResultFrequency> nlpResultFrequencies;
     private List<SearchFrequency> searchFrequencies;
 }

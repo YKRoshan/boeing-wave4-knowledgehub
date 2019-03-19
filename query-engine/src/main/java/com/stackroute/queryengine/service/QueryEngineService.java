@@ -8,8 +8,8 @@ public interface QueryEngineService {
     public Iterable<Knowledge> getQueryResult(String concept, String intentLevel);
     public Iterable<WebAnalyticsKnowledge> getWebQueryResult(String concept, String intentLevel);
 
-    public Iterable<Concept> getRecommendations(String concept);
+    public Iterable<String> getRecommendations(String concept);
 
-    public Iterable<Concept> Recommendations(String concept);
+    public Iterable<String> Recommendations(String concept);
 
 }

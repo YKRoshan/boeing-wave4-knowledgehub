@@ -37,17 +37,17 @@ public class KafkaProducer {
         System.out.println("Inside kafka producer1");
         List<Knowledge> knowledgeresults = (List<Knowledge>) queryEngineService.getQueryResult(concept, intentLevel);
         List<WebAnalyticsKnowledge> webKnowledgeResults= (List<WebAnalyticsKnowledge>)queryEngineService.getWebQueryResult(concept,intentLevel);
-        List<Concept> recommendationsList1=(List<Concept>) queryEngineService.getRecommendations(concept);
-        List<Concept> recommendationsList2=(List<Concept>) queryEngineService.Recommendations(concept);
-        List<Concept> recommendations = new ArrayList<Concept>();
+        List<String> recommendationsList1=(List<String>) queryEngineService.getRecommendations(concept);
+        List<String> recommendationsList2=(List<String>) queryEngineService.Recommendations(concept);
+        List<String> recommendations = new ArrayList<String>();
 
         System.out.println("Inside kafka producer2");
 
        // List<NlpResultFrequency> nlpResultFrequencies=nlpResultService.getNLPFrequencyResults();
-        //List<SearchFrequency> searchResultFrequencies=searchService.getSearchStringResults();
+        List<SearchFrequency> searchResultFrequencies=searchService.getSearchStringResults();
 
         List<NlpResultFrequency> nlpResultFrequencies=null;
-        List<SearchFrequency> searchResultFrequencies=null;
+
 
 //        List<QueryEngineResult> qs=new ArrayList<>();
 //        List<QueryEngineWebResult> wqs=new ArrayList<>();

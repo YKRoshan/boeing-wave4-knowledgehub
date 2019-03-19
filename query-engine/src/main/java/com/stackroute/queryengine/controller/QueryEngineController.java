@@ -43,14 +43,14 @@ public class QueryEngineController {
     }
 
     @GetMapping("/recommendations/{concept}")
-    public ResponseEntity<List<Concept>> getRecommendations(@PathVariable("concept") String concept) {
+    public ResponseEntity<List<String>> getRecommendations(@PathVariable("concept") String concept) {
         ResponseEntity responseEntity;
-        List<Concept> recommendationsList1=(List<Concept>) queryEngineServiceImpl.getRecommendations(concept);
-        List<Concept> recommendationsList2=(List<Concept>) queryEngineServiceImpl.Recommendations(concept);
-        List<Concept> recommendations = new ArrayList<Concept>();
+        List<String> recommendationsList1=(List<String>) queryEngineServiceImpl.getRecommendations(concept);
+        List<String> recommendationsList2=(List<String>) queryEngineServiceImpl.Recommendations(concept);
+        List<String> recommendations = new ArrayList<String>();
         recommendations.addAll(recommendationsList1);
         recommendations.addAll(recommendationsList2);
-        responseEntity = new ResponseEntity<List<Concept>>(recommendations,HttpStatus.OK);
+        responseEntity = new ResponseEntity<List<String>>(recommendations,HttpStatus.OK);
         return responseEntity;
     }
 

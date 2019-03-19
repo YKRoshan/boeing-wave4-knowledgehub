@@ -36,7 +36,7 @@ public class KafkaConsumer {
 
         System.out.println(message);
 
-        List<Concept> concepts=new ArrayList<>();
+        List<String> concepts=new ArrayList<>();
         List<Knowledge> knowledges =new ArrayList<>();
         List<WebAnalyticsKnowledge> webAnalyticsKnowledges=new ArrayList<>();
         List<NlpResultFrequency> nlpResultFrequencies=new ArrayList<>();
@@ -166,6 +166,16 @@ public class KafkaConsumer {
 //                concepts.add(concept);
 //            }
 //        }
+
+
+        if(jsonrecommendations!=null)
+        {
+            for(int i=0;i<jsonrecommendations.length();i++)
+            {
+                JSONObject concept=jsonrecommendations.getJSONObject(i);
+                concepts.add(concept.toString());
+            }
+        }
 
         if(jsonwebResults!=null) {
             for (int i = 0; i < jsonwebResults.length(); i++) {

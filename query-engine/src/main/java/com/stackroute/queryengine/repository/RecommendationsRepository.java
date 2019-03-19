@@ -9,11 +9,11 @@ import java.util.Collection;
 
 public interface RecommendationsRepository extends Neo4jRepository<Concept,String> {
 
-    @Query("MATCH (c:Concept{name:{0}})-[r:subconceptOf]->(p) RETURN p")
-    Collection<Concept> getNodesSubconcept(String concept);
+    @Query("MATCH (c:Concept{name:{0}})-[r:subconceptOf]->(p) RETURN p.name")
+    Collection<String> getNodesSubconcept(String concept);
 
-    @Query("MATCH (p)-[r:subconceptOf]->(c:Concept{name:{0}}) RETURN p")
-    Collection<Concept> getSubconceptNodes(String concept);
+    @Query("MATCH (p)-[r:subconceptOf]->(c:Concept{name:{0}}) RETURN p.name")
+    Collection<String> getSubconceptNodes(String concept);
 
 
 

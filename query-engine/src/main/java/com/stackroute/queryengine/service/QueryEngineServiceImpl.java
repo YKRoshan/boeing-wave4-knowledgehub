@@ -96,12 +96,12 @@ public class QueryEngineServiceImpl implements QueryEngineService {
     }
 
     @Override
-    public Iterable<Concept> getRecommendations(String concept) {
+    public Iterable<String> getRecommendations(String concept) {
         return recommendationsRepository.getNodesSubconcept(concept);
     }
 
     @Override
-    public Iterable<Concept> Recommendations(String concept) {
+    public Iterable<String> Recommendations(String concept) {
         return recommendationsRepository.getSubconceptNodes(concept);
     }
 
