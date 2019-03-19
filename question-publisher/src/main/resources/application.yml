@@ -1,0 +1,11 @@
+server:
+    port: 8077
+spring:
+    data:
+        mongodb:
+            database: QueryQuestions
+            host: localhost
+            port: 27017
+        neo4j:
+            password: neo4j@123
+            username: neo4j
