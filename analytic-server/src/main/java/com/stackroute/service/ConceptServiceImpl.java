@@ -21,6 +21,8 @@ public class ConceptServiceImpl implements ConceptSerive {
         for (int i = 0; i < concepts.size(); i++) {
             conceptNames.add(concepts.get(i).getName());
         }
+        System.out.println("-------------getConcepts----------------");
+        System.out.println(conceptNames);
         return conceptNames;
     }
 }

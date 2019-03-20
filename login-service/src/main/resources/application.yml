@@ -6,9 +6,9 @@ server:
 spring:
     datasource:
         driver-class-name: com.mysql.cj.jdbc.Driver
-        password: root123
+        password: sai123
         url: jdbc:mysql://localhost:3306/LoginDB?useSSL=false&createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true
-        username: root
+        username: sai
     jpa:
         generate-ddl: true
         hibernate:

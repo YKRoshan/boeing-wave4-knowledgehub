@@ -44,6 +44,7 @@
         <module>web-analytic-service</module>
         <module>web-content-extractor</module>
         <module>web-search-service</module>
+        <module>ontology-management-service</module>
     </modules>
     <dependencies>
         <dependency>

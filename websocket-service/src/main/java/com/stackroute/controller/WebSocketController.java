@@ -1,5 +1,6 @@
 package com.stackroute.controller;
 
+import com.stackroute.domain.JsonResult;
 import com.stackroute.listener.KafkaProducer;
 import com.stackroute.domain.ChatMessage;
 import com.stackroute.service.WebSocketService;
@@ -37,8 +38,8 @@ public class WebSocketController {
 
 
     @SendTo("/topic/public/{sessionId}")
-    public List<ChatMessage> sendMessage(@Payload List<ChatMessage> message){
-        return webSocketService.sendMessageService(message);
+    public JsonResult sendMessage(@Payload JsonResult jsonResult){
+        return webSocketService.sendMessageService(jsonResult);
     }
 
 

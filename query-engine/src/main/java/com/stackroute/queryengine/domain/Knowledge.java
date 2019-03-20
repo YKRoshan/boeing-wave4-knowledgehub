@@ -10,7 +10,7 @@ import org.neo4j.ogm.annotation.NodeEntity;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Knowledge {
+public class Knowledge implements Comparable<Knowledge> {
 
     @Id
     private String paragraphId;
@@ -20,4 +20,14 @@ public class Knowledge {
     private String concept;
     private String intentLevel;
     private double confidenceScore;
+
+    @Override
+    public int compareTo(Knowledge m)
+    {
+        if(this.confidenceScore<m.confidenceScore)
+            return -1;
+        else if(m.confidenceScore<this.confidenceScore)
+            return 1;
+        return 0;
+    }
 }

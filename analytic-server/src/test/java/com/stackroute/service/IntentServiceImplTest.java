@@ -28,7 +28,7 @@ public class IntentServiceImplTest {
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-        termNode = new Terms(1001, "define", "SPRING:2", "Knowledge", "term", "indicatorOf", "9");
+        termNode = new Terms(1001, "define", "SPRING:2", "Knowledge", "term", "indicatorOf", "9","spring:2");
         termNodeList = new ArrayList<>();
         termNodeList.add(termNode);
         intentWord = new IntentWord();

@@ -4,7 +4,7 @@ server:
 aws:
   access:
     key:
-      id: xxxxxx
+      id: xxxx
       secret: yyyy
   region: ap-south-1
   s3:

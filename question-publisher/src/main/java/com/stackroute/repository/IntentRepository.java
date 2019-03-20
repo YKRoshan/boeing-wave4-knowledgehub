@@ -1,10 +1,15 @@
-//package com.stackroute.repository;
-//
-//import com.stackroute.domain.PublishQuestion;
-//import com.stackroute.domain.QueryQuestions;
-//import org.springframework.data.neo4j.repository.Neo4jRepository;
-//import org.springframework.stereotype.Repository;
-//
-//@Repository
-//public interface IntentRepository extends Neo4jRepository<PublishQuestion,String> {
-//}
+package com.stackroute.repository;
+
+import com.stackroute.domain.PublishQuestion;
+import com.stackroute.domain.QueryQuestions;
+import com.stackroute.domain.Terms;
+import org.springframework.data.neo4j.annotation.Query;
+import org.springframework.data.neo4j.repository.Neo4jRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface IntentRepository extends Neo4jRepository<Terms,String> {
+
+    @Query("MATCH(u:Terms) RETURN Count(*)")
+    String getCount();
+}
