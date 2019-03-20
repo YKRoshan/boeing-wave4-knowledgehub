@@ -1,6 +1,9 @@
 package com.stackroute.controller;
 
 import com.stackroute.domain.PublishQuestion;
+import com.stackroute.domain.Terms;
+import com.stackroute.service.IntentService;
+import com.stackroute.service.NlpService;
 import com.stackroute.service.QuestionDeleterService;
 import com.stackroute.service.QuestionPublisherService;
 import org.springframework.http.HttpStatus;
@@ -13,33 +16,66 @@ import org.springframework.web.bind.annotation.*;
 public class QuestionPublisherController {
     private QuestionDeleterService questionDeleterService;
     private QuestionPublisherService questionPublisherService;
+    private IntentService intentService;
+    private NlpService nlpService;
 
     public QuestionPublisherController(QuestionDeleterService questionDeleterService,
-                                       QuestionPublisherService questionPublisherService) {
+                                       QuestionPublisherService questionPublisherService,
+                                       IntentService intentService,
+                                       NlpService nlpService) {
         this.questionDeleterService = questionDeleterService;
         this.questionPublisherService = questionPublisherService;
+        this.intentService = intentService;
+        this.nlpService = nlpService;
+
     }
 
     @DeleteMapping("deleteQuestion/{uniqueId}")
     public ResponseEntity<String> deleteQuestion(@PathVariable("uniqueId") String uniqueId) {
 
         ResponseEntity responseEntity;
-        System.out.println("uniqueID: "+uniqueId);
+        System.out.println("uniqueID: " + uniqueId);
         questionDeleterService.deleteQuestion(uniqueId);
         try {
             responseEntity = new ResponseEntity<String>("QueryQuestions is deleted successfully.", HttpStatus.OK);
-        }
-        catch (Exception e){
-            responseEntity= new ResponseEntity<String>(e.getMessage(),HttpStatus.CONFLICT);
+        } catch (Exception e) {
+            responseEntity = new ResponseEntity<String>(e.getMessage(), HttpStatus.CONFLICT);
         }
         return responseEntity;
     }
 
     @PostMapping("publishQuestion")
-    public ResponseEntity<String> postQuestion(@RequestBody PublishQuestion publishQuestion){
+    public ResponseEntity<String> postQuestion(@RequestBody PublishQuestion publishQuestion) {
         ResponseEntity<String> responseEntity;
-        System.out.println("QueryQuestions published successfully = "+publishQuestion.toString());
-        responseEntity = new ResponseEntity<>("QueryQuestions published successfully",HttpStatus.ACCEPTED);
+
+        String neo4jId = intentService.getCount();
+
+        Terms term = new Terms();
+        term.setId(Integer.parseInt(neo4jId));
+        term.setId3(publishQuestion.getUniqueId());
+        nlpService.setParagraph(publishQuestion.getQuestionString());
+        String queryQuestion = nlpService.getQueryQuestionResults();
+        term.setName(queryQuestion);
+        term.setWeight("8");
+        term.setType("term");
+        term.setParent_node_type(publishQuestion.getIntentLevel());
+        if (publishQuestion.getIntentLevel().equalsIgnoreCase("knowledge")) {
+            term.setParent_id("SPRING:2");
+        } else if (publishQuestion.getIntentLevel().equalsIgnoreCase("comprehension")) {
+            term.setParent_id("SPRING:3");
+        } else if (publishQuestion.getIntentLevel().equalsIgnoreCase("application")) {
+            term.setParent_id("SPRING:4");
+        } else if (publishQuestion.getIntentLevel().equalsIgnoreCase("analysis")) {
+            term.setParent_id("SPRING:5");
+        } else if (publishQuestion.getIntentLevel().equalsIgnoreCase("synthesis")) {
+            term.setParent_id("SPRING:6");
+        } else if (publishQuestion.getIntentLevel().equalsIgnoreCase("evaluation")) {
+            term.setParent_id("SPRING:7");
+        }
+
+        String message = intentService.createTermNode(term);
+
+        responseEntity = new ResponseEntity<>(message, HttpStatus.ACCEPTED);
         return responseEntity;
     }
 }

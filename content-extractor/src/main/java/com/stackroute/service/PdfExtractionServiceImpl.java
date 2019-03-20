@@ -95,7 +95,7 @@ public class PdfExtractionServiceImpl implements PdfExtractionService {
         PdfDocument pdfDocument = new PdfDocument();
         parser.parse( tikaInputStream,contenthandler, metadata, new ParseContext());
 
-        String uniqueID = UUID.randomUUID().toString();
+        String uniqueID = path1;
 
 
         pdfDocument.setDocumentId(uniqueID);
