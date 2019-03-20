@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class DomainConceptService{
     private conceptsArray :string[];
-    private url :string = "http://localhost:8080/domain";
+    private url :string = "http://localhost:8099/domain";
     constructor(private http:HttpClient){
 
     } 
