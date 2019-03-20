@@ -36,7 +36,7 @@ public class KafkaConsumer {
 
         System.out.println(message);
 
-        List<String> concepts=new ArrayList<>();
+        List<String> recommendations=new ArrayList<>();
         List<Knowledge> knowledges =new ArrayList<>();
         List<WebAnalyticsKnowledge> webAnalyticsKnowledges=new ArrayList<>();
         List<NlpResultFrequency> nlpResultFrequencies=new ArrayList<>();
@@ -47,38 +47,18 @@ public class KafkaConsumer {
         JSONArray jsonresults = object.getJSONArray("result");
         JSONArray jsonwebResults =object.getJSONArray("webResult");
         JSONArray jsonrecommendations =object.getJSONArray("recommendations");
-//        JSONArray jsonnlpResultFrequencies =object.getJSONArray("nlpResultFrequencies");
-//        JSONArray jsonsearchFrequencies=object.getJSONArray("searchFrequencies");
+        JSONArray jsonnlpResultFrequencies =object.getJSONArray("nlpResultFrequencies");
+        JSONArray jsonsearchFrequencies=object.getJSONArray("searchFrequencies");
 
 
 
         String sessionId=object.get("sessionId").toString();
 
-//        if(jsonnlpResultFrequencies!=null) {
-//            for (int i = 0; i < jsonnlpResultFrequencies.length(); i++) {
-//                JSONObject nlpResult = jsonwebResults.getJSONObject(i);
-//
-//                NlpResultFrequency nlpResultFrequency=new NlpResultFrequency(
-//                        nlpResult.get("concept").toString(),
-//                        Integer.parseInt(nlpResult.get("frequency").toString())
-//                );
-//                nlpResultFrequencies.add(nlpResultFrequency);
-//            }
-//        }
+        System.out.println("sessionId"+sessionId);
+        System.out.println("Inside json"+jsonnlpResultFrequencies.toString());
 
-//        if(jsonsearchFrequencies!=null) {
-//            for (int i = 0; i < jsonsearchFrequencies.length(); i++) {
-//                JSONObject searchResult = jsonwebResults.getJSONObject(i);
-//
-//
-//                SearchFrequency searchFrequency=new SearchFrequency(
-//                        searchResult.get("searchString").toString(),
-//                        Integer.parseInt(searchResult.get("frequency").toString())
-//                );
-//
-//                searchFrequencies.add(searchFrequency);
-//            }
-//        }
+
+
 
 //        System.out.println("json recommendations");
 //        System.out.println(jsonrecommendations);
@@ -166,14 +146,14 @@ public class KafkaConsumer {
 //                concepts.add(concept);
 //            }
 //        }
-
-
+//
+//
         if(jsonrecommendations!=null)
         {
             for(int i=0;i<jsonrecommendations.length();i++)
             {
-                JSONObject concept=jsonrecommendations.getJSONObject(i);
-                concepts.add(concept.toString());
+
+                recommendations.add(jsonrecommendations.get(i).toString());
             }
         }
 
@@ -212,17 +192,44 @@ public class KafkaConsumer {
                 knowledges.add(knowledge);
             }
         }
+        if(jsonnlpResultFrequencies!=null) {
+            for (int i = 0; i < jsonnlpResultFrequencies.length(); i++) {
+                JSONObject nlpResult = jsonnlpResultFrequencies.getJSONObject(i);
 
-        concepts=null;
-        nlpResultFrequencies=null;
-        searchFrequencies=null;
+                NlpResultFrequency nlpResultFrequency=new NlpResultFrequency(
+                        nlpResult.get("concept").toString(),
+                        Integer.parseInt(nlpResult.get("frequency").toString())
+                );
+                nlpResultFrequencies.add(nlpResultFrequency);
+            }
+        }
+
+        if(jsonsearchFrequencies!=null) {
+            for (int i = 0; i < jsonsearchFrequencies.length(); i++) {
+                JSONObject searchResult = jsonsearchFrequencies.getJSONObject(i);
+
+
+                SearchFrequency searchFrequency=new SearchFrequency(
+                        searchResult.get("searchString").toString(),
+                        Integer.parseInt(searchResult.get("frequency").toString())
+                );
+
+                searchFrequencies.add(searchFrequency);
+            }
+        }
+
+
+
+
+
+
 
 
         JsonResult jsonResult=new JsonResult();
         jsonResult.setSessionId(sessionId);
         jsonResult.setNlpResultFrequencies(nlpResultFrequencies);
         jsonResult.setSearchFrequencies(searchFrequencies);
-        jsonResult.setRecommendations(concepts);
+        jsonResult.setRecommendations(recommendations);
         jsonResult.setResult(knowledges);
         jsonResult.setWebResult(webAnalyticsKnowledges);
 

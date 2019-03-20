@@ -30,6 +30,7 @@ public class SearchServiceImpl implements SearchService {
     @Override
     public List<SearchFrequency> getSearchStringResults() {
         List<Search> allQuestions = getAllSearch();
+        System.out.println("Inside getSearch"+allQuestions.toString());
         List<SearchFrequency> searchFrequencies=new ArrayList<>();
         HashMap map = new HashMap();
         map = countFreq(allQuestions,allQuestions.size());
