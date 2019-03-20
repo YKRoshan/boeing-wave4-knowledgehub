@@ -3,7 +3,7 @@ server:
 spring:
     data:
         mongodb:
-            database: QueryQuestions
+            database: QuestionStore
             host: localhost
             port: 27017
         neo4j:
