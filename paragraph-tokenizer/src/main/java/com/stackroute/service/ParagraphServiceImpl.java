@@ -10,6 +10,7 @@ import org.json.simple.JSONObject;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -33,14 +34,17 @@ public class ParagraphServiceImpl implements ParagraphService{
                 i++;
             }
             int cnt = 0;
-            paraObj.setParagraphId(1);
-            int id = paraObj.getParagraphId();
+//            paraObj.setParagraphId(1);
+//            int id = paraObj.getParagraphId();
             List<JSONObject> list = new ArrayList();
             while (cnt < para.length) {
+
+                UUID uuid = UUID.randomUUID();
+                String randomUUIDString = uuid.toString();
                 JSONObject obj = new JSONObject();
                 obj.put("documentId", documentId1);
-                obj.put("paragraphId", id);
-                paraObj.setParagraphId(id++);
+                obj.put("paragraphId", randomUUIDString);
+                paraObj.setParagraphId(randomUUIDString);
                 paraObj.setParagraphText(para[cnt]);
                 obj.put("paragraphText", paraObj.getParagraphText());
                 cnt++;

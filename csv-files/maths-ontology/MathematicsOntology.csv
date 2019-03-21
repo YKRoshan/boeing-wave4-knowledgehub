@@ -1,0 +1,102 @@
+identity,name,parentId,type,class,parentRelation,context
+MATHS:1,Maths,MATHS:0,concept,concept,subconcept of,Maths
+MATHS:2,Sets,MATHS:1,concept,concept,subconcept of,Maths
+MATHS:3,Sets Representation,MATHS:2,concept,concept,subconcept of,Sets
+MATHS:4,Roster or Tabular,MATHS:3,concept,concept,subconcept of,Set Representation
+MATHS:5,Set Builder,MATHS:3,concept,concept,subconcept of,Set Representation
+MATHS:6,Empty Set,MATHS:2,concept,concept,subconcept of,Sets
+MATHS:7,Finite Sets,MATHS:2,concept,concept,subconcept of,Sets
+MATHS:8,Infinite Sets,MATHS:2,concept,concept,subconcept of,Sets
+MATHS:9,Equal Sets,MATHS:2,concept,concept,subconcept of,Sets
+MATHS:10,Subsets,MATHS:2,concept,concept,subconcept of,Sets
+MATHS:11,Subsets of set of real numbers,MATHS:10,concept,concept,subconcept of,Subsets
+MATHS:12,Intervals as subsets of R,MATHS:10,concept,concept,subconcept of,Subsets
+MATHS:13,Power Set,MATHS:2,concept,concept,subconcept of,Sets
+MATHS:14,Universal Set,MATHS:2,concept,concept,subconcept of,Sets
+MATHS:15,Venn Diagrams,MATHS:2,concept,concept,subconcept of,Sets
+MATHS:16,Operations on Sets,MATHS:2,concept,concept,subconcept of,Sets
+MATHS:17,Union of sets,MATHS:16,concept,concept,subconcept of,Operations on Sets
+MATHS:18,Intersection of sets,MATHS:16,concept,concept,subconcept of,Operations on Sets
+MATHS:19,Difference of sets,MATHS:16,concept,concept,subconcept of,Operations on Sets
+MATHS:20,Complement of a Set,MATHS:2,concept,concept,subconcept of,Sets
+MATHS:21,Complement laws,MATHS:20,concept,concept,subconcept of,Complement of a Set
+MATHS:22,De Morgan’s law,MATHS:20,concept,concept,subconcept of,Complement of a Set
+MATHS:23,Law of double complementation,MATHS:20,concept,concept,subconcept of,Complement of a Set
+MATHS:24,Laws of empty set,MATHS:20,concept,concept,subconcept of,Complement of a Set
+MATHS:25,Laws of universal set,MATHS:20,concept,concept,subconcept of,Complement of a Set
+MATHS:26,Relations And Functions,MATHS:2,concept,concept,subconcept of,Sets
+MATHS:27,Cartesian Products of Sets,MATHS:25,concept,concept,subconcept of,Relations And Functions
+MATHS:28,Relations,MATHS:25,concept,concept,subconcept of,Relations And Functions
+MATHS:29,Functions,MATHS:25,concept,concept,subconcept of,Relations And Functions
+MATHS:30,Identity Function,MATHS:29,concept,concept,subconcept of,Functions
+MATHS:31,Constant Function,MATHS:29,concept,concept,subconcept of,Functions
+MATHS:32,Polynomial Function,MATHS:29,concept,concept,subconcept of,Functions
+MATHS:33,Modulus Function,MATHS:29,concept,concept,subconcept of,Functions
+MATHS:34,Signum Function,MATHS:29,concept,concept,subconcept of,Functions
+MATHS:35,Greatest Integer Function,MATHS:29,concept,concept,subconcept of,Functions
+MATHS:36,Algebra of real functions,MATHS:29,concept,concept,subconcept of,Functions
+MATHS:37,Addition of two real functions,MATHS:36,concept,concept,subconcept of,Algebra of real functions
+MATHS:38,Subtraction of a real function from another,MATHS:36,concept,concept,subconcept of,Algebra of real functions
+MATHS:39,Multiplication by a scalar,MATHS:36,concept,concept,subconcept of,Algebra of real functions
+MATHS:40,Multiplication of two real functions,MATHS:36,concept,concept,subconcept of,Algebra of real functions
+MATHS:41,Quotient of two real functions,MATHS:36,concept,concept,subconcept of,Algebra of real functions
+MATHS:42,Trigonometric Functions,MATHS:29,concept,concept,subconcept of,Functions
+MATHS:43,Angles,MATHS:42,concept,concept,subconcept of,Trigonometric Functions
+MATHS:44,Degree,MATHS:43,concept,concept,subconcept of,Angles
+MATHS:45,Radian ,MATHS:43,concept,concept,subconcept of,Angles
+MATHS:46,Relation between radian and real numbers,MATHS:43,concept,concept,subconcept of,Angles
+MATHS:47,Relation between degree and radian,MATHS:43,concept,concept,subconcept of,Angles
+MATHS:48,Notational Convention,MATHS:43,concept,concept,subconcept of,Angles
+MATHS:49,Sign of trigonometric functions,MATHS:42,concept,concept,subconcept of,Trigonometric Functions
+MATHS:50,Domain of trigonometric functions,MATHS:42,concept,concept,subconcept of,Trigonometric Functions
+MATHS:51,Range of trigonometric functions,MATHS:42,concept,concept,subconcept of,Trigonometric Functions
+MATHS:52,Trigonometric Equations,MATHS:42,concept,concept,subconcept of,Trigonometric Functions
+MATHS:53,Complex Numbers,MATHS:1,concept,concept,subconcept of,Maths
+MATHS:54,Algebra of Complex Numbers,MATHS:53,concept,concept,subconcept of,Complex Numbers
+MATHS:55,Addition of two complex numbers,MATHS:54,concept,concept,subconcept of,Algebra of Complex Numbers
+MATHS:56,Difference of two complex numbers,MATHS:54,concept,concept,subconcept of,Algebra of Complex Numbers
+MATHS:57,Multiplication of two complex numbers,MATHS:54,concept,concept,subconcept of,Algebra of Complex Numbers
+MATHS:58,Closure Law,MATHS:57,concept,concept,subconcept of,Multiplication of two complex numbers
+MATHS:59,Commutative Law,MATHS:57,concept,concept,subconcept of,Multiplication of two complex numbers
+MATHS:60,Associative Law,MATHS:57,concept,concept,subconcept of,Multiplication of two complex numbers
+MATHS:61,Existence of Multiplicative Identity,MATHS:57,concept,concept,subconcept of,Multiplication of two complex numbers
+MATHS:62,Distributive Law,MATHS:57,concept,concept,subconcept of,Multiplication of two complex numbers
+MATHS:63,Existence of Multiplicative Inverse,MATHS:57,concept,concept,subconcept of,Multiplication of two complex numbers
+MATHS:64,Division of two complex numbers,MATHS:54,concept,concept,subconcept of,Algebra of Complex Numbers
+MATHS:65,Power of i,MATHS:64,concept,concept,subconcept of,Division of two complex numbers
+MATHS:66,Square Roots of a Negative Real Number,MATHS:64,concept,concept,subconcept of,Division of two complex numbers
+MATHS:67,Identities,MATHS:64,concept,concept,subconcept of,Division of two complex numbers
+MATHS:68,Modulus of a Complex Number,MATHS:53,concept,concept,subconcept of,Complex Numbers
+MATHS:69,Conjugate of a Complex Number,MATHS:53,concept,concept,subconcept of,Complex Numbers
+MATHS:70,Argand Plane Representation,MATHS:53,concept,concept,subconcept of,Complex Numbers
+MATHS:71,Polar Representation,MATHS:53,concept,concept,subconcept of,Complex Numbers
+MATHS:72,Quadratic Equations,MATHS:1,concept,concept,subconcept of,Maths
+MATHS:73,Inequalities,MATHS:1,concept,concept,subconcept of,Maths
+MATHS:74,Linear Ineqalities,MATHS:73,concept,concept,subconcept of,Inequalities
+MATHS:75,Algebraic Solutions of Linear Inequalities in One Variable,MATHS:74,concept,concept,subconcept of,Linear Ineqalities
+MATHS:76,Graphical Representation of Linear Ineqalities,MATHS:74,concept,concept,subconcept of,Linear Ineqalities
+MATHS:77,Graphical Solution of Linear Inequalities in Two Variables,MATHS:74,concept,concept,subconcept of,Linear Ineqalities
+MATHS:78,Permutation,MATHS:1,concept,concept,subconcept of,Maths
+MATHS:79,Permutations when all the objects are distinct,MATHS:78,concept,concept,subconcept of,Permutation
+MATHS:80,Factorial notation,MATHS:1,concept,concept,subconcept of,Maths
+MATHS:81,Permutations when all the objects are not distinct objects,MATHS:78,concept,concept,subconcept of,Permutation
+MATHS:82,Combination,MATHS:1,concept,concept,subconcept of,Maths
+MATHS:83,Binomial Theorem,MATHS:1,concept,concept,subconcept of,Maths
+MATHS:84,Positive Integral Indices,MATHS:83,concept,concept,subconcept of,Binomial Theorem
+MATHS:85,Pascal’s Triangle,MATHS:1,concept,concept,subconcept of,Maths
+MATHS:86,Binomial theorem for any positive integer n,MATHS:83,concept,concept,subconcept of,Binomial Theorem
+MATHS:87,Sequences,MATHS:1,concept,concept,subconcept of,Maths
+MATHS:88,Series,MATHS:1,concept,concept,subconcept of,Maths
+MATHS:89,Arithmetic Progression,MATHS:88,concept,concept,subconcept of,Series
+MATHS:90,Arithmetic mean,MATHS:89,concept,concept,subconcept of,Arithmetic Progression
+MATHS:91,Geometric Progression,MATHS:88,concept,concept,subconcept of,Series
+MATHS:92,General term of a G .P.,MATHS:91,concept,concept,subconcept of,Geometric Progression
+MATHS:93,Sum to n terms of a G .P.,MATHS:91,concept,concept,subconcept of,Geometric Progression
+MATHS:94,Geometric Mean,MATHS:91,concept,concept,subconcept of,Geometric Progression
+MATHS:95,Relationship Between A.M. and G.M,MATHS:88,concept,concept,subconcept of,Series
+MATHS:96,Straight Lines,MATHS:1,concept,concept,subconcept of,Maths
+MATHS:97,Slope of a Line,MATHS:96,concept,concept,subconcept of,Straight Lines
+MATHS:98,Slope of a line when coordinates of any two points on the line are given,MATHS:98,concept,concept,subconcept of,Slope of a Line
+MATHS:99,Parallel Lines,MATHS:96,concept,concept,subconcept of,Straight Lines
+MATHS:100,Angle between two lines,MATHS:96,concept,concept,subconcept of,Straight Lines
+MATHS:101,Collinearity of three points,MATHS:96,concept,concept,subconcept of,Straight Lines

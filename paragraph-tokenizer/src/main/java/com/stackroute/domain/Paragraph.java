@@ -17,7 +17,7 @@ import org.springframework.data.annotation.Id;
 public class Paragraph
 {
     @Id
-    private int paragraphId;
+    private String paragraphId;
     private String paragraphText;
     private String documentId;
 }
