@@ -10,10 +10,10 @@ services:
     - eurekaserver
     ports:
     - 8092:8092
-    - 8071-8071
+    - 8001-8001
     expose:
     - 8092
-    - 8071
+    - 8001
     healthcheck:
       test: "exit 0"
 
@@ -148,7 +148,7 @@ services:
       KAFKA_LISTENERS: PLAINTEXT://localhost:9092
       KAFKA_ZOOKEEPER_CONNECT: localhost:2181
       KAFKA_CREATE_TOPICS: "FileUrl:1:1, FileText:1:1, ParagraphContents:1:1,AnalyticsResults:1:1,UpstreamResults:1:1,NLPResults:1:1,
-				QueryEngineResults:1:1"
+				QueryEngineResults:1:1,WebContentExtractor:1:1,WebSearch:1:1,WebAnalyticsResults:1:1"
     network_mode: "host"
     hostname: localhost
     depends_on:
