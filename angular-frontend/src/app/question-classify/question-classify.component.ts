@@ -27,20 +27,20 @@ export class QuestionClassifyComponent implements OnInit {
     this.questionProvider.getAllQuestions().subscribe(
       QueryQuestions => {
         this.questions = QueryQuestions;
-        this.currentQuestion = this.questions[0].searchString;
-        this.showQuestions(0, this.questions);
+        if(this.questions == null ||this.questions.length==0){
+          this.currentQuestion = "No questions to display";
+          this.finisher=false;
+        }else{
+          this.currentQuestion = this.questions[0].searchString;
+          this.showQuestions(0, this.questions);
+        }
         console.log("In oonn method");
       });
   }
 
   showQuestions(index: number, queryQuestionsArray: QueryQuestions[]): void {
-    if (queryQuestionsArray == null || queryQuestionsArray.length == 0) {
-      this.currentQuestion = "No questions to display";
-    } else {
-      console.log("else loop of show question");
       this.currentQuestionObject = queryQuestionsArray[index];
       this.currentQuestion = this.currentQuestionObject.searchString;
-    }
   }
 
   getNext(): void {
