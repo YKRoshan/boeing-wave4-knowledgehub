@@ -6,8 +6,8 @@ import {HttpClient } from '@angular/common/http';
 })
 export class QuestionPublisherService {
 
-  private publishUrl :string = "http://localhost:8077/publishQuestion";
-  private deleteUrl : string = "http://localhost:8077/deleteQuestion/"
+  private publishUrl :string = "https://localhost:8092/question-publisher/publishQuestion";
+  private deleteUrl : string = "http://localhost:8092/question-publisher/deleteQuestion/"
   constructor(private http:HttpClient){
 
   } 

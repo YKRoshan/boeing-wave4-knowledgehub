@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Properties;
 
 @Service
-@PropertySource(value = "classpath:application.properties")
+@PropertySource(value = "classpath:application.yml")
 public class NlpServiceImpl implements NlpService {
     @Value("${stopwords}")
     private String[] stopwords;

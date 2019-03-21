@@ -84,8 +84,8 @@ export class NodeComponent implements OnInit {
   }
 
 
-  private fieldArray: Array<any> = [];
-  private newAttribute: any = {};
+  fieldArray: Array<any> = [];
+  newAttribute: any = {};
 
   addFieldValue() {
       this.fieldArray.push(this.newAttribute)

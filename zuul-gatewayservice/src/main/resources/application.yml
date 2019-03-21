@@ -15,6 +15,14 @@ zuul:
             url: http://localhost:8094
         web-socket-service:
             url: http://localhost:8097
+        ontology-management-service:
+            url: http://localhost:8071
+        web-search-service:
+            url: http://localhost:8099
+        question-publisher:
+            url: http://localhost:8077
+        question-provider:
+            url: http://localhost:8095
     sensitiveHeaders:
 
 eureka:

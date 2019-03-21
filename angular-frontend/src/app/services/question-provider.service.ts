@@ -10,7 +10,7 @@ import {tap} from 'rxjs/operators'
 export class QuestionProviderService {
   private questions: QueryQuestions[];
 
-  public questionProviderService = 'http://localhost:8095/getAllQueryQuestions';
+  public questionProviderService = 'https://localhost:8092/question-provider/getAllQueryQuestions';
   public question_arr: QueryQuestions[];
 
   constructor(private httpclient: HttpClient) {
