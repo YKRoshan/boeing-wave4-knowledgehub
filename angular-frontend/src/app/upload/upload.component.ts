@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UploadFile, UploadEvent, FileSystemFileEntry } from 'ngx-file-drop';
 import { Observable } from 'rxjs';
-import { UploadService } from '../service/upload.service';
+import { UploadService } from '../services/upload.service';
 
 @Component({
   selector: 'app-upload',

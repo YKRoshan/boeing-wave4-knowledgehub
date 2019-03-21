@@ -1,0 +1,87 @@
+ #logo{
+
+    height:85px; 
+    width:90px;
+}
+
+p{
+    font-family: 'Indie Flower', cursive;
+    color: blanchedalmond;
+    font-size: 40px;
+    margin-left: 40px;
+   
+}
+nav{
+    text-align: center;
+    
+}
+/*
+#title{
+    margin-left:300px;
+    text-decoration: none;
+    color:inherit;
+}
+#title a:hover{
+    text-decoration: none;
+}
+#loginbutton{
+    margin-left: 420px;
+    float: inherit;
+}
+.navbar{
+    background-color: blueviolet;
+}
+.dragDrop{
+    background-color: aqua;
+}
+.dragDropColour{
+    margin: 25px;
+    width: 500px;
+    margin: auto;
+    height: 250px;
+    padding-top: 60px;
+}
+.form-inline{
+    background-color: rgb(6, 190, 247);
+}
+body{
+    min-width: 1000px;
+
+}
+
+app-searchbutton{
+    margin-top: 3rem;
+} */
+
+
+#searchbutton:hover{
+    color:inherit;
+}
+
+#mic{
+    margin-top:0px;
+    height:45px;
+    width:45px;
+    margin-left:2px;
+} 
+
+
+
+.form-inline{
+    float: right;
+}
+.rig{
+    float: right;
+}
+
+#add-button{
+    top: auto;
+    right: 100px;
+    bottom: 200px;
+    background-color: rgb(40, 187, 40);
+    height: 75px;
+    width: 75px;
+    left: auto;
+    position: fixed;
+    font-size: 18px;
+  }

@@ -1,6 +1,10 @@
 export class SessionId {
     SessionId:string;
-    greetings: string[] = [];
-    show:boolean=false;
+    pdfresult: string[] = [];
+    webresult : string[] = [];
+    recommendation : string[] = [];
+    nlpresult : string[] = [];
+    searchfreq : string[] = [];
+    show:string;
 
 }

@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../service/auth.service';
 import { userInfo} from '../domain/login-info';
-import { TokenService } from '../service/token.service';
+
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import { MatDialog } from '@angular/material';
 import { DataService } from '../domain/data-service';
+import { AuthService } from '../services/auth.service';
+import { TokenService } from '../services/token.service';
+import { MatDialog } from '@angular/material';
 
 
 
@@ -22,8 +23,8 @@ export class LoginComponent implements OnInit {
   password=new FormControl('');
   isLoginFailed:boolean=false;
   errorMessage:string;
-  constructor(private auth:AuthService ,private token:TokenService,private router: Router,
-    private dialog:MatDialog,private dataService:DataService) { }
+  constructor(private auth:AuthService ,private token:TokenService,private router: Router,private dialog:MatDialog,
+    private dataService:DataService) { }
 
    //This method checks for token on when you load the component.
   ngOnInit() {
@@ -43,9 +44,11 @@ export class LoginComponent implements OnInit {
     this.auth.auth(this.user).subscribe(data => 
       {this.token.saveToken(data.accessToken),
       this.token.saveUsername(data.username),
+      this.navigate();
+      this.dialog.closeAll();
       console.log(data.accessToken),
       this.dataService.login="LogOut"
-      this.dialog.closeAll();
+      // this.dialog.closeAll();
      },
       
      
@@ -61,7 +64,7 @@ export class LoginComponent implements OnInit {
   }
     // This method is used to navigate to home component. 
   navigate(){
-    this.router.navigate(['/home']);
+    this.router.navigate(['/displayAdminHome']);
   }
 
 

@@ -1,0 +1,208 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Reveal Bootstrap Template</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Raleway:300,400,500,700,800|Montserrat:300,400,700"
+        rel="stylesheet">
+</head>
+
+
+<body>
+    <header>
+        <app-nab-bar></app-nab-bar>
+    </header>
+    <main>
+        <section id="services">
+            <div class="container">
+                <div class="section-header">
+                        <!-- <h1>Modify Neo4j</h1> -->
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-4">
+                        <div class="box wow fadeInLeft">
+                            <!-- <div class="icon"><i class="fa fa-link"></i></div> -->
+                            <h4 class="title"><a (click)="onClickOpenConceptForm()">Add concept Nodes</a></h4>
+                            <p class="description">Add concept nodes to the neo4j graph</p>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-4">
+                        <div class="box wow fadeInDown">
+                            <!-- <div class="icon"><i class="fa fa-database"></i></div> -->
+                            <h4 class="title"><a (click)="onClickOpenIntentForm()">Add Intent Nodes</a></h4>
+                            <p class="description">Add intent nodes to the neo4j graph</p>
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="box wow fadeInRight" data-wow-delay="0.2s">
+                            <!-- <div class="icon"><i class="fa fa-question"></i></div> -->
+                            <h4 class="title"><a (click)="onClickOpenTerms()">Get Synonyms for Terms</a></h4>
+                            <p class="description">Add synonyms to the intent terms</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="container">
+            <br>
+            <form [hidden]="!openConcept" id="conceptForm" #form="ngForm" (ngSubmit)="createNode(form.value)">
+                <p>{{msg}}</p>
+                <div class="form-group">
+                    <label for="text">
+                        <h5>Concept Node Name:</h5>
+                    </label>
+                    <input type="text" class="form-control" id="domain" placeholder="Enter Concept Node Name" name="name"
+                        ngModel><br>
+                    <button class="btn btn-default" mat-raised-button type="button" (click)="showProperties()">Add
+                        Properties</button>
+                </div>
+                <br>
+
+                <div [hidden]="!openProperty" class="align-fields">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <select class="form-control input-lg" [(ngModel)]="newAttribute.property" name="newAttributeProperty">
+                                <option>parent</option>
+                            </select>
+                        </div>&nbsp;
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control input-lg" placeholder="Enter Property data" id="newAttributeValue"
+                                [(ngModel)]="newAttribute.value" name="newAttributeValue">
+                        </div>
+                        <button class="btn btn-default" mat-raised-button type="button" (click)="addFieldValue()">
+                            Add </button>
+                    </div>
+                </div>
+
+                <div *ngFor="let field of fieldArray; let i = index" class="align-fields">
+                    <br>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <input class="form-control input-lg" name="{{field.property}}" value="{{field.property}}">
+                        </div>&nbsp;
+
+                        <div class="col-sm-4">
+                            <input class="form-control input-lg" [(ngModel)]="field.value" type="text" name="{{field.property}}" />
+                        </div>
+                        <button class="btn btn-default" mat-raised-button type="button" (click)="deleteFieldValue(i)">Delete</button>
+                    </div>
+                </div>
+                <br>
+                <button class="btn btn-default" mat-raised-button type="submit">Submit</button>
+            </form>
+            <br>
+            <form [hidden]="!openIntent" id="intentForm" #form1="ngForm" (ngSubmit)="createIntent(form1.value)">
+                <div class="form-group">
+                    <label for="text">
+
+                        <h5>Intent Node Name:</h5>
+                        <p>{{msg1}}</p>
+                    </label>
+                    <input type="text" class="form-control" id="domain" placeholder="Enter Intent Node Name" name="name"
+                        ngModel><br>
+                    <button class="btn btn-default" mat-raised-button type="button" (click)="showProperties()">Add
+                        Properties</button>
+                </div>
+                <br>
+
+                <div class="align-fields" [hidden]="!openProperty">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <select class="form-control input-lg" [(ngModel)]="newAttribute.property" name="newAttributeProperty">
+                                <option>parent_node_type</option>
+                                <option>weight</option>
+
+                            </select>
+                        </div>&nbsp;
+                        <div class="col-sm-4">
+                            <input class="form-control input-lg" type="text" placeholder="Enter Property data" id="newAttributeValue"
+                                [(ngModel)]="newAttribute.value" name="newAttributeValue" />
+
+                        </div>
+                        <button class="btn btn-default" mat-raised-button type="button" (click)="addFieldValue()">
+                            Add </button>
+                    </div>
+                </div>
+
+                <div *ngFor="let field of fieldArray; let i = index">
+                    <br>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <input class="form-control input-lg" name="{{field.property}}" value="{{field.property}}">
+                        </div>&nbsp;
+                        <div class="col-sm-4">
+                            <input class="form-control input-lg" [(ngModel)]="field.value" type="text" name="{{field.property}}" />
+                        </div>
+                        <button class="btn btn-default" mat-raised-button type="button" (click)="deleteFieldValue(i)">Delete</button>
+                    </div>
+                </div>
+
+
+                <br>
+                <button class="btn btn-default" mat-raised-button type="button" type="submit">Submit</button>
+            </form>
+            
+            <div [hidden]="!getTerms1" class="add-width">
+                <button class="btn btn-default" mat-raised-button type="button" (click)="onClickShowKnowledge()">Knowledge
+                    terms</button>&nbsp;
+                <button class="btn btn-default" mat-raised-button type="button" (click)="onClickShowSynthesis()">Synthesis
+                    terms</button>&nbsp;
+                <button class="btn btn-default" mat-raised-button type="button" (click)="onClickShowComprehension()">Comphrension
+                    terms</button>&nbsp;
+                <button class="btn btn-default" mat-raised-button type="button" (click)="onClickShowEvaluation()">Evaluation
+                    terms</button>&nbsp;
+                <button class="btn btn-default" mat-raised-button type="button" (click)="onClickShowAnaylsis()">Analysis
+                    terms</button>&nbsp;
+                <button class="btn btn-default" mat-raised-button type="button" (click)="onClickShowApplication()">Application
+                    terms</button>
+            </div>
+            <br>
+
+            <mat-list>
+
+                <h5><b>{{bloomstack}}</b></h5>
+                <tr *ngFor="let terms of intents | async">
+
+                    <td>
+                        <div>{{terms}}</div>
+                    </td>&nbsp;&nbsp;
+
+                    <td> <button class="btn btn-default" mat-raised-button type="button" (click)="openDialog(terms,bloomstack)">Add
+                            Synonym</button><br><br></td>
+                </tr>
+            </mat-list>
+        </div>
+    </main>
+    <footer>
+        <app-footer></app-footer>
+    </footer>
+    <!-- JavaScript Libraries -->
+    <script src="../../assets/conceptsLib/jquery/jquery.min.js"></script>
+    <script src="../../assets/conceptsLib/jquery/jquery-migrate.min.js"></script>
+    <script src="../../assets/conceptsLib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../../assets/conceptsLib/easing/easing.min.js"></script>
+    <script src="../../assets/conceptsLib/superfish/hoverIntent.js"></script>
+    <script src="../../assets/conceptsLib/superfish/superfish.min.js"></script>
+    <script src="../../assets/conceptsLib/wow/wow.min.js"></script>
+    <script src="../../assets/conceptsLib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="../../assets/conceptsLib/magnific-popup/magnific-popup.min.js"></script>
+    <script src="../../assets/conceptsLib/sticky/sticky.js"></script>
+
+    <!-- Template Main Javascript File -->
+    <script src="../../assets/conceptsTs/main.js"></script>
+
+</body>
+
+</html>

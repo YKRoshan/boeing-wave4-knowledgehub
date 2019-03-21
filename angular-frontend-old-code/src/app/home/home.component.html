@@ -1,0 +1,136 @@
+<!-- <!--  Navigation bar for the home page -->
+
+
+<!-- <nav >
+  <mat-toolbar color="primary">
+          <span class="example-fill-remaining-space"></span>
+          <a href="#"><span><img src="assets/img/logo.jpg" alt="logo" id="logo"></span></a>
+          <button mat-button (click)='navigate()'>Home</button>
+          <span class="align-center">
+         
+          <button mat-button  (click)="logging()">{{Islogged}}</button>
+          <button mat-raised-button color="warn" (click)="openDialog()">Knowledge Bot</button>
+        </span>
+      </mat-toolbar>
+      </nav>  -->
+
+
+
+
+<!-- <mat-toolbar color="primary">
+    <a href="#"><span><img src="assets/img/logo.jpg" alt="logo" id="logo"></span></a>
+    
+    <a href="#" id="title">Knowledge Hub</a>
+    <button mat-raised-button color="gray" id="loginbutton" (click)="open()">{{Islogged}}</button>
+     <button mat-raised-button color="accent" id="loginbutton" (click)="logging()">{{Islogged}}</button> 
+    
+    <button mat-raised-button color="warn" (click)="openDialog()">Knowledge Bot</button>
+
+</mat-toolbar> -->
+<!-- <div class="dragDrop" *ngIf="this.token.getToken()">
+  <div class="dragDropColour">
+    <app-upload></app-upload>
+  </div>
+</div> -->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
+  
+  <style>
+    .parallax {
+  /* The image used */
+  background-image: url("assets/img/senses.jpg");
+
+  /* Set a specific height */
+  min-height: 500px; 
+
+  /* Create the parallax scrolling effect */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.affix {
+    top: 0;
+    width: 100%;
+    z-index: 9999 !important;
+  }
+
+  .container{
+    padding-top: 120px;
+    position: sticky;
+  }
+</style>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-dark" data-spy="affix" data-offset-top="197">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03"
+      aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <a href="#"><span><img src="assets/img/l2.jpg" alt="logo" id="logo"></span></a>
+    <p>Knowledge hub</p>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+      <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+       </ul>
+    <form class="form-inline">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" (click)="logging()">{{this.dataService.login}}</button>
+      </form>
+
+    </div>
+  </nav>
+
+  <div class="dragDrop" *ngIf="this.token.getToken()">
+    <div class="dragDropColour">
+      <app-upload></app-upload>
+    </div>
+  </div>
+  <div class="parallax">
+    <div class="container" data-spy="affix" data-offset-top="197">
+      <br />
+      <div class="row justify-content-center">
+        <div class="col-12 col-md-10 col-lg-8">
+          <form class="card card-sm">
+            <div class="card-body row no-gutters align-items-center">
+
+              <!--end of col-->
+              <div class="col">
+                <input class="form-control form-control-lg form-control-borderless" #searchKey name="q" id="searchKey"
+                  type="search" [(ngModel)]="searchTerm" placeholder="Search topics or keywords">
+
+              </div>
+              <!--end of col-->
+              <form #form #gSearch method="GET" id="gSearch">
+                <div id="voicesearch">
+                  <div class="col-auto">
+                    <img src="assets/img/mic.png" alt="mic" (click)="voiceSearch()" id="mic">
+                    <button class="btn btn-lg btn-success" type="submit" (click)="subscribe(searchTerm)" >Search</button>
+                  </div>
+                </div>
+              </form>
+              <!--end of col-->
+            </div>
+          </form>
+        </div>
+        <!--end of col-->
+      </div>
+    </div>
+  </div>
+  <app-id-generator></app-id-generator>
+
+  <button mat-fab color="primary" id="add-button" (click)="openDialog()" matTooltip="Knowledge Bot"><ng-md-icon class="material-icons">Bot</ng-md-icon></button>
+
+  <div *ngIf = "this.result.show==true">
+    <app-searchcard></app-searchcard>
+  </div>
+
+  <app-footer></app-footer>
+
+</body>
+
+</html> 
