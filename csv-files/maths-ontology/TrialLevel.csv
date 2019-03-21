@@ -1,0 +1,8 @@
+identity,name,parentId,type,parentNodeType
+MATHS:1,Intent,MATHS:0,level,Intent
+MATHS:2,Knowledge,MATHS:1,level,Intent
+MATHS:3,Comprehension,MATHS:1,level,Intent
+MATHS:4,Application,MATHS:1,level,Intent
+MATHS:5,Analysis,MATHS:1,level,Intent
+MATHS:6,Synthesis,MATHS:1,level,Intent
+MATHS:7,Evaluation,MATHS:1,level,Intent
