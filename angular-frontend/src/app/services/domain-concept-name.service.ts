@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class DomainConceptNameService {
   private conceptsArray :string[];
-  private url :string = "https://localhost:8092/web-search-service/domain";
+  private url :string = "https://13.234.94.132:8092/web-search-service/domain";
   constructor(private http:HttpClient){
 
   } 

@@ -15,6 +15,6 @@ export class SearchinfoService {
   
   
   postResults(search:any){
-    return this.http.post("https://localhost:8092/upstream-service/vsearch/",search);
+    return this.http.post("https://13.234.94.132:8092/upstream-service/vsearch/",search);
   }
 }
