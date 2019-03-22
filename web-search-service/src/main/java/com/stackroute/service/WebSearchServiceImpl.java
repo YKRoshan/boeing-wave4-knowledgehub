@@ -33,7 +33,7 @@ public class WebSearchServiceImpl implements WebSearchService  {
 
         for (int i = 0; i < conceptArray.length; i++) {
 
-            Document doc = Jsoup.connect("https://google.com/search?q=" + conceptArray[i]).userAgent(USER_AGENT).get();
+            Document doc = Jsoup.connect("https://google.com/search?q=" + conceptArray[i]+"&num="+30).userAgent(USER_AGENT).get();
             for (Element result : doc.select("h3.r>a")) {
                 SearchDocument searchDocument = new SearchDocument();
                 searchDocument.setId(UUID.randomUUID().toString());
