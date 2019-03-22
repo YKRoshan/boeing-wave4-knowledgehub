@@ -18,11 +18,18 @@ public class IntentServiceImpl implements IntentService {
     public String createTermNode(Terms term) {
 
         intentRepository.save(term);
+        intentRepository.createIntentRelationship(term.getParent_node_type(),term.getName());
         return "Term node saved successfully";
     }
 
 
     public String getCount() {
         return intentRepository.getCount();
+    }
+
+    @Override
+    public String createIntentLevelTermRelationship(String intentLevel, String termName) {
+        intentRepository.createIntentRelationship(intentLevel,termName);
+        return "IntentTermRelationship Created successfully";
     }
 }

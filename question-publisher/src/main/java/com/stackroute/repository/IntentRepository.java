@@ -12,4 +12,8 @@ public interface IntentRepository extends Neo4jRepository<Terms,String> {
 
     @Query("MATCH(u:Terms) RETURN Count(*)")
     String getCount();
+
+    //       knowledge tell something
+    @Query("MATCH (p:Level{name:{0}}) MATCH (q:Terms{name:{1}) CREATE(q)-[:termsOf]->(p)")
+    String createIntentRelationship(String intentLevel,String termName);
 }
