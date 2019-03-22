@@ -51,7 +51,7 @@ public class PdfExtractionServiceImpl implements PdfExtractionService {
 
         Parser parser = new AutoDetectParser();
         PdfDocument pdfDocument = new PdfDocument();
-        String uniqueID = UUID.randomUUID().toString();
+        String uniqueID = path;
         BodyContentHandler handler = new BodyContentHandler(1000000);
         Metadata metadata =new Metadata();
 
