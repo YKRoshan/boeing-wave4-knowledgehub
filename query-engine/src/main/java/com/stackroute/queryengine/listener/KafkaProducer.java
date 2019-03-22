@@ -43,10 +43,11 @@ public class KafkaProducer {
 
         System.out.println("Inside kafka producer2");
 
-       // List<NlpResultFrequency> nlpResultFrequencies=nlpResultService.getNLPFrequencyResults();
+        List<NlpResultFrequency> nlpResultFrequencies=nlpResultService.getNLPFrequencyResults();
         List<SearchFrequency> searchResultFrequencies=searchService.getSearchStringResults();
 
-        List<NlpResultFrequency> nlpResultFrequencies=null;
+        System.out.println("nlpResultFrequencies"+nlpResultFrequencies);
+        System.out.println("searchResultFrequencies"+searchResultFrequencies);
 
 
 //        List<QueryEngineResult> qs=new ArrayList<>();

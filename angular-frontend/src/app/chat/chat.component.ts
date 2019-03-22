@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
+import { Message, ChatbotService } from '../services/chatbot.service';
 import 'rxjs/add/operator/scan';
-import { ChatService, Message } from '../service/chat.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-chat',
@@ -12,17 +13,16 @@ export class ChatComponent implements OnInit {
 
   messages: Observable<Message[]>;
   formValue: string;
-
-  constructor(public chat: ChatService) { }
+  constructor(public chat: ChatbotService,private route:Router) { }
 
   ngOnInit() {
-    // appends to array after each new message is added to feedSource
     this.messages = this.chat.conversation.asObservable()
-        .scan((acc, val) => acc.concat(val) );
+    .scan((acc, val) => acc.concat(val) );
   }
 
   sendMessage() {
     this.chat.converse(this.formValue);
     this.formValue = '';
   }
+
 }

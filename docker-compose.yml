@@ -10,10 +10,10 @@ services:
     - eurekaserver
     ports:
     - 8092:8092
-    - 8071-8071
+    - 8001-8001
     expose:
     - 8092
-    - 8071
+    - 8001
     healthcheck:
       test: "exit 0"
 
@@ -148,7 +148,7 @@ services:
       KAFKA_LISTENERS: PLAINTEXT://localhost:9092
       KAFKA_ZOOKEEPER_CONNECT: localhost:2181
       KAFKA_CREATE_TOPICS: "FileUrl:1:1, FileText:1:1, ParagraphContents:1:1,AnalyticsResults:1:1,UpstreamResults:1:1,NLPResults:1:1,
-				QueryEngineResults:1:1"
+				QueryEngineResults:1:1,WebContentExtractor:1:1,WebSearch:1:1,WebAnalyticsResults:1:1"
     network_mode: "host"
     hostname: localhost
     depends_on:
@@ -344,3 +344,114 @@ services:
       - 8070
     healthcheck:
       test: "exit 0"
+
+  question-provider:
+    image: question-provider:latest
+    build: question-provider/
+    restart: always
+    network_mode: "host"
+    hostname: localhost
+    depends_on:
+      zookeeper:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+      mongodb:
+        condition: service_healthy
+      nlp-service:
+        condition: service_healthy
+    ports:
+      - 8095:8095
+    expose:
+      - 8095
+    healthcheck:
+      test: "exit 0"
+
+  question-publisher:
+    image: question-publisher:latest
+    build: question-publisher/
+    restart: always
+    network_mode: "host"
+    hostname: localhost
+    depends_on:
+      mongodb:
+        condition: service_healthy
+      neo4j:
+        condition: service_healthy
+    ports:
+      - 8077:8077
+    expose:
+      - 8077
+    healthcheck:
+      test: "exit 0"
+
+  web-search-service:
+    image: web-search-service:latest
+    build: web-search-service/
+    restart: always
+    network_mode: "host"
+    hostname: localhost
+    depends_on:
+      kafka:
+        condition: service_healthy
+    ports:
+      - 8099:8099
+    expose:
+      - 8099
+    healthcheck:
+      test: "exit 0"
+
+  web-content-extractor:
+    image: web-content-extractor:latest
+    build: web-content-extractor/
+    restart: always
+    network_mode: "host"
+    hostname: localhost
+    depends_on:
+      kafka:
+        condition: service_healthy
+      web-search-service:
+        condition: service_healthy
+    ports:
+      - 8111:8111
+    expose:
+      - 8111
+    healthcheck:
+      test: "exit 0"
+
+  web-analytic-service:
+    image: web-analytic-service:latest
+    build: web-analytic-service/
+    restart: always
+    network_mode: "host"
+    hostname: localhost
+    depends_on:
+      kafka:
+        condition: service_healthy
+      neo4j:
+        condition: service_healthy
+      web-content-extractor:
+        condition: service_healthy
+    ports:
+      - 8098:8098
+    expose:
+      - 8098
+    healthcheck:
+      test: "exit 0"
+
+  ontology-management-service:
+    image: ontology-management-service:latest
+    build: ontology-management-service/
+    restart: always
+    network_mode: "host"
+    hostname: localhost
+    depends_on:
+      neo4j:
+        condition: service_healthy
+    ports:
+      - 8071:8071
+    expose:
+      - 8071
+    healthcheck:
+      test: "exit 0"
+

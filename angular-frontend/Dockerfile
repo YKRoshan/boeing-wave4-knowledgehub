@@ -13,8 +13,9 @@ RUN npm install jquery
 RUN npm install browser-sync --save-dev
 RUN npm i net -S
 COPY . .
-RUN npm run build
+RUN npm run build --prod
 # Stage 2
 FROM node
 RUN npm install http-server -g
-CMD ["http-server","-p","8079", "dist/Knowledgehub","-S","--cert","ssl/cert.pem","--key","ssl/key.pem"]
+#CMD ["http-server","-p","8079", "dist/knowledgeHubFrontEnd","-S","--cert","ssl/cert.pem","--key","ssl/key.pem"]
+CMD ["http-server","-p","8079", "dist/knowledgeHubFrontEnd"]

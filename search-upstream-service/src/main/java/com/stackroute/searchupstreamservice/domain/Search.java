@@ -9,7 +9,7 @@ import org.springframework.data.annotation.Id;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Search {
-    @Id
+
     private String searchString;
     private String sessionId;
 }
