@@ -44,9 +44,12 @@ public class NlpResultSeviceImpl implements NlpResultService{
         map = sortByValue(map);
        // System.out.println("size of map"+map.size());
         Iterator<Map.Entry<NlpResult, Integer>> itr = map.entrySet().iterator();
-
+        int count=0;
         while(itr.hasNext())
         {
+            if(count>9){
+                break;
+            }
             Map.Entry<NlpResult, Integer> entry = itr.next();
             NlpResultFrequency nlpResultFrequency=new NlpResultFrequency();
           //  System.out.println("aaaaaaaaaaaaa");
@@ -55,6 +58,7 @@ public class NlpResultSeviceImpl implements NlpResultService{
             nlpResultFrequency.setConcept(entry.getKey().getConcept());
             nlpResultFrequency.setFrequency(entry.getValue());
             nlpResultFrequencies.add(nlpResultFrequency);
+            count++;
         }
 
         return nlpResultFrequencies;

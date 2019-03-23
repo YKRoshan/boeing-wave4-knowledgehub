@@ -36,14 +36,18 @@ public class SearchServiceImpl implements SearchService {
         map = countFreq(allQuestions,allQuestions.size());
         map = sortByValue(map);
         Iterator<Map.Entry<Search, Integer>> itr = map.entrySet().iterator();
-
+        int count=0;
         while(itr.hasNext())
         {
+            if(count>9){
+                break;
+            }
             Map.Entry<Search, Integer> entry = itr.next();
             SearchFrequency searchFrequency=new SearchFrequency();
             searchFrequency.setFrequency(entry.getValue());
             searchFrequency.setSearchString(entry.getKey().getSearchString());
             searchFrequencies.add(searchFrequency);
+            count++;
         }
 
         return searchFrequencies;
