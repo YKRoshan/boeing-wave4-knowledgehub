@@ -33,6 +33,7 @@ public class KafkaProducer {
     //service for posting web document as kafka producer
     public String postservice(WebDocument webDocument)
     {
+        System.out.println("web content extractor post = "+webDocument.toString());
         kafkaTemplate2.send(TOPIC,webDocument);
         return "Published successfully";
     }

@@ -33,6 +33,7 @@ public class KafkaConsumer {
                 //search document that has to be consumed
         SearchDocument searchDocument=new SearchDocument(object.get("id").toString(),object.get("conceptName").toString(), object.get("domain").toString(),object.get("url").toString());
         Document document =null;
+        System.out.println("Web content extractor = " +message);
         try {
             document = Jsoup.connect(searchDocument.getLink()).userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0")
                     .referrer("http://www.google.com").ignoreHttpErrors(true)

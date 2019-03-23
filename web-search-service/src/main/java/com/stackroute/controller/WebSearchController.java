@@ -41,7 +41,13 @@ public class WebSearchController {
         try
         {
             uiDocument.setDomain(uiDocument1.getDomain());
-            uiDocument.setConceptName(uiDocument1.getConceptName());
+            String[] conceptArray = new String[uiDocument1.getConceptName().length];
+            for(int i=0;i<uiDocument1.getConceptName().length;i++){
+                conceptArray[i] = uiDocument1.getConceptName()[i].trim();
+                System.out.println("concept Name = "+conceptArray[i]);
+            }
+
+            uiDocument.setConceptName(conceptArray);
             kafkaProducer.postservice(uiDocument);
             message="Successfully upload";
             return ResponseEntity.status(HttpStatus.OK).body(message);

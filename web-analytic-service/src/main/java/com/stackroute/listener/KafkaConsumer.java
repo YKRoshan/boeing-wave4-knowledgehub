@@ -32,6 +32,7 @@ public class KafkaConsumer {
     public void consume(String message) throws IOException {
         JSONObject object = (JSONObject) JSONValue.parse(message);
         WebDocument webDocument = new WebDocument();
+        System.out.println("Web Analytic service consumer");
         if (object.get("title")!=null){
             webDocument.setTitle(object.get("title").toString());
         }else {

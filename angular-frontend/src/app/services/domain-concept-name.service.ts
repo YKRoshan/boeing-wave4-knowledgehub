@@ -11,6 +11,7 @@ export class DomainConceptNameService {
 
   } 
   postDomainConceptName(domain:string,concepts:string){
+    console.log("postDomainConceptName() am called");
       this.conceptsArray=concepts.split(",");
       console.log("before posting ")
       console.log(domain);

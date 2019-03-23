@@ -6,11 +6,11 @@
  <meta name="viewport" content="width=device-width, initial-scale=1">
  <link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
- </head>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
 <body *ngIf="this.token.getToken()">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-    <header> <app-nab-bar></app-nab-bar></header>
+       <header> <app-nab-bar></app-nab-bar></header>
 <main>
 <div class="container">
  <form action="/action_page.php">
@@ -21,11 +21,11 @@
    <br>
    <div class="form-group">
      <label for="text">Enter Concepts :</label>
-     <input type="text" class="form-control" id="Concepts" placeholder="Enter Concepts" [(ngModel)]="concepts" name="conceptName">
+     <input type="text" class="form-control" id="concepts" placeholder="Enter Concepts" [(ngModel)]="concepts" name="conceptName">
    </div>
    <br>
    <button type="submit" class="btn btn-default" (click)="publishDomainConceptName()">Submit</button>
- </form>
+  </form>
 </div>
 </main>
 <footer><app-footer></app-footer></footer>

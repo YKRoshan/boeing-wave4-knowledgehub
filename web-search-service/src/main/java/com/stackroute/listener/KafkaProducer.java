@@ -31,7 +31,7 @@ public class KafkaProducer {
     public String postservice(UIDocument uiDocument) throws IOException, DomainNotFoundException {
         List<SearchDocument> searchDocumentList=new ArrayList<>();
         searchDocumentList=webSearchService.getUrls(uiDocument);
-
+        System.out.println("postservice = "+uiDocument.toString());
         for (int i = 0; i < searchDocumentList.size(); i++) {
             SearchDocument searchDocument;
             searchDocument = webSearchService.getUrls(uiDocument).get(i);

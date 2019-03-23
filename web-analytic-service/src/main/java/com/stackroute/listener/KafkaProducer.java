@@ -24,6 +24,7 @@ public class KafkaProducer {
 
     // the postservice() will post the WebAnalyticResuls object in kafka message bus
     public String postservice() throws IOException {
+        System.out.println("Web Analytic service postservice");
         WebAnalysisResult webAnalysisResult;
         webAnalysisResult = webAnalyticService.getWebAnalysisResult();
             kafkaTemplate2.send(TOPIC, webAnalysisResult);
