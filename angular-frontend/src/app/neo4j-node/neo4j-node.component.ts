@@ -35,11 +35,15 @@ export class NodeComponent implements OnInit {
   getTerms1: boolean;
   nodes: Node[] = [];
   links: Link[] = [];
+  child:string;
+  parent:string;
+  showNodes:boolean;
 
   constructor(private formService:Neo4jService,public dialog:MatDialog,private router:Router,private d3:D3Service) { }
 
   ngOnInit() {
     this.hide='hide';
+    this.showNodes=false;
     new WOW().init();
   }
 
@@ -56,6 +60,7 @@ export class NodeComponent implements OnInit {
     this.hide='hide';
     this.intents=null;
     this.bloomstack=null;
+    this.showNodes=false;
   } 
 
   onClickOpenIntentForm(){
@@ -67,6 +72,7 @@ export class NodeComponent implements OnInit {
     this.openConcept=false;
     this.getTerms1=false;
     this.fieldArray.length=0;
+    this.showNodes=false;
   }
 
   onClickOpenTerms(){
@@ -110,14 +116,13 @@ createNode(form) {
   delete form.newAttributeProperty;
   delete form.newAttributeValue;
   this.value = form; 
-  console.log("what")
+  this.child=form.name;
+  this.parent=form.parent;
+  this.showNodes=true;
   console.log(this.value);
   console.log(form.name,form.parent);
-      var  u = new Node(form.name)
-      var  v = new Node(form.name)
-      this.nodes.push(u)
-      this.nodes.push(v)
-      this.links.push(new Link(u,v));
+     
+     
   this.formService.createNode(form.name,form.parent)
   .subscribe(
     data => {
@@ -130,6 +135,9 @@ createIntent(form) {
   delete form.newAttributeProperty;
   delete form.newAttributeValue;
   this.value = form; 
+  this.child=form.name;
+  this.parent=form.parent_node_type;
+  this.showNodes=true;
   console.log(form.name,form.parent_node_type,form.weight)
   console.log(this.value);
   this.formService.createIntent(form.name,form.parent_node_type,form.weight)
@@ -141,6 +149,8 @@ createIntent(form) {
      this.msg1="Failed to add intent node";}
   );
 }
+
+
 
 
 onClickShowKnowledge(){
@@ -211,11 +221,6 @@ onD3(){
   this.router.navigate(['/showD3'])
 }
 
-navig(){
-  this.d3.getNeo4j();
-  this.router.navigate(['/display'])
-}
-
 openDialog(terms,bloomstack): void {
   console.log(terms);
   console.log(bloomstack);
@@ -230,5 +235,8 @@ openDialog(terms,bloomstack): void {
     console.log('The dialog was closed');
   });
 }
+
+
+
 
 }

@@ -19,6 +19,9 @@ import { WebresultcardComponent } from './webresultcard/webresultcard.component'
 import { RecommendationcardComponent } from './recommendationcard/recommendationcard.component';
 import { TopsearchComponent } from './topsearch/topsearch.component';
 import { ToptrendingComponent } from './toptrending/toptrending.component';
+import { DisplayIntentComponent } from './display-intent/display-intent.component';
+import { NavigConceptComponent } from './navig-concept/navig-concept.component';
+import { NavigIntentComponent } from './navig-intent/navig-intent.component';
 const routes: Routes = [
   {
     path:"home",
@@ -66,6 +69,21 @@ const routes: Routes = [
   path: 'display',
 
   component: DisplayD3Component
+},
+{
+  path: 'displayIntent',
+
+  component: DisplayIntentComponent
+},
+{
+  path: 'navigConcept',
+
+  component: NavigConceptComponent
+},
+{
+  path: 'navigIntent',
+
+  component: NavigIntentComponent
 },
 {
   path:'search',

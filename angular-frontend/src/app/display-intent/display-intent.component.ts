@@ -2,28 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { Test } from '../test';
 import { D3Service, Link, Node } from '../d3/d3';
 import { D3Nodes } from '../domain/d3Nodes';
-
-
 @Component({
-  selector: 'app-display-d3',
-  templateUrl: './display-d3.component.html',
-  styleUrls: ['./display-d3.component.css']
+  selector: 'app-display-intent',
+  templateUrl: './display-intent.component.html',
+  styleUrls: ['./display-intent.component.css']
 })
-export class DisplayD3Component implements OnInit {
+export class DisplayIntentComponent implements OnInit {
 
 
   ngOnInit() {
-
-  }
-
-  nodes: Node[] = [];
-  links: Link[] = [];
-  nan: any;
-  ban: any;
-  can:any;
-  constructor(private test: Test, private d3: D3Service, private node: D3Nodes) {
-
-    var arr = this.d3.getNeo4j()
+    var arr = this.d3.getNeo4jIntent()
     function removeDuplicateUsingSet(arr) {
       let unique_array = Array.from(new Set(arr))
       return unique_array
@@ -64,8 +52,18 @@ for (var i = 0; i < arr.arr.length; i++) {
       // //   }
       // }
     }
+  
   }
-}
+
+
+  nodes: Node[] = [];
+  links: Link[] = [];
+  nan: any;
+  ban: any;
+  can:any;
+  constructor(private test: Test, private d3: D3Service, private node: D3Nodes) {
+
+  }}
   //  for(var i=0;i<N-1;i++){
   //     for(var j=i+1;j<N;j++){
   //  if (this.nodes[i].id ==this.nodes[j].id ) {
@@ -112,4 +110,7 @@ for (var i = 0; i < arr.arr.length; i++) {
 //   this.d3.getNeo4j();
 // }
 // }
+
+
+
 

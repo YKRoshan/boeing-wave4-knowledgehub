@@ -89,6 +89,9 @@ import { RecommendationcardComponent } from './recommendationcard/recommendation
 import { TopsearchComponent } from './topsearch/topsearch.component';
 import { ToptrendingComponent } from './toptrending/toptrending.component';
 import { WebresultcardComponent } from './webresultcard/webresultcard.component';
+import { DisplayIntentComponent } from './display-intent/display-intent.component';
+import { NavigConceptComponent } from './navig-concept/navig-concept.component';
+import { NavigIntentComponent } from './navig-intent/navig-intent.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -123,6 +126,9 @@ import { WebresultcardComponent } from './webresultcard/webresultcard.component'
     TopsearchComponent,
     ToptrendingComponent,
     WebresultcardComponent,
+    DisplayIntentComponent,
+    NavigConceptComponent,
+    NavigIntentComponent,
   ],
   imports: [
     BrowserModule,

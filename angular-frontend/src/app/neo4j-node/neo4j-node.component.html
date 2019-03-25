@@ -90,11 +90,6 @@
                             <input type="text" class="form-control input-lg" placeholder="Enter Property data" id="newAttributeValue"
                                 [(ngModel)]="newAttribute.value" name="newAttributeValue">
                         </div>
-                        <div>      <svg height="500" width="500">
-                            <circle cx="50" cy="50" r="40" stroke="black" stroke-width="3" fill="red" />
-                            <line x1="0" y1="0" x2="200" y2="200" style="stroke:rgb(255,0,0);stroke-width:2" />
-                            <circle cx="150" cy="50" r="40" stroke="black" stroke-width="3" fill="red" />
-                          </svg> </div>
                         <button class="btn btn-default" mat-raised-button type="button" (click)="addFieldValue()">
                             Add </button>
                     </div>
@@ -115,6 +110,14 @@
                 </div>
                 <br>
                 <button class="btn btn-default" mat-raised-button type="submit">Submit</button>
+                <div *ngIf="showNodes"> <svg height="100" width="200">
+                    <circle cx="50" cy="50" r="40" stroke="black" stroke-width="3" fill="rgb(60, 209, 219)" />
+                    <text x="26%" y="50%" text-anchor="middle" fill="black" font-size="15px"  dy=".3em">{{parent}}</text>
+                    <!-- <text x="10" y="50" text-anchor="middle" stroke="#51c5cf" >Look, I’m centered!Look, I’m centered!</text> -->
+                    <line x1="90" y1="50" x2="150" y2="50" style="stroke:rgb(4, 59, 33);stroke-width:2" />
+                    <circle cx="150" cy="50" r="20" stroke="black" stroke-width="3" fill="rgb(32, 238, 142)" />
+                    <text x="75%" y="50%" text-anchor="middle" fill="black" font-size="10px"  dy=".3em">{{child}}</text>
+                  </svg> </div>
             </form>
             <br>
             <form [hidden]="!openIntent" id="intentForm" #form1="ngForm" (ngSubmit)="createIntent(form1.value)">
@@ -167,6 +170,14 @@
                 </div>
                 <br>
                 <button class="btn btn-default" mat-raised-button type="button" type="submit">Submit</button>
+                <div *ngIf="showNodes"> <svg height="100" width="200">
+                    <circle cx="50" cy="50" r="40" stroke="black" stroke-width="3" fill="rgb(60, 209, 219)" />
+                    <text x="26%" y="50%" text-anchor="middle" fill="black" font-size="15px"  dy=".3em">{{parent}}</text>
+                    <!-- <text x="10" y="50" text-anchor="middle" stroke="#51c5cf" >Look, I’m centered!Look, I’m centered!</text> -->
+                    <line x1="90" y1="50" x2="150" y2="50" style="stroke:rgb(4, 59, 33);stroke-width:2" />
+                    <circle cx="150" cy="50" r="20" stroke="black" stroke-width="3" fill="rgb(32, 238, 142)" />
+                    <text x="75%" y="50%" text-anchor="middle" fill="black" font-size="10px"  dy=".3em">{{child}}</text>
+                  </svg> </div>
             </form>
             
             <div [hidden]="!getTerms1" >

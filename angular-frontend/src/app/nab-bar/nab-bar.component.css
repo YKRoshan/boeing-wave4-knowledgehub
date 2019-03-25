@@ -575,7 +575,7 @@ nav#filter a {
 	color:#555;
 }
 nav#filter a:hover, nav#filter a.current {
-	background-color: #44BCDD;
+	background-color: rgb(221, 68, 213);
 	color:#fff;
 }
 

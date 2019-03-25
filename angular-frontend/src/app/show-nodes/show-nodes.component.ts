@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {WOW} from 'wowjs/dist/wow.min'
+import { D3Service } from '../d3/d3';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -12,11 +14,20 @@ import {WOW} from 'wowjs/dist/wow.min'
 })
 export class ShowNodesComponent implements OnInit {
 
-  constructor() { }
+  constructor(private d3:D3Service,private router:Router) { }
 
   ngOnInit() {
     new WOW().init();
 
   }
+  getConcept(){
+    this.d3.getNeo4j();
+    this.router.navigate(['/navigConcept'])
+  }
+  getIntent(){
+    this.d3.getNeo4jIntent();
+    this.router.navigate(['/navigIntent'])
+  }
+
 
 }

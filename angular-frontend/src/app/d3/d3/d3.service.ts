@@ -98,6 +98,8 @@ export class D3Service {
 
     this.http.post(this.url,this.form1)
          .subscribe(data=>{
+           this.test=null;
+           this.test=new Test();
          this.test.dat = (data['data'][0][0])
           for (let d = 0; d < this.test.dat.length; d++){
             var s= this.test.dat[d].source;
@@ -110,4 +112,42 @@ export class D3Service {
          return this.test;
          
   }
+
+
+  getNeo4jIntent(){
+    this.url="http://localhost:7474/db/data/cypher";
+    // this.form1={
+    //   "query" : "MATCH (a:Level)-[r:levelOf]->(b:Level) WITH collect(source:a.name,target: b.name,value: type(r)}) AS links RETURN links",
+    //   "params" : {}
+    // }
+
+    this.form1={};
+
+    this.form1.query="MATCH (a:Terms)-[r:termsOf]->(b:Level) WITH collect({ source:a.name,target: b.name, value: type(r)}) AS links RETURN links"
+
+    this.form1.params={}
+
+
+
+
+    this.http.post(this.url,this.form1)
+         .subscribe(data=>{
+          this.test=null;
+          this.test=new Test();
+          // this.test.dat.length=0;
+          // this.test.arr.length=0;
+         this.test.dat = (data['data'][0][0])
+          for (let d = 0; d < this.test.dat.length; d++){
+            var s= this.test.dat[d].source;
+            var t = this.test.dat[d].target;
+            this.test.arr.push(s);
+            this.test.arr.push(t);
+          }
+          
+         })
+         return this.test;
+         
+  }
+  
+
 }
