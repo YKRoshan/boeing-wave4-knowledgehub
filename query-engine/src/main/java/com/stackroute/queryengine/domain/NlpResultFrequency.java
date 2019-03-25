@@ -5,11 +5,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.io.Serializable;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
 @Data
-public class NlpResultFrequency {
+public class NlpResultFrequency implements Serializable {
     String concept;
     int frequency;
 }

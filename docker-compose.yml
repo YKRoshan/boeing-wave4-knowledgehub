@@ -78,11 +78,23 @@ services:
     volumes:
       - $PWD/plugins:/plugins
       - $PWD/import:/import
+      - $PWD/data1:/var/lib/neo4j/data
+      - $PWD/logs1:/var/lib/neo4j/logs
+      - $PWD/conf:/var/lib/neo4j/conf
     environment:
       - NEO4J_AUTH=neo4j/neo4j@123
     healthcheck:
       test: "exit 0"
 
+  redis:
+    image: redis
+    container_name: redis
+    network_mode: host
+    hostname: localhost
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: "exit 0"
 
   loginservice:
     image: login-service:latest
@@ -316,6 +328,8 @@ services:
         condition: service_healthy
       nlp-service:
         condition: service_healthy
+      redis:
+        condition: service_healthy
     ports:
       - 8096:8096
     expose:
@@ -335,6 +349,8 @@ services:
       kafka:
         condition: service_healthy
       nlp-service:
+        condition: service_healthy
+      redis:
         condition: service_healthy
     ports:
       - 8097:8097

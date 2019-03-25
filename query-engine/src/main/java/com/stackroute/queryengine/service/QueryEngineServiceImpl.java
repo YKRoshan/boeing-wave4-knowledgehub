@@ -7,6 +7,9 @@ import com.stackroute.queryengine.repository.KnowledgeRepository;
 import com.stackroute.queryengine.repository.RecommendationsRepository;
 import com.stackroute.queryengine.repository.WebKnowledgeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,6 +32,7 @@ public class QueryEngineServiceImpl implements QueryEngineService {
 
 
     @Override
+    @Cacheable(value = "querycache")
     public Iterable<Knowledge> getQueryResult(String concept, String intentLevel) {
 
         System.out.println("uday");
@@ -64,6 +68,7 @@ public class QueryEngineServiceImpl implements QueryEngineService {
     }
 
     @Override
+    @Cacheable(value = "webquerycache")
     public Iterable<WebAnalyticsKnowledge> getWebQueryResult(String concept, String intentLevel) {
         if(intentLevel.equalsIgnoreCase("Knowledge"))
         {
@@ -96,13 +101,22 @@ public class QueryEngineServiceImpl implements QueryEngineService {
     }
 
     @Override
+    @Cacheable(value = "recommendation1")
     public Iterable<String> getRecommendations(String concept) {
         return recommendationsRepository.getNodesSubconcept(concept);
     }
 
     @Override
+    @Cacheable(value = "recommendation2")
     public Iterable<String> Recommendations(String concept) {
         return recommendationsRepository.getSubconceptNodes(concept);
+    }
+
+
+    @Scheduled(cron = "0 */5 * ? * *")
+    @CacheEvict(value = {"querycache", "webquerycache","recommendation1","recommendation2"}, allEntries = true)
+    public void clearrediscache(){
+
     }
 
 

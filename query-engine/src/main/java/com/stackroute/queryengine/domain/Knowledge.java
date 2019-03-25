@@ -6,11 +6,13 @@ import lombok.NoArgsConstructor;
 import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
 
+import java.io.Serializable;
+
 @NodeEntity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Knowledge implements Comparable<Knowledge> {
+public class Knowledge implements Comparable<Knowledge>, Serializable {
 
     @Id
     private String paragraphId;

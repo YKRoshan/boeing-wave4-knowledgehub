@@ -6,12 +6,14 @@ import lombok.NoArgsConstructor;
 import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
 
+import java.io.Serializable;
+
 
 @NodeEntity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class QueryEngineWebResult implements Comparable<QueryEngineWebResult>{
+public class QueryEngineWebResult implements Comparable<QueryEngineWebResult>, Serializable {
 
     @Id
     private String webAnalyticsId;

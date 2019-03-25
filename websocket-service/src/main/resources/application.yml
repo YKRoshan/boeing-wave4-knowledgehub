@@ -19,3 +19,8 @@ eureka:
 spring:
     application:
         name: web-socket-service
+    cache:
+        type: redis
+        redis:
+            port: 6379
+            host: localhost

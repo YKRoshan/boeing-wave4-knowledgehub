@@ -4,13 +4,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.util.List;
 
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class JsonResult {
+public class JsonResult implements Serializable {
 
     private String sessionId;
     private List<Knowledge> result;

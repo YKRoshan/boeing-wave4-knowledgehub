@@ -10,5 +10,10 @@ spring:
       database: QuestionStore
       host: localhost
       port: 27017
+  cache:
+    type: redis
+    redis:
+      port: 6379
+      host: localhost
 
 
