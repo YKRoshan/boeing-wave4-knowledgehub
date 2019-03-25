@@ -12,6 +12,8 @@ import { DomainConceptNameService } from './services/domain-concept-name.service
 import { DomainConceptComponent } from './domain-concept/domain-concept.component';
 import { UploadComponent } from './upload/upload.component';
 import { NodeComponent } from './neo4j-node/neo4j-node.component';
+import { DisplayD3Component } from './display-d3/display-d3.component';
+import { ShowNodesComponent } from './show-nodes/show-nodes.component';
 const routes: Routes = [
   {
     path:"home",
@@ -30,6 +32,16 @@ const routes: Routes = [
   path: 'result',
 
   component: ResultsComponent
+},
+{
+  path: 'showD3',
+
+  component: ShowNodesComponent
+},
+{
+  path: 'display',
+
+  component: DisplayD3Component
 },
 {
   path:'search',
