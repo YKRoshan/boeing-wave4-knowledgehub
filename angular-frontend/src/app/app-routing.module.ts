@@ -22,6 +22,8 @@ import { ToptrendingComponent } from './toptrending/toptrending.component';
 import { DisplayIntentComponent } from './display-intent/display-intent.component';
 import { NavigConceptComponent } from './navig-concept/navig-concept.component';
 import { NavigIntentComponent } from './navig-intent/navig-intent.component';
+import { ConceptNodesComponent } from './concept-nodes/concept-nodes.component';
+import { IntentNodesComponent } from './intent-nodes/intent-nodes.component';
 const routes: Routes = [
   {
     path:"home",
@@ -69,6 +71,16 @@ const routes: Routes = [
   path: 'display',
 
   component: DisplayD3Component
+},
+{
+  path: 'displayConceptNodes',
+
+  component: ConceptNodesComponent
+},
+{
+  path: 'displayIntentNodes',
+
+  component: IntentNodesComponent
 },
 {
   path: 'displayIntent',

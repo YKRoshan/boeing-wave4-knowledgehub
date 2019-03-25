@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { json } from 'd3';
 import { Test } from 'src/app/test';
+import { Intent } from 'src/app/testIntent';
 
 
 
@@ -15,7 +16,7 @@ export class D3Service {
   /** This service will provide methods to enable user interaction with elements
     * while maintaining the d3 simulations physics
     */
-  constructor(private http:HttpClient,private test:Test) { 
+  constructor(private http:HttpClient,private test:Test,private intent:Intent) { 
   }
 
   /** A method to bind a pan and zoom behaviour to an svg element */
@@ -147,6 +148,66 @@ export class D3Service {
          })
          return this.test;
          
+  }
+  getConceptNodes(){
+    this.url="http://localhost:7474/db/data/cypher";
+    // this.form1={
+    //   "query" : "MATCH (a:Level)-[r:levelOf]->(b:Level) WITH collect(source:a.name,target: b.name,value: type(r)}) AS links RETURN links",
+    //   "params" : {}
+    // }
+
+    this.form1={};
+
+    this.form1.query="MATCH (n:Concept) RETURN n.name "
+
+    this.form1.params={}
+
+
+
+
+    this.http.post(this.url,this.form1)
+         .subscribe(data=>{
+          this.test=null;
+          this.test=new Test();
+          // this.test.dat.length=0;
+          // this.test.arr.length=0;
+          for (let d = 0; d < data['data'].length; d++){
+          
+            this.test.arr.push(data['data'][d]);  
+          }
+          
+         }) 
+         return this.test.arr; 
+  }
+  getIntentNodes(){
+    this.url="http://localhost:7474/db/data/cypher";
+    // this.form1={
+    //   "query" : "MATCH (a:Level)-[r:levelOf]->(b:Level) WITH collect(source:a.name,target: b.name,value: type(r)}) AS links RETURN links",
+    //   "params" : {}
+    // }
+
+    this.form1={};
+
+    this.form1.query="MATCH (n:Terms) RETURN n.name "
+
+    this.form1.params={}
+
+
+
+
+    this.http.post(this.url,this.form1)
+         .subscribe(data=>{
+          // this.test=null;
+          // this.test=new Test();
+          // this.test.dat.length=0;
+          // this.test.arr.length=0;
+          for (let d = 0; d < data['data'].length; d++){
+          
+            this.intent.arr.push(data['data'][d]);  
+          }
+          
+         }) 
+         return this.intent.arr; 
   }
   
 

@@ -84,6 +84,7 @@ import { D3_DIRECTIVES, D3Service } from './d3/d3';
 import { ShowNodesComponent } from './show-nodes/show-nodes.component';
 import { DisplayD3Component } from './display-d3/display-d3.component';
 import { Test } from './test';
+import { Intent } from './testIntent';
 import { D3Nodes } from './domain/d3Nodes';
 import { RecommendationcardComponent } from './recommendationcard/recommendationcard.component';
 import { TopsearchComponent } from './topsearch/topsearch.component';
@@ -92,6 +93,8 @@ import { WebresultcardComponent } from './webresultcard/webresultcard.component'
 import { DisplayIntentComponent } from './display-intent/display-intent.component';
 import { NavigConceptComponent } from './navig-concept/navig-concept.component';
 import { NavigIntentComponent } from './navig-intent/navig-intent.component';
+import { ConceptNodesComponent } from './concept-nodes/concept-nodes.component';
+import { IntentNodesComponent } from './intent-nodes/intent-nodes.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -129,6 +132,8 @@ import { NavigIntentComponent } from './navig-intent/navig-intent.component';
     DisplayIntentComponent,
     NavigConceptComponent,
     NavigIntentComponent,
+    ConceptNodesComponent,
+    IntentNodesComponent,
   ],
   imports: [
     BrowserModule,
@@ -184,7 +189,7 @@ import { NavigIntentComponent } from './navig-intent/navig-intent.component';
   BrowserModule.withServerTransition({ appId: 'serverApp' }),
   BrowserTransferStateModule,
   ],
-  providers: [SocketService,SessionId,DataService,TokenService,AuthService,AuthInterceptor,D3Service,Test,D3Nodes],
+  providers: [SocketService,SessionId,DataService,TokenService,AuthService,AuthInterceptor,D3Service,Test,D3Nodes,Intent],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   bootstrap: [AppComponent],
   entryComponents:[TermComponent,ChatComponent]
