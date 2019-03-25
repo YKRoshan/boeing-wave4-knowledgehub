@@ -44,7 +44,6 @@ public class WebSearchController {
             String[] conceptArray = new String[uiDocument1.getConceptName().length];
             for(int i=0;i<uiDocument1.getConceptName().length;i++){
                 conceptArray[i] = uiDocument1.getConceptName()[i].trim();
-                System.out.println("concept Name = "+conceptArray[i]);
             }
 
             uiDocument.setConceptName(conceptArray);
