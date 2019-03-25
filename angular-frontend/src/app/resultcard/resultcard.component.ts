@@ -11,10 +11,7 @@ export class ResultcardComponent implements OnInit {
 
   searchTerm: string;
   object1:any;
-  object2:any;
-  object3:any;
-  object4:any;
-  object5:any;
+  flag:boolean = true;
   var1="";
   constructor( private dataService: DataService,
     private result : SessionId) { }
@@ -22,10 +19,16 @@ export class ResultcardComponent implements OnInit {
   ngOnInit() {
     this.searchTerm = this.dataService.dataService;
     this.object1 = this.result.pdfresult;
-    this.object2 = this.result.webresult;
-    this.object3 = this.result.recommendation;
-    this.object4 = this.result.nlpresult;
-    this.object5 = this.result.searchfreq;
+   
+  }
+  assignVar(data){
+    if(this.flag){
+    this.var1=data;
+    this.flag=false;
+  }else{
+    this.var1="";
+    this.flag=true;
+  }
   }
 
 }

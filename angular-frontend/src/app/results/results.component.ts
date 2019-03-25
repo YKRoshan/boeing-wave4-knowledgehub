@@ -4,7 +4,7 @@ import { SessionId } from '../domain/sessionId';
 import { Router } from '@angular/router';
 import { SocketService } from '../services/socket.service';
 import { SearchinfoService } from '../services/searchinfo.service';
-
+import $ from 'jquery'
 @Component({
   selector: 'app-results',
   templateUrl: './results.component.html',
@@ -25,7 +25,25 @@ export class ResultsComponent implements OnInit {
     ) { }
 
   ngOnInit() {
+    this.router.navigate(['/result/resultcard']);
     this.searchTerm = this.dataService.dataService
+    $(document).ready(function () {
+      $(window).scroll(function () {
+        if ($(this).scrollTop() > 50) {
+          $('.scroll-top').fadeIn();
+        } else {
+          $('.scroll-top').fadeOut();
+        }
+      });
+    
+      $('.scroll-top').click(function () {
+        $("html, body").animate({
+          scrollTop: 0
+        }, 100);
+          return false;
+      });
+    
+    });
 
   }
   search(){
@@ -48,7 +66,7 @@ export class ResultsComponent implements OnInit {
 
     });
     this.router.navigateByUrl('/search', {skipLocationChange: true}).then(()=>
-this.router.navigate(["/result"]));
+    this.router.navigate(["/result/resultcard"]));
  
   }
 

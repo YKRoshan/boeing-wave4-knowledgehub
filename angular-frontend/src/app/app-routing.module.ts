@@ -14,6 +14,11 @@ import { UploadComponent } from './upload/upload.component';
 import { NodeComponent } from './neo4j-node/neo4j-node.component';
 import { DisplayD3Component } from './display-d3/display-d3.component';
 import { ShowNodesComponent } from './show-nodes/show-nodes.component';
+import { ResultcardComponent } from './resultcard/resultcard.component';
+import { WebresultcardComponent } from './webresultcard/webresultcard.component';
+import { RecommendationcardComponent } from './recommendationcard/recommendationcard.component';
+import { TopsearchComponent } from './topsearch/topsearch.component';
+import { ToptrendingComponent } from './toptrending/toptrending.component';
 const routes: Routes = [
   {
     path:"home",
@@ -31,7 +36,26 @@ const routes: Routes = [
 {
   path: 'result',
 
-  component: ResultsComponent
+  component: ResultsComponent,
+  children :[
+    {
+      path:'resultcard',
+      component: ResultcardComponent
+    },
+    {
+      path:'webresult',
+      component: WebresultcardComponent
+    },{
+      path:'recommendation',
+      component:RecommendationcardComponent
+    },{
+      path:'topsearch',
+      component:TopsearchComponent
+    },{
+      path:'toptrending',
+      component:ToptrendingComponent
+    }
+  ]
 },
 {
   path: 'showD3',

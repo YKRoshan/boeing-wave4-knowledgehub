@@ -85,6 +85,10 @@ import { ShowNodesComponent } from './show-nodes/show-nodes.component';
 import { DisplayD3Component } from './display-d3/display-d3.component';
 import { Test } from './test';
 import { D3Nodes } from './domain/d3Nodes';
+import { RecommendationcardComponent } from './recommendationcard/recommendationcard.component';
+import { TopsearchComponent } from './topsearch/topsearch.component';
+import { ToptrendingComponent } from './toptrending/toptrending.component';
+import { WebresultcardComponent } from './webresultcard/webresultcard.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -115,6 +119,10 @@ import { D3Nodes } from './domain/d3Nodes';
     ...D3_DIRECTIVES,
     ShowNodesComponent,
     DisplayD3Component,
+    RecommendationcardComponent,
+    TopsearchComponent,
+    ToptrendingComponent,
+    WebresultcardComponent,
   ],
   imports: [
     BrowserModule,
@@ -124,6 +132,7 @@ import { D3Nodes } from './domain/d3Nodes';
     HttpClientModule,
     MatAutocompleteModule,
     MatButtonModule,
+    DragDropModule,
   MatBadgeModule,
   MatButtonModule,
   MatBottomSheetModule,

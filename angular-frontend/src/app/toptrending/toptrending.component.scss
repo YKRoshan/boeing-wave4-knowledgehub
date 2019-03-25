@@ -1,0 +1,39 @@
+
+.wrapper {
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	height: 370px;
+}
+
+.card {
+	animation: card 500ms cubic-bezier(0.4, 0.0, 0.2, 1);
+	animation-fill-mode:forwards;
+	animation-delay: 1000ms;
+	border-radius: 3px;
+	box-shadow: 0px 2px 12px #515151;
+}
+
+@keyframes card {
+	0% {
+		height: 10px;
+		width: 400px;
+		background-color: white;
+	}
+	
+	50% {
+		height: 200px;
+	}
+	
+	100% {
+		margin: 10px 0;
+		height: 300px;
+		width: 400px;
+		background-color:#E0E0E0;
+	}
+}
+.para{
+	text-align: center; margin-top:40px;font-family: 'Iceberg', cursive;font-size:40px
+}

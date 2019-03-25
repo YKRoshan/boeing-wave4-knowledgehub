@@ -1,12 +1,27 @@
-
-<div class="search">
-  <form class="search-form"  >
-    <input type="text" placeholder="Search here....." name="searchTerm" [(ngModel)]="searchTerm">
-    <img class="mic"  src="https://upload.wikimedia.org/wikipedia/commons/2/22/Google_microphone_logo.png">
-    <input  class="btn"  type="submit" value="Submit" (click)="search()">
-  </form>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<body>
+<app-nab-bar></app-nab-bar>
+<form class="form-wrapper-01" style="margin-top:100px;position:absolute" >
+  <input id="search" type="text" name="searchTerm" [(ngModel)]="searchTerm"/>
+  <img class="mic" (click)="voicesearch()" src="https://upload.wikimedia.org/wikipedia/commons/2/22/Google_microphone_logo.png">
+  <input id="submit" type="submit" value="Search" (click)="search()"/>
+</form>
+<div class="button-group"> 
+  <a routerLink="/result/resultcard"  routerLinkActive="active"><button class="btn"><img src="../../assets/img/resulticon.svg">RESULT</button></a>
+  <a routerLink="/result/webresult"><button class="btn"><img src="../../assets/img/web.svg">WEB RESULT</button></a>
+  <a routerLink="/result/topsearch"><button class="btn"><img src="../../assets/img/search.svg">TOP SEARCH</button></a>
+  <a routerLink="/result/recommendation"><button class="btn"><img src="../../assets/img/bookmark.svg"> RECOMMENDED</button></a>
+  <a routerLink="/result/toptrending"><button class="btn"><img src="../../assets/img/trending_up.svg">TOP QUESTION</button></a>
 </div>
-<app-resultcard></app-resultcard>
+<router-outlet></router-outlet>
+<button class="btn btn-primary scroll-top" data-scroll="up" type="button">
+  <i class="fa fa-chevron-up"></i><p>TOP</p>
+  </button>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</body>
+<!-- <app-footer></app-footer> -->
 
-
-
+  
