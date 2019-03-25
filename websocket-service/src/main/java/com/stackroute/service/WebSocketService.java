@@ -15,16 +15,8 @@ public class WebSocketService {
     /*
     The methode takes ChatMessage object list and returns the same.
     */
-
-//    @Cacheable(value = "webcache",key = "#jsonResult.sessionId")
     public JsonResult sendMessageService(JsonResult jsonResult){
         System.out.println("going into cacheable service");
         return jsonResult;
     }
-
-//    @Scheduled(cron = "0 */5 * ? * *")
-//    @CacheEvict(value = "webcache", allEntries = true)
-//    public void clearrediscache(){
-//
-//    }
 }
