@@ -109,7 +109,6 @@ public class OntologyController {
         intentService.createTermNode(term1);
         nodeCreatorService.insertRelationship(Synonym,intentLevel);
 
-        System.out.println(term1);
         return  new ResponseEntity<String>("Inserted term Successfully", HttpStatus.OK);
     }
 
