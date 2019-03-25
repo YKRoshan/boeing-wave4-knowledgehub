@@ -12,6 +12,8 @@ RUN npm install sockjs
 RUN npm install jquery
 RUN npm install browser-sync --save-dev
 RUN npm i net -S
+RUN npm install --save d3
+RUN npm install --save-dev @types/d3
 COPY . .
 RUN npm run build --prod
 # Stage 2

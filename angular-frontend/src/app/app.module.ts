@@ -77,6 +77,14 @@ import { DomainConceptComponent } from './domain-concept/domain-concept.componen
 import {NodeComponent } from './neo4j-node/neo4j-node.component';
 import { TermComponent } from './neo4j-term/neo4j-term.component';
 import { ChatComponent } from './chat/chat.component';
+import { D3Component } from './d3/d3.component';
+import { GraphComponent } from './d3/visuals/graph/graph.component';
+import { SHARED_VISUALS } from './d3/visuals/shared';
+import { D3_DIRECTIVES, D3Service } from './d3/d3';
+import { ShowNodesComponent } from './show-nodes/show-nodes.component';
+import { DisplayD3Component } from './display-d3/display-d3.component';
+import { Test } from './test';
+import { D3Nodes } from './domain/d3Nodes';
 @NgModule({
   declarations: [
     AppComponent,
@@ -99,7 +107,14 @@ import { ChatComponent } from './chat/chat.component';
     UploadComponent,
     NodeComponent,
     TermComponent,
-    ChatComponent
+    ChatComponent,
+    D3Component,
+    AppComponent,
+    GraphComponent,
+    ...SHARED_VISUALS,
+    ...D3_DIRECTIVES,
+    ShowNodesComponent,
+    DisplayD3Component,
   ],
   imports: [
     BrowserModule,
@@ -154,7 +169,7 @@ import { ChatComponent } from './chat/chat.component';
   BrowserModule.withServerTransition({ appId: 'serverApp' }),
   BrowserTransferStateModule,
   ],
-  providers: [SocketService,SessionId,DataService,TokenService,AuthService,AuthInterceptor],
+  providers: [SocketService,SessionId,DataService,TokenService,AuthService,AuthInterceptor,D3Service,Test,D3Nodes],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   bootstrap: [AppComponent],
   entryComponents:[TermComponent,ChatComponent]

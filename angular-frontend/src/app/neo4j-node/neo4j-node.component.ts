@@ -5,6 +5,8 @@ import {WOW} from 'wowjs/dist/wow.min'
 import { Intents } from '../intent';
 import { TermComponent } from '../neo4j-term/neo4j-term.component';
 import { Neo4jService } from '../services/neo4j.service';
+import { Router } from '@angular/router';
+import { D3Service, Link,Node } from '../d3/d3';
 
 @Component({
   selector: 'app-neo4j-node',
@@ -31,8 +33,10 @@ export class NodeComponent implements OnInit {
   msg1: string;
   hide:string;
   getTerms1: boolean;
+  nodes: Node[] = [];
+  links: Link[] = [];
 
-  constructor(private formService:Neo4jService,public dialog:MatDialog) { }
+  constructor(private formService:Neo4jService,public dialog:MatDialog,private router:Router,private d3:D3Service) { }
 
   ngOnInit() {
     this.hide='hide';
@@ -106,8 +110,14 @@ createNode(form) {
   delete form.newAttributeProperty;
   delete form.newAttributeValue;
   this.value = form; 
+  console.log("what")
   console.log(this.value);
   console.log(form.name,form.parent);
+      var  u = new Node(form.name)
+      var  v = new Node(form.name)
+      this.nodes.push(u)
+      this.nodes.push(v)
+      this.links.push(new Link(u,v));
   this.formService.createNode(form.name,form.parent)
   .subscribe(
     data => {
@@ -125,6 +135,7 @@ createIntent(form) {
   this.formService.createIntent(form.name,form.parent_node_type,form.weight)
   .subscribe(
     data => {
+      
       this.msg1="Added succesfully"},
     error => {
      this.msg1="Failed to add intent node";}
@@ -196,6 +207,14 @@ onClickShowEvaluation(){
 //     console.log(this.allTerms);
 // })
 // }
+onD3(){
+  this.router.navigate(['/showD3'])
+}
+
+navig(){
+  this.d3.getNeo4j();
+  this.router.navigate(['/display'])
+}
 
 openDialog(terms,bloomstack): void {
   console.log(terms);
