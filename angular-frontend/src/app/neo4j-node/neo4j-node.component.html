@@ -21,7 +21,7 @@
         <section id="services">
             <div class="container">
                 <div class="section-header">
-                        <!-- <h1>Modify Neo4j</h1> -->
+                        <h1>Modify Neo4j</h1>
                 </div>
 
                 <div class="row">
@@ -30,7 +30,7 @@
                         <div class="box wow fadeInLeft">
                             <!-- <div class="icon"><i class="fa fa-link"></i></div> -->
                             <h4 class="title"><a (click)="onClickOpenConceptForm()">Add concept Nodes</a></h4>
-                            <p class="description">Add concept nodes to the neo4j graph</p>
+                            <p class="description">Add concept nodes to neo4j graph</p>
                         </div>
                     </div>
 
@@ -38,8 +38,8 @@
                     <div class="col-md-4">
                         <div class="box wow fadeInDown">
                             <!-- <div class="icon"><i class="fa fa-database"></i></div> -->
-                            <h4 class="title"><a (click)="onClickOpenIntentForm()">Add Intent Nodes</a></h4>
-                            <p class="description">Add intent nodes to the neo4j graph</p>
+                            <h4 class="title"><a (click)="onClickOpenIntentForm()">Add Term Nodes</a></h4>
+                            <p class="description">Add term nodes to neo4j graph</p>
                         </div>
 
                     </div>
@@ -47,8 +47,8 @@
                     <div class="col-md-4">
                         <div class="box wow fadeInRight" data-wow-delay="0.2s">
                             <!-- <div class="icon"><i class="fa fa-question"></i></div> -->
-                            <h4 class="title"><a (click)="onClickOpenTerms()">Get Synonyms for Terms</a></h4>
-                            <p class="description">Add synonyms to the intent terms</p>
+                            <h4 class="title"><a (click)="onClickOpenTerms()">Get same as for Terms</a></h4>
+                            <p class="description">Add same as to the terms</p>
                         </div>
                     </div>
                 </div>
@@ -148,30 +148,27 @@
                         <button class="btn btn-default" mat-raised-button type="button" (click)="deleteFieldValue(i)">Delete</button>
                     </div>
                 </div>
-
-
                 <br>
                 <button class="btn btn-default" mat-raised-button type="button" type="submit">Submit</button>
             </form>
             
-            <div [hidden]="!getTerms1" class="add-width">
+            <div [hidden]="!getTerms1" >
                 <button class="btn btn-default" mat-raised-button type="button" (click)="onClickShowKnowledge()">Knowledge
-                    terms</button>&nbsp;
+                    </button>&nbsp;
                 <button class="btn btn-default" mat-raised-button type="button" (click)="onClickShowSynthesis()">Synthesis
-                    terms</button>&nbsp;
+                    </button>&nbsp;
                 <button class="btn btn-default" mat-raised-button type="button" (click)="onClickShowComprehension()">Comphrension
-                    terms</button>&nbsp;
+                    </button>&nbsp;
                 <button class="btn btn-default" mat-raised-button type="button" (click)="onClickShowEvaluation()">Evaluation
-                    terms</button>&nbsp;
+                    </button>&nbsp;
                 <button class="btn btn-default" mat-raised-button type="button" (click)="onClickShowAnaylsis()">Analysis
-                    terms</button>&nbsp;
+                    </button>&nbsp;
                 <button class="btn btn-default" mat-raised-button type="button" (click)="onClickShowApplication()">Application
-                    terms</button>
+                    </button>
             </div>
             <br>
 
             <mat-list>
-
                 <h5><b>{{bloomstack}}</b></h5>
                 <tr *ngFor="let terms of intents | async">
 

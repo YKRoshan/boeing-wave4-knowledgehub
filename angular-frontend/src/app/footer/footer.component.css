@@ -15,11 +15,11 @@
 }
 
 #topbar .contact-info a:hover {
-  color: #50d8af;
+  color: #b0b1b2;
 }
 
 #topbar .contact-info i {
-  color: #50d8af;
+  color: #b0b1b2;
   padding: 4px;
 }
 
@@ -38,7 +38,7 @@
 }
 
 #topbar .social-links a:hover {
-  color: #50d8af;
+  color: #b0b1b2;
 }
 
 #topbar .social-links a:first-child {
@@ -52,4 +52,8 @@ position: relative;
   min-height: 50px;
   color: white;
   box-sizing: border-box;
+}
+
+@media(max-width: 786px) {
+
 }
