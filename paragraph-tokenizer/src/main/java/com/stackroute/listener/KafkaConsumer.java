@@ -28,17 +28,7 @@ public class KafkaConsumer {
         this.paragraphService = paragraphService;
     }
 
-
-
-
-
-
-
 //    @Autowired
-//    private KafkaTemplate<String, JSObject> kafkaTemplate;
-//
-//    private static final String TOPIC = "FileText";
-
     @KafkaListener(topics = "FileText", groupId = "group_id")
     public void consume(String message) throws ParagraphNotFoundException {
 
