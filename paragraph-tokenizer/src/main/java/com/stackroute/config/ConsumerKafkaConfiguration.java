@@ -15,6 +15,9 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+/*
+This class will receive the document from content extractor in JSON format
+ */
 @EnableKafka
 @Configuration
 public class ConsumerKafkaConfiguration {
