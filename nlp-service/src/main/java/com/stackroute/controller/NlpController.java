@@ -19,6 +19,7 @@ public class NlpController {
     private SearchJSONProviderService searchJSONProviderService;
     private QuestionStorageService questionStorageService;
 
+    /*Controller*/
     @Autowired
     public NlpController(QuestionStorageService questionStorageService,SearchJSONProviderService searchJSONProviderService, SearchService searchService, NlpService nlpService) {
         this.searchService = searchService;
@@ -27,6 +28,7 @@ public class NlpController {
         this.questionStorageService = questionStorageService;
     }
 
+    /*This method is storing SearchJSON in mongoDb*/
     @PostMapping("searchString")
     public ResponseEntity<?> setParagraph(@RequestBody SearchJSON searchJSON) {
         ResponseEntity responseEntity;
@@ -43,6 +45,7 @@ public class NlpController {
         }
     }
 
+    /*This method is getting nlpResults in postman*/
     @GetMapping("nlpResults")
     public ResponseEntity<NlpResult> getAnalysisResult() {
         ResponseEntity responseEntity;
