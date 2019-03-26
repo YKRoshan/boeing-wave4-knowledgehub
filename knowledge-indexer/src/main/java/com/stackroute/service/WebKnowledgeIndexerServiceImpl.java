@@ -17,12 +17,12 @@ public class WebKnowledgeIndexerServiceImpl implements WebKnowledgeIndexerServic
         this.webAnalyticsKnowledgeRepository=webAnalyticsKnowledgeRepository;
     }
 
-
+    //method to save knowledge nodes to neo4j
     public void saveWebKnowledgeToDb(WebAnalyticsKnowledge webAnalyticsKnowledge) {
         webAnalyticsKnowledgeRepository.save(webAnalyticsKnowledge);
     }
 
-
+    //method to add relationship between ontology nodes and knowledge nodes
     public void addRelationship(String concept, String webAnalyticsId, String intentLevel, double confidenceScore)
     {
         if(intentLevel.equalsIgnoreCase("knowledge"))
