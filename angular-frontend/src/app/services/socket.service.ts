@@ -40,15 +40,15 @@ export class SocketService {
         webres.forEach(element => {
           _this.webresult(element);
         });
-        // nlp.forEach(element => {
-        //   _this.nlp(element);
-        // });
-        // rec.forEach(element => {
-        //   _this.rec(element);
-        // });
-        // searchfreq.forEach(element => {
-        //   _this.searchfreq(element);
-        // });
+        nlp.forEach(element => {
+          _this.nlp(element);
+        });
+        rec.forEach(element => {
+          _this.rec(element);
+        });
+        searchfreq.forEach(element => {
+          _this.searchfreq(element);
+        });
       });
     });
   }
