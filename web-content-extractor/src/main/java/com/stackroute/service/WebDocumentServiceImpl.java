@@ -17,8 +17,7 @@ public class WebDocumentServiceImpl implements WebDocumentService{
     private WebDocument webDocument= new WebDocument();
 
     @Override
-    public void sendSearchdoc(SearchDocument searchDocument) throws EmptyFileException,
-            FileNotFoundException{
+    public void sendSearchdoc(SearchDocument searchDocument){
         webDocument.setId(searchDocument.getId());
         webDocument.setConceptName(searchDocument.getConceptName());
         webDocument.setDomain(searchDocument.getDomain());
@@ -28,7 +27,7 @@ public class WebDocumentServiceImpl implements WebDocumentService{
 
 
     @Override
-    public String extractTitle(SearchDocument searchDocument) throws FileNotFoundException {
+    public String extractTitle(SearchDocument searchDocument){
         String title="";
         String link=searchDocument.getLink();
         try {
@@ -46,7 +45,7 @@ public class WebDocumentServiceImpl implements WebDocumentService{
     }
 
     @Override
-    public String extractDescription(SearchDocument searchDocument) throws FileNotFoundException{
+    public String extractDescription(SearchDocument searchDocument){
         String description = "";
         String link=searchDocument.getLink();
         try {
@@ -83,7 +82,7 @@ public class WebDocumentServiceImpl implements WebDocumentService{
     }
 
     @Override
-    public String extractKeywords(SearchDocument searchDocument) throws FileNotFoundException{
+    public String extractKeywords(SearchDocument searchDocument){
         String keywords = "";
         String link=searchDocument.getLink();
         try {
@@ -120,7 +119,7 @@ public class WebDocumentServiceImpl implements WebDocumentService{
     }
 
     @Override
-    public int extractImageCount(SearchDocument searchDocument) throws FileNotFoundException{
+    public int extractImageCount(SearchDocument searchDocument){
         int imageCount=0;
         String link=searchDocument.getLink();
         try {
@@ -141,7 +140,7 @@ public class WebDocumentServiceImpl implements WebDocumentService{
     }
 
     @Override
-    public void extractCodeSnippets(SearchDocument searchDocument) throws FileNotFoundException{
+    public void extractCodeSnippets(SearchDocument searchDocument){
         double codeSnippets=0;
         String link=searchDocument.getLink();
         try {

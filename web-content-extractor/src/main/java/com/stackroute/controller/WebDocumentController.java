@@ -24,7 +24,7 @@ public class WebDocumentController {
 
     //post mapping for search document by sending search document in body
     @PostMapping("/searchdoc")
-    public ResponseEntity<String> postSearchDoc(@RequestBody SearchDocument searchDoc) throws FileNotFoundException {
+    public ResponseEntity<String> postSearchDoc(@RequestBody SearchDocument searchDoc){
         ResponseEntity responseEntity;
         try{
             this.searchDocument1=new SearchDocument();
