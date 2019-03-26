@@ -5,7 +5,6 @@ import com.stackroute.domain.Terms;
 import com.stackroute.service.IntentService;
 import com.stackroute.service.NlpService;
 import com.stackroute.service.QuestionDeleterService;
-import com.stackroute.service.QuestionPublisherService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,16 +14,13 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/")
 public class QuestionPublisherController {
     private QuestionDeleterService questionDeleterService;
-    private QuestionPublisherService questionPublisherService;
     private IntentService intentService;
     private NlpService nlpService;
 
     public QuestionPublisherController(QuestionDeleterService questionDeleterService,
-                                       QuestionPublisherService questionPublisherService,
                                        IntentService intentService,
                                        NlpService nlpService) {
         this.questionDeleterService = questionDeleterService;
-        this.questionPublisherService = questionPublisherService;
         this.intentService = intentService;
         this.nlpService = nlpService;
 
@@ -50,6 +46,8 @@ public class QuestionPublisherController {
 
         String neo4jId = intentService.getCount();
 
+        System.out.println("Controller post "+publishQuestion.toString());
+
         Terms term = new Terms();
         term.setId(Integer.parseInt(neo4jId));
         term.setId3(publishQuestion.getUniqueId());
@@ -74,6 +72,11 @@ public class QuestionPublisherController {
         }
 
         String message = intentService.createTermNode(term);
+        String message1=intentService.createIntentLevelTermRelationship(term.getParent_node_type(),term.getName());
+
+        System.out.println("message = "+message);
+        System.out.println("message 1"+" "+message1);
+        System.out.println("Controller post "+publishQuestion.toString());
 
         responseEntity = new ResponseEntity<>(message, HttpStatus.ACCEPTED);
         return responseEntity;
