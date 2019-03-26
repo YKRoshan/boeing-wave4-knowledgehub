@@ -4,6 +4,7 @@ package com.stackroute.controller;
 
 import com.stackroute.domain.SearchDocument;
 import com.stackroute.domain.WebDocument;
+import com.stackroute.exception.FileNotFoundException;
 import com.stackroute.service.WebDocumentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,7 +24,7 @@ public class WebDocumentController {
 
     //post mapping for search document by sending search document in body
     @PostMapping("/searchdoc")
-    public ResponseEntity<String> postSearchDoc(@RequestBody SearchDocument searchDoc){
+    public ResponseEntity<String> postSearchDoc(@RequestBody SearchDocument searchDoc) throws FileNotFoundException {
         ResponseEntity responseEntity;
         try{
             this.searchDocument1=new SearchDocument();
