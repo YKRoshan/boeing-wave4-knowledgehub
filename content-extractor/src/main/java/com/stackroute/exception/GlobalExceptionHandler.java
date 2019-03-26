@@ -19,7 +19,7 @@ public class GlobalExceptionHandler {
 
     //This exception is for checking Empty FileUrl
     @ExceptionHandler(EmptyFileException.class)
-    public ResponseEntity userAlreadyExistsException(final EmptyFileException e) {
+    public ResponseEntity emptyFileException(final EmptyFileException e) {
         return  new ResponseEntity(e.getMessage(), HttpStatus.CONFLICT);
     }
 }

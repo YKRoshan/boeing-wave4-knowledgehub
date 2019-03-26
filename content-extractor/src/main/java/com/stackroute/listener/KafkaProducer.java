@@ -27,9 +27,6 @@ public class KafkaProducer {
         this.kafkaTemplate2=kafkaTemplate2;
     }
 
-    @Autowired
-
-
     private static final String TOPIC="FileText";
     public String postservice(String fileurl) throws IOException, SAXException, NullPointerException, FileNotFoundException, EmptyFileException,
             TikaException
