@@ -21,12 +21,14 @@ public class ParagraphController {
 
     JSONObject objects = new JSONObject();
 
+    /*Constructor class*/
 
     @Autowired
     public ParagraphController(ParagraphService paragraphService){
         this.paragraphService = paragraphService;
     }
 
+    /*Post mapping for posting document details*/
     @PostMapping("paragraph")
     public ResponseEntity<?> postJSONObject(@RequestBody JSONObject document){
         ResponseEntity responseEntity;
@@ -41,7 +43,7 @@ public class ParagraphController {
     }
 
 
-
+    /*Get mapping for retrieving paragraph details*/
     @GetMapping("paragraphs")
     public ResponseEntity<?> getAllJSONObjects() throws ParagraphNotFoundException{
         this.objects.put("documentId","23233");
