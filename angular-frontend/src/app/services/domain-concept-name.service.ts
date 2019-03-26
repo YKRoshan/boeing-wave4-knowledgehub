@@ -10,8 +10,9 @@ export class DomainConceptNameService {
   constructor(private http:HttpClient){
 
   } 
-  postDomainConceptName(domain:string,concepts:string){
-    console.log("postDomainConceptName() am called");
+  postDomainConceptName(domain:string,concepts:string):string{
+    if(domain!=null && concepts!=null && concepts.length!=0 && domain.length!=0 ){
+      console.log("postDomainConceptName() am called");
       this.conceptsArray=concepts.split(",");
       console.log("before posting ")
       console.log(domain);
@@ -20,8 +21,15 @@ export class DomainConceptNameService {
         "domain":domain,
         "conceptName":this.conceptsArray
       }).subscribe((data)=>{
+
         console.log(data);
       })
       console.log("after posting ")
+      return "Submitted Successfully!!";
+    }
+    else{
+      return "Submission failed maybe due to null or empty values";
+    }
+    
   }
 }

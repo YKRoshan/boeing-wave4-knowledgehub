@@ -37,11 +37,18 @@ export class ChatbotService {
                   if (speech=='so you want to search about spring Close this bot and Hold on...')
                   {
                     console.log("inside if of speech");
+                    const botMessage1 = new Message(speech, 'bot');
+                    this.update(botMessage1);
+                    const botMessage2=new Message(null,null)
+                    this.update(botMessage2);
                     // this.navigate();
                   this.closeDialog(msg);
                   }
-                  const botMessage = new Message(speech, 'bot');
-                  this.update(botMessage);
+                  else{
+                    const botMessage = new Message(speech, 'bot');
+                    this.update(botMessage);
+                  }
+                 
                });}
 
         // Adds message to source
@@ -60,7 +67,7 @@ export class ChatbotService {
   console.log(output);
  
    this.searchService.postResults(output).subscribe();
-   this.router.navigate(['/result']);
+   this.router.navigate(['/result/resultcard']);
 
   }
 }

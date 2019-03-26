@@ -6,12 +6,12 @@ import { Router } from '@angular/router';
   templateUrl: './navig-intent.component.html',
   styleUrls: ['./navig-intent.component.css']
 })
-export class NavigIntentComponent implements OnInit {
+export class NavigIntentComponent{
 
   constructor(private router:Router) { }
 
 
-  ngOnInit() {
+  ngOn() {
     this.router.navigate(['/displayIntent'])
   }
 

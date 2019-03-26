@@ -4,6 +4,8 @@ package com.stackroute.service;
 
 import com.stackroute.domain.SearchDocument;
 import com.stackroute.domain.WebDocument;
+import com.stackroute.exception.EmptyFileException;
+import com.stackroute.exception.FileNotFoundException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -15,16 +17,17 @@ public class WebDocumentServiceImpl implements WebDocumentService{
     private WebDocument webDocument= new WebDocument();
 
     @Override
-    public void sendSearchdoc(SearchDocument searchDocument) {
+    public void sendSearchdoc(SearchDocument searchDocument){
         webDocument.setId(searchDocument.getId());
         webDocument.setConceptName(searchDocument.getConceptName());
         webDocument.setDomain(searchDocument.getDomain());
         webDocument.setLink(searchDocument.getLink());
+
     }
 
 
     @Override
-    public String extractTitle(SearchDocument searchDocument) {
+    public String extractTitle(SearchDocument searchDocument){
         String title="";
         String link=searchDocument.getLink();
         try {
@@ -42,7 +45,7 @@ public class WebDocumentServiceImpl implements WebDocumentService{
     }
 
     @Override
-    public String extractDescription(SearchDocument searchDocument) {
+    public String extractDescription(SearchDocument searchDocument){
         String description = "";
         String link=searchDocument.getLink();
         try {
@@ -79,7 +82,7 @@ public class WebDocumentServiceImpl implements WebDocumentService{
     }
 
     @Override
-    public String extractKeywords(SearchDocument searchDocument) {
+    public String extractKeywords(SearchDocument searchDocument){
         String keywords = "";
         String link=searchDocument.getLink();
         try {
@@ -116,7 +119,7 @@ public class WebDocumentServiceImpl implements WebDocumentService{
     }
 
     @Override
-    public int extractImageCount(SearchDocument searchDocument) {
+    public int extractImageCount(SearchDocument searchDocument){
         int imageCount=0;
         String link=searchDocument.getLink();
         try {
@@ -137,8 +140,8 @@ public class WebDocumentServiceImpl implements WebDocumentService{
     }
 
     @Override
-    public void extractCodePercentage(SearchDocument searchDocument) {
-        double codePercentage=0;
+    public void extractCodeSnippets(SearchDocument searchDocument){
+        double codeSnippets=0;
         String link=searchDocument.getLink();
         try {
             Document document = Jsoup.connect(link).userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0")
@@ -146,19 +149,11 @@ public class WebDocumentServiceImpl implements WebDocumentService{
                     .get();
             //calculating all the pre code tags and counting the number of times they occur
             Elements code = document.getElementsByTag("pre").tagName("code");
-            float codecnt=0;
+
             for (Element codeElem : code) {
-                codecnt++;
+                codeSnippets++;
             }
-            //getting all tags and counting the number of times they occur
-            Elements alltags = document.getAllElements();
-            float tagcount=0;
-            for (Element allTag : alltags) {
-                tagcount++;
-            }
-            //calculating code percentage
-            codePercentage = (codecnt/tagcount) * 100;
-            webDocument.setCodePercentage(codePercentage);
+            webDocument.setCodeSnippets(codeSnippets);
         }
         catch (Exception ex){
             ex.printStackTrace();

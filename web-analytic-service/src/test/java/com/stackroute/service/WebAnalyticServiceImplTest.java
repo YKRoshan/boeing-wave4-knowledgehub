@@ -39,7 +39,7 @@ public class WebAnalyticServiceImplTest {
         webDocument = new WebDocument();
         webDocument.setLink("https://www.tutorialspoint.com/spring/spring_web_mvc_framework.htm");
         webDocument.setDomain("spring framework");
-        webDocument.setCodePercentage(10);
+        webDocument.setCodeSnippets(10);
         webDocument.setConceptName("spring mvc");
         webDocument.setDescription("spring mvc description");
         webDocument.setId("webDoc001");
@@ -72,7 +72,7 @@ public class WebAnalyticServiceImplTest {
         webAnalysisResults.setId("webDoc001");
         webAnalysisResults.setDomain("spring framework");
         webAnalysisResults.setConceptName("spring mvc");
-        webAnalysisResults.setCodePercentage(10);
+        webAnalysisResults.setCodeSnippets(10);
         webAnalysisResults.setDescription("spring mvc description");
     }
 

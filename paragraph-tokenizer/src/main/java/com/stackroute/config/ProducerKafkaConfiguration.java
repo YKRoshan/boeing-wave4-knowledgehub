@@ -14,6 +14,10 @@ import org.springframework.kafka.support.serializer.JsonSerializer;
 import java.util.HashMap;
 import java.util.Map;
 
+/*
+    This Class will send paragraph info to analytic server
+    Setting Kafka and Zookeeper Configuration
+ */
 @Configuration
 public class ProducerKafkaConfiguration {
 

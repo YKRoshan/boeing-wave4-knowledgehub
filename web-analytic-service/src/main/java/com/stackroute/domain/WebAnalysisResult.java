@@ -18,7 +18,7 @@ public class WebAnalysisResult {
     private String conceptName;
     private String keywords;
     private int imageCount;
-    private float codePercentage;
+    private double codeSnippets;
     private String title;
     private String description;
     private String intentLevel;

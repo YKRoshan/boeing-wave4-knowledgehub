@@ -4,6 +4,7 @@ package com.stackroute.controller;
 
 import com.stackroute.domain.SearchDocument;
 import com.stackroute.domain.WebDocument;
+import com.stackroute.exception.FileNotFoundException;
 import com.stackroute.service.WebDocumentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -49,7 +50,7 @@ public class WebDocumentController {
             webDocumentService.extractDescription(searchDocument1);
             webDocumentService.extractKeywords(searchDocument1);
             webDocumentService.extractImageCount(searchDocument1);
-            webDocumentService.extractCodePercentage(searchDocument1);
+            webDocumentService.extractCodeSnippets(searchDocument1);
             responseEntity= new ResponseEntity<WebDocument>(webDocumentService.getContentExtractorResults(), HttpStatus.OK);
         } catch (Exception ex) {
             responseEntity = new ResponseEntity<String>(ex.getMessage(),HttpStatus.CONFLICT);

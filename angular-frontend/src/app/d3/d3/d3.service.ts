@@ -1,22 +1,29 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { Node, Link, ForceDirectedGraph } from './models';
 import * as d3 from 'd3';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { json } from 'd3';
 import { Test } from 'src/app/test';
 import { Intent } from 'src/app/testIntent';
+import { Testconcept } from 'src/app/conceptArray';
+import { TestIntent } from 'src/app/intentArray';
 
 
-
+const httpOptions = {
+  headers: new HttpHeaders({ "Access-Control-Allow-Origin" : "*","Authorization":"Basic bmVvNGo6bmVvNGpAMTIz"
+})
+};
+const url="http://13.234.94.132:7474/db/data/cypher";
 @Injectable()
 export class D3Service {
-  url: any;
+  // url: any;
   form1: any;
+  
   /** This service will provide methods to enable user interaction with elements
     * while maintaining the d3 simulations physics
     */
-  constructor(private http:HttpClient,private test:Test,private intent:Intent) { 
+  constructor(private http:HttpClient,private test:Test,private intent:Intent,private conceptArray:Testconcept,private intentArray:TestIntent) { 
   }
 
   /** A method to bind a pan and zoom behaviour to an svg element */
@@ -76,13 +83,9 @@ export class D3Service {
     return sg;
   }
 
-  getJson():Observable<any>{
-    console.log("f");
-    return this.http.get("/home/user/Videos/d3/angular-d3-graph-example/graph.json");
-  }
 
   getNeo4j(){
-    this.url="http://localhost:7474/db/data/cypher";
+    // this.url="http://13.234.94.132:7474/db/data/cypher";
     // this.form1={
     //   "query" : "MATCH (a:Level)-[r:levelOf]->(b:Level) WITH collect(source:a.name,target: b.name,value: type(r)}) AS links RETURN links",
     //   "params" : {}
@@ -97,7 +100,7 @@ export class D3Service {
 
 
 
-    this.http.post(this.url,this.form1)
+    this.http.post(url,this.form1,httpOptions)
          .subscribe(data=>{
            this.test=null;
            this.test=new Test();
@@ -116,7 +119,7 @@ export class D3Service {
 
 
   getNeo4jIntent(){
-    this.url="http://localhost:7474/db/data/cypher";
+    // this.url="http://13.234.94.132:7474/db/data/cypher";
     // this.form1={
     //   "query" : "MATCH (a:Level)-[r:levelOf]->(b:Level) WITH collect(source:a.name,target: b.name,value: type(r)}) AS links RETURN links",
     //   "params" : {}
@@ -131,26 +134,24 @@ export class D3Service {
 
 
 
-    this.http.post(this.url,this.form1)
+    this.http.post(url,this.form1,httpOptions)
          .subscribe(data=>{
-          this.test=null;
-          this.test=new Test();
-          // this.test.dat.length=0;
-          // this.test.arr.length=0;
-         this.test.dat = (data['data'][0][0])
-          for (let d = 0; d < this.test.dat.length; d++){
-            var s= this.test.dat[d].source;
-            var t = this.test.dat[d].target;
-            this.test.arr.push(s);
-            this.test.arr.push(t);
+          this.intent=null;
+          this.intent=new Intent();
+         this.intent.dat = (data['data'][0][0])
+          for (let d = 0; d < this.intent.dat.length; d++){
+            var s= this.intent.dat[d].source;
+            var t = this.intent.dat[d].target;
+            this.intent.arr.push(s);
+            this.intent.arr.push(t);
           }
           
          })
-         return this.test;
+         return this.intent;
          
   }
   getConceptNodes(){
-    this.url="http://localhost:7474/db/data/cypher";
+    // this.url="http://13.234.94.132:7474/db/data/cypher";
     // this.form1={
     //   "query" : "MATCH (a:Level)-[r:levelOf]->(b:Level) WITH collect(source:a.name,target: b.name,value: type(r)}) AS links RETURN links",
     //   "params" : {}
@@ -165,22 +166,19 @@ export class D3Service {
 
 
 
-    this.http.post(this.url,this.form1)
+    this.http.post(url,this.form1,httpOptions)
          .subscribe(data=>{
-          this.test=null;
-          this.test=new Test();
-          // this.test.dat.length=0;
-          // this.test.arr.length=0;
+          this.conceptArray.arr.length=0;
           for (let d = 0; d < data['data'].length; d++){
           
-            this.test.arr.push(data['data'][d]);  
+            this.conceptArray.arr.push(data['data'][d]);  
           }
           
          }) 
-         return this.test.arr; 
+         return this.conceptArray.arr
   }
   getIntentNodes(){
-    this.url="http://localhost:7474/db/data/cypher";
+    // this.url="http://13.234.94.132:7474/db/data/cypher";
     // this.form1={
     //   "query" : "MATCH (a:Level)-[r:levelOf]->(b:Level) WITH collect(source:a.name,target: b.name,value: type(r)}) AS links RETURN links",
     //   "params" : {}
@@ -195,19 +193,18 @@ export class D3Service {
 
 
 
-    this.http.post(this.url,this.form1)
+    this.http.post(url,this.form1,httpOptions)
          .subscribe(data=>{
-          // this.test=null;
-          // this.test=new Test();
           // this.test.dat.length=0;
           // this.test.arr.length=0;
+          this.intentArray.arr.length=0;
           for (let d = 0; d < data['data'].length; d++){
           
-            this.intent.arr.push(data['data'][d]);  
+            this.intentArray.arr.push(data['data'][d]);  
           }
           
          }) 
-         return this.intent.arr; 
+         return this.intentArray.arr 
   }
   
 

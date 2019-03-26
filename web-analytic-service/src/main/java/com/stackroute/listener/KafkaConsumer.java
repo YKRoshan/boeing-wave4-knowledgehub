@@ -53,10 +53,10 @@ public class KafkaConsumer {
         }else {
             webDocument.setImageCount(0);
         }
-        if (object.get("codePercentage")!=null){
-            webDocument.setCodePercentage(Float.parseFloat(object.get("codePercentage").toString()));
+        if (object.get("codeSnippets")!=null){
+            webDocument.setCodeSnippets(Double.parseDouble(object.get("codeSnippets").toString()));
         }else {
-            webDocument.setCodePercentage(0);
+            webDocument.setCodeSnippets(0);
         }
         if (object.get("id")!=null){
             webDocument.setId(object.get("id").toString());

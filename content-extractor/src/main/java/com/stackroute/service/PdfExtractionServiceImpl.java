@@ -29,6 +29,12 @@ import java.io.*;
 import java.net.URL;
 import java.util.UUID;
 
+
+/*
+It will extract content from pdfs,ppts that is present locally as well on web.
+Extracted content includes text and metadata of files.
+ */
+
 @Service
 @PropertySource(value = "classpath:application.yml")
 public class PdfExtractionServiceImpl implements PdfExtractionService {

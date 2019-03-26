@@ -58,7 +58,7 @@ public class PdfController {
                 message = "You successfully uploaded !";
                 return ResponseEntity.status(HttpStatus.OK).body(message);
             } catch (Exception e) {
-                message = "FAIL to upload " + convFile.getAbsolutePath() + "!";
+                message = convFile.getAbsolutePath()+" : This path does not exist!";
                 return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(message);
             }
         }

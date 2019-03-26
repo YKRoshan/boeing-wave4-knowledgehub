@@ -6,11 +6,12 @@ import { Router } from '@angular/router';
   templateUrl: './navig-concept.component.html',
   styleUrls: ['./navig-concept.component.css']
 })
-export class NavigConceptComponent implements OnInit {
+export class NavigConceptComponent  {
 
   constructor(private router:Router) { }
 
-  ngOnInit() {
+
+  ngOn() {
     this.router.navigate(['/display'])
   }
 

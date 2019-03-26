@@ -14,6 +14,8 @@ import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 @Service
 public class KafkaConsumer {
@@ -34,25 +36,33 @@ public class KafkaConsumer {
         SearchDocument searchDocument=new SearchDocument(object.get("id").toString(),object.get("conceptName").toString(), object.get("domain").toString(),object.get("url").toString());
         Document document =null;
         System.out.println("Web content extractor = " +message);
-        try {
-            document = Jsoup.connect(searchDocument.getLink()).userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0")
-                    .referrer("http://www.google.com").ignoreHttpErrors(true)
-                    .get();
-            //checking and avoiding youtube videos
-            if (document!=null && (!searchDocument.getLink().contains("youtube.com"))) {
-                webDocumentService.sendSearchdoc(searchDocument);
-                webDocumentService.extractTitle(searchDocument);
-                webDocumentService.extractDescription(searchDocument);
-                webDocumentService.extractKeywords(searchDocument);
-                webDocumentService.extractImageCount(searchDocument);
-                webDocumentService.extractCodePercentage(searchDocument);
-                WebDocument webDocument = webDocumentService.getContentExtractorResults();
-                //sending web document as kafka producer
-                kafkaProducer.postservice(webDocument);
+        URL url = new URL(searchDocument.getLink());
+        HttpURLConnection connection = (HttpURLConnection)url.openConnection();
+        connection.setRequestMethod("GET");
+        connection.connect();
+        int code = connection.getResponseCode();
+        if(code == 200){
+            try {
+                document = Jsoup.connect(searchDocument.getLink()).userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0")
+                        .referrer("http://www.google.com").ignoreHttpErrors(true)
+                        .get();
+                //checking and avoiding youtube videos
+                if (document!=null && (!searchDocument.getLink().contains("youtube.com"))) {
+                    webDocumentService.sendSearchdoc(searchDocument);
+                    webDocumentService.extractTitle(searchDocument);
+                    webDocumentService.extractDescription(searchDocument);
+                    webDocumentService.extractKeywords(searchDocument);
+                    webDocumentService.extractImageCount(searchDocument);
+                    webDocumentService.extractCodeSnippets(searchDocument);
+                    WebDocument webDocument = webDocumentService.getContentExtractorResults();
+                    //sending web document as kafka producer
+                    kafkaProducer.postservice(webDocument);
+                }
+            }
+            catch (Exception e){
+                e.printStackTrace();
             }
         }
-        catch (Exception e){
-            e.printStackTrace();
-        }
+
     }
 }
