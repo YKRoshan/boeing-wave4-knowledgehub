@@ -13,6 +13,7 @@ export class DomainConceptComponent implements OnInit {
   private domain:string;
   private concepts:string;
   private resetButton:any;
+  private output:string;
   constructor(private domainConceptNameService:DomainConceptNameService,public token:TokenService){
 
   }
@@ -22,7 +23,7 @@ export class DomainConceptComponent implements OnInit {
   publishDomainConceptName(){
     console.log("publish domain concept name 122");
     console.log("publish domain concept name 133");
-    this.domainConceptNameService.postDomainConceptName(this.domain,this.concepts);
+    this.output=this.domainConceptNameService.postDomainConceptName(this.domain,this.concepts);
     console.log("publish domain concept name 144");
     this.domain='';
     this.concepts='';
