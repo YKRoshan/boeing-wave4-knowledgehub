@@ -211,7 +211,7 @@ public class WebAnalyticServiceImpl implements WebAnalyticService {
         htmlTagWithContentAndScoreList = getAllHtmlTagsWithContentAndScore();
         intentWordWithFrequencyCountList = getIntentWordWithFrequencyCount();
         intentWithConfidenceScoresList = getConfidenceScoreOfMostAccurateIntents();
-        webAnalysisResult.setCodePercentage(webDocumentProviderService.getWebDocument().getCodePercentage());
+        webAnalysisResult.setCodeSnippets(webDocumentProviderService.getWebDocument().getCodeSnippets());
         webAnalysisResult.setConceptName(webDocumentProviderService.getWebDocument().getConceptName());
         webAnalysisResult.setDescription(webDocumentProviderService.getWebDocument().getDescription());
         webAnalysisResult.setDomain(webDocumentProviderService.getWebDocument().getDomain());

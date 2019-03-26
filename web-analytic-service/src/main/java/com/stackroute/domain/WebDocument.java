@@ -19,7 +19,7 @@ public class WebDocument {
     private String conceptName;
     private String keywords;
     private int imageCount;
-    private float codePercentage;
+    private float codeSnippets;
     private String title;
     private String description;
 }
