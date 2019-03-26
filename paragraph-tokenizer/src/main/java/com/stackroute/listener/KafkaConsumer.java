@@ -41,8 +41,5 @@ public class KafkaConsumer {
 
         kafkaProducer.postservice(paragraphList);
 
-        System.out.println("text\n"+pdfDocument.getDocumentText());
-        System.out.println("Id\n"+pdfDocument.getDocumentId());
-        System.out.println("metadata\n"+pdfDocument.getDocumentMetaData());
     }
 }
