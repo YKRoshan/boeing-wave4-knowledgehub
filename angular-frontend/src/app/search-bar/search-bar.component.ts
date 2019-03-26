@@ -60,7 +60,8 @@ export class SearchBarComponent implements OnInit {
         window['searchTerm'] = voiceHandler.value;
         console.log("SEARCHED: "+window['searchTerm']);
           vSearch.stop();
- 
+          // vSearch.submit();
+          voiceSearchForm.submit();
         }
  
  
