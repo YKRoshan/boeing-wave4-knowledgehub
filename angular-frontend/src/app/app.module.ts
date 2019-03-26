@@ -85,6 +85,8 @@ import { ShowNodesComponent } from './show-nodes/show-nodes.component';
 import { DisplayD3Component } from './display-d3/display-d3.component';
 import { Test } from './test';
 import { Intent } from './testIntent';
+import { TestIntent } from './intentArray';
+import { Testconcept } from './conceptArray';
 import { D3Nodes } from './domain/d3Nodes';
 import { RecommendationcardComponent } from './recommendationcard/recommendationcard.component';
 import { TopsearchComponent } from './topsearch/topsearch.component';
@@ -189,7 +191,7 @@ import { IntentNodesComponent } from './intent-nodes/intent-nodes.component';
   BrowserModule.withServerTransition({ appId: 'serverApp' }),
   BrowserTransferStateModule,
   ],
-  providers: [SocketService,SessionId,DataService,TokenService,AuthService,AuthInterceptor,D3Service,Test,D3Nodes,Intent],
+  providers: [SocketService,SessionId,DataService,TokenService,AuthService,AuthInterceptor,D3Service,Test,D3Nodes,Intent,TestIntent,Testconcept],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   bootstrap: [AppComponent],
   entryComponents:[TermComponent,ChatComponent]

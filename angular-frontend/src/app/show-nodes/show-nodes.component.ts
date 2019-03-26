@@ -22,18 +22,18 @@ export class ShowNodesComponent implements OnInit {
   }
   getConcept(){
     this.d3.getNeo4j();
-    this.router.navigate(['/navigConcept'])
+    // this.router.navigate(['/navigConcept'])
+    this.router.navigate(['/display'])
   }
   getIntent(){
     this.d3.getNeo4jIntent();
-    this.router.navigate(['/navigIntent'])
+    // this.router.navigate(['/navigIntent'])
+    this.router.navigate(['/displayIntent'])
   }
   getConceptNodes(){
-    this.d3.getConceptNodes();
     this.router.navigate(['/displayConceptNodes'])
   }
   getIntentNodes(){
-    this.d3.getIntentNodes();
     this.router.navigate(['/displayIntentNodes'])
   }
 
