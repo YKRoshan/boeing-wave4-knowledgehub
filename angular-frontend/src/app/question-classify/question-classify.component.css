@@ -1,8 +1,8 @@
 .card{
-    background-color: navajowhite;
+    background-color: white;
 }
 .card-header{
-    background-color: lightsalmon;
+    background-color: lightgrey;
 }
 header{
   position: relative;

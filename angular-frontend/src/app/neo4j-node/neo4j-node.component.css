@@ -2,6 +2,20 @@ button
 {
     background-color: #d4d7db;
     color: black;
+    /* width: 25%; */
+    padding: 200px;
+}
+
+@media screen and (max-width: 992px) {
+  button {
+    width: 30%;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  button {
+    width: 100%;
+  }
 }
 
 header{
