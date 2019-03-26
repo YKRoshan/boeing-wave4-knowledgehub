@@ -1,7 +1,7 @@
 <body>
+  <button mat-raised-button type="button" mat-dialog-close>Close Bot</button>
 
   <h1 mat-dialog-title>Knowledge Bot</h1>
-  
   
   <div mat-dialog-content>
   
@@ -25,8 +25,8 @@
       <input matInput [(ngModel)]="formValue" (keyup.enter)="sendMessage()" type="text"><br>
     </mat-form-field>
   
-  <button mat-stroked-button  (click)="sendMessage()">Send</button>
-  <button mat-stroked-button type="button" mat-dialog-close>Close Bot</button>
+  <button mat-raised-button  (click)="sendMessage()">Send</button>
+  <!-- <button mat-stroked-button type="button" mat-dialog-close>Close Bot</button> -->
   
   </div>
   
