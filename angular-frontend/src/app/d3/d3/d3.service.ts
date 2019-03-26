@@ -168,8 +168,7 @@ export class D3Service {
 
     this.http.post(url,this.form1,httpOptions)
          .subscribe(data=>{
-          // this.test.dat.length=0;
-          // this.test.arr.length=0;
+          this.conceptArray.arr.length=0;
           for (let d = 0; d < data['data'].length; d++){
           
             this.conceptArray.arr.push(data['data'][d]);  
@@ -198,6 +197,7 @@ export class D3Service {
          .subscribe(data=>{
           // this.test.dat.length=0;
           // this.test.arr.length=0;
+          this.intentArray.arr.length=0;
           for (let d = 0; d < data['data'].length; d++){
           
             this.intentArray.arr.push(data['data'][d]);  
