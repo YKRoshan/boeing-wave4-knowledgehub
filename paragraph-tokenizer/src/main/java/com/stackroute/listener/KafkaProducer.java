@@ -25,8 +25,6 @@ public class KafkaProducer {
         this.paragraphService = paragraphService;
     }
 
-
-    @Autowired
     private KafkaTemplate<String, JSONObject> kafkaTemplate2;
 
     private static final String TOPIC="ParagraphContents";
