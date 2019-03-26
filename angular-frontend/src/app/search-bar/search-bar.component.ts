@@ -10,6 +10,7 @@ import { ChatComponent } from '../chat/chat.component';
 
 const configKey = makeStateKey('CONFIG');
 declare var webkitSpeechRecognition: any;
+
 @Component({
   selector: 'app-search-bar',
   templateUrl: './search-bar.component.html',
@@ -19,6 +20,7 @@ export class SearchBarComponent implements OnInit {
   searchTerm: string;
   public title : string;
   show :string;
+  flag : number;
   @ViewChild('gSearch') formSearch;
   @ViewChild('searchKey') hiddenSearchHandler;
 
@@ -39,10 +41,12 @@ export class SearchBarComponent implements OnInit {
     }
 
   ngOnInit() {
+    this.flag=0;
   }
   voicesearch(){
     if('webkitSpeechRecognition' in window){
       const vSearch = new webkitSpeechRecognition();
+      this.flag=1;
       vSearch.continuous = false;
       vSearch.interimresults = false;
       vSearch.lang = 'en-US';
@@ -56,7 +60,8 @@ export class SearchBarComponent implements OnInit {
         window['searchTerm'] = voiceHandler.value;
         console.log("SEARCHED: "+window['searchTerm']);
           vSearch.stop();
- 
+          // vSearch.submit();
+          voiceSearchForm.submit();
         }
  
  
@@ -79,8 +84,12 @@ export class SearchBarComponent implements OnInit {
       searchString : this.searchTerm
     };
     this.searchservice.postResults(output).subscribe();
-    // this.dataservice.dataService = window['searchTerm'];
-    this.dataservice.dataService = this.searchTerm; 
+    if(this.flag==1){
+      this.dataservice.dataService = window['searchTerm'];
+    }
+    else{
+      this.dataservice.dataService = this.searchTerm; 
+    }
     this.router.navigate(['/result'])
   }
 
