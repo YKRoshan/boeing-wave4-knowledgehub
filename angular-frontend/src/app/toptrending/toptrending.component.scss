@@ -1,39 +1,62 @@
+@import url(//fonts.googleapis.com/css?family=Open+Sans:400,600); *,*::before, *::after { box-sizing: border-box; } body { margin: 2rem 0.5rem; background-color: #c4c8cc; color: #404448; font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; line-height: 1.4; } h1 { margin: 0 0 2rem; font-weight: 400; line-height: 1.1; text-align: center; } p { margin: 0 0 1.4em; } ul { margin: 0 0 1.4em; padding: 0; padding-left: 1.15em; list-style-type: square; }
 
-.wrapper {
 
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	height: 370px;
+/**
+ * The card stack mixin. 
+ * 
+ * @param   color  $card-color    Main color of the card stack. Defaults to white.
+ * @param   color  $shadow-color  Color of the shadow. Defaults to black.
+ * 
+ * @return  box-shadow            Applies a box shadow to the element.
+ */
+@mixin card-stack( $card-color: white, $shadow-color: black ) {
+	box-shadow: 0 0.0625em 0.1875em 0 rgba( $shadow-color, 0.1 ),
+	            0 0.5em 0 -0.25em shade( $card-color, 5% ),
+	            0 0.5em 0.1875em -0.25em rgba( $shadow-color, 0.1 ),
+	            0 1em 0 -0.5em shade( $card-color, 10% ),
+	            0 1em 0.1875em -0.5em rgba( $shadow-color, 0.1 );
 }
 
+
+// Some examples of usage. 
 .card {
-	animation: card 500ms cubic-bezier(0.4, 0.0, 0.2, 1);
-	animation-fill-mode:forwards;
-	animation-delay: 1000ms;
-	border-radius: 3px;
-	box-shadow: 0px 2px 12px #515151;
-}
-
-@keyframes card {
-	0% {
-		height: 10px;
-		width: 400px;
-		background-color: white;
+	// margin-top:10px;
+	margin-top:20px;
+	margin-left:27%;
+	padding: 1rem;
+	min-width: 60rem;
+	max-width: 20rem;
+	height:80px;
+	
+	background-color: white;
+	
+	word-wrap: break-word;
+	
+	@include card-stack();
+	
+	&.card-primary,
+	&.card-dark {
+		color: white;
 	}
 	
-	50% {
-		height: 200px;
+	
+	&.card-dark {
+		background-color: #E0E0E0;
+		
+		@include card-stack( #E0E0E0);
 	}
 	
-	100% {
-		margin: 10px 0;
-		height: 300px;
-		width: 400px;
-		background-color:#E0E0E0;
-	}
+	> :last-child { margin-bottom: 0; }
 }
-.para{
-	text-align: center; margin-top:40px;font-family: 'Iceberg', cursive;font-size:40px
+.search{
+	font-family: 'Margarine', cursive;
+	font-size:20px;
+	margin-top:10px;
+	text-align: center;
+	text-transform:capitalize;
+	color:black;
+	transition: transform .2s; 
+}
+.search:hover{
+	transform: scale(1.5);
 }
