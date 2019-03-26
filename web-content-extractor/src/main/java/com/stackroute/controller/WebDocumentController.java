@@ -49,7 +49,7 @@ public class WebDocumentController {
             webDocumentService.extractDescription(searchDocument1);
             webDocumentService.extractKeywords(searchDocument1);
             webDocumentService.extractImageCount(searchDocument1);
-            webDocumentService.extractCodePercentage(searchDocument1);
+            webDocumentService.extractCodeSnippets(searchDocument1);
             responseEntity= new ResponseEntity<WebDocument>(webDocumentService.getContentExtractorResults(), HttpStatus.OK);
         } catch (Exception ex) {
             responseEntity = new ResponseEntity<String>(ex.getMessage(),HttpStatus.CONFLICT);

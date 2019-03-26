@@ -85,7 +85,7 @@ public class WebDocumentControllerTest {
         webDocument.setDescription("Spring Hello World Example - Learn Java Spring Framework version 4.1.6 in simple and easy steps starting from basic to advanced concepts with examples including Overview, Architecture, environment setup, Hello World Example, inversion of control (IoC), dependency injection, bean definition, scopes, bean life cycle, Post Processors, definition inheritance, dependency injection,  inner beans, injecting collection, autowiring, Annotation, Java based configuration, event handling, custom events, different modules, aspect oriented programming (AOP), database access (JDBC), Transaction Management, Web MVC framework, logging with Log4j, Web Flow, Exception handling, EJB integration and Sending email, Spring Interview Questions, Answers, Quiz and Online Mock Test.");
         webDocument.setKeywords("Free, Spring, Tutorials, beginners, Framework, Web Flow,  Reference, Manual, Guide, transaction, Management, Overview, Architecture, environment setup, Hello World Example, inversion of control (IoC), dependency injection, bean definition, scopes, bean life cycle, Post Processors, definition inheritance, dependency injection,  inner beans, injecting collection, autowiring, Annotation, Java based configuration, event handling, custom events, different modules, aspect oriented programming (AOP), database access (JDBC), Web MVC framework, logging with Log4j, Exception handling, EJB integration and Sending email, Spring Interview Questions, Answers, Quiz and Online Mock Test.");
         webDocument.setImageCount(16);
-        webDocument.setCodePercentage(1.0471205);
+        webDocument.setCodeSnippets(3);
     }
 
     @Test

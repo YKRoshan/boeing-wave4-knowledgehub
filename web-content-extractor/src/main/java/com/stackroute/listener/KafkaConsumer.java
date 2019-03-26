@@ -45,7 +45,7 @@ public class KafkaConsumer {
                 webDocumentService.extractDescription(searchDocument);
                 webDocumentService.extractKeywords(searchDocument);
                 webDocumentService.extractImageCount(searchDocument);
-                webDocumentService.extractCodePercentage(searchDocument);
+                webDocumentService.extractCodeSnippets(searchDocument);
                 WebDocument webDocument = webDocumentService.getContentExtractorResults();
                 //sending web document as kafka producer
                 kafkaProducer.postservice(webDocument);

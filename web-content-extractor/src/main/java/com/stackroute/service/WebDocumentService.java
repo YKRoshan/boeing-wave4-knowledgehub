@@ -11,6 +11,6 @@ public interface WebDocumentService {
     public String extractDescription(SearchDocument searchDocument);
     public String extractKeywords(SearchDocument searchDocument);
     public int extractImageCount(SearchDocument searchDocument);
-    public void extractCodePercentage(SearchDocument searchDocument);
+    public void extractCodeSnippets(SearchDocument searchDocument);
     public WebDocument getContentExtractorResults();
 }

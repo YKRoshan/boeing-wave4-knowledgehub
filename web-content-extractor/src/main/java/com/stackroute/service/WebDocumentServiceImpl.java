@@ -20,6 +20,7 @@ public class WebDocumentServiceImpl implements WebDocumentService{
         webDocument.setConceptName(searchDocument.getConceptName());
         webDocument.setDomain(searchDocument.getDomain());
         webDocument.setLink(searchDocument.getLink());
+
     }
 
 
@@ -137,8 +138,8 @@ public class WebDocumentServiceImpl implements WebDocumentService{
     }
 
     @Override
-    public void extractCodePercentage(SearchDocument searchDocument) {
-        double codePercentage=0;
+    public void extractCodeSnippets(SearchDocument searchDocument) {
+        double codeSnippets=0;
         String link=searchDocument.getLink();
         try {
             Document document = Jsoup.connect(link).userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0")
@@ -146,19 +147,11 @@ public class WebDocumentServiceImpl implements WebDocumentService{
                     .get();
             //calculating all the pre code tags and counting the number of times they occur
             Elements code = document.getElementsByTag("pre").tagName("code");
-            float codecnt=0;
+
             for (Element codeElem : code) {
-                codecnt++;
+                codeSnippets++;
             }
-            //getting all tags and counting the number of times they occur
-            Elements alltags = document.getAllElements();
-            float tagcount=0;
-            for (Element allTag : alltags) {
-                tagcount++;
-            }
-            //calculating code percentage
-            codePercentage = (codecnt/tagcount) * 100;
-            webDocument.setCodePercentage(codePercentage);
+            webDocument.setCodeSnippets(codeSnippets);
         }
         catch (Exception ex){
             ex.printStackTrace();
