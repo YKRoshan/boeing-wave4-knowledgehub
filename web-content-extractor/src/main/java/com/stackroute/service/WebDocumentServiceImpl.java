@@ -4,6 +4,8 @@ package com.stackroute.service;
 
 import com.stackroute.domain.SearchDocument;
 import com.stackroute.domain.WebDocument;
+import com.stackroute.exception.EmptyFileException;
+import com.stackroute.exception.FileNotFoundException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -15,7 +17,8 @@ public class WebDocumentServiceImpl implements WebDocumentService{
     private WebDocument webDocument= new WebDocument();
 
     @Override
-    public void sendSearchdoc(SearchDocument searchDocument) {
+    public void sendSearchdoc(SearchDocument searchDocument) throws EmptyFileException,
+            FileNotFoundException{
         webDocument.setId(searchDocument.getId());
         webDocument.setConceptName(searchDocument.getConceptName());
         webDocument.setDomain(searchDocument.getDomain());
@@ -25,7 +28,7 @@ public class WebDocumentServiceImpl implements WebDocumentService{
 
 
     @Override
-    public String extractTitle(SearchDocument searchDocument) {
+    public String extractTitle(SearchDocument searchDocument) throws FileNotFoundException {
         String title="";
         String link=searchDocument.getLink();
         try {
@@ -43,7 +46,7 @@ public class WebDocumentServiceImpl implements WebDocumentService{
     }
 
     @Override
-    public String extractDescription(SearchDocument searchDocument) {
+    public String extractDescription(SearchDocument searchDocument) throws FileNotFoundException{
         String description = "";
         String link=searchDocument.getLink();
         try {
@@ -80,7 +83,7 @@ public class WebDocumentServiceImpl implements WebDocumentService{
     }
 
     @Override
-    public String extractKeywords(SearchDocument searchDocument) {
+    public String extractKeywords(SearchDocument searchDocument) throws FileNotFoundException{
         String keywords = "";
         String link=searchDocument.getLink();
         try {
@@ -117,7 +120,7 @@ public class WebDocumentServiceImpl implements WebDocumentService{
     }
 
     @Override
-    public int extractImageCount(SearchDocument searchDocument) {
+    public int extractImageCount(SearchDocument searchDocument) throws FileNotFoundException{
         int imageCount=0;
         String link=searchDocument.getLink();
         try {
@@ -138,7 +141,7 @@ public class WebDocumentServiceImpl implements WebDocumentService{
     }
 
     @Override
-    public void extractCodeSnippets(SearchDocument searchDocument) {
+    public void extractCodeSnippets(SearchDocument searchDocument) throws FileNotFoundException{
         double codeSnippets=0;
         String link=searchDocument.getLink();
         try {
