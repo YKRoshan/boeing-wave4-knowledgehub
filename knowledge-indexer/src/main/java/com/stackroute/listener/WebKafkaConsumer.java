@@ -27,7 +27,7 @@ public class WebKafkaConsumer {
         WebAnalyticsKnowledge webAnalyticsKnowledge=new WebAnalyticsKnowledge(
           object.get("id").toString(),object.get("domain").toString(),object.get("link").toString(),
           object.get("conceptName").toString(),object.get("keywords").toString(),Integer.parseInt(object.get("imageCount").toString()),
-          Float.parseFloat(object.get("codePercentage").toString()),object.get("title").toString(),object.get("description").toString(),
+          Double.parseDouble(object.get("codeSnippets").toString()),object.get("title").toString(),object.get("description").toString(),
           object.get("intentLevel").toString(),Double.parseDouble(object.get("confidenceScore").toString())
         );
 
