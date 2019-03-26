@@ -1,13 +1,17 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { Node, Link, ForceDirectedGraph } from './models';
 import * as d3 from 'd3';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { json } from 'd3';
 import { Test } from 'src/app/test';
 import { Intent } from 'src/app/testIntent';
 
 
+const httpOptions = {
+  headers: new HttpHeaders({ "Access-Control-Allow-Origin" : "*", 'Authorization':'Basic bmVvNGo6bmVvNGpAMTIz'
+})
+};
 
 @Injectable()
 export class D3Service {
@@ -76,10 +80,6 @@ export class D3Service {
     return sg;
   }
 
-  getJson():Observable<any>{
-    console.log("f");
-    return this.http.get("/home/user/Videos/d3/angular-d3-graph-example/graph.json");
-  }
 
   getNeo4j(){
     this.url="http://localhost:7474/db/data/cypher";
@@ -97,7 +97,7 @@ export class D3Service {
 
 
 
-    this.http.post(this.url,this.form1)
+    this.http.post(this.url,this.form1,httpOptions)
          .subscribe(data=>{
            this.test=null;
            this.test=new Test();
@@ -131,7 +131,7 @@ export class D3Service {
 
 
 
-    this.http.post(this.url,this.form1)
+    this.http.post(this.url,this.form1,httpOptions)
          .subscribe(data=>{
           this.test=null;
           this.test=new Test();
@@ -165,7 +165,7 @@ export class D3Service {
 
 
 
-    this.http.post(this.url,this.form1)
+    this.http.post(this.url,this.form1,httpOptions)
          .subscribe(data=>{
           this.test=null;
           this.test=new Test();
@@ -195,7 +195,7 @@ export class D3Service {
 
 
 
-    this.http.post(this.url,this.form1)
+    this.http.post(this.url,this.form1,httpOptions)
          .subscribe(data=>{
           // this.test=null;
           // this.test=new Test();
