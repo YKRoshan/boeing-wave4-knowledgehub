@@ -52,7 +52,7 @@ public class NlpController {
             nlpResult = nlpService.getNlpResults();
             return new ResponseEntity<NlpResult>(nlpResult, HttpStatus.OK);
         } catch (Exception e) {
-            responseEntity = new ResponseEntity<String>("No results found.", HttpStatus.BAD_REQUEST);
+            responseEntity = new ResponseEntity<String>("No results found.", HttpStatus.NOT_FOUND);
             return responseEntity;
         }
     }
