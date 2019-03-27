@@ -11,13 +11,13 @@
     font-weight: bold;
 }
 .message.to {
-    background-color: rgb(243, 149, 105);
-    color: #fff;
+    background-color: rgb(216, 221, 219);
+    color: #363636;
     margin-left: 100px;
     text-align: right;
 }
 .message.from {
-    background-color: rgb(165, 149, 228);
+    background-color:  rgb(216, 221, 219);
     color: #363636;
     margin-right: 100px;
 
@@ -36,3 +36,11 @@ body{
 button{
     float: right;
 }
+
+.btn{
+    float: right;
+    color: white;
+    background-color: #343a40;
+}
+
+
