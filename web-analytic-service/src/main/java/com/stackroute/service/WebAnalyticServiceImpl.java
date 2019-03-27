@@ -79,6 +79,8 @@ public class WebAnalyticServiceImpl implements WebAnalyticService {
         int[] noOfTermsInEachIntent = new int[6];
         double indicator = 0;
         double counterIndicator = 0;
+        System.out.println("get confidence score");
+        System.out.println(intentWordWithFrequencyCountList);
         for (int i = 0; i < intentWordWithFrequencyCountList.size(); i++) {
             switch (intentWordWithFrequencyCountList.get(i).getIntent()) {
                 case "Knowledge":
@@ -208,9 +210,17 @@ public class WebAnalyticServiceImpl implements WebAnalyticService {
         this.intentWithConfidenceScoresList = null;
         this.intentWordWithFrequencyCountList = null;
         allIntentTermNodesWithFrequencyCount = new ArrayList<>(intentService.getAllIntentWords());
+        System.out.println("getWebAnalysisResult all intent term nodes");
+        System.out.println(allIntentTermNodesWithFrequencyCount);
         htmlTagWithContentAndScoreList = getAllHtmlTagsWithContentAndScore();
+        System.out.println("getWebAnalysisResult html tag");
+        System.out.println(htmlTagWithContentAndScoreList);
         intentWordWithFrequencyCountList = getIntentWordWithFrequencyCount();
+        System.out.println("getWebAnalysisResult intent word with freq count");
+        System.out.println(intentWordWithFrequencyCountList);
         intentWithConfidenceScoresList = getConfidenceScoreOfMostAccurateIntents();
+        System.out.println("getWebAnalysisResult intent with conf score");
+        System.out.println(intentWithConfidenceScoresList);
         webAnalysisResult.setCodeSnippets(webDocumentProviderService.getWebDocument().getCodeSnippets());
         webAnalysisResult.setConceptName(webDocumentProviderService.getWebDocument().getConceptName());
         webAnalysisResult.setDescription(webDocumentProviderService.getWebDocument().getDescription());
