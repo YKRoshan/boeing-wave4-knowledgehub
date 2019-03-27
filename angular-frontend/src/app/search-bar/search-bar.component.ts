@@ -58,12 +58,13 @@ export class SearchBarComponent implements OnInit {
         //returns a string containing the transcript of the recognised word(s).
         voiceHandler.value = event.results[0][0].transcript;
         window['searchTerm'] = voiceHandler.value;
-        console.log("SEARCHED: "+window['searchTerm']);
-          vSearch.stop();
-          // vSearch.submit();
-          voiceSearchForm.submit();
+        
         }
- 
+
+        vSearch.onend = (e) => {
+          console.log("Ended", e);
+          this.result();
+        }
  
       //if error is encountered, show error in console and stop the speech recognition
       vSearch.onerror = function(event){
@@ -79,6 +80,7 @@ export class SearchBarComponent implements OnInit {
     }
   }
   result(){
+    console.log("inside dummy");
     var output = {
       sessionId : this.SessionIdNew.SessionId,
       searchString : this.searchTerm
@@ -92,7 +94,6 @@ export class SearchBarComponent implements OnInit {
     }
     this.router.navigate(['/result'])
   }
-
   openDialog() {
     // this.chatComponent=this.dialog.open(ChatComponent)
     this.chatComponent = this.dialog.open(ChatComponent,{ disableClose : true})
