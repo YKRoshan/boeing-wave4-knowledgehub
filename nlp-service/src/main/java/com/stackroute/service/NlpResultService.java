@@ -5,5 +5,5 @@ import com.stackroute.domain.NlpResult;
 
 
 public interface NlpResultService {
-    public NlpResult saveNlpResult(NlpResult nlpresult);
+    public String saveNlpResult(NlpResult nlpresult);
 }

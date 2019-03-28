@@ -26,7 +26,8 @@ public class KafkaProducer {
 
     //This method is used to produce an object
     public String postservice() {
-        nlpResultService.saveNlpResult(nlpService.getNlpResults());
+        String abc=nlpResultService.saveNlpResult(nlpService.getNlpResults());
+        System.out.println("after saving inside nlp mongo"+abc);
         kafkaTemplate2.send(TOPIC, nlpService.getNlpResults());
         return "Published successfully";
     }

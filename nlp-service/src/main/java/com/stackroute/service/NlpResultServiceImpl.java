@@ -17,14 +17,21 @@ public class NlpResultServiceImpl implements NlpResultService {
     }
 
     @Override
-    public NlpResult saveNlpResult(NlpResult nlpresult){
-        if(nlpresultRepository.existsBySessonId(nlpresult.getSessonId())){
-            System.out.println("NlpResult already exits");
+    public String saveNlpResult(NlpResult nlpresult){
+        if(nlpresult.getIntent()!= null && nlpresult.getConcept()!=null && nlpresult!=null
+                && nlpresult.getSessonId()!=null) {
+            if (nlpresultRepository.existsBySessonId(nlpresult.getSessonId())) {
+                System.out.println("NlpResult already exits");
+            }
+            NlpResult savedNlpResult = nlpresultRepository.save(nlpresult);
+            if (savedNlpResult == null) {
+                System.out.println("NlpResult already exits");
+            }
+            return "saved successfully";
         }
-        NlpResult savedNlpResult = nlpresultRepository.save(nlpresult);
-        if(savedNlpResult==null){
-            System.out.println("NlpResult already exits");
-        }
-        return savedNlpResult;
+        else
+            return "not able to save";
+
+
     }
 }
