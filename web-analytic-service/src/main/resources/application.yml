@@ -1,6 +1,6 @@
 intentNames: Knowledge,Comprehension,Application,Analysis,Synthesis,Evaluation
 htmlTags: title,h1,h2,h3,h4,h5,h6,p
-htmlTagScores: 45,35,30,55,20,15,10,5
+htmlTagScores: 45,35,30,25,20,15,10,5
 server:
   port: 8098
 spring:
