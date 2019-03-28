@@ -45,11 +45,12 @@ public class QuestionPublisherController {
         ResponseEntity<String> responseEntity;
 
         String neo4jId = intentService.getCount();
+        int tempId=Integer.parseInt(neo4jId)+1;
 
         System.out.println("Controller post "+publishQuestion.toString());
 
         Terms term = new Terms();
-        term.setId(Integer.parseInt(neo4jId));
+        term.setId(tempId);
         term.setId3(publishQuestion.getUniqueId());
         nlpService.setParagraph(publishQuestion.getQuestionString());
         String queryQuestion = nlpService.getQueryQuestionResults();
