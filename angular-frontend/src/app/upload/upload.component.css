@@ -10,3 +10,12 @@ body{
 /* button{
     margin-left: 400px;
 } */
+
+
+
+@media(max-width:768px){
+    .dragDropNew{
+        width:200px;
+    }
+
+}
