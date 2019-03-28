@@ -201,6 +201,9 @@ public class NlpServiceImpl implements NlpService {
     public ArrayList<ConceptNameFrequency> getFrequencyOfSpringConcepts() {
         String paragraphWithOutStopWords = getParagraphWithOutStopWords().toLowerCase();
         ArrayList<ConceptNameFrequency> wordsFrequencyMap = new ArrayList<>();
+        System.out.println("list of concept names");
+        System.out.println(conceptName);
+        System.out.println("Search string : "+paragraphWithOutStopWords);
         for (int i = 0; i < conceptName.size(); i++) {
             long counter = 0;
             wordsFrequencyMap.add(new ConceptNameFrequency(conceptName.get(i), counter));
@@ -281,6 +284,7 @@ public class NlpServiceImpl implements NlpService {
         this.analysis=null;
         this.synthesis=null;
         this.evaluation=null;
+        this.conceptName=null;
         this.knowledge = new ArrayList<>(intentService.getKnowledgeTerms());
         this.comprehension = new ArrayList<>(intentService.getComprehensionTerms());
         this.application = new ArrayList<>(intentService.getApplicationTerms());

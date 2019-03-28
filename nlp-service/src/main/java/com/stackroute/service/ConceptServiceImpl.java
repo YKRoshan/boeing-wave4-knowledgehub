@@ -14,14 +14,13 @@ public class ConceptServiceImpl implements ConceptService {
     /*Constructor*/
     public ConceptServiceImpl(ConceptRepository conceptRepository) {
         this.conceptRepository = conceptRepository;
-        this.concepts = new ArrayList<>(conceptRepository.getAllConcepts());
     }
 
     /*
   This method will return all concepts
    */
     public ArrayList<String> getConcepts() {
-
+        this.concepts = new ArrayList<>(conceptRepository.getAllConcepts());
         ArrayList<String> conceptNames = new ArrayList<>();
         for (int i = 0; i < concepts.size(); i++) {
             conceptNames.add(concepts.get(i).getName());
