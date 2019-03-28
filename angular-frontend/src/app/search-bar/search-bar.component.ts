@@ -95,7 +95,7 @@ export class SearchBarComponent implements OnInit {
     this.router.navigate(['/result'])
   }
   openDialog() {
-    // this.chatComponent=this.dialog.open(ChatComponent)
+   
     this.chatComponent = this.dialog.open(ChatComponent,{ disableClose : true})
   }
 

@@ -42,10 +42,10 @@ public class WebSocketController {
         return webSocketService.sendMessageService(jsonResult);
     }
 
-
+    /*Method used for testing from postman*/
     @PostMapping("/addchat")
-    public String addKnowledge(@RequestBody Object chat) {
-        return kafkaProducer.postservice(chat);
+    public String addKnowledge(@RequestBody JsonResult jsonResult) {
+        return kafkaProducer.postservice(jsonResult);
     }
 
 }

@@ -49,17 +49,12 @@ a {
     color: black;
 }
 
-.container {
-    overflow: hidden;
-    width: 100%;
-    max-width: $max-width;
-    margin: 0 auto;
-    padding: 2rem 1rem;
-}
+
 
 .col {
   margin-top:10px;
-    padding: 1rem;
+    padding-left:1%;
+    padding-right:1%;
     
     @media (min-width: $max-width) {
         width: 40%;

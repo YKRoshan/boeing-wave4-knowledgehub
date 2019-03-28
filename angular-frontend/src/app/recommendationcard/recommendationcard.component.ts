@@ -14,38 +14,35 @@ export class RecommendationcardComponent implements OnInit {
   constructor(private result : SessionId) { }
 
   ngOnInit() {
-    $.fn.commentCards = function(){
-
-      return this.each(function(){
-    
-        var $this = $(this),
-            $cards = $this.find('.card'),
-            $current = $cards.filter('.card--current'),
-            $next;
-    
-        $cards.on('click',function(){
-          if ( !$current.is(this) ) {
-            $cards.removeClass('card--current card--out card--next');
-            $current.addClass('card--out');
-            $current = $(this).addClass('card--current');
-            $next = $current.next();
-            $next = $next.length ? $next : $cards.first();
-            $next.addClass('card--next');
-          }
-        });
-    
-        if ( !$current.length ) {
-          $current = $cards.last();
-          $cards.first().trigger('click');
+    var refreshCards = function() {
+      $('.cards-container').empty();
+      $('.input-wrapper').addClass('loading');
+      
+      var searchString = $('input[name="pokemon-name"]').val();
+      $.get('https://api.pokemontcg.io/v1/cards?name=' + encodeURI(searchString), function(result) {
+        $('.input-wrapper').removeClass('loading');
+        
+        for(var i = 0; i < result['cards'].length; i++) {
+          var card = result['cards'][i];
+          var cardElement = $(
+            '<a class="card flipped">' +
+              '<div class="side front" style="background-image:url(\'' + card['imageUrl'] + '\')"></div>' +
+              '<div class="side back"></div>' +
+            '</a>')
+          $('.cards-container').append(cardElement);
+          
+          setTimeout((function(){
+            $(this).removeClass('flipped');
+          }).bind(cardElement), 100 * i);
         }
+      });
+    }
     
-        $this.addClass('cards--active');
-    
-      })
-    
-    };
-    
-    $('.cards').commentCards();
+    var refreshTimeout;
+    $('input[name="pokemon-name"]').keydown(function(){
+      clearTimeout(refreshTimeout);
+      refreshTimeout = setTimeout(refreshCards, 500);
+    });
     this.object3 = this.result.recommendation;
   }
 

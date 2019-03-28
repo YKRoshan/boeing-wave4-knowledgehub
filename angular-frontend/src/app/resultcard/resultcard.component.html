@@ -1,31 +1,21 @@
-<!-- <link href="https://fonts.googleapis.com/css?family=Germania+One" rel="stylesheet">
-<h1 style="font-family: 'Germania One', cursive; text-align: center">PDF/PPT Result</h1> -->
-<link href="https://fonts.googleapis.com/css?family=Margarine" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=News+Cycle" rel="stylesheet">
-<div class="align">
-  <div class="container-fluid">
-    <div *ngFor="let data of object1">
-    <div class="row">
-      <div class="col-10 mt-3 shadow-lg p-3 mb-5 bg-white rounded">
-        <div class="card">
-          <div class="card-horizontal">
-            <div class="img-square-wrapper">
-              <img class="img" src="../../assets/img/icon-spring-framework.svg" alt="Card image cap" width="150px">
-            </div>
-            <div class="card-body">
-              <h4 class="card-title">{{data.domain}}</h4>
-              <a href="{{data.documentId}}" target="_blank"><u>{{data.documentId}}</u></a>
-              <p class="card-text">{{data.name}}</p>
-              <div *ngIf="data==var1">
-                <p>Intent level : {{data.intentLevel}}</p>
-                <p>Confidence score  : {{data.confidenceScore}}</p>
-              </div>
-              <img class="readmore" src="../../assets/img/readmore.svg" (click)="assignVar(data)">
-            </div>
+
+
+<link href="https://fonts.googleapis.com/css?family=Caveat+Brush" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Rancho" rel="stylesheet">
+<div class="cards">
+  <section class="row" *ngFor="let data of object1">
+      <img class="img" src="../../assets/img/icon-spring-framework.svg">
+      <div class="col s12 m9 l10">
+        <h1 class="title" style=" text-transform: capitalize;font-family: 'Caveat Brush', cursive;font-size:30px">{{data.domain}}</h1>
+        <a href="{{data.documentId}}" target="_blank"><u>{{data.documentId}}</u></a>
+        <p *ngIf="flag" class="text" style="text-align: justify;font-family: 'Rancho', cursive;font-size:20px;">{{data.name | slice:0:200}}......</p>
+        <div *ngIf="data==var1">
+            <p style="text-align: justify;font-family: 'Rancho', cursive;font-size:20px;">{{data.name}}</p>
+            <p style="text-align: justify;font-family: 'Rancho', cursive;font-size:20px; font-weight: bold">Intent level : {{data.intentLevel}}</p>
+            <p style="text-align: justify;font-family: 'Rancho', cursive;font-size:20px; font-weight:bold">Confidence score : {{data.confidenceScore}}</p>
           </div>
-        </div>
+          <img class="readmore" src="../../assets/img/readmore.svg" (click)="assignVar(data)">
       </div>
-    </div>
-    </div>
-  </div>
+    </section>
+
 </div>

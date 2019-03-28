@@ -1,5 +1,6 @@
 package com.stackroute.listener;
 import com.stackroute.domain.ChatMessage;
+import com.stackroute.domain.JsonResult;
 import com.stackroute.service.WebSocketService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,11 +26,11 @@ public class KafkaProducer {
 
     private static final String TOPIC="QueryEngineResults";
 
-    ChatMessage chatMessage;
 
-    public String postservice(Object chatMessage)
+
+    public String postservice(JsonResult jsonResult)
     {
-        kafkaTemplate2.send(TOPIC,chatMessage);
+        kafkaTemplate2.send(TOPIC,jsonResult);
 
         return "Published successfully";
     }
