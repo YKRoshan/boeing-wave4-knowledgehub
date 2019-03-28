@@ -213,7 +213,17 @@ public class AnalyticServiceImpl implements AnalyticService {
                 maxConfidenceScore = intentWithConfidenceScores.get(i).getConfidenceScore();
             }
         }
-        return maxConfidenceScore;
+
+        return round(maxConfidenceScore,2);
+    }
+
+    public double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+
+        long factor = (long) Math.pow(10, places);
+        value = value * factor;
+        long tmp = Math.round(value);
+        return (double) tmp / factor;
     }
 
     public List<AnalysisResult> getAnalysisResults() {

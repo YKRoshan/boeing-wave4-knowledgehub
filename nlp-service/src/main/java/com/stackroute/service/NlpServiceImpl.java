@@ -87,14 +87,6 @@ public class NlpServiceImpl implements NlpService {
     public NlpServiceImpl(IntentService intentService, ConceptService conceptService) {
         this.intentService = intentService;
         this.conceptService = conceptService;
-        this.knowledge = new ArrayList<>(intentService.getKnowledgeTerms());
-        this.comprehension = new ArrayList<>(intentService.getComprehensionTerms());
-        this.application = new ArrayList<>(intentService.getApplicationTerms());
-        this.analysis = new ArrayList<>(intentService.getAnalysisTerms());
-        this.synthesis = new ArrayList<>(intentService.getSynthesisTerms());
-        this.evaluation = new ArrayList<>(intentService.getEvaluationTerms());
-        this.conceptName = new ArrayList<>(conceptService.getConcepts());
-
     }
 
     /*
@@ -283,6 +275,19 @@ public class NlpServiceImpl implements NlpService {
     */
     public NlpResult getNlpResults() {
         NlpResult nlpResult = new NlpResult();
+        this.knowledge=null;
+        this.comprehension=null;
+        this.application=null;
+        this.analysis=null;
+        this.synthesis=null;
+        this.evaluation=null;
+        this.knowledge = new ArrayList<>(intentService.getKnowledgeTerms());
+        this.comprehension = new ArrayList<>(intentService.getComprehensionTerms());
+        this.application = new ArrayList<>(intentService.getApplicationTerms());
+        this.analysis = new ArrayList<>(intentService.getAnalysisTerms());
+        this.synthesis = new ArrayList<>(intentService.getSynthesisTerms());
+        this.evaluation = new ArrayList<>(intentService.getEvaluationTerms());
+        this.conceptName = new ArrayList<>(conceptService.getConcepts());
         nlpResult.setConcept(getMostAccurateConceptName());
         nlpResult.setIntent(getUserIntent());
         nlpResult.setSessonId(getSessonId());

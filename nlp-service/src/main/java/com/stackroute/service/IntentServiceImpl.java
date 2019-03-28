@@ -16,13 +16,13 @@ public class IntentServiceImpl implements IntentService {
     @Autowired
     public IntentServiceImpl(IntentRepository intentRepository) {
         this.intentRepository = intentRepository;
-        this.intents = new ArrayList<>(intentRepository.getAllTerms());
     }
 
     /*
     This method will return all knowledge terms
     */
     public ArrayList<String> getKnowledgeTerms() {
+        this.intents = new ArrayList<>(intentRepository.getAllTerms());
         ArrayList<String> knowledgeTerms = new ArrayList<>();
         for (int i = 0; i < intents.size(); i++) {
             if (intents.get(i).getParent_node_type().equals("Knowledge")) {
@@ -36,6 +36,7 @@ public class IntentServiceImpl implements IntentService {
     This method will return all comprehension terms
     */
     public ArrayList<String> getComprehensionTerms() {
+        this.intents = new ArrayList<>(intentRepository.getAllTerms());
         ArrayList<String> comprehensionTerms = new ArrayList<>();
         for (int i = 0; i < intents.size(); i++) {
             if (intents.get(i).getParent_node_type().equals("Comprehension")) {
@@ -49,6 +50,7 @@ public class IntentServiceImpl implements IntentService {
    This method will return all application terms
    */
     public ArrayList<String> getApplicationTerms() {
+        this.intents = new ArrayList<>(intentRepository.getAllTerms());
         ArrayList<String> applicationTerms = new ArrayList<>();
         for (int i = 0; i < intents.size(); i++) {
             if (intents.get(i).getParent_node_type().equals("Application")) {
@@ -62,6 +64,7 @@ public class IntentServiceImpl implements IntentService {
     This method will return all analysis terms
     */
     public ArrayList<String> getAnalysisTerms() {
+        this.intents = new ArrayList<>(intentRepository.getAllTerms());
         ArrayList<String> analysisTerms = new ArrayList<>();
         for (int i = 0; i < intents.size(); i++) {
             if (intents.get(i).getParent_node_type().equals("Analysis")) {
@@ -75,6 +78,7 @@ public class IntentServiceImpl implements IntentService {
     This method will return all synthesis terms
     */
     public ArrayList<String> getSynthesisTerms() {
+        this.intents = new ArrayList<>(intentRepository.getAllTerms());
         ArrayList<String> synthesisTerms = new ArrayList<>();
         for (int i = 0; i < intents.size(); i++) {
             if (intents.get(i).getParent_node_type().equals("Synthesis")) {
@@ -88,6 +92,7 @@ public class IntentServiceImpl implements IntentService {
     This method will return all evaluation terms
     */
     public ArrayList<String> getEvaluationTerms() {
+        this.intents = new ArrayList<>(intentRepository.getAllTerms());
         ArrayList<String> evaluationTerms = new ArrayList<>();
         for (int i = 0; i < intents.size(); i++) {
             if (intents.get(i).getParent_node_type().equals("Evaluation")) {
@@ -97,7 +102,3 @@ public class IntentServiceImpl implements IntentService {
         return evaluationTerms;
     }
 }
-
-
-
-

@@ -19,40 +19,44 @@
     <div class="container">
       <div class="section-header">
         <h2>Admin Dashboard</h2>
-        <h6>Activities of Knowledge hub's Administrator</h6>
       </div>
   
       <div class="row">
+        
+
         <div class="col-lg-6">
-          <div class="box wow fadeInLeft">
-            <div class="icon"><i class="fa fa-link"></i></div>
-            <h4 class="title"><a (click)="addDomainConceptNames()">Index Web Documents</a></h4>
-            <p class="description">Populate neo4j knowledge with web documents and links.</p>
-          </div>
-        </div>
-        <div class="col-lg-6">
-          <div class="box wow fadeInRight" data-wow-delay="0.2s">
+          <div class="box wow fadeInLeft" data-wow-delay="0.2s">
             <div class="icon"><i class="fa fa-upload"></i></div>
             <h4 class="title"><a (click)="uploadFile()">Upload Index File</a></h4>
             <p class="description">Populate neo4j Knowledge with pdf,ppt index files. </p>
           </div>
         </div>
-        <div class="col-lg-6">
-          <div class="box wow fadeInLeft" data-wow-delay="0.2s">
-            <div class="icon"><i class="fa fa-question"></i></div>
-            <h4 class="title"><a (click)="showNlpQuestions()">Classify Questions</a></h4>
-            <p class="description">Categorization of Questions according to bloom taxonomy.</p>
-          </div>
-        </div>
-  
+        
         <div class="col-lg-6">
           <div class="box wow fadeInRight">
+            <div class="icon"><i class="fa fa-link"></i></div>
+            <h4 class="title"><a (click)="addDomainConceptNames()">Index Web Documents</a></h4>
+            <p class="description">Populate neo4j knowledge with web documents and links.</p>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="box wow fadeInLeft">
             <div class="icon"><i class="fa fa-database"></i></div>
             <h4 class="title"><a (click)="modifyNeo4j()">Modify Neo4j</a></h4>
             <p class="description">Modify the ontology and intent nodes present in neo4j database.</p>
           </div>
         </div>
         
+        <div class="col-lg-6">
+          <div class="box wow fadeInRight" data-wow-delay="0.2s">
+            <div class="icon"><i class="fa fa-question"></i></div>
+            <h4 class="title"><a (click)="showNlpQuestions()">Classify Questions</a></h4>
+            <p class="description">Categorization of Questions according to bloom taxonomy.</p>
+          </div>
+        </div>
+  
+    
       </div>
     </div>
   </section> 

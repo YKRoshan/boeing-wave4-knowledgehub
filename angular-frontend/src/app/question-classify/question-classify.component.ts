@@ -17,6 +17,8 @@ export class QuestionClassifyComponent implements OnInit {
   private finisher:boolean = true;
   private input1:string;
   private questions: QueryQuestions[] = [];
+  private numQues: number;
+  private currQuesNum: number;
   private currentQuestion: string;
   private currentQuestionObject: QueryQuestions;
   constructor(public token:TokenService,private questionProvider: QuestionProviderService,private questionPublisher:QuestionPublisherService) {
@@ -30,9 +32,13 @@ export class QuestionClassifyComponent implements OnInit {
         if(this.questions == null ||this.questions.length==0){
           this.currentQuestion = "No questions to display";
           this.finisher=false;
+          this.currQuesNum=0;
+          this.numQues=0;
         }else{
           this.currentQuestion = this.questions[0].searchString;
           this.showQuestions(0, this.questions);
+          this.numQues = this.questions.length;
+          this.currQuesNum = 1;
         }
         console.log("In oonn method");
       });
@@ -51,6 +57,7 @@ export class QuestionClassifyComponent implements OnInit {
     }
     else {
       this.i++;
+      this.currQuesNum++;
       console.log("index: "+this.i);
       this.showQuestions(this.i, this.questions);
       console.log("delete: "+this.questions[this.i-1].uniqueId);
