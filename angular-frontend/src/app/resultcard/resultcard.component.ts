@@ -19,7 +19,6 @@ export class ResultcardComponent implements OnInit {
   ngOnInit() {
     this.searchTerm = this.dataService.dataService;
     this.object1 = this.result.pdfresult;
-   
   }
   assignVar(data){
     if(this.flag){
