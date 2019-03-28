@@ -16,7 +16,9 @@ public class SearchServiceImpl implements  SearchService {
 
     @Override
     public String saveSearchText(Search search){
-        if(search.getSearchString()!=null && search.getSessionId()!=null && search!=null) {
+        if(search.getSearchString()!=null && !search.getSearchString().isEmpty() &&
+                search.getSessionId()!=null && !search.getSessionId().isEmpty()
+                && search!=null ) {
             Search savedText = searchRepository.save(search);
             return "saved successfully";
         }

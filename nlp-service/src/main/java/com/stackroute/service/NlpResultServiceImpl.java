@@ -18,8 +18,10 @@ public class NlpResultServiceImpl implements NlpResultService {
 
     @Override
     public String saveNlpResult(NlpResult nlpresult){
-        if(nlpresult.getIntent()!= null && nlpresult.getConcept()!=null && nlpresult!=null
-                && nlpresult.getSessonId()!=null) {
+        if(nlpresult.getIntent()!= null && !nlpresult.getIntent().isEmpty() &&
+                nlpresult.getConcept()!=null && !nlpresult.getConcept().isEmpty() &&
+                nlpresult!=null &&
+                nlpresult.getSessonId()!=null && !nlpresult.getSessonId().isEmpty()) {
             if (nlpresultRepository.existsBySessonId(nlpresult.getSessonId())) {
                 System.out.println("NlpResult already exits");
             }
