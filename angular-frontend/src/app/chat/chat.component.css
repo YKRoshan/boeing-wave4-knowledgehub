@@ -42,11 +42,19 @@ button{
     float: right;
 }
 
-.btn{
+.btn{ 
     float: right;
     color: white;
     background-color: #343a40;
 }
+.width1{
+    margin-top: 0;
+    padding-top: 0;
+}
+.width2{
+    width:70%;
+    float: right;
+} 
 
 @media(max-width:768px){
     body{

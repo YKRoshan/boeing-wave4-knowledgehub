@@ -14,9 +14,8 @@
   <button mat-dialog-close><i class="fa fa-times"></i></button>
 
   <h1 mat-dialog-title>JARVIS</h1>
-  
-  <div mat-dialog-content >
-  
+
+  <div mat-dialog-content id="text">
   
   <ng-container  *ngFor="let message of messages | async">
   
@@ -32,8 +31,8 @@
   
   <label for="nameField">Your Message</label>
   
-  <div mat-dialog-actions>
-    <mat-form-field>
+  <div mat-dialog-actions class="width1">
+    <mat-form-field class="width2">
       <input matInput [(ngModel)]="formValue" (keyup.enter)="sendMessage()" type="text"><br>
     </mat-form-field> &nbsp;
   

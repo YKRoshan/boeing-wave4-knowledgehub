@@ -22,10 +22,13 @@ export class ChatComponent implements OnInit {
     this.messages = this.chat.conversation.asObservable()
     .scan((acc, val) => acc.concat(val) );
   }
-
   sendMessage() {
     this.chat.converse(this.formValue);
     this.formValue = '';
+    window.setInterval(function() {
+      var elem = document.getElementById('text');
+      elem.scrollTop = elem.scrollHeight;
+    }, 50);
   }
 
 }
