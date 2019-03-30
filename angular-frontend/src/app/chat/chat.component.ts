@@ -25,10 +25,13 @@ export class ChatComponent implements OnInit {
   sendMessage() {
     this.chat.converse(this.formValue);
     this.formValue = '';
+    var elem = document.getElementById('text');
+    if(elem){
     window.setInterval(function() {
-      var elem = document.getElementById('text');
+      
       elem.scrollTop = elem.scrollHeight;
     }, 50);
   }
+}
 
 }
