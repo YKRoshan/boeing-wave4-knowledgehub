@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Collection;
 
 @Repository
-public interface IntentRepository extends Neo4jRepository<Terms, Integer> {
+public interface IntentRepository extends Neo4jRepository<Terms, String> {
     @Query("MATCH(u:Terms) RETURN u")
     Collection<Terms> getAllTerms();
 

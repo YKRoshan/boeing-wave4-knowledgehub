@@ -49,6 +49,11 @@ public class NodeCreatorServiceImpl implements NodeCreatorService {
     }
 
     @Override
+    public String getCountOfConcpets() {
+        return conceptRepository.getCountOfConcepts();
+    }
+
+    @Override
     public String insertRelationship(String name, String IntentLevel) {
         intentRepository.insertRelationship(name,IntentLevel);
         return "Relationship inserted successfully";

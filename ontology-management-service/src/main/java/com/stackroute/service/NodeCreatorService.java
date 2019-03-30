@@ -13,6 +13,8 @@ public interface NodeCreatorService {
 
     public String getConceptNodeCount();
 
+    public String getCountOfConcpets();
+
     public String insertRelationship(String name,String IntentLevel);
 
     public String insertConceptRelationship(String childName,String parentName);

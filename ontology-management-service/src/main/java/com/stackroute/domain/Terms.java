@@ -13,11 +13,12 @@ import org.neo4j.ogm.annotation.NodeEntity;
 public class Terms {
 
     @Id
-    private int id;
+    private String id3;
     private String name;
     private String parent_id;
     private String parent_node_type;
     private String type;
-    private String relation;
+    private String relationship;
     private String weight;
+
 }

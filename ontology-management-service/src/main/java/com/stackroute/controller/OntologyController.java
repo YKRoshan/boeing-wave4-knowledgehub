@@ -47,11 +47,11 @@ public class OntologyController {
             int i=0;
             for(Element movieList:temp)
             {
-                    i++;
-                    if(i<11)
-                    {
-                        knowledgeTerms.add(movieList.getElementsByTag("a").first().text());
-                    }
+                i++;
+                if(i<11)
+                {
+                    knowledgeTerms.add(movieList.getElementsByTag("a").first().text());
+                }
 
             }
 
@@ -70,8 +70,8 @@ public class OntologyController {
 
     @GetMapping("insertTerm/{intent}/{synonym}/{score}")
     public ResponseEntity<String> saveTermsToDb(@PathVariable("intent") String intent,
-                              @PathVariable("synonym") String Synonym,
-                              @PathVariable("score")  String score)
+                                                @PathVariable("synonym") String Synonym,
+                                                @PathVariable("score")  String score)
     {
 
         String intentLevel = intent.substring(0,1).toUpperCase() + intent.substring(1).toLowerCase();
@@ -103,9 +103,19 @@ public class OntologyController {
             parent_id="SPRING:7";
         }
 
-        String Id=intentService.getCount();
 
-        Terms term1=new Terms((Integer.parseInt(Id)+1),Synonym,parent_id,intentLevel,"term","indicatorOf",score);
+
+
+        String Id=intentService.getCount();
+        int id=(Integer.parseInt(Id)+1);
+        String tempId=Integer.toString(id);
+
+        String tempid3="SPRING:"+tempId;
+
+        Terms term1=new Terms(tempid3,Synonym,parent_id,intentLevel,
+                "term","indicatorOf",score);
+
+        // Terms term1=new Terms((Integer.parseInt(Id)+1),Synonym,parent_id,intentLevel,"term","indicatorOf",score);
         intentService.createTermNode(term1);
         nodeCreatorService.insertRelationship(Synonym,intentLevel);
 
@@ -115,7 +125,7 @@ public class OntologyController {
 
     @GetMapping("createConcept/{parentName}/{name}")
     public ResponseEntity<String> saveConceptsToDb(@PathVariable("parentName") String parentName,
-                                                @PathVariable("name") String name)
+                                                   @PathVariable("name") String name)
     {
 
         Concept[] getPerticularConcept=nodeCreatorService.getPerticularNode(parentName);
@@ -124,11 +134,17 @@ public class OntologyController {
         String nodeId=nodeCreatorService.getConceptNodeCount();
 
 
-        String parentId=getPerticularConcept[0].getParentId();
-        Concept concept=new Concept(
-            Integer.parseInt(nodeId),name,parentId,"subconcept of","concept",parentName,"concept"
+        String parentId=getPerticularConcept[0].getParent_id();
 
-        );
+        int id=(Integer.parseInt(nodeId)+1);
+        String tempId=Integer.toString(id);
+
+
+        String id1="SPRING:"+tempId;
+
+        Concept concept=new Concept(id1,"concept",parentName,name,parentId,"subconcept of",
+                "concept");
+
         nodeCreatorService.createConceptNode(concept);
         nodeCreatorService.insertConceptRelationship(name,parentName);
         return  new ResponseEntity<String>("Inserted Concept Successfully", HttpStatus.OK);
@@ -141,27 +157,27 @@ public class OntologyController {
     {
         if(IntentLevel.equalsIgnoreCase("knowledge"))
         {
-               return intentService.getKnowledgeTerms();
+            return intentService.getKnowledgeTerms();
         }
         else if(IntentLevel.equalsIgnoreCase("Comprehension"))
         {
-                return intentService.getComprehensionTerms();
+            return intentService.getComprehensionTerms();
         }
         else if(IntentLevel.equalsIgnoreCase("Analysis"))
         {
-               return intentService.getAnalysisTerms();
+            return intentService.getAnalysisTerms();
         }
         else if(IntentLevel.equalsIgnoreCase("Application"))
         {
-               return intentService.getApplicationTerms();
+            return intentService.getApplicationTerms();
         }
         else if(IntentLevel.equalsIgnoreCase("synthesis"))
         {
-                return intentService.getSynthesisTerms();
+            return intentService.getSynthesisTerms();
         }
         else if(IntentLevel.equalsIgnoreCase("Evaluation"))
         {
-                return intentService.getEvaluationTerms();
+            return intentService.getEvaluationTerms();
         }
         return intentService.getEvaluationTerms();
     }

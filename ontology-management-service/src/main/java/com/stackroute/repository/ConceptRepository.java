@@ -8,11 +8,15 @@ import org.springframework.stereotype.Repository;
 import java.util.Collection;
 
 @Repository
-public interface ConceptRepository extends Neo4jRepository<Concept, Integer> {
+public interface ConceptRepository extends Neo4jRepository<Concept, String> {
 
 
     @Query("match(c:Concept) return c")
     Collection<Concept> getAllNodes();
+
+
+    @Query("MATCH(c:Concept) RETURN Count(*)")
+    String getCountOfConcepts();
 
     @Query("match(c:Concept{name:{0}}) return c")
     Concept[] getPerticularNode(String name);

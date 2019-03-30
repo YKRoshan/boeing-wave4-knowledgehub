@@ -13,12 +13,14 @@ import org.neo4j.ogm.annotation.NodeEntity;
 public class Concept {
 
     @Id
-    private int id;
+    private String Id1;
+    private String classType;
+    private String context;
     private String name;
-    private String parentId;
+    private String parent_id;
     private String relation;
     private String type;
-    private String context;
-    private String classType;
+
+
 
 }
