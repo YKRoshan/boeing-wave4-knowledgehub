@@ -12,7 +12,6 @@ import org.neo4j.ogm.annotation.NodeEntity;
 public class Terms {
     // These are intent Terms present in Neo4j Intent graph
     @Id
-    private int id;
     private String name;
     private String parent_id;
     private String parent_node_type;

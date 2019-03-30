@@ -50,13 +50,13 @@ public class QuestionPublisherController {
         System.out.println("Controller post "+publishQuestion.toString());
 
         Terms term = new Terms();
-        term.setId(tempId);
         term.setId3(publishQuestion.getUniqueId());
         nlpService.setParagraph(publishQuestion.getQuestionString());
         String queryQuestion = nlpService.getQueryQuestionResults();
         term.setName(queryQuestion);
         term.setWeight("8");
         term.setType("term");
+        term.setRelationship("indicatorOf");
         term.setParent_node_type(publishQuestion.getIntentLevel());
         if (publishQuestion.getIntentLevel().equalsIgnoreCase("knowledge")) {
             term.setParent_id("SPRING:2");
