@@ -26,7 +26,7 @@ public class AnalyticServiceImplTest {
     private ArrayList<String> conceptNames;
     private ArrayList<ConceptNameFrequency> frequencyOfSpringConcepts;
     private ConceptNameFrequency conceptNameFrequency;
-    private ArrayList<IntentWord> allIntentWordWithFrequencyCount;
+    private ArrayList<IntentWord> intentWordWithFrequencyCount;
     private IntentWord intentWord;
     private List<IntentWithConfidenceScore> intentWithConfidenceScoresList;
     private IntentWithConfidenceScore intentWithConfidenceScore;
@@ -51,8 +51,8 @@ public class AnalyticServiceImplTest {
         MockitoAnnotations.initMocks(this);
         spyTemp = Mockito.spy(analyticServiceImpl);
         intentWord = new IntentWord("define", 1, "Knowledge", "indicatorOf", 9);
-        allIntentWordWithFrequencyCount = new ArrayList<>();
-        allIntentWordWithFrequencyCount.add(intentWord);
+        intentWordWithFrequencyCount = new ArrayList<>();
+        intentWordWithFrequencyCount.add(intentWord);
         conceptNames = new ArrayList<>();
         conceptNames.add("spring framework");
         frequencyOfSpringConcepts = new ArrayList<>();
@@ -88,20 +88,8 @@ public class AnalyticServiceImplTest {
     }
 
     @Test
-    public void getNounSentence() {
-        when(nlpResultService.getNlpResult()).thenReturn(nlpResult);
-        StringBuilder expected = new StringBuilder();
-        for (int i = 0; i < nouns.size(); i++) {
-            expected.append(nouns.get(i) + " ");
-        }
-        String expectedString = expected.toString().trim();
-        String actualString = analyticServiceImpl.getNounSentence();
-        Assert.assertEquals(expectedString, actualString);
-    }
-
-    @Test
     public void getFrequencyOfSpringConcepts() {
-        when(nlpResultService.getNlpResult()).thenReturn(nlpResult);
+        analyticServiceImpl.setNlpResult(nlpResult);
         String expectedConceptNameFrequencyString = conceptNameFrequency.toString();
         analyticServiceImpl.setConceptNames(conceptNames);
         String actualConceptNameFrequencyString = analyticServiceImpl.getFrequencyOfSpringConcepts().get(0).toString();
@@ -110,28 +98,16 @@ public class AnalyticServiceImplTest {
 
     @Test
     public void getTopConceptName() {
-        Mockito.doReturn(frequencyOfSpringConcepts).when(spyTemp).getFrequencyOfSpringConcepts();
+        analyticServiceImpl.setFrequencyOfSpringConcept(frequencyOfSpringConcepts);
         String expectedTopConceptNameString = "spring framework";
-        String actualTopConceptNameString = spyTemp.getTopConceptName().get(0);
+        String actualTopConceptNameString = analyticServiceImpl.getTopConceptName().get(0);
         Assert.assertEquals(expectedTopConceptNameString, actualTopConceptNameString);
     }
 
     @Test
-    public void getVerbSentence() {
-        when(nlpResultService.getNlpResult()).thenReturn(nlpResult);
-        StringBuilder expected = new StringBuilder();
-        for (int i = 0; i < verbs.size(); i++) {
-            expected.append(verbs.get(i) + " ");
-        }
-        String expectedString = expected.toString().trim();
-        String actualString = analyticServiceImpl.getVerbSentence();
-        Assert.assertEquals(expectedString, actualString);
-    }
-
-    @Test
     public void getIntentWordWithFrequencyCount() {
-        when(nlpResultService.getNlpResult()).thenReturn(nlpResult);
-        String expectedIntentWordFrequencyCount = allIntentWordWithFrequencyCount.get(0).toString();
+        analyticServiceImpl.setNlpResult(nlpResult);
+        String expectedIntentWordFrequencyCount = intentWordWithFrequencyCount.get(0).toString();
         ArrayList<IntentWord> intentWordList = new ArrayList<>();
         intentWordList.add(new IntentWord("define", 0, "Knowledge", "indicatorOf", 9));
         analyticServiceImpl.setAllIntentterms(intentWordList);
@@ -141,26 +117,26 @@ public class AnalyticServiceImplTest {
 
     @Test
     public void getConfidenceScoreOfMostAccurateIntents() {
-        Mockito.doReturn(allIntentWordWithFrequencyCount).when(spyTemp).getIntentWordWithFrequencyCount();
+        analyticServiceImpl.setIntentWordWithFrequencyList(intentWordWithFrequencyCount);
+        analyticServiceImpl.setIntents(new String[]{"Knowledge", "Comprehension", "Application", "Analysis", "Synthesis", "Evaluation"});
         String expectedIntentWithConfidenceScoreString = intentWithConfidenceScore.toString();
-        spyTemp.setIntents(new String[]{"Knowledge", "Comprehension", "Application", "Analysis", "Synthesis", "Evaluation"});
-        String actualIntentWithConfidenceScoreString = spyTemp.getConfidenceScoreOfMostAccurateIntents().get(0).toString();
+        String actualIntentWithConfidenceScoreString = analyticServiceImpl.getConfidenceScoreOfMostAccurateIntents().get(0).toString();
         Assert.assertEquals(expectedIntentWithConfidenceScoreString, actualIntentWithConfidenceScoreString);
     }
 
     @Test
     public void getIntentLevel() {
-        Mockito.doReturn(intentWithConfidenceScoresList).when(spyTemp).getConfidenceScoreOfMostAccurateIntents();
+        analyticServiceImpl.setIntentWithConfidenceScores(intentWithConfidenceScoresList);
         String expectedIntentLevel = "Knowledge";
-        String actualIntentLevel = spyTemp.getIntentLevel();
+        String actualIntentLevel = analyticServiceImpl.getIntentLevel();
         Assert.assertEquals(expectedIntentLevel, actualIntentLevel);
     }
 
     @Test
     public void getConfidenceScore() {
-        Mockito.doReturn(intentWithConfidenceScoresList).when(spyTemp).getConfidenceScoreOfMostAccurateIntents();
+        analyticServiceImpl.setIntentWithConfidenceScores(intentWithConfidenceScoresList);
         double expectedConfidenceScore = 100;
-        double actualConfidenceScore = spyTemp.getConfidenceScore();
+        double actualConfidenceScore = analyticServiceImpl.getConfidenceScore();
         Assert.assertEquals(expectedConfidenceScore, actualConfidenceScore, 0);
     }
 

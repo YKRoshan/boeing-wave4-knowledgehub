@@ -1,6 +1,6 @@
 package com.stackroute.service;
 
-import com.stackroute.domain.Question;
+import com.stackroute.domain.QueryQuestions;
 import com.stackroute.repository.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,10 +17,10 @@ public class QuestionStorageServiceImpl implements QuestionStorageService {
     }
 
     /*This method saves the question in database and return saved question*/
-    public Question saveQuestion(String question) {
+    public QueryQuestions saveQuestion(String question) {
         String uniqueId = UUID.randomUUID().toString();
-        Question question1 = new Question(uniqueId,question);
-        Question savedQuestion = questionRepository.save(question1);
-        return savedQuestion;
+        QueryQuestions queryQuestions1 = new QueryQuestions(uniqueId,question);
+        QueryQuestions savedQueryQuestions = questionRepository.save(queryQuestions1);
+        return savedQueryQuestions;
     }
 }

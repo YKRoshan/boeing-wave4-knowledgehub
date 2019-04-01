@@ -29,6 +29,12 @@ import java.io.*;
 import java.net.URL;
 import java.util.UUID;
 
+
+/*
+It will extract content from pdfs,ppts that is present locally as well on web.
+Extracted content includes text and metadata of files.
+ */
+
 @Service
 @PropertySource(value = "classpath:application.yml")
 public class PdfExtractionServiceImpl implements PdfExtractionService {
@@ -51,7 +57,8 @@ public class PdfExtractionServiceImpl implements PdfExtractionService {
 
         Parser parser = new AutoDetectParser();
         PdfDocument pdfDocument = new PdfDocument();
-        String uniqueID = UUID.randomUUID().toString();
+        String uniqueID = path;
+
         BodyContentHandler handler = new BodyContentHandler(1000000);
         Metadata metadata =new Metadata();
 
@@ -95,7 +102,7 @@ public class PdfExtractionServiceImpl implements PdfExtractionService {
         PdfDocument pdfDocument = new PdfDocument();
         parser.parse( tikaInputStream,contenthandler, metadata, new ParseContext());
 
-        String uniqueID = UUID.randomUUID().toString();
+        String uniqueID = path1;
 
 
         pdfDocument.setDocumentId(uniqueID);

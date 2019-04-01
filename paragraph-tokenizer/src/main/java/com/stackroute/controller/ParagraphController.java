@@ -21,27 +21,29 @@ public class ParagraphController {
 
     JSONObject objects = new JSONObject();
 
+    /*Constructor class*/
 
     @Autowired
     public ParagraphController(ParagraphService paragraphService){
         this.paragraphService = paragraphService;
     }
 
+    /*Post mapping for posting document details*/
     @PostMapping("paragraph")
     public ResponseEntity<?> postJSONObject(@RequestBody JSONObject document){
         ResponseEntity responseEntity;
         try{
             this.objects=document;
-            responseEntity = new ResponseEntity<String>("Successfully posted", HttpStatus.ACCEPTED);
+            responseEntity = new ResponseEntity<String>("Successfully posted", HttpStatus.OK);
         }
         catch (Exception ex){
-            responseEntity = new ResponseEntity<String>(ex.getMessage(),HttpStatus.NOT_FOUND);
+            responseEntity = new ResponseEntity<String>(ex.getMessage(),HttpStatus.CONFLICT);
         }
         return responseEntity;
     }
 
 
-
+    /*Get mapping for retrieving paragraph details*/
     @GetMapping("paragraphs")
     public ResponseEntity<?> getAllJSONObjects() throws ParagraphNotFoundException{
         this.objects.put("documentId","23233");
@@ -50,7 +52,7 @@ public class ParagraphController {
         try {
             responseEntity= new ResponseEntity<List<JSONObject>>(paragraphService.getParagraphObject(objects.get("documentId").toString(),objects.get("documentText").toString()), HttpStatus.OK);
         } catch (ParagraphNotFoundException ex) {
-            responseEntity = new ResponseEntity<String>(ex.getMessage(),HttpStatus.CONFLICT);
+            responseEntity = new ResponseEntity<String>(ex.getMessage(),HttpStatus.NOT_FOUND);
         }
         return responseEntity;
     }

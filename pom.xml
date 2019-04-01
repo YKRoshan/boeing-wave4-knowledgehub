@@ -14,7 +14,6 @@
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.1.2.RELEASE</version>
     </parent>
-         
 
     <properties>
         <spring-cloud.version>Greenwich.RELEASE</spring-cloud.version>
@@ -42,6 +41,10 @@
         <module>question-provider</module>
         <module>question-publisher</module>
         <module>websocket-service</module>
+        <module>web-analytic-service</module>
+        <module>web-content-extractor</module>
+        <module>web-search-service</module>
+        <module>ontology-management-service</module>
     </modules>
     <dependencies>
         <dependency>

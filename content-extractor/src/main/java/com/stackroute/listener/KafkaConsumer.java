@@ -31,6 +31,8 @@ public class KafkaConsumer {
         this.pdfExtractionService = pdfExtractionService;
         this.kafkaProducer = kafkaProducer;
     }
+
+    //This method will listen to the document provider and it fetches the message through kafka bus
     @KafkaListener(topics = "FileUrl", groupId = "group_id")
     public void consume(String message)throws IOException, SAXException, NullPointerException, FileNotFoundException, EmptyFileException,
             TikaException {

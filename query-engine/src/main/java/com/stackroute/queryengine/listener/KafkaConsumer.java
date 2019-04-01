@@ -2,6 +2,7 @@ package com.stackroute.queryengine.listener;
 
 
 import com.stackroute.queryengine.domain.Knowledge;
+import com.stackroute.queryengine.service.QueryEngineService;
 import com.stackroute.queryengine.service.QueryEngineServiceImpl;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
@@ -12,13 +13,13 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class KafkaConsumer {
-    private QueryEngineServiceImpl queryEngineServiceImpl;
+    private QueryEngineService queryEngineService;
     private KafkaProducer kafkaProducer;
 
 
     @Autowired
-    public KafkaConsumer(QueryEngineServiceImpl queryEngineServiceImpl, KafkaProducer kafkaProducer) {
-        this.queryEngineServiceImpl = queryEngineServiceImpl;
+    public KafkaConsumer(QueryEngineService queryEngineService, KafkaProducer kafkaProducer) {
+        this.queryEngineService = queryEngineService;
         this.kafkaProducer = kafkaProducer;
     }
 
@@ -28,8 +29,10 @@ public class KafkaConsumer {
     public void consume(String message) {
         JSONObject object = (JSONObject) JSONValue.parse(message);
 
-        System.out.println("message"+message);
+        System.out.println("Inside Kafka consume"+message);
         kafkaProducer.postservice(object.get("concept").toString(),object.get("intent").toString(),
                 object.get("sessonId").toString());
+
+        System.out.println("after kafka producer call");
     }
 }

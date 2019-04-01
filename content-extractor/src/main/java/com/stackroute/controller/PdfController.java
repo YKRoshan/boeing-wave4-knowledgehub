@@ -5,8 +5,6 @@ import com.stackroute.domain.PdfDocument;
 import com.stackroute.exception.EmptyFileException;
 import com.stackroute.exception.FileNotFoundException;
 import com.stackroute.service.PdfExtractionService;
-import com.stackroute.service.PdfExtractionServiceImpl;
-import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.tika.exception.TikaException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -60,12 +58,12 @@ public class PdfController {
                 message = "You successfully uploaded !";
                 return ResponseEntity.status(HttpStatus.OK).body(message);
             } catch (Exception e) {
-                message = "FAIL to upload " + convFile.getAbsolutePath() + "!";
+                message = convFile.getAbsolutePath()+" : This path does not exist!";
                 return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(message);
             }
         }
 
-        // This method will call Service Class to convert PDF to JSON Format then return the response body in Postman
+        // This method will call service Class to convert PDF to JSON Format then return the response body in Postman
         @GetMapping("/result")
         @ResponseBody
         public ResponseEntity<String> getFile() throws TikaException, SAXException, IOException, FileNotFoundException, EmptyFileException {

@@ -82,7 +82,7 @@ public class ParagraphControllerTest {
         when(paragraphService.getParagraphObject(any(),any())).thenThrow(ParagraphNotFoundException.class);
         mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/paragraphs")
                 .contentType(MediaType.APPLICATION_JSON).content(asJsonString(objects)))
-                .andExpect(MockMvcResultMatchers.status().isConflict())
+                .andExpect(MockMvcResultMatchers.status().isNotFound())
                 .andDo(MockMvcResultHandlers.print());
 
     }

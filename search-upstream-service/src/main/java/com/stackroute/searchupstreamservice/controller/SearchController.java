@@ -24,6 +24,11 @@ public class SearchController {
         this.searchService = searchService;
     }
 
+    @GetMapping("home")
+    public String home(){
+        return "service is up and working";
+    }
+
     //rest end point for search
     @PostMapping("search")
     public String search(@RequestBody String search){

@@ -1,6 +1,7 @@
 package com.stackroute.listener;
 
 import com.stackroute.domain.NlpResult;
+import com.stackroute.service.NlpResultService;
 import com.stackroute.service.NlpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -9,11 +10,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class KafkaProducer {
     private NlpService nlpService;
+    private NlpResultService nlpResultService;
 
     //Constructor
     @Autowired
-    public KafkaProducer(NlpService nlpService) {
+    public KafkaProducer(NlpService nlpService,NlpResultService nlpResultService) {
         this.nlpService = nlpService;
+        this.nlpResultService=nlpResultService;
     }
 
     @Autowired
@@ -23,6 +26,8 @@ public class KafkaProducer {
 
     //This method is used to produce an object
     public String postservice() {
+        String abc=nlpResultService.saveNlpResult(nlpService.getNlpResults());
+        System.out.println("after saving inside nlp mongo"+abc);
         kafkaTemplate2.send(TOPIC, nlpService.getNlpResults());
         return "Published successfully";
     }

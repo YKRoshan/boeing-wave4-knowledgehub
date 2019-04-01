@@ -1,7 +1,7 @@
 package com.stackroute.service;
 
 import com.stackroute.domain.IntentWord;
-import com.stackroute.domain.TermNode;
+import com.stackroute.domain.Terms;
 import com.stackroute.repository.IntentRepository;
 import org.junit.Assert;
 import org.junit.Before;
@@ -16,8 +16,8 @@ import java.util.List;
 import static org.mockito.Mockito.when;
 
 public class IntentServiceImplTest {
-    private TermNode termNode;
-    private List<TermNode> termNodeList;
+    private Terms termNode;
+    private List<Terms> termNodeList;
     private IntentWord intentWord;
     private List<IntentWord> intentWordList;
     @Mock
@@ -28,7 +28,7 @@ public class IntentServiceImplTest {
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-        termNode = new TermNode(1001, "define", "SPRING:2", "Knowledge", "term", "indicatorOf", "9");
+        termNode = new Terms(1001, "define", "SPRING:2", "Knowledge", "term", "indicatorOf", "9","spring:2");
         termNodeList = new ArrayList<>();
         termNodeList.add(termNode);
         intentWord = new IntentWord();
@@ -40,7 +40,7 @@ public class IntentServiceImplTest {
     @Test
     public void getAllIntentWords() {
         intentRepository.save(termNode);
-        when(intentRepository.getAllTermNodes()).thenReturn(termNodeList);
+        when(intentRepository.getAllTerms()).thenReturn(termNodeList);
         intentServiceImpl.setAllTermNodes(new ArrayList<>(termNodeList));
         List<IntentWord> expectedIntentWordList = intentWordList;
         List<IntentWord> actualIntentWordList = intentServiceImpl.getAllIntentWords();

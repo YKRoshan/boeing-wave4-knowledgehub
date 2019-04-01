@@ -1,28 +1,38 @@
 import { BrowserModule, BrowserTransferStateModule } from '@angular/platform-browser';
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import {A11yModule} from '@angular/cdk/a11y';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import {ScrollingModule} from '@angular/cdk/scrolling';
 import {CdkStepperModule} from '@angular/cdk/stepper';
-import {CdkTableModule} from '@angular/cdk/table';
-import {CdkTreeModule} from '@angular/cdk/tree';
+import { FileDropModule } from 'ngx-file-drop';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatInputModule, MatButtonModule, MatSelectModule, MatIconModule } from '@angular/material';
-import { FormsModule, ReactiveFormsModule, Validators, FormBuilder } from '@angular/forms';
-import { LoginComponent } from './login/login.component';
-import { HomeComponent } from './home/home.component';
-import { TokenService } from './service/token.service';
-import { AuthService } from './service/auth.service';
-import {SearchinfoService } from './service/searchinfo.service';
-import { HttpClientModule } from '@angular/common/http';
+import { AboutUsComponent } from './about-us/about-us.component';
+import { NabBarComponent } from './nab-bar/nab-bar.component';
+import { ZombotronComponent } from './zombotron/zombotron.component';
 import { FooterComponent } from './footer/footer.component';
-import { SearchbuttonComponent } from './searchbutton/searchbutton.component';
-import { FileDropModule } from 'ngx-file-drop';
-
-// MDB Angular Free
-import { WavesModule, ButtonsModule, IconsModule, MDBBootstrapModule } from 'angular-bootstrap-md'
+import { ConceptsComponent } from './concepts/concepts.component';
+import { DeveloperTeamComponent } from './developer-team/developer-team.component';
+import { ContactUsComponent } from './contact-us/contact-us.component';
+import { SearchBarComponent } from './search-bar/search-bar.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HomeComponent } from './home/home.component';
+import { ResultsComponent } from './results/results.component';
+import {FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ResultcardComponent } from './resultcard/resultcard.component';
+import { SocketService } from './services/socket.service';
+import {MatButtonModule, MatButton} from '@angular/material/button';
+import { SearchinfoService } from './services/searchinfo.service';
+// import { UploadService } from './services/upload.service';
+import { SessionId } from './domain/sessionId';
+import { DataService } from './domain/data-service';
+import { HttpClientModule } from '@angular/common/http';
+import { AdminHomeComponent } from './admin-home/admin-home.component';
+import { TokenService } from './services/token.service';
+import { AuthService } from './services/auth.service';
+import { AuthInterceptor } from './services/auth-interceptor';
+import { LoginComponent } from './login/login.component';
+import { UploadComponent } from './upload/upload.component';
 
 import {
   MatAutocompleteModule,
@@ -56,106 +66,134 @@ import {
   MatToolbarModule,
   MatTooltipModule,
   MatTreeModule,
+  MatInputModule,
+  MatIconModule,
+  MatSelectModule,
   
 } from '@angular/material';
-import { UploadComponent } from './upload/upload.component';
-import { UploadService } from './service/upload.service';
-import { HeaderComponent } from './header/header.component';
-import { SearchcardComponent } from './searchcard/searchcard.component';
-import { PaginatorComponent } from './paginator/paginator.component';
-import { RouterModule } from '@angular/router';
-import { DataService } from './domain/data-service';
+import { DisplayAdminHomeComponent } from './display-admin-home/display-admin-home.component';
+import { QuestionClassifyComponent } from './question-classify/question-classify.component';
+import { DomainConceptComponent } from './domain-concept/domain-concept.component';
+import {NodeComponent } from './neo4j-node/neo4j-node.component';
+import { TermComponent } from './neo4j-term/neo4j-term.component';
 import { ChatComponent } from './chat/chat.component';
-import { IdGeneratorComponent } from './id-generator/id-generator.component';
-import { SessionId } from './domain/sessionId';
-
+import { D3Component } from './d3/d3.component';
+import { GraphComponent } from './d3/visuals/graph/graph.component';
+import { SHARED_VISUALS } from './d3/visuals/shared';
+import { D3_DIRECTIVES, D3Service } from './d3/d3';
+import { ShowNodesComponent } from './show-nodes/show-nodes.component';
+import { DisplayD3Component } from './display-d3/display-d3.component';
+import { Test } from './test';
+import { Intent } from './testIntent';
+import { TestIntent } from './intentArray';
+import { Testconcept } from './conceptArray';
+import { D3Nodes } from './domain/d3Nodes';
+import { RecommendationcardComponent } from './recommendationcard/recommendationcard.component';
+import { TopsearchComponent } from './topsearch/topsearch.component';
+import { ToptrendingComponent } from './toptrending/toptrending.component';
+import { WebresultcardComponent } from './webresultcard/webresultcard.component';
+import { DisplayIntentComponent } from './display-intent/display-intent.component';
+import { NavigConceptComponent } from './navig-concept/navig-concept.component';
+import { NavigIntentComponent } from './navig-intent/navig-intent.component';
+import { ConceptNodesComponent } from './concept-nodes/concept-nodes.component';
+import { IntentNodesComponent } from './intent-nodes/intent-nodes.component';
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
-    HomeComponent,
+    AboutUsComponent,
+    NabBarComponent,
+    ZombotronComponent,
     FooterComponent,
-    SearchbuttonComponent,
+    ConceptsComponent,
+    DeveloperTeamComponent,
+    ContactUsComponent,
+    SearchBarComponent,
+    HomeComponent,
+    ResultsComponent,
+    ResultcardComponent,
+    AdminHomeComponent,
+    LoginComponent,
+    DisplayAdminHomeComponent,
+    QuestionClassifyComponent,
+    DomainConceptComponent,
     UploadComponent,
-    HeaderComponent,
-    SearchcardComponent,
-    PaginatorComponent,
+    NodeComponent,
+    TermComponent,
     ChatComponent,
-    IdGeneratorComponent
+    D3Component,
+    AppComponent,
+    GraphComponent,
+    ...SHARED_VISUALS,
+    ...D3_DIRECTIVES,
+    ShowNodesComponent,
+    DisplayD3Component,
+    RecommendationcardComponent,
+    TopsearchComponent,
+    ToptrendingComponent,
+    WebresultcardComponent,
+    DisplayIntentComponent,
+    NavigConceptComponent,
+    NavigIntentComponent,
+    ConceptNodesComponent,
+    IntentNodesComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatInputModule,
-    MatIconModule,
-    MatButtonModule,
-    MatSelectModule,
-    HttpClientModule,
-    ReactiveFormsModule,
     FormsModule,
-    BrowserModule.withServerTransition({ appId: 'serverApp' }),
-    BrowserTransferStateModule,
-    A11yModule,
-    CdkStepperModule,
-    CdkTableModule,
-    CdkTreeModule,
-    DragDropModule,
-    MatAutocompleteModule,
-    MatBadgeModule,
-    MatBottomSheetModule,
-    MatButtonModule,
-    MatButtonToggleModule,
-    MatCardModule,
-    MatCheckboxModule,
-    MatChipsModule,
-    MatStepperModule,
-    MatDatepickerModule,
-    MatDialogModule,
-    MatDividerModule,
-    MatExpansionModule,
-    MatGridListModule,
-    MatIconModule,
-    MatInputModule,
-    MatListModule,
-    MatMenuModule,
-    MatNativeDateModule,
-    MatPaginatorModule,
-    MatProgressBarModule,
-    MatProgressSpinnerModule,
-    MatRadioModule,
-    MatRippleModule,
-    MatSelectModule,
-    MatSidenavModule,
-    MatSliderModule,
-    MatSlideToggleModule,
-    MatSnackBarModule,
-    MatSortModule,
-    MatTableModule,
-    MatTabsModule,
-    MatToolbarModule,
-    MatTooltipModule,
-    MatTreeModule,
-    ScrollingModule,
-    MatButtonModule,
-    FileDropModule,
-    IconsModule,
-    ButtonsModule,
-    WavesModule,
-    MDBBootstrapModule,
     HttpClientModule,
-    AppRoutingModule,
-    RouterModule.forRoot([
-      {path : 'searchinfo', component: SearchcardComponent}
-    ])
+    MatAutocompleteModule,
+    MatButtonModule,
+    DragDropModule,
+  MatBadgeModule,
+  MatButtonModule,
+  MatBottomSheetModule,
+  MatButtonToggleModule,
+  MatCardModule,
+  MatCheckboxModule,
+  MatChipsModule,
+  MatDatepickerModule,
+  MatDialogModule,
+  MatDividerModule,
+  MatExpansionModule,
+  MatGridListModule,
+  MatListModule,
+  MatMenuModule,
+  MatNativeDateModule,
+  MatPaginatorModule,
+  MatProgressBarModule,
+  MatProgressSpinnerModule,
+  MatRadioModule,
+  MatRippleModule,
+  MatSidenavModule,
+  MatSliderModule,
+  MatSlideToggleModule,
+  MatSnackBarModule,
+  MatSortModule,
+  MatStepperModule,
+  MatTableModule,
+  MatTabsModule,
+  MatToolbarModule,
+  MatTooltipModule,
+  MatTreeModule,
+  BrowserModule,
+  AppRoutingModule,
+  BrowserAnimationsModule,
+  MatInputModule,
+  MatIconModule,
+  MatButtonModule,
+  MatSelectModule,
+  HttpClientModule,
+  ReactiveFormsModule,
+  FileDropModule,
+  FormsModule,
+  BrowserModule.withServerTransition({ appId: 'serverApp' }),
+  BrowserTransferStateModule,
   ],
-  providers: [TokenService,SearchinfoService,
-              AuthService,UploadService,DataService,SessionId],
+  providers: [SocketService,SessionId,DataService,TokenService,AuthService,AuthInterceptor,D3Service,Test,D3Nodes,Intent,TestIntent,Testconcept],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   bootstrap: [AppComponent],
-  entryComponents: [ChatComponent]
-
+  entryComponents:[TermComponent,ChatComponent]
 })
 export class AppModule { }
-
-

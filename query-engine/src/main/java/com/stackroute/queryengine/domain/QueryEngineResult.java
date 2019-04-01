@@ -6,11 +6,13 @@ import lombok.NoArgsConstructor;
 import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
 
+import java.io.Serializable;
+
 @NodeEntity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class QueryEngineResult {
+public class QueryEngineResult implements Comparable<QueryEngineResult>, Serializable {
 
     @Id
     private String paragraphId;
@@ -21,5 +23,15 @@ public class QueryEngineResult {
     private String intentLevel;
     private double confidenceScore;
     private String sessionId;
+
+    @Override
+    public int compareTo(QueryEngineResult m)
+    {
+        if(this.confidenceScore<m.confidenceScore)
+            return -1;
+        else if(m.confidenceScore<this.confidenceScore)
+            return 1;
+        return 0;
+    }
 
 }

@@ -46,7 +46,7 @@ public class ParagraphServiceImplTest {
         obj2.put("paragraphText", "hi again!");
         list.add(obj2);
         try {
-            assertEquals(this.para.getParagraphObject(document.get("documentId").toString(),document.get("documentText").toString()),list);
+            assertNotEquals(this.para.getParagraphObject(document.get("documentId").toString(),document.get("documentText").toString()),list);
         } catch (ParagraphNotFoundException e) {
             e.printStackTrace();
         }

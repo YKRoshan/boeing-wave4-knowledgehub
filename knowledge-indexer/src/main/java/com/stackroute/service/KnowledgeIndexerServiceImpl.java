@@ -24,22 +24,22 @@ public class KnowledgeIndexerServiceImpl implements KnowledgeIndexerService {
      //method to add relationship between ontology nodes and knowledge nodes
      public void addRelationship(String concept, String paragraphId, String intentLevel,double confidenceScore)
      {
-          if(intentLevel.equals("knowledge"))
+          if(intentLevel.equalsIgnoreCase("knowledge"))
                knowledgeRepository.insertKnowledgeRelationship(concept,paragraphId,intentLevel,confidenceScore);
 
-          else if(intentLevel.equals("comprehension"))
+          else if(intentLevel.equalsIgnoreCase("comprehension"))
                knowledgeRepository.insertComprehensionRelationship(concept,paragraphId,intentLevel,confidenceScore);
 
-          else if(intentLevel.equals("application"))
+          else if(intentLevel.equalsIgnoreCase("application"))
                knowledgeRepository.insertApplicationRelationship(concept,paragraphId,intentLevel,confidenceScore);
 
-          else if(intentLevel.equals("analysis"))
+          else if(intentLevel.equalsIgnoreCase("analysis"))
                knowledgeRepository.insertAnalysisRelationship(concept,paragraphId,intentLevel,confidenceScore);
 
-          else if(intentLevel.equals("synthesis"))
+          else if(intentLevel.equalsIgnoreCase("synthesis"))
                knowledgeRepository.insertSynthesisRelationship(concept,paragraphId,intentLevel,confidenceScore);
 
-          else if(intentLevel.equals("evaluation"))
+          else if(intentLevel.equalsIgnoreCase("evaluation"))
                knowledgeRepository.insertEvaluationRelationship(concept,paragraphId,intentLevel,confidenceScore);
      }
 }

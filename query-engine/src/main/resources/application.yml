@@ -6,3 +6,14 @@ spring:
     neo4j:
       username: neo4j
       password: neo4j@123
+    mongodb:
+      database: QuestionStore
+      host: localhost
+      port: 27017
+  cache:
+    type: redis
+    redis:
+      port: 6379
+      host: localhost
+
+
